@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'Archéologie du Savoir — Michel Foucault</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN SYSTEM — Typographie archéologique
+   Palette : parchemin / sang / néon vert
+   ═══════════════════════════════════════════ */
+:root {
+  --concrete: #f0ece3;
+  --concrete2: #e6e2d8;
+  --concrete3: #d6d0c4;
+  --ink: #0c0a08;
+  --ink2: #1c1810;
+  --blood: #b01f18;
+  --blood2: #841510;
+  --blood-pale: #f4dcdb;
+  --neon: #2a8a5a;
+  --neon2: #1e6a44;
+  --neon-pale: #d8f0e4;
+  --steel: #3a4a5a;
+  --steel2: #2a3848;
+  --steel-pale: #d8e0ea;
+  --rust: #7a3a18;
+  --dust: #7a7268;
+  --rule: #c4bbb0;
+  --sidebar: 270px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--concrete);
+  color:var(--ink);
+  font-family:'Libre Baskerville',serif;
+  font-size:17px;
+  line-height:1.75;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ─── CURSOR ─── */
+#cur{
+  width:14px;height:14px;
+  border:2px solid var(--neon);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width .25s,height .25s,background .25s,border-color .25s;
+}
+#cur.expand{width:40px;height:40px;background:rgba(42,138,90,.08);border-color:var(--blood);}
+
+/* ─── PROGRESS ─── */
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--neon);transform-origin:left;transform:scaleX(0);z-index:1002;transition:transform .08s linear;}
+
+/* ═══ SIDEBAR ═══ */
+.snav{
+  position:fixed;left:0;top:0;bottom:0;
+  width:var(--sidebar);
+  background:var(--ink2);
+  z-index:100;
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+  scrollbar-width:thin;
+  scrollbar-color:var(--neon) transparent;
+}
+
+.snav-brand{
+  padding:2rem 1.8rem 1.8rem;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.snav-kicker{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:.8rem;
+}
+
+.snav-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.45rem;font-weight:800;line-height:1;
+  color:#fff;letter-spacing:.02em;text-transform:uppercase;
+}
+
+.snav-authors{
+  font-family:'Libre Baskerville',serif;
+  font-style:italic;font-size:.78rem;
+  color:rgba(255,255,255,.35);margin-top:.4rem;
+}
+
+.snav-year{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;color:var(--blood);
+  letter-spacing:.1em;margin-top:.5rem;
+}
+
+.snav-lbl{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.18);
+  padding:.9rem 1.8rem .3rem;
+}
+
+.snav-a{
+  display:flex;align-items:center;gap:.7rem;
+  padding:.42rem 1.8rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.8rem;font-weight:500;letter-spacing:.04em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.38);
+  text-decoration:none;
+  border-left:2px solid transparent;
+  transition:all .2s;
+}
+.snav-a:hover{color:rgba(255,255,255,.85);border-left-color:var(--neon);padding-left:2.1rem;}
+.snav-a.on{color:#fff;border-left-color:var(--blood);background:rgba(176,31,24,.08);}
+
+.snav-bullet{
+  width:5px;height:5px;border-radius:50%;
+  background:currentColor;opacity:.4;flex-shrink:0;
+}
+
+.snav-div{height:1px;background:rgba(255,255,255,.04);margin:.6rem 1.8rem;}
+
+.snav-score{
+  margin-top:auto;padding:1.5rem 1.8rem;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+
+.snav-score-title{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);margin-bottom:.8rem;
+}
+
+.score-bar{
+  height:4px;background:rgba(255,255,255,.06);
+  border-radius:2px;margin:.5rem 0;overflow:hidden;
+}
+
+.score-fill{
+  height:100%;border-radius:2px;
+  transition:width 1.5s cubic-bezier(.16,1,.3,1);
+}
+
+.score-label{
+  display:flex;justify-content:space-between;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.1em;
+  color:rgba(255,255,255,.25);margin-bottom:.2rem;
+}
+
+/* ═══ MAIN ═══ */
+.main{margin-left:var(--sidebar);}
+
+/* ═══ HERO ═══ */
+.hero{
+  min-height:100vh;
+  background:var(--ink);
+  color:#fff;
+  padding:5rem 6rem 4rem;
+  position:relative;overflow:hidden;
+  display:grid;grid-template-rows:1fr auto;
+}
+
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+
+.hero-diag{
+  position:absolute;bottom:0;right:0;
+  width:40%;height:100%;
+  background:var(--neon2);
+  clip-path:polygon(40% 0,100% 0,100% 100%,0% 100%);
+  opacity:.09;pointer-events:none;
+}
+
+/* Strate archéologique décorative */
+.hero-strate{
+  position:absolute;bottom:0;left:0;right:0;
+  height:6px;
+  background:linear-gradient(90deg,var(--blood),var(--neon),var(--steel),var(--blood));
+  opacity:.6;
+}
+
+.hero-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:2.5rem;
+  opacity:0;animation:fadeUp .7s ease forwards .1s;
+}
+
+.hero-h1{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(3.5rem,7.5vw,9.5rem);
+  font-weight:900;line-height:.88;
+  letter-spacing:-.01em;text-transform:uppercase;
+  opacity:0;animation:fadeUp .9s ease forwards .25s;
+}
+
+.hero-h1 .line1{display:block;color:rgba(255,255,255,.3);font-size:.42em;letter-spacing:.12em;font-weight:400;margin-bottom:.5rem;}
+.hero-h1 .line2{display:block;color:#fff;}
+.hero-h1 .line3{display:block;color:#fff;}
+.hero-h1 .line4{display:block;color:var(--neon);}
+
+.hero-rule{
+  width:120px;height:3px;
+  background:linear-gradient(90deg,var(--neon),var(--blood));
+  margin:2.5rem 0 2rem;
+  opacity:0;animation:fadeUp .7s ease forwards .5s;
+}
+
+.hero-sub{
+  max-width:680px;
+  font-size:1.05rem;font-weight:400;font-style:italic;
+  color:rgba(255,255,255,.6);line-height:1.85;
+  opacity:0;animation:fadeUp .8s ease forwards .4s;
+}
+
+.hero-sub strong{color:#fff;font-style:normal;}
+
+.hero-chips{
+  display:flex;flex-wrap:wrap;gap:.6rem;
+  margin-top:2rem;
+  opacity:0;animation:fadeUp .7s ease forwards .7s;
+}
+
+.chip{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.28rem .8rem;border-radius:2px;border:1px solid;
+}
+
+.chip-blood{color:var(--blood);border-color:rgba(176,31,24,.4);background:rgba(176,31,24,.08);}
+.chip-neon {color:#5ecf95;    border-color:rgba(42,138,90,.4); background:rgba(42,138,90,.08);}
+.chip-steel{color:#8aaccc;    border-color:rgba(138,172,204,.3);background:rgba(138,172,204,.06);}
+
+.hero-bottom{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  padding-top:3rem;border-top:1px solid rgba(255,255,255,.07);
+  opacity:0;animation:fadeUp .7s ease forwards .9s;
+}
+
+.hb-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.25);margin-bottom:.4rem;
+}
+
+.hb-names{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.6rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:#fff;line-height:1.1;
+}
+
+.hb-names span{color:var(--neon);}
+
+.hero-thesis{
+  text-align:right;max-width:420px;
+  font-family:'Libre Baskerville',serif;
+  font-style:italic;font-size:.92rem;
+  color:rgba(255,255,255,.45);line-height:1.7;
+}
+
+.hero-thesis cite{
+  display:block;margin-top:.5rem;
+  font-style:normal;font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--neon);
+}
+
+/* ═══ GENERIC SECTION ═══ */
+.sec{
+  padding:5.5rem 6rem;
+  border-bottom:1px solid var(--rule);
+}
+
+.sec.alt{background:var(--concrete2);}
+.sec.dark{background:var(--ink2);color:#fff;}
+.sec.steel{background:var(--steel2);color:#fff;}
+.sec.blood{background:var(--blood2);color:#fff;}
+.sec.neon-bg{background:#0d2a1c;color:#fff;}
+
+.sec-eyebrow{display:flex;align-items:center;gap:1.2rem;margin-bottom:3rem;}
+
+.sec-num{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--neon2);background:var(--neon-pale);
+  padding:.28rem .75rem;border-radius:2px;
+}
+.dark .sec-num,.steel .sec-num,.blood .sec-num,.neon-bg .sec-num{
+  background:rgba(42,138,90,.2);color:#5ecf95;
+}
+
+.sec-h2{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2.6rem;font-weight:800;
+  letter-spacing:.01em;text-transform:uppercase;line-height:1;
+}
+
+.sec-h2 em{color:var(--blood);font-style:normal;}
+.dark .sec-h2,.steel .sec-h2,.blood .sec-h2,.neon-bg .sec-h2{color:#fff;}
+.dark .sec-h2 em,.steel .sec-h2 em,.neon-bg .sec-h2 em{color:var(--neon);}
+
+/* ═══ CONCEPT CARDS ═══ */
+.concept-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;background:var(--ink);
+  border:1px solid var(--ink);
+  margin-top:1rem;
+}
+
+.concept-card{
+  background:var(--concrete);
+  padding:2.2rem;
+  position:relative;overflow:hidden;
+  cursor:pointer;
+  transition:background .3s;
+}
+
+.alt .concept-card{background:var(--concrete2);}
+
+.concept-card::after{
+  content:attr(data-num);
+  position:absolute;right:.8rem;bottom:-1rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:7rem;font-weight:900;
+  color:rgba(0,0,0,.04);line-height:1;
+  pointer-events:none;
+}
+
+.cc-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--neon2);display:block;margin-bottom:.5rem;
+}
+
+.cc-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.45rem;font-weight:800;
+  letter-spacing:.02em;text-transform:uppercase;
+  line-height:1.1;margin-bottom:.8rem;
+}
+
+.cc-short{
+  font-size:.88rem;color:var(--dust);
+  line-height:1.7;
+}
+
+.cc-expand{
+  max-height:0;overflow:hidden;
+  transition:max-height .5s cubic-bezier(.16,1,.3,1),
+             opacity .4s ease,
+             padding .4s ease;
+  opacity:0;
+}
+
+.cc-expand.open { max-height: 2000px; opacity: 1; padding-top: 1rem; }
+
+.cc-expand-body{
+  font-size:.85rem;color:var(--ink);line-height:1.8;
+  border-top:1px solid var(--rule);padding-top:1rem;
+}
+
+.cc-expand-body p{margin-bottom:.7rem;}
+.cc-expand-body p:last-child{margin-bottom:0;}
+.cc-expand-body strong{color:var(--blood);font-weight:600;}
+
+.cc-today{
+  margin-top:.8rem;padding:.8rem 1rem;
+  background:var(--neon-pale);
+  border-left:2px solid var(--neon);
+  font-size:.8rem;font-style:italic;
+  color:var(--rust);line-height:1.6;
+}
+
+.cc-today::before{
+  content:'Usage actuel → ';
+  font-style:normal;font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--neon2);display:block;margin-bottom:.2rem;
+}
+
+.cc-toggle{
+  display:flex;align-items:center;gap:.5rem;
+  margin-top:1rem;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--neon2);cursor:pointer;
+  transition:color .2s;
+}
+
+.cc-arrow{
+  width:16px;height:16px;border:1px solid var(--neon2);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;transition:transform .3s;
+}
+
+.open-arrow .cc-arrow{transform:rotate(180deg);}
+.concept-card:hover{background:var(--neon-pale);}
+
+/* ═══ ACCORDION ═══ */
+.accordion{margin-top:1.5rem;}
+
+.acc-item{
+  border-bottom:1px solid var(--rule);
+  overflow:hidden;
+}
+
+.dark .acc-item,.steel .acc-item,.neon-bg .acc-item{border-color:rgba(255,255,255,.08);}
+
+.acc-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.4rem 0;cursor:pointer;
+  transition:color .2s;
+  user-select:none;
+}
+
+.acc-head:hover .acc-title{color:var(--neon2);}
+.dark .acc-head:hover .acc-title,.steel .acc-head:hover .acc-title,.neon-bg .acc-head:hover .acc-title{color:var(--neon);}
+
+.acc-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.1rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  transition:color .2s;
+}
+
+.dark .acc-title,.steel .acc-title,.neon-bg .acc-title{color:#fff;}
+
+.acc-icon{
+  width:28px;height:28px;border:1px solid var(--rule);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all .3s;
+  font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;
+  color:var(--neon2);
+}
+
+.dark .acc-icon,.steel .acc-icon,.neon-bg .acc-icon{border-color:rgba(255,255,255,.12);color:var(--neon);}
+.acc-item.open .acc-icon{transform:rotate(45deg);background:var(--neon2);color:#fff;border-color:var(--neon2);}
+.dark .acc-item.open .acc-icon,.steel .acc-item.open .acc-icon,.neon-bg .acc-item.open .acc-icon{background:var(--neon);color:var(--ink);border-color:var(--neon);}
+
+.acc-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .5s cubic-bezier(.16,1,.3,1);
+}
+
+.acc-item.open .acc-body{max-height:1200px;}
+
+.acc-inner{
+  padding:0 0 2rem;
+  font-size:.9rem;color:#3a3530;line-height:1.85;
+}
+
+.dark .acc-inner,.steel .acc-inner,.neon-bg .acc-inner{color:rgba(255,255,255,.65);}
+
+.acc-inner p{margin-bottom:.9rem;}
+.acc-inner p:last-child{margin-bottom:0;}
+.acc-inner strong{color:var(--ink);font-weight:600;}
+.dark .acc-inner strong,.steel .acc-inner strong,.neon-bg .acc-inner strong{color:#fff;}
+.acc-inner em{font-style:italic;color:var(--neon2);}
+.dark .acc-inner em,.steel .acc-inner em,.neon-bg .acc-inner em{color:var(--neon);}
+
+/* ═══ PULL QUOTES ═══ */
+.pq{
+  padding:3rem 4rem;margin:3rem 0;
+  position:relative;overflow:hidden;
+}
+.pq.blood{background:var(--blood2);color:#fff;}
+.pq.neon{background:#0d2a1c;color:#fff;border-left:4px solid var(--neon);}
+.pq.steel{background:var(--steel2);color:#fff;}
+
+.pq::before{
+  content:'\201C';
+  position:absolute;top:-2rem;left:2rem;
+  font-family:'Libre Baskerville',serif;
+  font-size:14rem;line-height:1;
+  opacity:.08;pointer-events:none;
+  color:#fff;
+}
+
+.pq p{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.4rem;font-style:italic;font-weight:400;
+  line-height:1.65;position:relative;z-index:1;
+}
+
+.pq cite{
+  display:block;margin-top:1.2rem;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;
+  font-style:normal;color:rgba(255,255,255,.4);
+}
+
+.pq.neon cite{color:var(--neon);}
+
+/* ═══ COMPARISON TABLE ═══ */
+.compare-sec{margin-top:2rem;}
+
+.compare-row{
+  display:grid;grid-template-columns:1fr 80px 1fr;
+  gap:1rem;align-items:center;
+  padding:1rem 0;border-bottom:1px solid var(--rule);
+}
+
+.cr-label-l,.cr-label-r{
+  font-size:.88rem;color:#3a3530;line-height:1.5;
+}
+
+.cr-label-r{text-align:right;}
+
+.cr-mid{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dust);text-align:center;line-height:1.3;
+}
+
+.compare-header{
+  display:grid;grid-template-columns:1fr 80px 1fr;
+  gap:1rem;padding-bottom:1rem;
+  border-bottom:2px solid var(--rule);
+  margin-bottom:.5rem;
+}
+
+.ch-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.9rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+}
+
+.ch-title.blood{color:var(--blood);}
+.ch-title.neon{color:var(--neon2);}
+
+/* ═══ GLOSSAIRE ═══ */
+.glos-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:2px;background:var(--rule);
+  border:1px solid var(--rule);
+}
+
+.gi{
+  background:var(--concrete);
+  padding:2rem 2.5rem;
+  position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.alt .gi{background:var(--concrete2);}
+.gi:hover{background:var(--neon-pale);}
+
+.gi::after{
+  content:attr(data-g);
+  position:absolute;right:1rem;bottom:-1rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:8rem;font-weight:900;color:rgba(0,0,0,.04);
+  line-height:1;pointer-events:none;
+}
+
+.gi-src{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--neon2);display:block;margin-bottom:.3rem;
+}
+
+.gi-term{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.55rem;font-weight:800;letter-spacing:.02em;
+  text-transform:uppercase;margin-bottom:.7rem;line-height:1.1;
+}
+
+.gi-def{font-size:.88rem;color:#3a3530;line-height:1.78;margin-bottom:.7rem;}
+
+.gi-now{
+  padding:.65rem 1rem;
+  background:rgba(42,138,90,.1);
+  border-left:2px solid var(--neon);
+  font-style:italic;font-size:.8rem;color:var(--rust);line-height:1.6;
+}
+
+.gi-now::before{
+  content:'Enjeu → ';
+  font-style:normal;font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--neon2);display:block;margin-bottom:.2rem;
+}
+
+/* ═══ TIMELINE ═══ */
+.timeline-container{position:relative;padding-left:3rem;margin-top:2rem;}
+.timeline-container::before{
+  content:'';position:absolute;
+  left:14px;top:0;bottom:0;width:2px;
+  background:linear-gradient(to bottom,var(--blood),var(--neon),var(--steel));
+}
+
+.tl-item{
+  position:relative;margin-bottom:2.5rem;
+  opacity:0;transform:translateX(-20px);
+  transition:opacity .6s ease,transform .6s ease;
+}
+
+.tl-item.tl-visible{opacity:1;transform:none;}
+
+.tl-dot{
+  position:absolute;left:-2.75rem;top:.35rem;
+  width:16px;height:16px;border-radius:50%;
+  border:2px solid;background:var(--concrete);
+  transition:transform .3s,background .3s;
+}
+
+.alt .tl-dot{background:var(--concrete2);}
+.tl-item:hover .tl-dot{transform:scale(1.4);background:var(--neon2);}
+
+.tl-dot.blood{border-color:var(--blood);}
+.tl-dot.neon {border-color:var(--neon2);}
+.tl-dot.steel{border-color:var(--steel);}
+
+.tl-year{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--dust);margin-bottom:.3rem;
+}
+
+.tl-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.15rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;margin-bottom:.4rem;
+}
+
+.tl-body{font-size:.88rem;color:var(--dust);line-height:1.75;}
+.tl-body strong{color:var(--ink);font-weight:600;}
+
+/* ═══ SCHEMA ARCHEOLOGIQUE ═══ */
+.schema-wrap{
+  background:var(--ink);
+  border:1px solid rgba(255,255,255,.06);
+  padding:3rem 2rem 2rem;
+  margin-top:2rem;
+  position:relative;
+}
+
+.schema-wrap svg text{font-family:'IBM Plex Mono',monospace;}
+
+/* ═══ REFLEXION ═══ */
+.qstack{
+  display:flex;flex-direction:column;gap:2px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.05);
+  margin-top:1.5rem;
+}
+
+.qi{
+  background:rgba(255,255,255,.02);
+  padding:2rem 2.5rem;
+  display:grid;grid-template-columns:60px 1fr;
+  gap:1.5rem;align-items:start;
+  transition:background .3s;
+  border-left:3px solid transparent;
+}
+
+.qi:hover{background:rgba(42,138,90,.06);border-left-color:var(--neon);}
+
+.qi-n{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--neon);padding-top:.2rem;
+}
+
+.qi-t{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.05rem;font-style:italic;
+  color:#fff;line-height:1.7;margin-bottom:.5rem;
+}
+
+.qi-hint{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.58rem;color:rgba(255,255,255,.28);
+  line-height:1.65;
+}
+
+.qi-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem;}
+
+.qi-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid rgba(42,138,90,.3);color:var(--neon);
+  padding:.18rem .55rem;border-radius:2px;
+}
+
+/* ═══ QUIZ ═══ */
+.quiz-wrap{
+  background:var(--ink);color:#fff;
+  padding:4rem 5rem;margin-top:2rem;
+  position:relative;overflow:hidden;
+}
+
+.quiz-wrap::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--neon),var(--blood),var(--neon));
+}
+
+.quiz-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:.4rem;
+}
+
+.quiz-meta{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.25);margin-bottom:2rem;
+}
+
+.quiz-progress-bar{
+  height:3px;background:rgba(255,255,255,.1);
+  border-radius:2px;margin-bottom:2.5rem;overflow:hidden;
+}
+
+.quiz-progress-fill{
+  height:100%;background:var(--neon);
+  transition:width .5s ease;
+}
+
+.quiz-question{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.25rem;font-style:italic;
+  color:#fff;line-height:1.6;margin-bottom:2rem;
+}
+
+.quiz-options{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1rem;
+}
+
+.qopt{
+  padding:1.2rem 1.5rem;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.02);
+  cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.92rem;font-weight:500;letter-spacing:.04em;
+  color:rgba(255,255,255,.7);
+  text-transform:uppercase;
+  transition:all .2s;
+  text-align:left;
+  position:relative;overflow:hidden;
+}
+
+.qopt::before{
+  content:'';position:absolute;inset:0;
+  background:var(--neon2);transform:scaleX(0);transform-origin:left;
+  transition:transform .3s ease;z-index:0;
+}
+
+.qopt:hover{color:#fff;border-color:var(--neon);}
+.qopt:hover::before{transform:scaleX(1);}
+.qopt span{position:relative;z-index:1;}
+
+.qopt.correct{background:rgba(30,120,50,.3);border-color:#4a9a60;color:#7dd89a;}
+.qopt.wrong  {background:rgba(180,40,30,.3);border-color:var(--blood);color:#f08880;}
+.qopt.reveal {background:rgba(30,120,50,.15);border-color:#4a9a60;color:#7dd89a;}
+
+.quiz-feedback{
+  margin-top:1.5rem;padding:1.2rem 1.5rem;
+  background:rgba(255,255,255,.04);
+  border-left:3px solid var(--neon);
+  font-size:.9rem;color:rgba(255,255,255,.7);
+  line-height:1.7;display:none;
+}
+
+.quiz-feedback.show{display:block;}
+
+.quiz-nav{
+  display:flex;justify-content:space-between;
+  align-items:center;margin-top:2rem;
+}
+
+.quiz-btn{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:.7rem 2rem;border:none;
+  background:var(--neon2);color:#fff;
+  cursor:pointer;transition:background .2s;
+}
+
+.quiz-btn:hover{background:var(--neon);}
+.quiz-btn:disabled{opacity:.3;cursor:not-allowed;}
+
+.quiz-counter{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.6rem;letter-spacing:.15em;
+  color:rgba(255,255,255,.3);
+}
+
+.quiz-status{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.6rem;letter-spacing:.12em;
+  color:rgba(255,255,255,.35);
+}
+
+/* ═══ MODAL ═══ */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.85);
+  z-index:2000;display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+
+.modal-overlay.show{opacity:1;pointer-events:all;}
+
+.modal{
+  background:var(--ink2);color:#fff;
+  padding:4rem;max-width:560px;width:90%;
+  position:relative;
+  border-top:4px solid var(--neon);
+}
+
+.modal-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2.5rem;font-weight:900;text-transform:uppercase;
+  letter-spacing:.04em;margin-bottom:.5rem;
+}
+
+.modal-score{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:5rem;font-weight:900;
+  color:var(--neon);line-height:1;margin:1.5rem 0;
+}
+
+.modal-msg{
+  font-style:italic;color:rgba(255,255,255,.6);
+  line-height:1.7;margin-bottom:2rem;
+}
+
+.modal-close{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:.7rem 2rem;border:none;
+  background:var(--neon2);color:#fff;cursor:pointer;
+}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* ═══ STRATE INDICATOR ═══ */
+.strates-row{
+  display:flex;gap:0;margin-top:1.5rem;
+  border:1px solid var(--rule);overflow:hidden;
+}
+
+.strate{
+  flex:1;padding:1.2rem 1.5rem;
+  position:relative;
+  border-right:1px solid var(--rule);
+  transition:background .3s;
+}
+.strate:last-child{border-right:none;}
+.strate:hover{background:var(--neon-pale);}
+
+.strate-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--dust);margin-bottom:.4rem;
+}
+
+.strate-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--ink);line-height:1.2;
+}
+
+.strate-color{
+  position:absolute;bottom:0;left:0;right:0;
+  height:3px;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
+  :root{--sidebar:0px}
+  .snav{display:none}
+  .main{margin-left:0}
+  .hero{padding:3rem 2rem 3rem}
+  .sec{padding:3.5rem 2rem}
+  .concept-grid{grid-template-columns:1fr}
+  .glos-grid{grid-template-columns:1fr}
+  .quiz-options{grid-template-columns:1fr}
+  .pq{padding:2rem}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="prog"></div>
+
+<!-- ═══════════════════ SIDEBAR ═══════════════════ -->
+<nav class="snav">
+  <div class="snav-brand">
+    <div class="snav-kicker">Fiche de lecture</div>
+    <div class="snav-title">L'Archéologie<br>du Savoir</div>
+    <div class="snav-authors">Michel Foucault</div>
+    <div class="snav-year">Gallimard · 1969</div>
+  </div>
+
+  <div class="snav-lbl">Navigation</div>
+  <a href="#contexte" class="snav-a"><span class="snav-bullet"></span>Contexte & genèse</a>
+  <a href="#these" class="snav-a"><span class="snav-bullet"></span>Thèse centrale</a>
+  <a href="#structure" class="snav-a"><span class="snav-bullet"></span>Structure du livre</a>
+  <a href="#concepts" class="snav-a"><span class="snav-bullet"></span>Concepts clés</a>
+  <a href="#contre" class="snav-a"><span class="snav-bullet"></span>L'ennemi visé</a>
+  <a href="#glossaire" class="snav-a"><span class="snav-bullet"></span>Glossaire complet</a>
+  <a href="#schema" class="snav-a"><span class="snav-bullet"></span>Schéma conceptuel</a>
+  <a href="#quiz" class="snav-a"><span class="snav-bullet"></span>Quiz interactif</a>
+  <a href="#reflexion" class="snav-a"><span class="snav-bullet"></span>Questions de réflexion</a>
+
+  <div class="snav-div"></div>
+  <div class="snav-lbl">Progression</div>
+
+  <div class="snav-score">
+    <div class="snav-score-title">Quiz — score actuel</div>
+    <div class="score-label">
+      <span>Score</span>
+      <span id="sidebarScore">0/6</span>
+    </div>
+    <div class="score-bar">
+      <div class="score-fill" id="sidebarFill" style="background:var(--neon);width:0%"></div>
+    </div>
+    <div class="score-label">
+      <span>Concepts explorés</span>
+      <span id="conceptCount">0/7</span>
+    </div>
+    <div class="score-bar">
+      <div class="score-fill" id="conceptFill" style="background:var(--blood);width:0%"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════ MAIN ═══════════════════ -->
+<div class="main">
+
+  <!-- ─── HERO ─── -->
+  <section class="hero" id="top">
+    <div class="hero-diag"></div>
+    <div class="hero-strate"></div>
+
+    <div>
+      <div class="hero-tag">Fiche pédagogique · Philosophie / Épistémologie · Série « Grandes œuvres »</div>
+      <h1 class="hero-h1">
+        <span class="line1">Michel Foucault</span>
+        <span class="line2">L'Archéo</span>
+        <span class="line3">logie du</span>
+        <span class="line4">Savoir</span>
+      </h1>
+      <div class="hero-rule"></div>
+      <p class="hero-sub">
+        <strong>Comment les discours se forment-ils, s'organisent-ils, se transforment-ils ?</strong><br>
+        En 1969, Foucault reprend sa propre œuvre à bras-le-corps et forge une méthode : l'archéologie. Contre l'histoire des idées qui cherche des origines, des continuités et des sujets fondateurs, il propose de décrire les <em>régularités discursives</em>, les strates invisibles qui conditionnent ce qu'il est possible de dire — et de penser — à une époque donnée.
+      </p>
+      <div class="hero-chips">
+        <span class="chip chip-neon">Épistémologie</span>
+        <span class="chip chip-blood">Philosophie du langage</span>
+        <span class="chip chip-steel">Histoire des sciences</span>
+        <span class="chip chip-neon">Méthode archéologique</span>
+        <span class="chip chip-blood">Discontinuité</span>
+        <span class="chip chip-steel">Discours</span>
+      </div>
+    </div>
+
+    <div class="hero-bottom">
+      <div class="hero-authors-block">
+        <div class="hb-label">Auteur</div>
+        <div class="hb-names">Michel <span>Foucault</span></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.12em;color:rgba(255,255,255,.3);margin-top:.4rem;">Gallimard, coll. Bibliothèque des Sciences humaines · 1969 · 275 p.</div>
+      </div>
+      <div class="hero-thesis">
+        « Il faut renoncer à tous ces thèmes qui ont pour fonction de garantir l'infinie continuité du discours. »
+        <cite>— L'Archéologie du savoir, Introduction</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTEXTE ─── -->
+  <section class="sec" id="contexte">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 01</span>
+      <h2 class="sec-h2">Contexte <em>&amp;</em> Genèse</h2>
+    </div>
+
+    <div style="max-width:820px;">
+      <p style="margin-bottom:1.5rem;">
+        <em>L'Archéologie du savoir</em> paraît en 1969, deux ans après <em>Les Mots et les Choses</em> (1966) qui avait fait scandale. Foucault y répond à ses critiques — notamment structuralistes et phénoménologiques — et tente de <strong>formaliser rétrospectivement sa méthode</strong> : qu'a-t-il réellement fait dans <em>Histoire de la folie</em>, <em>Naissance de la clinique</em> et <em>Les Mots et les Choses</em> ? Comment appeler ce travail qui n'est ni histoire des idées, ni philosophie, ni sociologie ?
+      </p>
+      <p style="margin-bottom:2.5rem;">
+        C'est le livre le plus abstrait et méthodologique de Foucault. Il ne porte pas sur un objet empirique (la folie, la médecine, le savoir classique), mais sur <strong>la méthode elle-même</strong>, ses concepts, ses conditions de possibilité. En ce sens, c'est une œuvre réflexive unique dans sa production.
+      </p>
+
+      <div class="timeline-container">
+        <div class="tl-item">
+          <div class="tl-dot blood"></div>
+          <div class="tl-year">1961</div>
+          <div class="tl-title">Histoire de la folie à l'âge classique</div>
+          <div class="tl-body">Premier grand archéologie implicite : Foucault cartographie les <strong>configurations du savoir</strong> qui ont rendu possible l'internement des fous au XVII<sup>e</sup> siècle.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot neon"></div>
+          <div class="tl-year">1963</div>
+          <div class="tl-title">Naissance de la clinique</div>
+          <div class="tl-body">Archéologie du <strong>regard médical</strong>. Le livre introduit la notion de « regard » (gaze) et la description des formations discursives médicales.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot blood"></div>
+          <div class="tl-year">1966</div>
+          <div class="tl-title">Les Mots et les Choses</div>
+          <div class="tl-body">Succès de librairie inattendu. Foucault y décrit l'<strong>épistémè</strong> de trois grandes époques de la pensée occidentale et annonce la <em>mort de l'homme</em>. Les critiques l'accusent de structuralisme, d'anti-humanisme, d'immobilisme historique.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot steel"></div>
+          <div class="tl-year">1967–1968</div>
+          <div class="tl-title">Mai 68 &amp; la crise du structuralisme</div>
+          <div class="tl-body">Le structuralisme (Lévi-Strauss, Barthes, Lacan) est au sommet mais commence à être contesté. <strong>Foucault doit clarifier sa relation au structuralisme</strong> — il n'en est pas, dit-il.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot neon"></div>
+          <div class="tl-year">1969</div>
+          <div class="tl-title">L'Archéologie du savoir</div>
+          <div class="tl-body">Réponse aux critiques. Foucault construit une <strong>méthode explicite</strong>, forge ses concepts fondamentaux (énoncé, formation discursive, archive, positivité) et redéfinit sa relation à l'histoire, au sujet et au structuralisme.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot blood"></div>
+          <div class="tl-year">1971</div>
+          <div class="tl-title">L'Ordre du discours (leçon inaugurale au Collège de France)</div>
+          <div class="tl-body">Foucault prolonge l'archéologie vers la <strong>généalogie</strong> (au sens nietzschéen) : les mécanismes de pouvoir qui contrôlent, sélectionnent et organisent les discours.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── THÈSE ─── -->
+  <section class="sec alt" id="these">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 02</span>
+      <h2 class="sec-h2">Thèse <em>Centrale</em></h2>
+    </div>
+
+    <div style="max-width:820px;margin-bottom:2.5rem;">
+      <p style="margin-bottom:1.5rem;">
+        La thèse de Foucault peut se formuler ainsi : <strong>les discours ne sont pas de simples reflets de la réalité ni d'une conscience subjective</strong>. Ils possèdent leurs propres règles d'existence, de coexistence, de transformation et de disparition. Ces règles — que Foucault appelle <em>formations discursives</em> — sont les conditions de possibilité anonymes qui déterminent ce qui peut être dit, pensé, énoncé à une époque donnée.
+      </p>
+      <p>
+        Pour les mettre au jour, il faut une méthode radicalement différente de l'histoire des idées classique : l'<strong>archéologie</strong>. Celle-ci ne cherche pas des origines, des continuités, des intentions d'auteurs ou des progrès. Elle décrit des strates, des ruptures, des régularités involontaires — l'<em>a priori historique</em> qui préside silencieusement à la production des discours.
+      </p>
+    </div>
+
+    <div class="pq neon">
+      <p>« L'archéologie ne cherche pas à retrouver la transition continue qui relie, en une courbe progressive, les discours à ce qui les a précédés : elle cherche à définir, au niveau du discours lui-même, les strates qui le constituent. »</p>
+      <cite>— L'Archéologie du savoir, ch. III</cite>
+    </div>
+
+    <div style="max-width:820px;margin-top:2.5rem;">
+      <p style="margin-bottom:1rem;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--neon2);">Les trois ruptures fondamentales avec l'histoire des idées :</p>
+      <div class="strates-row">
+        <div class="strate">
+          <div class="strate-label">Rupture 1</div>
+          <div class="strate-name">Contre la continuité</div>
+          <div style="font-size:.82rem;color:var(--dust);margin-top:.4rem;line-height:1.6;">L'histoire n'est pas un fleuve continu. Il y a des <em>discontinuités</em>, des seuils, des ruptures épistémologiques — et c'est cela qui est historiquement significatif.</div>
+          <div class="strate-color" style="background:var(--blood);"></div>
+        </div>
+        <div class="strate">
+          <div class="strate-label">Rupture 2</div>
+          <div class="strate-name">Contre le sujet fondateur</div>
+          <div style="font-size:.82rem;color:var(--dust);margin-top:.4rem;line-height:1.6;">Le discours n'est pas la création d'un sujet (auteur, génie, époque). Il est produit par des règles <em>anonymes</em> qui dépassent toute intention individuelle.</div>
+          <div class="strate-color" style="background:var(--neon2);"></div>
+        </div>
+        <div class="strate">
+          <div class="strate-label">Rupture 3</div>
+          <div class="strate-name">Contre l'origine</div>
+          <div style="font-size:.82rem;color:var(--dust);margin-top:.4rem;line-height:1.6;">On ne peut pas « remonter » à un sens premier, originaire. L'archéologie décrit des pratiques discursives dans leur <em>extériorité</em>, sans chercher un fondement.</div>
+          <div class="strate-color" style="background:var(--steel);"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── STRUCTURE ─── -->
+  <section class="sec dark" id="structure">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 03</span>
+      <h2 class="sec-h2">Structure <em>du Livre</em></h2>
+    </div>
+
+    <p style="color:rgba(255,255,255,.55);max-width:640px;margin-bottom:2rem;font-size:.9rem;line-height:1.8;">
+      Le livre est organisé en quatre parties plus une introduction et une conclusion. Chaque partie construit un niveau conceptuel supplémentaire, du plus concret (les unités du discours) au plus général (la description archéologique comme méthode).
+    </p>
+
+    <div class="accordion">
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <div class="acc-title">Introduction — Contre l'histoire des idées</div>
+          <div class="acc-icon">+</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p>Foucault ouvre par un manifeste : il faut <em>remettre en question</em> les unités habituelles que l'histoire des idées tient pour évidentes — le livre, l'œuvre, la tradition, l'esprit d'une époque, l'influence. Ces catégories ne sont pas des données mais des <strong>constructions qu'il faut problématiser</strong>. On ne peut pas partir d'elles pour décrire les discours : c'est le contraire, les discours les produisent.</p>
+            <p>Il introduit le projet de décrire les <strong>« populations d'énoncés »</strong> dans leur dispersion, leur régularité, leurs transformations — sans présupposer aucune unité de sens ou de sujet.</p>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <div class="acc-title">Partie I — Les régularités discursives</div>
+          <div class="acc-icon">+</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p>C'est la partie la plus technique. Foucault définit la <strong>formation discursive</strong> comme l'ensemble des règles qui permettent à un groupe d'énoncés d'exister. Ces règles opèrent à quatre niveaux :</p>
+            <p><strong>1. Formation des objets :</strong> Comment les objets du discours (la maladie, le crime, la folie) sont-ils constitués ? Pas par la réalité elle-même, mais par des pratiques discursives qui délimitent ce dont on peut parler.</p>
+            <p><strong>2. Formation des modalités énonciatives :</strong> Qui a le droit de parler ? Depuis quelle position institutionnelle ? Avec quelle autorité (le médecin, le juge, le savant) ?</p>
+            <p><strong>3. Formation des concepts :</strong> Comment les concepts s'organisent-ils en réseaux, se succèdent-ils, s'excluent-ils ? C'est une histoire <em>non-subjectiviste</em> des concepts.</p>
+            <p><strong>4. Formation des stratégies :</strong> Quels thèmes, théories, choix théoriques traversent une formation discursive ? Cette dernière couche est la plus proche de ce qu'on appelle une « idéologie ».</p>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <div class="acc-title">Partie II — L'énoncé et l'archive</div>
+          <div class="acc-icon">+</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p>C'est le cœur philosophique du livre. Foucault tente de définir précisément l'<strong>énoncé</strong>, unité de base du discours. L'énoncé n'est ni une phrase grammaticale, ni une proposition logique, ni un acte de parole. C'est une <em>fonction</em> : la fonction qui attribue à une suite de signes un statut de réalité, qui les fait exister comme <strong>événement dans un champ de possibilités discursives</strong>.</p>
+            <p>Foucault définit ensuite l'<strong>archive</strong> — non pas le dépôt d'archives physiques, mais le <em>système général de la formation et de la transformation des énoncés</em> d'une époque. L'archive est la loi de ce qui peut être dit, la configuration qui distingue les discours possibles des discours impossibles.</p>
+            <p>Il distingue également trois traits de l'énoncé : la <strong>rareté</strong> (on ne dit pas tout ce qu'on pourrait dire), l'<strong>extériorité</strong> (les conditions d'existence sont extérieures au sens) et l'<strong>accumulation</strong> (les énoncés s'accumulent et forment un stock).</p>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <div class="acc-title">Partie III — La description archéologique</div>
+          <div class="acc-icon">+</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p>Foucault précise la méthode archéologique et la distingue des approches voisines. Il s'interroge sur : l'<strong>originalité</strong> (comment l'archéologie rend-elle compte de la nouveauté sans faire appel à un sujet créateur ?), les <strong>contradictions</strong> (les contradictions internes d'un discours font partie de son fonctionnement, elles ne sont pas des accidents), les <strong>faits comparatifs</strong> (comment comparer des formations discursives d'époques différentes ?) et le <strong>changement</strong> (comment une formation discursive se transforme-t-elle ?).</p>
+            <p>Il introduit la distinction fondamentale entre <strong>savoir</strong> et <strong>connaissance</strong> : le savoir (Wissen) désigne l'ensemble des pratiques discursives d'une époque qui définissent les objets, les positions d'énonciation, les concepts possibles ; la connaissance (Erkenntnis) est le savoir formalisé, le corpus des connaissances vérifiées d'une discipline.</p>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <div class="acc-title">Partie IV — Archéologie et histoire des idées</div>
+          <div class="acc-icon">+</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p>Foucault confronte explicitement l'archéologie aux approches concurrentes : l'<strong>histoire des idées</strong> (Lovejoy, Koyre), la <strong>phénoménologie</strong> (Husserl, Merleau-Ponty), la <strong>psychologie des auteurs</strong>. Ces approches partagent un présupposé : le sujet (individuel ou collectif) comme origine et fondement du sens.</p>
+            <p>L'archéologie, au contraire, procède par <strong>description de l'extériorité</strong> : elle décrit les pratiques discursives <em>sans chercher leur sens profond</em>, sans remonter à l'intention d'un auteur, sans les réduire à l'expression d'une conscience ou d'une structure sociale.</p>
+            <p>Foucault souligne aussi la différence avec le <strong>structuralisme</strong> : il ne cherche pas une grammaire profonde universelle, mais des régularités historiquement situées, contingentes, transformables.</p>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <div class="acc-title">Conclusion — La pratique discursive et le sujet</div>
+          <div class="acc-icon">+</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p>Dans une conclusion dialogique (Foucault s'adresse à un interlocuteur imaginaire qui lui pose les objections habituelles), il répond à la question centrale : si le sujet ne fonde pas le discours, qu'est-ce qui produit les discours ? Réponse : des <strong>pratiques discursives anonymes</strong>, des régularités qui ne supposent aucune intention préalable.</p>
+            <p>Cette conclusion annonce le tournant vers la <strong>généalogie</strong> : si l'archéologie décrit les strates du savoir, la généalogie (à partir de <em>Surveiller et Punir</em>, 1975) décrira les relations de <strong>pouvoir</strong> qui traversent et constituent ces strates.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONCEPTS CLÉS ─── -->
+  <section class="sec alt" id="concepts">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 04</span>
+      <h2 class="sec-h2">Concepts <em>Clés</em></h2>
+    </div>
+
+    <p style="max-width:680px;margin-bottom:2rem;color:var(--dust);font-size:.9rem;line-height:1.8;">
+      Cliquez sur chaque carte pour découvrir l'analyse complète et les usages contemporains du concept.
+    </p>
+
+    <div class="concept-grid">
+      <div class="concept-card" data-num="01" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept fondamental · 01</span>
+        <div class="cc-title">L'Énoncé</div>
+        <div class="cc-short">Unité de base irréductible du discours — ni phrase, ni proposition, ni acte de parole, mais une <em>fonction</em>.</div>
+        <div class="cc-expand">
+          <div class="cc-expand-body">
+            <p>L'énoncé est la notion la plus difficile et la plus novatrice du livre. Foucault passe en revue toutes les définitions disponibles (phrase grammaticale, proposition logique, acte de parole au sens de Austin/Searle) et les récuse une à une. <strong>L'énoncé n'est pas une unité linguistique</strong> — une même suite de mots peut former ou ne pas former un énoncé selon les conditions de son apparition.</p>
+            <p>L'énoncé est plutôt une <strong>fonction énonciative</strong> : ce qui donne à un ensemble de signes son statut de « réalité discursive » — ce qui fait qu'une formule, un tableau, un schéma existe comme événement dans un champ de mémoire et de possibilités discursives. Il est défini par quatre paramètres : un référentiel (ce dont il parle), un sujet (position d'énonciation, pas individu empirique), un champ associé (relation aux autres énoncés), et une matérialité (support, répétabilité).</p>
+            <div class="cc-today">En linguistique et en analyse du discours contemporaine, le concept d'énoncé est repris (mais transformé) par Ducrot, Maingueneau, Charaudeau. En philosophie du langage, il s'articule aux travaux sur la pragmatique et les <em>speech acts</em>.</div>
+          </div>
+        </div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))">
+          <div class="cc-arrow">↓</div>
+          <span>Lire l'analyse</span>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="02" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept fondamental · 02</span>
+        <div class="cc-title">Le Discours</div>
+        <div class="cc-short">Ensemble d'énoncés relevant d'une même formation discursive — ni langue, ni parole, ni texte.</div>
+        <div class="cc-expand">
+          <div class="cc-expand-body">
+            <p>Chez Foucault, le <strong>discours</strong> ne désigne pas la parole vivante (au sens saussurien) ni un texte particulier, mais un <strong>ensemble d'énoncés qui appartiennent à une même formation discursive</strong>. Le discours de la psychiatrie, de l'économie politique, de l'histoire naturelle — ce sont des ensembles réglés d'énoncés, avec leurs objets, leurs positions d'autorité, leurs concepts et leurs stratégies propres.</p>
+            <p>Cette définition a une conséquence majeure : le discours n'est pas simplement ce qu'on dit sur quelque chose (une réalité préalable). Il <strong>constitue</strong> les objets dont il parle. La psychiatrie ne décrit pas la folie qui existerait avant elle — elle produit la folie comme objet discursif.</p>
+            <div class="cc-today">Cette conception du discours « constitutif » est au cœur de l'analyse du discours critique (Critical Discourse Analysis : Fairclough, Laclau &amp; Mouffe) et des études postcoloniales (Said, Spivak, Bhabha).</div>
+          </div>
+        </div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))">
+          <div class="cc-arrow">↓</div>
+          <span>Lire l'analyse</span>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="03" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept fondamental · 03</span>
+        <div class="cc-title">Formation discursive</div>
+        <div class="cc-short">Système de règles anonymes qui définissent les conditions d'existence, de coexistence et de transformation des énoncés.</div>
+        <div class="cc-expand">
+          <div class="cc-expand-body">
+            <p>C'est le concept organisateur du livre. Une <strong>formation discursive</strong> est un système de dispersion : lorsqu'on observe un ensemble d'énoncés et qu'on y retrouve une régularité dans la façon dont les objets sont constitués, les positions d'énonciation distribuées, les concepts organisés, les stratégies choisies — on est en présence d'une formation discursive.</p>
+            <p>Foucault prend comme exemples la médecine clinique, la psychiatrie, l'histoire naturelle, l'économie politique : chacune forme une <strong>configuration réglée</strong> qui permet de dire certaines choses et pas d'autres, depuis certaines positions et pas d'autres. Ces règles ne sont pas conscientes ni délibérées — elles sont l'<em>a priori historique</em> qui structure la possibilité même des discours.</p>
+            <div class="cc-today">Le concept est devenu un outil central des études culturelles et poststructuralistes. On parle de « formation discursive néolibérale », de « formation discursive coloniale », etc.</div>
+          </div>
+        </div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))">
+          <div class="cc-arrow">↓</div>
+          <span>Lire l'analyse</span>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="04" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept fondamental · 04</span>
+        <div class="cc-title">L'Archive</div>
+        <div class="cc-short">Non pas un dépôt de documents, mais le système général de la formation et de la transformation des énoncés d'une époque.</div>
+        <div class="cc-expand">
+          <div class="cc-expand-body">
+            <p>L'<strong>archive</strong> est sans doute le concept le plus original et le plus difficile. Ce n'est pas un ensemble de textes, ni une institution, ni un lieu. C'est le <em>système général qui régit l'apparition des énoncés comme événements singuliers</em>. L'archive définit :</p>
+            <p><strong>→ Ce qui peut être dit</strong> (le régime de formation des énoncés)<br>
+            <strong>→ Comment les discours fonctionnent</strong> (règles de transformation)<br>
+            <strong>→ Ce qui dure</strong> (quels énoncés persistent, s'accumulent, sont réactivables)</p>
+            <p>L'archéologue est celui qui <em>décrit l'archive</em> : il se situe dans un entre-deux, entre le passé trop ancien (qu'on ne peut plus habiter) et le présent trop proche (dont on ne peut pas encore voir les règles). C'est une position radicalement <strong>extérieure au sujet</strong> — l'archéologue ne cherche pas le sens des discours mais leurs conditions de possibilité.</p>
+            <div class="cc-today">Repris par Jacques Derrida (<em>Mal d'archive</em>, 1995) qui interroge le désir d'archive, la pulsion archivistique. Également central pour les <em>Digital Humanities</em> qui étudient les régimes d'archivage numériques.</div>
+          </div>
+        </div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))">
+          <div class="cc-arrow">↓</div>
+          <span>Lire l'analyse</span>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="05" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept fondamental · 05</span>
+        <div class="cc-title">A priori historique</div>
+        <div class="cc-short">Les conditions de possibilité des discours — non pas transcendantales (Kant), mais historiquement situées et transformables.</div>
+        <div class="cc-expand">
+          <div class="cc-expand-body">
+            <p>Le concept d'<strong>a priori historique</strong> est une réponse directe à Kant. Kant avait posé des conditions de possibilité de la connaissance (l'espace, le temps, les catégories) qui sont <em>universelles et transcendantales</em> — elles valent pour tout sujet connaissant, en tout temps. Foucault retourne cette démarche : il y a bien des conditions de possibilité, mais elles sont <strong>historiques, situées, contingentes</strong>.</p>
+            <p>Ces conditions ne sont pas celles de la conscience mais celles des <em>pratiques discursives</em>. Elles définissent ce que peut penser, dire, savoir une époque — non pas parce que la réalité ou la conscience l'impose, mais parce que telle est la configuration historique des discours. Ce qui est a priori aujourd'hui ne le sera pas demain : l'a priori historique est <strong>transformable</strong>.</p>
+            <div class="cc-today">Cette notion anticipe les réflexions contemporaines sur les <em>épistémologies situées</em> (Haraway, Harding) : toute connaissance est produite depuis une position, un moment, une formation discursive.</div>
+          </div>
+        </div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))">
+          <div class="cc-arrow">↓</div>
+          <span>Lire l'analyse</span>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="06" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept fondamental · 06</span>
+        <div class="cc-title">Positivité</div>
+        <div class="cc-short">L'ensemble des conditions dans lesquelles s'exerce une pratique discursive — ce qui permet à un discours d'avoir des objets, des concepts, des positions valides.</div>
+        <div class="cc-expand">
+          <div class="cc-expand-body">
+            <p>La <strong>positivité</strong> désigne ce qu'on pourrait appeler la « couche de fondation » d'une pratique discursive. Quand Foucault parle de la positivité de la psychiatrie ou de l'économie classique, il désigne l'ensemble des conditions (objets, modalités énonciatives, concepts, stratégies) qui constituent cette discipline dans son moment historique.</p>
+            <p>La positivité est distincte du contenu d'un discours (ce qu'on dit) et de ses fondements logiques (comment on prouve). C'est ce <em>volume</em> historiquement donné qui fait qu'une proposition peut être vraie ou fausse, scientifique ou non, recevable ou non. Elle précède le vrai et le faux — elle constitue le <strong>régime de vérité</strong> d'une époque.</p>
+            <div class="cc-today">Ce concept préfigure directement la notion de <em>régime de vérité</em> que Foucault développera dans ses cours au Collège de France, et qui est central pour comprendre comment certaines affirmations s'imposent comme évidences dans nos sociétés contemporaines (économie, biomédecine, droit).</div>
+          </div>
+        </div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))">
+          <div class="cc-arrow">↓</div>
+          <span>Lire l'analyse</span>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="07" onclick="toggleCard(this)" style="grid-column:1/4">
+        <span class="cc-tag">Concept fondamental · 07</span>
+        <div class="cc-title">Épistémè</div>
+        <div class="cc-short" style="max-width:680px;">La configuration générale du savoir d'une époque — l'espace de dispersion qui définit les ressemblances et différences entre les discours d'un moment historique donné. Déjà présent dans <em>Les Mots et les Choses</em>, ce concept est précisé et nuancé dans l'<em>Archéologie</em>.</div>
+        <div class="cc-expand">
+          <div class="cc-expand-body">
+            <p>L'<strong>épistémè</strong> est le concept le plus englobant de Foucault. Il désigne non pas un système de connaissances, mais <em>l'espace de dispersion</em> à l'intérieur duquel les savoirs se développent, se distinguent, et s'organisent à une époque donnée. Dans <em>Les Mots et les Choses</em>, Foucault distingue trois grandes épistémès occidentales : Renaissance (ressemblance), Classique (représentation/taxinomie), Moderne (vie/travail/langage).</p>
+            <p>Dans <em>L'Archéologie du savoir</em>, Foucault <strong>nuance ce concept</strong> et le précise : l'épistémè n'est pas un bloc unifié qui impose ses lois à toute une époque. C'est plutôt un jeu de rapports entre différentes formations discursives. Il y a des tensions, des contradictions, des décalages au sein d'une même épistémè.</p>
+            <p>Cette précision répond aux critiques qui avaient accusé Foucault d'un <em>holisme historique</em> — l'idée d'une époque parfaitement cohérente avec elle-même. L'archéologie permet au contraire de décrire les <strong>hétérogénéités internes</strong> d'un système de savoir.</p>
+            <div class="cc-today">Le concept d'épistémè est aujourd'hui central dans les <em>Science and Technology Studies</em> (STS) et dans les études sur la <em>démarcation scientifique</em>. Il inspire aussi les approches constructivistes de la sociologie des sciences (Latour, Woolgar).</div>
+          </div>
+        </div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))">
+          <div class="cc-arrow">↓</div>
+          <span>Lire l'analyse</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── L'ENNEMI VISÉ ─── -->
+  <section class="sec" id="contre">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 05</span>
+      <h2 class="sec-h2">L'Ennemi <em>Visé</em></h2>
+    </div>
+    <p style="max-width:680px;margin-bottom:2.5rem;color:var(--dust);">
+      L'archéologie se définit essentiellement par ce qu'elle <strong>refuse</strong>. Voici les grandes oppositions que construit Foucault — et ce que l'archéologie propose à la place.
+    </p>
+
+    <div class="compare-sec">
+      <div class="compare-header">
+        <div class="ch-title blood">Histoire des idées (tradition)</div>
+        <div></div>
+        <div class="ch-title neon" style="text-align:right">Archéologie (Foucault)</div>
+      </div>
+
+      <div class="compare-row">
+        <div class="cr-label-l">Cherche les <strong>origines</strong> — le moment fondateur, le texte primitif, l'idée première</div>
+        <div class="cr-mid">vs</div>
+        <div class="cr-label-r">Décrit des <strong>régularités</strong> — des strates sans fondement, des configurations sans origine</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">Valorise la <strong>continuité</strong> — les traditions, les filiations, les influences, les progrès cumulatifs</div>
+        <div class="cr-mid">vs</div>
+        <div class="cr-label-r">Souligne les <strong>discontinuités</strong> — les ruptures, les seuils, les transformations brusques</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">Postule un <strong>sujet fondateur</strong> — l'auteur, le génie, l'esprit d'une époque comme source du sens</div>
+        <div class="cr-mid">vs</div>
+        <div class="cr-label-r">Décrit des <strong>pratiques anonymes</strong> — des règles sans sujet, des formations sans intention</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">S'intéresse au <strong>sens profond</strong>, à l'intention cachée, au non-dit qu'il faudrait révéler</div>
+        <div class="cr-mid">vs</div>
+        <div class="cr-label-r">Reste à la surface des <strong>événements discursifs</strong> — l'extériorité, ce qui se dit effectivement</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">Traite les <strong>contradictions</strong> comme des défauts, des incohérences à résoudre</div>
+        <div class="cr-mid">vs</div>
+        <div class="cr-label-r">Traite les contradictions comme des <strong>fonctionnements réguliers</strong> du discours</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">S'appuie sur des unités préalables : <strong>le livre, l'œuvre, la science, la tradition</strong></div>
+        <div class="cr-mid">vs</div>
+        <div class="cr-label-r">Problématise ces unités — elles sont des <strong>constructions discursives</strong>, pas des données</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">Aspire à retrouver une <strong>totalité cohérente</strong> — la vision du monde d'une époque</div>
+        <div class="cr-mid">vs</div>
+        <div class="cr-label-r">Décrit des <strong>hétérogénéités</strong> — les tensions, les décalages, les contradictions internes</div>
+      </div>
+    </div>
+
+    <div class="pq blood" style="margin-top:3rem;">
+      <p>« Je ne veux pas nier la possibilité de changer le discours : je veux montrer que les changements du discours ne consistent pas dans la mise au jour d'idées nouvelles ou dans la reprise d'idées anciennes ; ils sont des transformations dans les règles de formation. »</p>
+      <cite>— L'Archéologie du savoir, Conclusion</cite>
+    </div>
+  </section>
+
+  <!-- ─── GLOSSAIRE ─── -->
+  <section class="sec alt" id="glossaire">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 06</span>
+      <h2 class="sec-h2">Glossaire <em>Complet</em></h2>
+    </div>
+    <div class="glos-grid">
+      <div class="gi" data-g="É">
+        <span class="gi-src">Archéologie du savoir · ch. II</span>
+        <div class="gi-term">Énoncé</div>
+        <div class="gi-def">Unité élémentaire du discours — non pas une phrase ou une proposition, mais la <em>fonction</em> qui attribue à un ensemble de signes un statut de réalité discursive historiquement situé. L'énoncé est défini par son référentiel, sa position d'énonciation, son champ associé et sa matérialité.</div>
+        <div class="gi-now">Employé dans les études de corpus, l'analyse du discours médiatique et les humanités numériques pour décrire les unités de production discursive au-delà du texte.</div>
+      </div>
+      <div class="gi" data-g="D">
+        <span class="gi-src">Archéologie du savoir · ensemble du livre</span>
+        <div class="gi-term">Discours</div>
+        <div class="gi-def">Ensemble d'énoncés appartenant à une même formation discursive. Le discours n'est pas simplement « ce qu'on dit sur quelque chose » — il <em>constitue</em> ses objets. Il existe dans sa dispersion, ses régularités, ses transformations.</div>
+        <div class="gi-now">Le discours foucaldien est la référence obligée de la Critical Discourse Analysis, des gender studies, des études postcoloniales et des media studies.</div>
+      </div>
+      <div class="gi" data-g="F">
+        <span class="gi-src">Archéologie du savoir · Partie I</span>
+        <div class="gi-term">Formation discursive</div>
+        <div class="gi-def">Système de règles anonymes qui définissent, pour un moment et un espace donnés, les conditions d'existence, de coexistence et de transformation des énoncés. Elle opère sur quatre niveaux : objets, modalités énonciatives, concepts, stratégies.</div>
+        <div class="gi-now">Outil analytique pour décrire la cohérence interne des régimes discursifs : formation discursive néolibérale, colonial, sécuritaire, etc.</div>
+      </div>
+      <div class="gi" data-g="A">
+        <span class="gi-src">Archéologie du savoir · Partie II</span>
+        <div class="gi-term">Archive</div>
+        <div class="gi-def">Système général de la formation et de la transformation des énoncés d'une époque. L'archive n'est pas un lieu ou une institution — c'est la <em>loi de ce qui peut être dit</em>, la configuration qui distingue discours possibles et impossibles à un moment donné.</div>
+        <div class="gi-now">Repris par Derrida (<em>Mal d'archive</em>), les DH et les études sur les régimes d'archivage numérique et algorithmique.</div>
+      </div>
+      <div class="gi" data-g="P">
+        <span class="gi-src">Archéologie du savoir · Partie III</span>
+        <div class="gi-term">Positivité</div>
+        <div class="gi-def">L'ensemble des conditions historiquement données qui permettent à un discours d'avoir des objets, des positions valides et des critères de vérité. La positivité précède le vrai et le faux — elle constitue le régime de vérité dans lequel s'exercent les jugements de validité.</div>
+        <div class="gi-now">Préfigure le concept de <em>régime de vérité</em> des cours au Collège de France (1976-1984) et les analyses contemporaines sur la gouvernementalité par la vérité.</div>
+      </div>
+      <div class="gi" data-g="E">
+        <span class="gi-src">Archéologie du savoir · Partie I</span>
+        <div class="gi-term">Épistémè</div>
+        <div class="gi-def">Configuration générale du savoir d'une époque : l'espace de dispersion à l'intérieur duquel les discours se développent, se distinguent et s'organisent. Non pas un bloc unifié mais un jeu de rapports entre formations discursives.</div>
+        <div class="gi-now">Référence centrale des Science and Technology Studies, des approches constructivistes en sociologie des sciences et des études sur les paradigmes scientifiques.</div>
+      </div>
+      <div class="gi" data-g="A">
+        <span class="gi-src">Archéologie du savoir · Partie II</span>
+        <div class="gi-term">A priori historique</div>
+        <div class="gi-def">Réponse à Kant : des conditions de possibilité des discours qui ne sont pas transcendantales mais <em>historiquement situées</em>. Transformables, contingentes, elles définissent ce que peut penser et dire une époque sans être dictées par aucun sujet.</div>
+        <div class="gi-now">Anticipe les épistémologies situées (Haraway, Harding) et les réflexions sur la posture du chercheur comme toujours-déjà inscrit dans des conditions historiques de production du savoir.</div>
+      </div>
+      <div class="gi" data-g="P">
+        <span class="gi-src">Archéologie du savoir · Partie I</span>
+        <div class="gi-term">Pratique discursive</div>
+        <div class="gi-def">Ensemble de règles anonymes, historiquement déterminées, qui définissent dans une époque et une aire sociale données les conditions d'exercice de la fonction énonciative. Elle est à la fois plus large qu'une œuvre individuelle et plus régulière que le langage ordinaire.</div>
+        <div class="gi-now">Le concept articule l'immatériel (les règles discursives) et le matériel (les institutions, les lieux d'exercice), préfigurant l'analyse des dispositifs (Surveiller et Punir, Histoire de la sexualité).</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SCHÉMA ─── -->
+  <section class="sec neon-bg" id="schema">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 07</span>
+      <h2 class="sec-h2">Schéma <em>Conceptuel</em></h2>
+    </div>
+    <p style="color:rgba(255,255,255,.5);max-width:640px;margin-bottom:2rem;font-size:.9rem;line-height:1.8;">
+      Les concepts de l'<em>Archéologie</em> s'emboîtent selon une hiérarchie : de l'unité élémentaire (l'énoncé) jusqu'au niveau le plus englobant (l'archive et l'épistémè).
+    </p>
+    <div class="schema-wrap">
+      <svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+        <!-- Background grid -->
+        <defs>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          </pattern>
+          <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="rgba(42,138,90,0.7)"/>
+          </marker>
+        </defs>
+        <rect width="900" height="520" fill="url(#grid)"/>
+
+        <!-- Niveau 4 : Archive / Épistémè -->
+        <rect x="40" y="30" width="820" height="80" rx="2" fill="none" stroke="rgba(42,138,90,0.25)" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="55" y="52" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(42,138,90,0.5)" letter-spacing="2" text-transform="uppercase">NIVEAU 4 — ENGLOBANT</text>
+        <text x="380" y="78" font-family="'Barlow Condensed',sans-serif" font-size="22" font-weight="800" fill="#5ecf95" text-anchor="middle" letter-spacing="2">ARCHIVE</text>
+        <text x="610" y="78" font-family="'Barlow Condensed',sans-serif" font-size="22" font-weight="800" fill="#5ecf95" text-anchor="middle" letter-spacing="2">ÉPISTÉMÈ</text>
+        <line x1="500" y1="55" x2="500" y2="100" stroke="rgba(255,255,255,0.1)" stroke-width="1" stroke-dasharray="3,3"/>
+
+        <!-- Niveau 3 : Formation discursive -->
+        <rect x="80" y="135" width="740" height="70" rx="2" fill="rgba(176,31,24,0.08)" stroke="rgba(176,31,24,0.3)" stroke-width="1"/>
+        <text x="95" y="158" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(176,31,24,0.5)" letter-spacing="2">NIVEAU 3</text>
+        <text x="450" y="183" font-family="'Barlow Condensed',sans-serif" font-size="22" font-weight="800" fill="#f08880" text-anchor="middle" letter-spacing="2">FORMATION DISCURSIVE</text>
+        <text x="450" y="197" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="middle">a priori historique · positivité · régularité</text>
+
+        <!-- Flèche 4→3 -->
+        <line x1="450" y1="112" x2="450" y2="133" stroke="rgba(42,138,90,0.4)" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+        <!-- Niveau 2 : Discours (= ensemble d'énoncés) -->
+        <rect x="80" y="228" width="740" height="70" rx="2" fill="rgba(42,138,90,0.06)" stroke="rgba(42,138,90,0.2)" stroke-width="1"/>
+        <text x="95" y="251" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(42,138,90,0.5)" letter-spacing="2">NIVEAU 2</text>
+        <text x="450" y="276" font-family="'Barlow Condensed',sans-serif" font-size="22" font-weight="800" fill="#5ecf95" text-anchor="middle" letter-spacing="2">DISCOURS</text>
+        <text x="450" y="290" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="middle">ensemble d'énoncés · pratique discursive · régime de vérité</text>
+
+        <!-- Flèche 3→2 -->
+        <line x1="450" y1="207" x2="450" y2="226" stroke="rgba(176,31,24,0.4)" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+        <!-- Niveau 1 : Énoncés individuels -->
+        <rect x="80" y="321" width="740" height="70" rx="2" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <text x="95" y="344" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(255,255,255,0.3)" letter-spacing="2">NIVEAU 1 — UNITÉ ÉLÉMENTAIRE</text>
+        <text x="450" y="369" font-family="'Barlow Condensed',sans-serif" font-size="22" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="2">ÉNONCÉ</text>
+        <text x="450" y="383" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(255,255,255,0.25)" text-anchor="middle">fonction énonciative · référentiel · sujet · champ associé · matérialité</text>
+
+        <!-- Flèche 2→1 -->
+        <line x1="450" y1="300" x2="450" y2="319" stroke="rgba(42,138,90,0.4)" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+        <!-- 4 déterminants de la formation discursive -->
+        <g transform="translate(0,420)">
+          <rect x="80" y="0" width="166" height="62" rx="2" fill="rgba(176,31,24,0.1)" stroke="rgba(176,31,24,0.25)" stroke-width="1"/>
+          <text x="163" y="22" font-family="'Barlow Condensed',sans-serif" font-size="13" font-weight="700" fill="#f08880" text-anchor="middle" letter-spacing="1">OBJETS</text>
+          <text x="163" y="38" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.25)" text-anchor="middle">Ce dont on parle</text>
+          <text x="163" y="52" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.2)" text-anchor="middle">constitution discursive</text>
+
+          <rect x="262" y="0" width="166" height="62" rx="2" fill="rgba(42,138,90,0.1)" stroke="rgba(42,138,90,0.25)" stroke-width="1"/>
+          <text x="345" y="22" font-family="'Barlow Condensed',sans-serif" font-size="13" font-weight="700" fill="#5ecf95" text-anchor="middle" letter-spacing="1">MODALITÉS</text>
+          <text x="345" y="38" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.25)" text-anchor="middle">Qui parle ? Depuis où ?</text>
+          <text x="345" y="52" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.2)" text-anchor="middle">positions d'autorité</text>
+
+          <rect x="444" y="0" width="166" height="62" rx="2" fill="rgba(138,172,204,0.08)" stroke="rgba(138,172,204,0.2)" stroke-width="1"/>
+          <text x="527" y="22" font-family="'Barlow Condensed',sans-serif" font-size="13" font-weight="700" fill="#8aaccc" text-anchor="middle" letter-spacing="1">CONCEPTS</text>
+          <text x="527" y="38" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.25)" text-anchor="middle">Organisation des notions</text>
+          <text x="527" y="52" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.2)" text-anchor="middle">réseaux conceptuels</text>
+
+          <rect x="626" y="0" width="194" height="62" rx="2" fill="rgba(232,160,32,0.07)" stroke="rgba(232,160,32,0.2)" stroke-width="1"/>
+          <text x="723" y="22" font-family="'Barlow Condensed',sans-serif" font-size="13" font-weight="700" fill="#e8a020" text-anchor="middle" letter-spacing="1">STRATÉGIES</text>
+          <text x="723" y="38" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.25)" text-anchor="middle">Thèmes &amp; théories</text>
+          <text x="723" y="52" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.2)" text-anchor="middle">choix théoriques</text>
+        </g>
+
+        <!-- Label bas -->
+        <text x="450" y="510" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="rgba(255,255,255,.18)" text-anchor="middle" letter-spacing="1.5">LES 4 NIVEAUX DE LA FORMATION DISCURSIVE SELON L'ARCHÉOLOGIE DU SAVOIR (1969)</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ─── QUIZ ─── -->
+  <section class="sec dark" id="quiz">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 08</span>
+      <h2 class="sec-h2">Quiz <em>Interactif</em></h2>
+    </div>
+
+    <div class="quiz-wrap">
+      <div class="quiz-title">Testez votre compréhension</div>
+      <div class="quiz-meta">6 questions · niveaux progressifs · feedback détaillé</div>
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" id="quizProgressFill" style="width:0%"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+        <div class="quiz-counter">Question <span id="qNum">1</span>/6</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:rgba(255,255,255,.3);">Score : <span id="scoreDisplay">0</span>/6</div>
+      </div>
+      <div class="quiz-question" id="qText"></div>
+      <div class="quiz-options" id="qOptions"></div>
+      <div class="quiz-feedback" id="qFeedback"></div>
+      <div class="quiz-nav">
+        <div class="quiz-status" id="qStatus">Sélectionnez une réponse</div>
+        <button class="quiz-btn" id="qNext" disabled onclick="nextQuestion()">Question suivante →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── RÉFLEXION ─── -->
+  <section class="sec neon-bg" id="reflexion">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 09</span>
+      <h2 class="sec-h2">Questions <em>de Réflexion</em></h2>
+    </div>
+    <p style="color:rgba(255,255,255,.45);max-width:620px;margin-bottom:2rem;font-size:.9rem;line-height:1.8;">
+      Des questions ouvertes pour prolonger la lecture, préparer un exposé ou mobiliser les concepts dans d'autres contextes.
+    </p>
+
+    <div class="qstack">
+      <div class="qi">
+        <div class="qi-n">Q·01</div>
+        <div>
+          <div class="qi-t">Foucault affirme que le discours médical « constitue » la maladie plutôt qu'il ne la décrit. En quoi cette affirmation est-elle à la fois provocatrice et défendable ?</div>
+          <div class="qi-hint">Piste : Distinguer l'existence réelle de la douleur ou du dysfonctionnement de la constitution discursive de la « maladie » comme objet médical traitable, diagnosticable, classifiable. Voir aussi le travail de Canguilhem sur le normal et le pathologique.</div>
+          <div class="qi-tags">
+            <span class="qi-tag">Formation des objets</span>
+            <span class="qi-tag">Pratique discursive</span>
+            <span class="qi-tag">Médecine</span>
+          </div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·02</div>
+        <div>
+          <div class="qi-t">En quoi la notion d'« a priori historique » se distingue-t-elle radicalement de l'a priori kantien ? Quelles en sont les conséquences pour la philosophie de la connaissance ?</div>
+          <div class="qi-hint">Piste : L'a priori kantien est universel et nécessaire ; l'a priori foucaldien est contingent et transformable. Cela implique que toute connaissance est historiquement indexée — ce qui pose la question de la vérité et du relativisme.</div>
+          <div class="qi-tags">
+            <span class="qi-tag">Épistémologie</span>
+            <span class="qi-tag">Kant</span>
+            <span class="qi-tag">Historicité</span>
+          </div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·03</div>
+        <div>
+          <div class="qi-t">L'archéologie foucaldienne est-elle une méthode viable pour analyser des discours contemporains — par exemple, le discours médiatique sur le réchauffement climatique ?</div>
+          <div class="qi-hint">Piste : Identifier les objets constitués, les positions d'énonciation légitimes (scientifiques, politiques, citoyens), les concepts clés et les stratégies discursives. Mais aussi réfléchir aux limites : peut-on faire l'archéologie de son propre présent ?</div>
+          <div class="qi-tags">
+            <span class="qi-tag">Méthode</span>
+            <span class="qi-tag">Discours contemporain</span>
+            <span class="qi-tag">Application</span>
+          </div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·04</div>
+        <div>
+          <div class="qi-t">Foucault est souvent accusé de « tuer le sujet ». Comment défendrait-il sa position ? Et dans quelle mesure cette critique est-elle fondée ou infondée ?</div>
+          <div class="qi-hint">Piste : Foucault ne nie pas l'existence des individus ; il récuse seulement le sujet comme fondement transcendant du sens. Il y a des positions de sujet dans les formations discursives — ce sont des fonctions, non des personnes. Voir la conclusion de l'Archéologie.</div>
+          <div class="qi-tags">
+            <span class="qi-tag">Sujet</span>
+            <span class="qi-tag">Anti-humanisme</span>
+            <span class="qi-tag">Fonction énonciative</span>
+          </div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·05</div>
+        <div>
+          <div class="qi-t">Quel est le lien entre l'archéologie (1969) et la généalogie que Foucault développera dans <em>Surveiller et Punir</em> (1975) ? L'archéologie est-elle dépassée par la généalogie ?</div>
+          <div class="qi-hint">Piste : L'archéologie décrit les strates du savoir (formations discursives) ; la généalogie y ajoute la dimension du pouvoir (dispositifs, normalisations). La généalogie n'annule pas l'archéologie — elle l'articule aux relations de pouvoir. Voir L'Ordre du discours (1971) comme charnière.</div>
+          <div class="qi-tags">
+            <span class="qi-tag">Généalogie</span>
+            <span class="qi-tag">Pouvoir-savoir</span>
+            <span class="qi-tag">Méthode</span>
+          </div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·06</div>
+        <div>
+          <div class="qi-t">Comment l'archéologie foucaldienne se distingue-t-elle du structuralisme (Lévi-Strauss, Lacan) avec lequel on la confond souvent ? Foucault est-il structuraliste ?</div>
+          <div class="qi-hint">Piste : Le structuralisme cherche des structures universelles ou profondes (l'inconscient, les structures élémentaires de la parenté). Foucault, lui, décrit des régularités historiquement situées, contingentes, transformables — et nie toute structure profonde ou transhistorique.</div>
+          <div class="qi-tags">
+            <span class="qi-tag">Structuralisme</span>
+            <span class="qi-tag">Contingence</span>
+            <span class="qi-tag">Historicité</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer style="background:var(--ink);color:rgba(255,255,255,.25);padding:3rem 6rem;display:flex;justify-content:space-between;align-items:center;">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.15);margin-bottom:.4rem;">Fiche pédagogique — Série « Grandes œuvres »</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.4);">L'Archéologie du Savoir · Michel Foucault · 1969</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.12);">À lire aussi dans la série</div>
+      <div style="font-family:'Libre Baskerville',serif;font-style:italic;font-size:.82rem;color:rgba(255,255,255,.2);margin-top:.3rem;">Dardot & Laval — La Nouvelle Raison du Monde</div>
+    </div>
+  </footer>
+
+</div><!-- end .main -->
+
+<!-- ═══ MODAL ═══ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-title">Résultats</div>
+    <div class="modal-score" id="modalScore">0/6</div>
+    <div class="modal-msg" id="modalMsg"></div>
+    <button class="modal-close" onclick="closeModal()">Recommencer le quiz →</button>
+  </div>
+</div>
+
+<script>
+/* ─── CURSOR ─── */
+const cur = document.getElementById('cur');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top  = e.clientY + 'px';
+});
+document.addEventListener('mouseover', e => {
+  if (e.target.closest('a,button,.concept-card,.qopt,.acc-head,.gi,.qi')) cur.classList.add('expand');
+  else cur.classList.remove('expand');
+});
+
+/* ─── PROGRESS ─── */
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const max = document.body.scrollHeight - window.innerHeight;
+  prog.style.transform = `scaleX(${window.scrollY / max})`;
+});
+
+/* ─── TIMELINE REVEAL ─── */
+const tlObs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('tl-visible'), i * 120);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.tl-item').forEach(el => tlObs.observe(el));
+
+/* ─── ACTIVE NAV ─── */
+const secs = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('.snav-a');
+const navo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('on'));
+      const a = document.querySelector(`.snav-a[href="#${e.target.id}"]`);
+      if (a) a.classList.add('on');
+    }
+  });
+}, { threshold: 0.3 });
+secs.forEach(s => navo.observe(s));
+
+/* ─── ACCORDION ─── */
+function toggleAcc(head) {
+  const item = head.parentElement;
+  const wasOpen = item.classList.contains('open');
+  item.parentElement.querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+/* ─── CONCEPT CARDS ─── */
+let openedConcepts = new Set();
+
+function toggleCard(card) {
+  const expand = card.querySelector('.cc-expand');
+  const toggle = card.querySelector('.cc-toggle');
+  const num = card.dataset.num;
+  const isOpen = expand.classList.contains('open');
+
+  expand.classList.toggle('open', !isOpen);
+  toggle.classList.toggle('open-arrow', !isOpen);
+  toggle.querySelector('span:last-child').textContent = isOpen ? 'Lire l\'analyse' : 'Réduire';
+
+  if (!isOpen) {
+    openedConcepts.add(num);
+    updateConceptCount();
+  }
+}
+
+function updateConceptCount() {
+  const count = openedConcepts.size;
+  document.getElementById('conceptCount').textContent = `${count}/7`;
+  document.getElementById('conceptFill').style.width = `${(count/7)*100}%`;
+}
+
+/* ─── QUIZ ─── */
+const quizData = [
+  {
+    q: "Selon Foucault, l'archéologie se distingue de l'histoire des idées principalement parce qu'elle :",
+    opts: [
+      "Recherche les origines et les fondateurs de chaque pensée",
+      "Décrit les régularités discursives anonymes, sans chercher de continuité ni de sujet fondateur",
+      "Analyse les influences entre les auteurs et les écoles de pensée",
+      "Reconstruit la vision du monde cohérente de chaque époque"
+    ],
+    correct: 1,
+    feedback: "Exact. L'archéologie foucaldienne refuse les trois grands postulats de l'histoire des idées : la continuité (elle souligne les ruptures), le sujet fondateur (elle décrit des régularités anonymes), et l'origine (elle ne cherche aucun fondement premier). Elle décrit des formations discursives — des systèmes de règles qui définissent les conditions d'existence des énoncés."
+  },
+  {
+    q: "La notion d'« énoncé » chez Foucault se distingue de la « phrase grammaticale » et de la « proposition logique » par le fait que :",
+    opts: [
+      "L'énoncé est plus court et plus simple que la phrase",
+      "L'énoncé est une unité de sens partagée par tous les locuteurs",
+      "L'énoncé est une fonction qui attribue à des signes un statut de réalité discursive historiquement situé",
+      "L'énoncé est défini par sa vérité ou sa fausseté"
+    ],
+    correct: 2,
+    feedback: "Précisément. C'est le grand apport du chapitre II. L'énoncé n'est ni syntaxique (phrase), ni logique (proposition), ni pragmatique au sens classique. C'est une fonction énonciative définie par quatre paramètres : un référentiel, une position de sujet (pas un individu empirique), un champ associé (rapport aux autres énoncés) et une matérialité (support, répétabilité). Ce qui donne à un ensemble de signes le statut d'« événement discursif »."
+  },
+  {
+    q: "L'« archive » telle que Foucault la définit dans L'Archéologie du savoir est :",
+    opts: [
+      "Le dépôt physique de documents anciens conservés dans une institution",
+      "L'ensemble des textes produits par une civilisation",
+      "Le système général de la formation et de la transformation des énoncés d'une époque",
+      "La mémoire collective d'une société transmise de génération en génération"
+    ],
+    correct: 2,
+    feedback: "Exactement. C'est l'une des redéfinitions les plus originales du livre. L'archive foucaldienne n'est pas un lieu ni une institution — c'est le système général qui régit l'apparition des énoncés comme événements singuliers. Elle définit ce qui peut être dit, comment les discours fonctionnent, ce qui persiste et ce qui disparaît. L'archéologue décrit cette archive depuis un entre-deux temporel : ni le passé trop lointain ni le présent trop proche."
+  },
+  {
+    q: "En quoi la notion d'« a priori historique » constitue-t-elle une rupture avec la philosophie kantienne ?",
+    opts: [
+      "Kant refusait toute forme d'a priori, tandis que Foucault l'accepte",
+      "Foucault remplace les conditions transcendantales et universelles par des conditions historiquement situées et contingentes",
+      "L'a priori historique est plus rigoureux que l'a priori kantien car il repose sur des faits",
+      "Kant et Foucault partagent la même conception de l'a priori — Foucault se contente d'historiciser"
+    ],
+    correct: 1,
+    feedback: "Parfait. C'est la transformation centrale. Kant posait un a priori universel et nécessaire — les formes pures de l'intuition (espace, temps) et les catégories de l'entendement valent pour tout sujet connaissant, en tout temps. Foucault reprend le geste (il y a bien des conditions de possibilité) mais les rend historiques, contingentes, transformables. Ce n'est plus la structure de la conscience qui définit les conditions de possibilité, mais les configurations historiques des pratiques discursives."
+  },
+  {
+    q: "Foucault distingue entre « savoir » (Wissen) et « connaissance » (Erkenntnis). Laquelle de ces propositions rend compte de cette distinction ?",
+    opts: [
+      "Le savoir est individuel et intuitif ; la connaissance est collective et institutionnelle",
+      "Le savoir désigne le corpus des connaissances vérifiées ; la connaissance désigne les pratiques discursives informelles",
+      "Le savoir désigne l'ensemble des pratiques discursives d'une époque qui définissent les objets possibles ; la connaissance est le savoir formalisé en discipline",
+      "Il n'y a aucune distinction — Foucault utilise les deux termes de manière interchangeable"
+    ],
+    correct: 2,
+    feedback: "Exact. Cette distinction est cruciale pour comprendre le projet archéologique. Le savoir (Wissen) est plus large et plus fondamental que la connaissance (Erkenntnis) : il désigne l'ensemble des conditions discursives qui définissent ce dont il est possible de parler, depuis quelles positions, avec quels concepts. Une discipline comme la psychiatrie ou l'économie politique « tient » sur un fond de savoir qui la précède et la rend possible. L'archéologie décrit ce fond de savoir."
+  },
+  {
+    q: "Pourquoi Foucault refuse-t-il d'être qualifié de « structuraliste » ?",
+    opts: [
+      "Il trouve le structuralisme trop mathématique et pas assez littéraire",
+      "Le structuralisme cherche des structures profondes universelles ; Foucault décrit des régularités historiques contingentes et transformables",
+      "Il préfère s'identifier au marxisme et à la philosophie de l'histoire",
+      "Il n'y a aucune différence réelle — le refus de Foucault est purement rhétorique"
+    ],
+    correct: 1,
+    feedback: "Précisément. C'est l'une des clarifications centrales de l'Archéologie du savoir. Le structuralisme (Lévi-Strauss, Lacan, Jakobson) cherche des structures profondes, inconscientes, souvent trans-historiques ou universelles — la grammaire profonde des mythes, les structures élémentaires de la parenté, l'inconscient structuré comme un langage. Foucault, lui, décrit des régularités historiquement situées, contingentes, spécifiques à une époque et un espace social. Elles n'ont rien d'universel et elles sont transformables — par là même, Foucault ouvre la voie à la politique."
+  }
+];
+
+let currentQ = 0, score = 0, answered = false;
+
+function renderQuestion() {
+  const q = quizData[currentQ];
+  document.getElementById('qNum').textContent = currentQ + 1;
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('qFeedback').className = 'quiz-feedback';
+  document.getElementById('qFeedback').textContent = '';
+  document.getElementById('qNext').disabled = true;
+  document.getElementById('qStatus').textContent = 'Sélectionnez une réponse';
+  answered = false;
+
+  const pct = (currentQ / quizData.length) * 100;
+  document.getElementById('quizProgressFill').style.width = pct + '%';
+
+  const opts = document.getElementById('qOptions');
+  opts.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'qopt';
+    btn.innerHTML = `<span>${opt}</span>`;
+    btn.onclick = () => selectAnswer(i, btn);
+    opts.appendChild(btn);
+  });
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = quizData[currentQ];
+  const opts = document.querySelectorAll('.qopt');
+
+  opts.forEach((o, i) => {
+    if (i === q.correct) o.classList.add('correct');
+    else if (i === idx && i !== q.correct) o.classList.add('wrong');
+    else o.classList.add('reveal');
+  });
+
+  const fb = document.getElementById('qFeedback');
+  fb.textContent = q.feedback;
+  fb.classList.add('show');
+
+  if (idx === q.correct) {
+    score++;
+    document.getElementById('scoreDisplay').textContent = score;
+    document.getElementById('qStatus').textContent = '✓ Bonne réponse';
+  } else {
+    document.getElementById('qStatus').textContent = '✗ Réponse incorrecte';
+  }
+
+  document.getElementById('qNext').disabled = false;
+
+  const pct = Math.round((score / quizData.length) * 100);
+  document.getElementById('sidebarScore').textContent = `${score}/${quizData.length}`;
+  document.getElementById('sidebarFill').style.width = pct + '%';
+
+  if (currentQ === quizData.length - 1) {
+    document.getElementById('qNext').textContent = 'Voir mon score →';
+  }
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= quizData.length) { showModal(); return; }
+  renderQuestion();
+}
+
+function showModal() {
+  const msgs = [
+    [0,1, "Prenez le temps de relire la thèse centrale et les définitions de l'énoncé et de la formation discursive. Le cœur conceptuel reste à découvrir."],
+    [2,3, "Quelques notions restent floues. Revenez sur la distinction archive / a priori historique et sur la différence avec le structuralisme."],
+    [4,4, "Bonne compréhension générale. Approfondissez la distinction savoir/connaissance et la question du sujet."],
+    [5,5, "Très solide. Vous saisissez bien l'articulation entre formation discursive, archive et a priori historique."],
+    [6,6, "Maîtrise remarquable. Vous pouvez désormais mobiliser ces concepts dans l'analyse de discours contemporains."]
+  ];
+  const msg = msgs.find(m => score >= m[0] && score <= m[1]);
+  document.getElementById('modalScore').textContent = `${score}/6`;
+  document.getElementById('modalMsg').textContent = msg ? msg[2] : '';
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+  currentQ = 0; score = 0; answered = false;
+  document.getElementById('scoreDisplay').textContent = '0';
+  document.getElementById('quizProgressFill').style.width = '0%';
+  document.getElementById('qNext').textContent = 'Question suivante →';
+  renderQuestion();
+}
+
+renderQuestion();
+
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('sidebarFill').style.width = '0%';
+    document.getElementById('conceptFill').style.width = '0%';
+  }, 500);
+});
+</script>
+</body>
+</html>

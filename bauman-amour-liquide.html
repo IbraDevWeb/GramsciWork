@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'Amour liquide — Zygmunt Bauman</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN SYSTEM — Modernité liquide
+   Palette : eau / nacre / corail / encre
+   ═══════════════════════════════════════════ */
+:root {
+  --nacre:  #f2f5f9;
+  --nacre2: #e6ecf4;
+  --nacre3: #d8e2ee;
+  --ink:    #0e1520;
+  --ink2:   #16202e;
+  --coral:  #d84060;
+  --coral2: #b02848;
+  --coral-pale: #fce8ec;
+  --aqua:   #1872b0;
+  --aqua2:  #0e5888;
+  --aqua-pale: #dceef8;
+  --foam:   #5aaad0;
+  --mist:   #8090a8;
+  --rule:   #c4cedc;
+  --sidebar: 270px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--nacre);
+  color:var(--ink);
+  font-family:'DM Serif Display',serif;
+  font-size:17px;
+  line-height:1.78;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ─── CURSOR ─── */
+#cur{
+  width:16px;height:16px;
+  border-radius:50%;
+  border:2px solid var(--aqua);
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width .3s,height .3s,background .3s,border-color .3s,border-radius .3s;
+}
+#cur.expand{width:44px;height:44px;background:rgba(24,114,176,.07);border-color:var(--coral);border-radius:50%;}
+
+/* ─── PROGRESS ─── */
+#prog{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--aqua),var(--coral),var(--foam));transform-origin:left;transform:scaleX(0);z-index:1002;transition:transform .08s linear;}
+
+/* ═══ SIDEBAR ═══ */
+.snav{
+  position:fixed;left:0;top:0;bottom:0;
+  width:var(--sidebar);
+  background:var(--ink2);
+  z-index:100;
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+  scrollbar-width:thin;
+  scrollbar-color:var(--aqua) transparent;
+}
+
+.snav-brand{
+  padding:2rem 1.8rem 1.8rem;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  position:relative;overflow:hidden;
+}
+
+/* Vague décorative */
+.snav-brand::after{
+  content:'';
+  position:absolute;bottom:-10px;left:0;right:0;height:30px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 20'%3E%3Cpath d='M0,10 C50,0 100,20 200,10 C300,0 350,20 400,10 L400,20 L0,20 Z' fill='rgba(24,114,176,0.1)'/%3E%3C/svg%3E");
+  background-size:200px 20px;
+  pointer-events:none;
+}
+
+.snav-kicker{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--foam);margin-bottom:.8rem;
+  position:relative;z-index:1;
+}
+
+.snav-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.45rem;font-weight:800;line-height:1;
+  color:#fff;letter-spacing:.02em;text-transform:uppercase;
+  position:relative;z-index:1;
+}
+
+.snav-authors{
+  font-family:'DM Serif Display',serif;
+  font-style:italic;font-size:.78rem;
+  color:rgba(255,255,255,.35);margin-top:.4rem;
+  position:relative;z-index:1;
+}
+
+.snav-year{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;color:var(--coral);
+  letter-spacing:.1em;margin-top:.5rem;
+  position:relative;z-index:1;
+}
+
+.snav-lbl{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.18);
+  padding:.9rem 1.8rem .3rem;
+}
+
+.snav-a{
+  display:flex;align-items:center;gap:.7rem;
+  padding:.42rem 1.8rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.8rem;font-weight:500;letter-spacing:.04em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.38);
+  text-decoration:none;
+  border-left:2px solid transparent;
+  transition:all .2s;
+}
+.snav-a:hover{color:rgba(255,255,255,.85);border-left-color:var(--foam);padding-left:2.1rem;}
+.snav-a.on{color:#fff;border-left-color:var(--coral);background:rgba(216,64,96,.08);}
+
+.snav-bullet{
+  width:6px;height:6px;border-radius:50%;
+  background:currentColor;opacity:.4;flex-shrink:0;
+}
+
+.snav-div{height:1px;background:rgba(255,255,255,.04);margin:.6rem 1.8rem;}
+
+.snav-score{
+  margin-top:auto;padding:1.5rem 1.8rem;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+
+.snav-score-title{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:.8rem;}
+.score-bar{height:4px;background:rgba(255,255,255,.06);margin:.5rem 0;overflow:hidden;border-radius:2px;}
+.score-fill{height:100%;border-radius:2px;transition:width 1.5s cubic-bezier(.16,1,.3,1);}
+.score-label{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.1em;color:rgba(255,255,255,.25);margin-bottom:.2rem;}
+
+/* ═══ MAIN ═══ */
+.main{margin-left:var(--sidebar);}
+
+/* ═══ HERO ═══ */
+.hero{
+  min-height:100vh;
+  background:var(--ink2);
+  color:#fff;
+  padding:5rem 6rem 4rem;
+  position:relative;overflow:hidden;
+  display:grid;grid-template-rows:1fr auto;
+}
+
+/* Vague de fond liquide */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 80%, rgba(24,114,176,.15) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 20% 30%, rgba(90,170,208,.08) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+.hero-wave{
+  position:absolute;bottom:0;left:0;right:0;
+  height:80px;overflow:hidden;pointer-events:none;
+}
+
+.hero-wave svg{
+  position:absolute;bottom:0;width:100%;
+}
+
+.hero-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--foam);margin-bottom:2.5rem;
+  opacity:0;animation:fadeUp .7s ease forwards .1s;
+  position:relative;z-index:1;
+}
+
+.hero-h1{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(3rem,6.5vw,8.5rem);
+  font-weight:900;line-height:.88;
+  letter-spacing:-.01em;text-transform:uppercase;
+  opacity:0;animation:fadeUp .9s ease forwards .25s;
+  position:relative;z-index:1;
+}
+.hero-h1 .line-pre{display:block;color:rgba(255,255,255,.22);font-size:.38em;letter-spacing:.14em;font-weight:400;margin-bottom:.5rem;}
+.hero-h1 .line1{display:block;color:#fff;}
+.hero-h1 .line2{display:block;color:var(--coral);}
+
+.hero-rule{
+  width:120px;height:3px;
+  background:linear-gradient(90deg,var(--aqua),var(--coral),var(--foam));
+  margin:2.5rem 0 2rem;
+  opacity:0;animation:fadeUp .7s ease forwards .5s;
+  position:relative;z-index:1;
+}
+
+.hero-sub{
+  max-width:680px;
+  font-size:1.02rem;font-weight:400;font-style:italic;
+  color:rgba(255,255,255,.55);line-height:1.88;
+  opacity:0;animation:fadeUp .8s ease forwards .4s;
+  position:relative;z-index:1;
+}
+.hero-sub strong{color:#fff;font-style:normal;}
+
+.hero-chips{
+  display:flex;flex-wrap:wrap;gap:.6rem;
+  margin-top:2rem;
+  opacity:0;animation:fadeUp .7s ease forwards .7s;
+  position:relative;z-index:1;
+}
+
+.chip{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;padding:.28rem .8rem;border:1px solid;border-radius:20px;}
+.chip-coral{color:var(--coral);border-color:rgba(216,64,96,.45);background:rgba(216,64,96,.08);}
+.chip-aqua {color:var(--foam);border-color:rgba(90,170,208,.45);background:rgba(90,170,208,.08);}
+.chip-mist {color:rgba(255,255,255,.45);border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.04);}
+
+.hero-bottom{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  padding-top:3rem;border-top:1px solid rgba(255,255,255,.07);
+  opacity:0;animation:fadeUp .7s ease forwards .9s;
+  position:relative;z-index:1;
+}
+.hb-label{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.4rem;}
+.hb-names{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff;line-height:1.1;}
+.hb-names span{color:var(--foam);}
+
+.hero-thesis{
+  text-align:right;max-width:420px;
+  font-family:'DM Serif Display',serif;
+  font-style:italic;font-size:.92rem;
+  color:rgba(255,255,255,.42);line-height:1.72;
+}
+.hero-thesis cite{display:block;margin-top:.5rem;font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:var(--coral);}
+
+/* ═══ GENERIC SECTION ═══ */
+.sec{padding:5.5rem 6rem;border-bottom:1px solid var(--rule);}
+.sec.alt{background:var(--nacre2);}
+.sec.dark{background:var(--ink2);color:#fff;}
+.sec.aqua-bg{background:#0a2840;color:#fff;}
+.sec.coral-bg{background:#2a0c14;color:#fff;}
+
+.sec-eyebrow{display:flex;align-items:center;gap:1.2rem;margin-bottom:3rem;}
+
+.sec-num{
+  font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--aqua2);background:var(--aqua-pale);
+  padding:.28rem .75rem;border-radius:12px;
+}
+.dark .sec-num,.aqua-bg .sec-num,.coral-bg .sec-num{background:rgba(24,114,176,.2);color:var(--foam);}
+
+.sec-h2{font-family:'Barlow Condensed',sans-serif;font-size:2.6rem;font-weight:800;letter-spacing:.01em;text-transform:uppercase;line-height:1;}
+.sec-h2 em{color:var(--coral);font-style:normal;}
+.dark .sec-h2,.aqua-bg .sec-h2,.coral-bg .sec-h2{color:#fff;}
+.dark .sec-h2 em,.aqua-bg .sec-h2 em,.coral-bg .sec-h2 em{color:var(--foam);}
+
+/* ═══ CONCEPT CARDS ═══ */
+.concept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(0,0,0,.08);border:1px solid rgba(0,0,0,.08);margin-top:1rem;border-radius:4px;overflow:hidden;}
+.concept-card{background:var(--nacre);padding:2.2rem;position:relative;overflow:hidden;cursor:pointer;transition:background .3s;}
+.alt .concept-card{background:var(--nacre2);}
+.concept-card::after{content:attr(data-num);position:absolute;right:.8rem;bottom:-1rem;font-family:'Barlow Condensed',sans-serif;font-size:7rem;font-weight:900;color:rgba(24,114,176,.06);line-height:1;pointer-events:none;}
+.concept-card:hover{background:var(--aqua-pale);}
+
+.cc-tag{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--aqua2);display:block;margin-bottom:.5rem;}
+.cc-title{font-family:'Barlow Condensed',sans-serif;font-size:1.45rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;line-height:1.1;margin-bottom:.7rem;}
+.cc-short{font-size:.88rem;color:var(--mist);line-height:1.72;}
+.cc-expand{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1),opacity .4s ease,padding .4s ease;opacity:0;}
+.cc-expand.open { max-height: 2000px; opacity: 1; padding-top: 1rem; }
+.cc-expand-body{font-size:.85rem;color:var(--ink);line-height:1.82;border-top:1px solid var(--rule);padding-top:1rem;}
+.cc-expand-body p{margin-bottom:.7rem;}
+.cc-expand-body p:last-child{margin-bottom:0;}
+.cc-expand-body strong{color:var(--coral2);font-weight:600;}
+.cc-today{margin-top:.8rem;padding:.8rem 1rem;background:var(--aqua-pale);border-left:2px solid var(--aqua);font-size:.8rem;font-style:italic;color:var(--ink2);line-height:1.6;}
+.cc-today::before{content:'Résonances → ';font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;color:var(--aqua2);display:block;margin-bottom:.2rem;}
+.cc-toggle{display:flex;align-items:center;gap:.5rem;margin-top:1rem;font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--aqua2);cursor:pointer;transition:color .2s;}
+.cc-arrow{width:16px;height:16px;border:1px solid var(--aqua2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;transition:transform .3s;}
+.open-arrow .cc-arrow{transform:rotate(180deg);}
+
+/* ═══ ACCORDION ═══ */
+.accordion{margin-top:1.5rem;}
+.acc-item{border-bottom:1px solid var(--rule);overflow:hidden;}
+.dark .acc-item,.aqua-bg .acc-item,.coral-bg .acc-item{border-color:rgba(255,255,255,.08);}
+.acc-head{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 0;cursor:pointer;transition:color .2s;user-select:none;}
+.acc-head:hover .acc-title{color:var(--coral);}
+.dark .acc-head:hover .acc-title,.aqua-bg .acc-head:hover .acc-title,.coral-bg .acc-head:hover .acc-title{color:var(--foam);}
+.acc-title{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;transition:color .2s;}
+.dark .acc-title,.aqua-bg .acc-title,.coral-bg .acc-title{color:#fff;}
+.acc-icon{width:28px;height:28px;border:1px solid var(--rule);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;color:var(--aqua);}
+.dark .acc-icon,.aqua-bg .acc-icon,.coral-bg .acc-icon{border-color:rgba(255,255,255,.12);color:var(--foam);}
+.acc-item.open .acc-icon{transform:rotate(45deg);background:var(--coral);color:#fff;border-color:var(--coral);}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1);}
+.acc-item.open .acc-body{max-height:1200px;}
+.acc-inner{padding:0 0 2rem;font-size:.9rem;color:#2a3848;line-height:1.88;}
+.dark .acc-inner,.aqua-bg .acc-inner,.coral-bg .acc-inner{color:rgba(255,255,255,.65);}
+.acc-inner p{margin-bottom:.9rem;}.acc-inner p:last-child{margin-bottom:0;}
+.acc-inner strong{color:var(--ink);font-weight:600;}
+.dark .acc-inner strong,.aqua-bg .acc-inner strong,.coral-bg .acc-inner strong{color:#fff;}
+.acc-inner em{font-style:italic;color:var(--aqua2);}
+.dark .acc-inner em,.aqua-bg .acc-inner em,.coral-bg .acc-inner em{color:var(--foam);}
+
+/* ═══ PULL QUOTES ═══ */
+.pq{padding:3rem 4rem;margin:3rem 0;position:relative;overflow:hidden;border-radius:4px;}
+.pq.aqua{background:var(--aqua2);color:#fff;}
+.pq.coral{background:var(--coral2);color:#fff;}
+.pq.deep{background:var(--ink2);color:#fff;border-left:4px solid var(--foam);}
+.pq::before{content:'\201C';position:absolute;top:-2rem;left:2rem;font-family:'DM Serif Display',serif;font-size:14rem;line-height:1;opacity:.08;pointer-events:none;color:#fff;}
+.pq p{font-family:'DM Serif Display',serif;font-size:1.32rem;font-style:italic;font-weight:400;line-height:1.68;position:relative;z-index:1;}
+.pq cite{display:block;margin-top:1.2rem;font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;font-style:normal;color:rgba(255,255,255,.4);}
+.pq.deep cite{color:var(--foam);}
+
+/* ═══ COMPARAISON ═══ */
+.compare-sec{margin-top:2rem;}
+.compare-row{display:grid;grid-template-columns:1fr 80px 1fr;gap:1rem;align-items:center;padding:1rem 0;border-bottom:1px solid var(--rule);}
+.cr-label-l,.cr-label-r{font-size:.88rem;color:#2a3848;line-height:1.55;}
+.cr-label-r{text-align:right;}
+.cr-mid{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mist);text-align:center;line-height:1.3;}
+.compare-header{display:grid;grid-template-columns:1fr 80px 1fr;gap:1rem;padding-bottom:1rem;border-bottom:2px solid var(--rule);margin-bottom:.5rem;}
+.ch-title{font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+.ch-title.solide{color:var(--aqua);}
+.ch-title.liquide{color:var(--coral);text-align:right;}
+
+/* ═══ GLOSSAIRE ═══ */
+.glos-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--rule);border:1px solid var(--rule);border-radius:4px;overflow:hidden;}
+.gi{background:var(--nacre);padding:2rem 2.5rem;position:relative;overflow:hidden;transition:background .3s;}
+.alt .gi{background:var(--nacre2);}
+.gi:hover{background:var(--aqua-pale);}
+.gi::after{content:attr(data-g);position:absolute;right:1rem;bottom:-1rem;font-family:'Barlow Condensed',sans-serif;font-size:8rem;font-weight:900;color:rgba(24,114,176,.05);line-height:1;pointer-events:none;}
+.gi-src{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--coral2);display:block;margin-bottom:.3rem;}
+.gi-term{font-family:'Barlow Condensed',sans-serif;font-size:1.55rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;margin-bottom:.6rem;line-height:1.1;}
+.gi-def{font-size:.88rem;color:#2a3848;line-height:1.78;margin-bottom:.7rem;}
+.gi-now{padding:.65rem 1rem;background:rgba(24,114,176,.1);border-left:2px solid var(--aqua);font-style:italic;font-size:.8rem;color:var(--ink2);line-height:1.6;}
+.gi-now::before{content:'Aujourd\'hui → ';font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;color:var(--aqua2);display:block;margin-bottom:.2rem;}
+
+/* ═══ TIMELINE ═══ */
+.timeline-container{position:relative;padding-left:3rem;margin-top:2rem;}
+.timeline-container::before{content:'';position:absolute;left:14px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--aqua),var(--coral),var(--mist));}
+.tl-item{position:relative;margin-bottom:2.5rem;opacity:0;transform:translateX(-20px);transition:opacity .6s ease,transform .6s ease;}
+.tl-item.tl-visible{opacity:1;transform:none;}
+.tl-dot{position:absolute;left:-2.75rem;top:.35rem;width:16px;height:16px;border-radius:50%;border:2px solid var(--aqua);background:var(--nacre);transition:transform .3s,background .3s;}
+.alt .tl-dot{background:var(--nacre2);}
+.tl-item:hover .tl-dot{transform:scale(1.4);background:var(--coral);}
+.tl-dot.coral{border-color:var(--coral);}
+.tl-dot.mist{border-color:var(--mist);}
+.tl-year{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mist);margin-bottom:.3rem;}
+.tl-title{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:.4rem;}
+.tl-body{font-size:.88rem;color:var(--mist);line-height:1.78;}
+.tl-body strong{color:var(--ink);font-weight:600;}
+
+/* ═══ DIALECTIQUE ═══ */
+.dial{display:grid;grid-template-columns:1fr 60px 1fr;gap:1rem;margin-top:2rem;align-items:center;}
+.dial-side{padding:2rem;position:relative;border-radius:4px;}
+.dial-side.sol{background:var(--aqua-pale);border:1px solid rgba(24,114,176,.25);}
+.dial-side.liq{background:var(--coral-pale);border:1px solid rgba(216,64,96,.25);}
+.dial-tag{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:.5rem;}
+.dial-tag.sol{color:var(--aqua2);}
+.dial-tag.liq{color:var(--coral2);}
+.dial-title{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.8rem;}
+.dial-title.sol{color:var(--aqua2);}
+.dial-title.liq{color:var(--coral2);}
+.dial-body{font-size:.86rem;color:var(--ink);line-height:1.72;}
+.dial-body li{margin-bottom:.4rem;padding-left:1rem;position:relative;}
+.dial-body li::before{content:'—';position:absolute;left:0;color:var(--mist);}
+.dial-center{text-align:center;}
+.dial-vs{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:900;color:var(--mist);}
+
+/* ═══ STRATE ═══ */
+.strates-row{display:flex;gap:0;margin-top:1.5rem;border:1px solid var(--rule);overflow:hidden;border-radius:4px;}
+.strate{flex:1;padding:1.2rem 1.5rem;position:relative;border-right:1px solid var(--rule);transition:background .3s;}
+.strate:last-child{border-right:none;}
+.strate:hover{background:var(--aqua-pale);}
+.strate-label{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mist);margin-bottom:.4rem;}
+.strate-name{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);line-height:1.2;}
+.strate-color{position:absolute;bottom:0;left:0;right:0;height:3px;}
+
+/* ═══ QUIZ ═══ */
+.quiz-wrap{background:var(--ink2);color:#fff;padding:4rem 5rem;margin-top:2rem;position:relative;overflow:hidden;border-radius:4px;}
+.quiz-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--aqua),var(--coral),var(--foam),var(--coral));}
+.quiz-title{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--foam);margin-bottom:.4rem;}
+.quiz-meta{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:2rem;}
+.quiz-progress-bar{height:3px;background:rgba(255,255,255,.1);margin-bottom:2.5rem;overflow:hidden;border-radius:2px;}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--aqua),var(--coral));transition:width .5s ease;}
+.quiz-question{font-family:'DM Serif Display',serif;font-size:1.2rem;font-style:italic;color:#fff;line-height:1.62;margin-bottom:2rem;}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.qopt{padding:1.2rem 1.5rem;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.02);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:500;letter-spacing:.04em;color:rgba(255,255,255,.7);text-transform:uppercase;transition:all .2s;text-align:left;position:relative;overflow:hidden;border-radius:2px;}
+.qopt::before{content:'';position:absolute;inset:0;background:var(--coral2);transform:scaleX(0);transform-origin:left;transition:transform .3s ease;z-index:0;}
+.qopt:hover{color:#fff;border-color:var(--coral);}
+.qopt:hover::before{transform:scaleX(1);}
+.qopt span{position:relative;z-index:1;}
+.qopt.correct{background:rgba(24,114,176,.3);border-color:var(--aqua);color:#80c8f0;}
+.qopt.wrong  {background:rgba(216,64,96,.25);border-color:var(--coral);color:#f090a8;}
+.qopt.reveal {background:rgba(24,114,176,.15);border-color:var(--aqua);color:#80c8f0;}
+.quiz-feedback{margin-top:1.5rem;padding:1.2rem 1.5rem;background:rgba(255,255,255,.04);border-left:3px solid var(--foam);font-size:.9rem;color:rgba(255,255,255,.7);line-height:1.72;display:none;}
+.quiz-feedback.show{display:block;}
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;}
+.quiz-btn{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.7rem 2rem;border:none;background:var(--aqua2);color:#fff;cursor:pointer;transition:background .2s;border-radius:2px;}
+.quiz-btn:hover{background:var(--aqua);}
+.quiz-btn:disabled{opacity:.3;cursor:not-allowed;}
+.quiz-counter{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:rgba(255,255,255,.3);}
+.quiz-status{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:rgba(255,255,255,.35);}
+
+/* ═══ RÉFLEXION ═══ */
+.qstack{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);border-radius:4px;overflow:hidden;margin-top:1.5rem;}
+.qi{background:rgba(255,255,255,.02);padding:2rem 2.5rem;display:grid;grid-template-columns:60px 1fr;gap:1.5rem;align-items:start;transition:background .3s;border-left:3px solid transparent;}
+.qi:hover{background:rgba(90,170,208,.07);border-left-color:var(--foam);}
+.qi-n{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--foam);padding-top:.2rem;}
+.qi-t{font-family:'DM Serif Display',serif;font-size:1.05rem;font-style:italic;color:#fff;line-height:1.72;margin-bottom:.5rem;}
+.qi-hint{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:rgba(255,255,255,.28);line-height:1.65;}
+.qi-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem;}
+.qi-tag{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(90,170,208,.3);color:var(--foam);padding:.18rem .55rem;border-radius:10px;}
+
+/* ═══ MODAL ═══ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;}
+.modal-overlay.show{opacity:1;pointer-events:all;}
+.modal{background:var(--ink2);color:#fff;padding:4rem;max-width:560px;width:90%;position:relative;border-top:4px solid var(--coral);border-radius:4px;}
+.modal-title{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:900;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem;}
+.modal-score{font-family:'Barlow Condensed',sans-serif;font-size:5rem;font-weight:900;color:var(--foam);line-height:1;margin:1.5rem 0;}
+.modal-msg{font-style:italic;color:rgba(255,255,255,.6);line-height:1.72;margin-bottom:2rem;}
+.modal-close{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.7rem 2rem;border:none;background:var(--coral2);color:#fff;cursor:pointer;border-radius:2px;}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes flow{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
+  :root{--sidebar:0px}.snav{display:none}.main{margin-left:0}
+  .hero{padding:3rem 2rem 3rem}.sec{padding:3.5rem 2rem}
+  .concept-grid{grid-template-columns:1fr}.glos-grid{grid-template-columns:1fr}
+  .quiz-options{grid-template-columns:1fr}.pq{padding:2rem}
+  .dial{grid-template-columns:1fr}.dial-center{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="prog"></div>
+
+<!-- ═══════════════════ SIDEBAR ═══════════════════ -->
+<nav class="snav">
+  <div class="snav-brand">
+    <div class="snav-kicker">Fiche de lecture</div>
+    <div class="snav-title">L'Amour<br>Liquide</div>
+    <div class="snav-authors">Zygmunt Bauman</div>
+    <div class="snav-year">Liquid Love · 2003 · Le Rouergue/Chambon</div>
+  </div>
+  <div class="snav-lbl">Navigation</div>
+  <a href="#contexte" class="snav-a"><span class="snav-bullet"></span>Contexte &amp; œuvre</a>
+  <a href="#these" class="snav-a"><span class="snav-bullet"></span>Thèse centrale</a>
+  <a href="#structure" class="snav-a"><span class="snav-bullet"></span>Structure du livre</a>
+  <a href="#concepts" class="snav-a"><span class="snav-bullet"></span>Concepts clés</a>
+  <a href="#dialectique" class="snav-a"><span class="snav-bullet"></span>Solide vs liquide</a>
+  <a href="#relations" class="snav-a"><span class="snav-bullet"></span>Relations vs connexions</a>
+  <a href="#glossaire" class="snav-a"><span class="snav-bullet"></span>Glossaire</a>
+  <a href="#schema" class="snav-a"><span class="snav-bullet"></span>Schéma conceptuel</a>
+  <a href="#quiz" class="snav-a"><span class="snav-bullet"></span>Quiz interactif</a>
+  <a href="#reflexion" class="snav-a"><span class="snav-bullet"></span>Questions de réflexion</a>
+  <div class="snav-div"></div>
+  <div class="snav-lbl">Progression</div>
+  <div class="snav-score">
+    <div class="snav-score-title">Quiz — score actuel</div>
+    <div class="score-label"><span>Score</span><span id="sidebarScore">0/6</span></div>
+    <div class="score-bar"><div class="score-fill" id="sidebarFill" style="background:var(--foam);width:0%"></div></div>
+    <div class="score-label"><span>Concepts explorés</span><span id="conceptCount">0/7</span></div>
+    <div class="score-bar"><div class="score-fill" id="conceptFill" style="background:var(--coral);width:0%"></div></div>
+  </div>
+</nav>
+
+<!-- ═══════════════════ MAIN ═══════════════════ -->
+<div class="main">
+
+  <!-- ─── HERO ─── -->
+  <section class="hero" id="top">
+    <div class="hero-wave">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path d="M0,40 C200,70 400,10 600,40 C800,70 1000,10 1200,40 C1320,58 1380,45 1440,40 L1440,80 L0,80 Z" fill="rgba(18,32,46,0.8)"/>
+        <path d="M0,55 C180,30 360,75 540,55 C720,35 900,70 1080,55 C1200,44 1340,60 1440,55 L1440,80 L0,80 Z" fill="#0e1520" opacity=".9"/>
+      </svg>
+    </div>
+    <div>
+      <div class="hero-tag">Fiche pédagogique · Sociologie · Philosophie sociale · Série « Grandes œuvres »</div>
+      <h1 class="hero-h1">
+        <span class="line-pre">Zygmunt Bauman · 2003</span>
+        <span class="line1">L'Amour</span>
+        <span class="line2">Liquide</span>
+      </h1>
+      <div class="hero-rule"></div>
+      <p class="hero-sub">
+        <strong>Pourquoi les relations humaines sont-elles devenues aussi fragiles, instables, consumables ?</strong><br>
+        Dans notre époque de <em>modernité liquide</em>, les liens entre les hommes se font et se défont à la vitesse d'un clic. L'amour se consomme comme une marchandise, la communauté n'est qu'une « communion d'événements », et nous vivons dans l'angoisse permanente d'une double impasse : la solitude nous terrifie, mais l'engagement nous étouffe. Bauman démonte cette ambivalence fondamentale.
+      </p>
+      <div class="hero-chips">
+        <span class="chip chip-coral">Modernité liquide</span>
+        <span class="chip chip-aqua">Fragilité des liens</span>
+        <span class="chip chip-mist">Société de consommation</span>
+        <span class="chip chip-coral">Liberté vs sécurité</span>
+        <span class="chip chip-aqua">Relations de poche</span>
+        <span class="chip chip-mist">Homo consumens</span>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <div>
+        <div class="hb-label">Auteur</div>
+        <div class="hb-names">Zygmunt <span>Bauman</span></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.12em;color:rgba(255,255,255,.3);margin-top:.4rem;">Poznań 1925 — Leeds 2017 · Liquid Love, Polity Press, 2003 · trad. fr. Le Rouergue/Chambon, 2004</div>
+      </div>
+      <div class="hero-thesis">
+        « Non reliés, les gens doivent se connecter… Rien ne certifie néanmoins qu'aucun des liens qui viennent combler le vide laissé par les liens absents ne durera. »
+        <cite>— L'Amour liquide, Avant-propos</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTEXTE ─── -->
+  <section class="sec" id="contexte">
+    <div class="sec-eyebrow"><span class="sec-num">§ 01</span><h2 class="sec-h2">Contexte <em>&amp;</em> Œuvre</h2></div>
+    <div style="max-width:820px;">
+      <p style="margin-bottom:1.5rem;">Zygmunt Bauman est l'un des sociologues les plus lus et les plus traduits du tournant du XXIe siècle. Né en Pologne en 1925, juif, il fuit le nazisme, combat dans l'armée polonaise, puis devient professeur de sociologie à Varsovie avant d'être contraint à l'exil en 1968, lors des purges antisémites du régime communiste. Il s'installe en Grande-Bretagne, à l'université de Leeds, où il produira son œuvre majeure.</p>
+      <p style="margin-bottom:2.5rem;"><em>L'Amour liquide</em> (2003) s'inscrit dans un cycle de livres sur la <strong>modernité liquide</strong> qu'il inaugure avec <em>Liquid Modernity</em> (2000). La métaphore du liquide — ce qui ne garde pas sa forme, coule, s'adapte, ne se fixe pas — devient chez Bauman la grille d'analyse centrale de notre époque. Là où la modernité <em>solide</em> construisait des institutions stables (famille, État, travail à vie, classe sociale), la modernité <em>liquide</em> dissout ces structures et laisse les individus flotter dans une incertitude permanente.</p>
+      <div class="timeline-container">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">1925 — Poznań (Pologne)</div>
+          <div class="tl-title">Naissance</div>
+          <div class="tl-body">Bauman naît dans une famille juive modeste. Sa vie sera marquée par les grands cataclysmes du XXe siècle : nazisme, communisme, exil, racisme. <strong>Cette expérience personnelle de la précarité</strong> nourrit profondément sa pensée sur la fragilité des identités et des liens.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot coral"></div>
+          <div class="tl-year">1968 — Exil</div>
+          <div class="tl-title">Expulsion de Pologne</div>
+          <div class="tl-body">Lors des purges antisémites du régime Gomułka, Bauman perd sa chaire, est contraint de remettre son passeport et d'émigrer. Il s'installe finalement en Grande-Bretagne. <strong>Ce statut d'apatride, de réfugié</strong> — qu'il analysera comme figure paradigmatique de la modernité liquide — est d'abord sa propre expérience.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">1989 — Modernity and the Holocaust</div>
+          <div class="tl-title">Première grande œuvre internationale</div>
+          <div class="tl-body">Bauman y argumente que l'Holocauste n'est pas une <em>aberration</em> de la modernité mais son <strong>produit logique</strong> : la rationalité bureaucratique, la déshumanisation, l'efficacité industrielle sont les instruments ordinaires de la modernité appliqués à la destruction.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot coral"></div>
+          <div class="tl-year">2000 — Liquid Modernity</div>
+          <div class="tl-title">Le tournant : la métaphore du liquide</div>
+          <div class="tl-body">Bauman forge sa grille d'analyse principale : la <em>modernité solide</em> (fordisme, État-providence, classe ouvrière stable, famille patriarcale) est remplacée par une <strong>modernité liquide</strong> — mobile, flexible, déréglementée — où toutes les formes sociales se dissolvent avant de se solidifier.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot mist"></div>
+          <div class="tl-year">2003 — Liquid Love</div>
+          <div class="tl-title">L'Amour liquide</div>
+          <div class="tl-body">Bauman applique sa grille à la sphère intime : amour, désir, relations de couple, communauté, espace urbain, réfugiés. <strong>Les liens entre les hommes sont devenus aussi liquides que les structures sociales</strong> — utiles et jetables, désirables et effrayants à la fois.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot coral"></div>
+          <div class="tl-year">2017 — Leeds</div>
+          <div class="tl-title">Mort à 91 ans</div>
+          <div class="tl-body">Bauman meurt en pleine vague de réfugiés syriens, de montée des nationalismes et d'une numérisation effrénée des relations humaines — comme si l'histoire lui donnait, chaque année, de nouveaux matériaux pour confirmer ses analyses.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── THÈSE ─── -->
+  <section class="sec alt" id="these">
+    <div class="sec-eyebrow"><span class="sec-num">§ 02</span><h2 class="sec-h2">Thèse <em>Centrale</em></h2></div>
+    <div style="max-width:820px;margin-bottom:2.5rem;">
+      <p style="margin-bottom:1.5rem;">La thèse centrale de Bauman peut se formuler en une tension irrésoluble : dans la modernité liquide, les êtres humains sont condamnés à vouloir simultanément deux choses <strong>incompatibles</strong> — la sécurité des liens durables et la liberté de se désengager à tout moment. Cette tension produit une <em>ambivalence fondamentale</em> qui caractérise toutes les relations humaines contemporaines.</p>
+      <p style="margin-bottom:1.5rem;">D'un côté, nous souffrons de solitude et aspirons à la connexion, à la reconnaissance, à l'appartenance. De l'autre, nous craignons l'engagement, la dépendance, la perte de liberté. La société de consommation — qui a fait du <em>désengagement à la demande</em> une valeur suprême et de la <em>jetabilité</em> une norme — est la structure sociale qui produit et entretient cette ambivalence.</p>
+      <p>Le résultat : nous ne nous engageons plus dans des <strong>relations</strong> (durables, risquées, exigeantes) mais dans des <strong>connexions</strong> (instantanées, réversibles, confortables). L'amour lui-même devient un bien de consommation : attirant avant l'achat, décevant après, remplaçable sans délai.</p>
+    </div>
+
+    <div class="pq deep">
+      <p>« Trop de liberté sans sécurité est chose aussi terrifiante que trop de sécurité sans liberté. Ce dilemme est la condition permanente de notre modernité liquide — et sa résolution est impossible par définition. »</p>
+      <cite>— L'Amour liquide, synthèse des thèses de Bauman</cite>
+    </div>
+
+    <div style="max-width:820px;margin-top:2.5rem;">
+      <p style="margin-bottom:1rem;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--coral2);">Les trois mutations fondamentales :</p>
+      <div class="strates-row">
+        <div class="strate">
+          <div class="strate-label">Mutation 1</div>
+          <div class="strate-name">Liens → Connexions</div>
+          <div style="font-size:.82rem;color:var(--mist);margin-top:.4rem;line-height:1.6;">Les relations durables et risquées sont remplacées par des connexions fluides, réversibles, «&nbsp;à la demande&nbsp;». On peut toujours «&nbsp;appuyer sur supprimer&nbsp;».</div>
+          <div class="strate-color" style="background:var(--coral);"></div>
+        </div>
+        <div class="strate">
+          <div class="strate-label">Mutation 2</div>
+          <div class="strate-name">Amour → Désir</div>
+          <div style="font-size:.82rem;color:var(--mist);margin-top:.4rem;line-height:1.6;">L'amour (prendre soin, protéger, durer) cède à la logique du désir (consommer, annihiler, remplacer). Le partenaire devient un objet de consommation potentiellement jetable.</div>
+          <div class="strate-color" style="background:var(--aqua);"></div>
+        </div>
+        <div class="strate">
+          <div class="strate-label">Mutation 3</div>
+          <div class="strate-name">Communauté → Réseau</div>
+          <div style="font-size:.82rem;color:var(--mist);margin-top:.4rem;line-height:1.6;">La communauté stable et contraignante est supplantée par le réseau souple — matrice de connexions et déconnexions simultanées, sans engagement ni durabilité.</div>
+          <div class="strate-color" style="background:var(--mist);"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── STRUCTURE ─── -->
+  <section class="sec dark" id="structure">
+    <div class="sec-eyebrow"><span class="sec-num">§ 03</span><h2 class="sec-h2">Structure <em>du Livre</em></h2></div>
+    <p style="color:rgba(255,255,255,.5);max-width:640px;margin-bottom:2rem;font-size:.9rem;line-height:1.8;">
+      Le livre est constitué de fragments, d'essais et d'analyses que Bauman revendique comme une forme délibérée — à la manière de Baudelaire dont il cite l'avis aux lecteurs du <em>Spleen de Paris</em> : «&nbsp;hachez-la en nombreux fragments, et vous verrez que chacun peut exister à part.&nbsp;» Structure appropriée pour un ouvrage sur la fragmentation des liens.
+    </p>
+    <div class="accordion">
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-title">Avant-propos — L'homme sans liens (Der Mann ohne Verwandtschaften)</div><div class="acc-icon">+</div></div>
+        <div class="acc-body"><div class="acc-inner">
+          <p>Bauman introduit son héros : non plus l'<em>homme sans qualités</em> de Musil, mais l'<strong>homme sans liens</strong> de la modernité liquide. Celui qui doit nouer lui-même, par ses propres efforts, les connexions qu'il souhaite utiliser — sans aucune garantie qu'elles durent. Il pose immédiatement la tension fondamentale : les connexions doivent <em>rester flottantes</em> afin qu'on puisse se détacher sans délai, car le décor change sans cesse.</p>
+          <p>La fragilité des liens n'est pas une anomalie à corriger mais la <strong>condition structurelle</strong> de notre époque. C'est cette fragilité — et les désirs contradictoires qu'elle produit — que le livre s'attache à comprendre.</p>
+        </div></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-title">Chapitre 1 — Tomber amoureux ou en dehors</div><div class="acc-icon">+</div></div>
+        <div class="acc-body"><div class="acc-inner">
+          <p>Le chapitre central sur l'amour. Bauman distingue d'abord <strong>amour et désir</strong> : le désir veut consommer, annihiler l'altérité ; l'amour veut prendre soin, protéger, maintenir l'altérité. Ces deux forces sont en tension permanente dans toute relation amoureuse.</p>
+          <p>Il analyse ensuite les <strong>relations de poche</strong> : ces relations que l'on garde dans sa poche, que l'on sort en cas de besoin, légères, agréables précisément parce qu'éphémères. La relation devient un service, le partenaire un prestataire, l'amour un abonnement résiliable.</p>
+          <p>Face à l'impossibilité d'apprendre l'amour (chaque expérience amoureuse est unique, non répétable), la modernité liquide produit une <em>incapacité travaillée</em> à aimer — comme Don Juan qui, à force de multiplier les conquêtes pour apprendre l'amour, détruit précisément ce qu'il cherche.</p>
+        </div></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-title">Chapitre 2 — Dans la boîte à outils de la socialité, et en dehors</div><div class="acc-icon">+</div></div>
+        <div class="acc-body"><div class="acc-inner">
+          <p>Bauman analyse l'émergence de l'<strong>Homo sexualis</strong> — un être déraciné de tout contexte symbolique et social, livré aux seules injonctions de la <em>scientia sexualis</em> (experts, thérapeutes, magazines), incapable de trouver dans le sexe ce qu'il cherche. La libération sexuelle n'a pas produit plus de bonheur mais plus d'anxiété.</p>
+          <p>Il examine ensuite la <strong>communitas à vendre</strong> : la communauté est devenue un produit marchand. Mais les substituts de communauté disponibles en magasin ne remplacent pas les liens authentiques — ils en créent l'illusion tout en maintenant l'isolement réel.</p>
+          <p>L'analyse du <strong>téléphone portable</strong> comme symptôme : l'objet qui promettait la connexion permanente a en réalité institutionnalisé la distance permanente. On peut être connecté à tous sauf à ceux qui sont physiquement présents.</p>
+        </div></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-title">Chapitre 3 — Aimer son prochain : tâche ardue</div><div class="acc-icon">+</div></div>
+        <div class="acc-body"><div class="acc-inner">
+          <p>En dialogue avec Freud (<em>Malaise dans la civilisation</em>), Bauman explore pourquoi l'injonction d'<strong>«&nbsp;aimer son prochain comme soi-même&nbsp;»</strong> est à la fois fondement de la civilisation et commandement le plus difficile à tenir. La modernité liquide, en faisant de la méfiance envers l'autre une norme de prudence, rend cet amour encore plus improbable.</p>
+          <p>Il décrit la figure de l'<strong>étranger dans la ville</strong> comme lieu de l'ambivalence fondamentale : l'étranger fascine et effraie, attire et repousse. La peur de l'inconnu se concentre sur lui. Les <em>gated communities</em> et les espaces d'interdiction sont les réponses architecturales à cette peur — ségrégation volontaire comme substitut à la rencontre impossible.</p>
+        </div></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-title">Chapitres 4–5 — L'espace urbain et les réfugiés</div><div class="acc-icon">+</div></div>
+        <div class="acc-body"><div class="acc-inner">
+          <p>Ces chapitres élargissent l'analyse des liens aux échelles urbaines et mondiales. Les <strong>gated communities</strong> (condominiums, quartiers sécurisés) sont analysées comme l'expression spatiale de la modernité liquide : on s'achète une bulle de sécurité en renonçant à la rencontre avec l'altérité — tout en aggravant l'insécurité des espaces extérieurs.</p>
+          <p>La figure du <strong>réfugié</strong> — l'homme sans état, sans liens, sans communauté d'appartenance — est analysée comme la forme extrême et révélatrice de la condition moderne liquide. Là où le touriste mobile est le héros glorifié de la mondialisation, le réfugié en est la victime exposée. Les deux sont définis par le mouvement — mais le premier choisit, le second est contraint.</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONCEPTS CLÉS ─── -->
+  <section class="sec alt" id="concepts">
+    <div class="sec-eyebrow"><span class="sec-num">§ 04</span><h2 class="sec-h2">Concepts <em>Clés</em></h2></div>
+    <p style="max-width:680px;margin-bottom:2rem;color:var(--mist);font-size:.9rem;line-height:1.8;">Cliquez sur chaque carte pour l'analyse complète et les résonances contemporaines.</p>
+    <div class="concept-grid">
+      <div class="concept-card" data-num="01" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept central · 01</span>
+        <div class="cc-title">Modernité liquide</div>
+        <div class="cc-short">La métaphore fondatrice : une époque où les formes sociales se dissolvent avant de se solidifier, où rien ne dure assez longtemps pour cristalliser en habitudes et routines.</div>
+        <div class="cc-expand"><div class="cc-expand-body">
+          <p>La <strong>modernité liquide</strong> s'oppose à la modernité <em>solide</em> (fordisme, État-providence, classe ouvrière, famille stable, emploi à vie). Les liquides ne gardent pas leur forme : ils coulent, s'adaptent à leur contenant, ne se fixent pas. Dans la modernité liquide, toutes les structures sociales subissent cette dissolution : les institutions, les identités, les liens, les certitudes.</p>
+          <p>Ce n'est pas que la modernité s'arrête — au contraire, elle s'accélère. La modernité solide avait comme projet de <em>solidifier</em> le monde (de le rendre prévisible, calculable, maîtrisable). La modernité liquide renonce à ce projet et fait de la fluidité une valeur : flexibilité, mobilité, adaptabilité, résilience deviennent les vertus cardinales.</p>
+          <div class="cc-today">La métaphore du liquide informe toute l'analyse contemporaine de la <em>société de la performance</em> (Byung-Chul Han), de l'<em>identité fragmentée</em> (Stuart Hall) et de la <em>précariat</em> (Guy Standing). Elle résonne aussi dans les analyses du travail numérique et des plateformes (Uber, Airbnb) qui ont fait de la liquidité un modèle économique.</div>
+        </div></div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))"><div class="cc-arrow">↓</div><span>Lire l'analyse</span></div>
+      </div>
+
+      <div class="concept-card" data-num="02" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept central · 02</span>
+        <div class="cc-title">Amour vs Désir</div>
+        <div class="cc-short">Deux forces antagonistes qui cohabitent dans toute relation : l'amour veut prendre soin et durer ; le désir veut consommer et remplacer.</div>
+        <div class="cc-expand"><div class="cc-expand-body">
+          <p>Bauman propose une distinction philosophiquement riche. Le <strong>désir</strong> est une impulsion <em>centripète</em> : il veut absorber l'autre, retirer sa différence à l'altérité, la domestiquer. Sa satisfaction est contemporaine de l'annihilation de son objet. Après la consommation, l'objet du désir devient un déchet. <em>Le désir veut consommer.</em></p>
+          <p>L'<strong>amour</strong>, au contraire, est centrifuge : il veut s'étirer vers l'autre, l'ajouter au monde plutôt que l'absorber, le protéger dans son altérité. L'amour s'accroît avec ses acquisitions. <em>L'amour veut posséder — mais aussi protéger ce qu'il possède.</em></p>
+          <p>La tension entre les deux est irréductible. L'amour pur glisse vers la possession et le contrôle. Le désir pur glisse vers l'usage et l'abandon. La vie amoureuse réelle navigue entre ces deux pôles — et la modernité liquide déplace systématiquement l'équilibre vers le désir.</p>
+          <div class="cc-today">Cette distinction anticipe les analyses contemporaines sur les <em>love languages</em>, l'<em>attachement anxieux</em> (Sue Johnson) et la critique des applications de rencontre comme Tinder — qui institutionnalisent la logique du désir (swipe, match, consommation) au détriment de la logique de l'amour.</div>
+        </div></div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))"><div class="cc-arrow">↓</div><span>Lire l'analyse</span></div>
+      </div>
+
+      <div class="concept-card" data-num="03" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept central · 03</span>
+        <div class="cc-title">Connexions vs Relations</div>
+        <div class="cc-short">Le remplacement des relations durables et risquées par des connexions fluides, réversibles, optimisées pour le désengagement rapide.</div>
+        <div class="cc-expand"><div class="cc-expand-body">
+          <p>Bauman oppose deux registres du lien social. Les <strong>relations</strong> impliquent engagement, durée, risque, réciprocité, altération mutuelle. Elles demandent du temps, de l'effort et une acceptation de la vulnérabilité. Les <strong>connexions</strong> sont au contraire des liens «&nbsp;virtuels&nbsp;» — ils se font et se défont à la demande, n'impliquent aucun engagement au-delà du moment, peuvent être rompues d'un clic.</p>
+          <p>Dans un réseau, <em>connexion et déconnexion sont des choix également légitimes</em>. On n'y exige pas de fidélité, de constance, de «&nbsp;pour toujours&nbsp;». Le réseau est «&nbsp;une matrice de connexions et de déconnexions simultanées&nbsp;». Ce qui paraît être de la liberté est en réalité l'institutionnalisation de l'incapacité à s'engager.</p>
+          <div class="cc-today">Cette analyse s'applique directement aux réseaux sociaux numériques (Facebook, Instagram, TikTok) et aux applications de rencontre. Elle inspire la sociologie des plateformes (José van Dijck) et les analyses du paradoxe du choix en amour (Eva Illouz, <em>Pourquoi l'amour fait mal</em>).</div>
+        </div></div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))"><div class="cc-arrow">↓</div><span>Lire l'analyse</span></div>
+      </div>
+
+      <div class="concept-card" data-num="04" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept central · 04</span>
+        <div class="cc-title">Relations de poche</div>
+        <div class="cc-short">Ces relations que l'on garde dans sa poche — légères, pratiques, éphémères, disponibles quand on en a besoin, rangées quand on n'en a plus besoin.</div>
+        <div class="cc-expand"><div class="cc-expand-body">
+          <p>Le concept de <strong>relation de poche</strong> (pocket relationship) est l'une des formules les plus saisissantes du livre. Ces relations sont «&nbsp;agréables et éphémères&nbsp;» — et leur agrément tient précisément à leur caractère éphémère. Elles sont l'instantanéité et la jetabilité incarnées.</p>
+          <p>Pour réussir une relation de poche, deux conditions : d'abord, s'engager avec une <em>tête froide et non un cœur ardent</em> (calcul, non passion) ; ensuite, maintenir ce cap en surveillant les «&nbsp;courants émotionnels sous-jacents&nbsp;» et sortir dès qu'ils deviennent inconfortables. <em>La liberté est dans la sortie à tout moment.</em></p>
+          <p>Ces relations fonctionnent comme les achats dans un centre commercial : on n'investit pas de désir mais de souhait (les souhaits sont brefs et sans conséquences durables) ; on apprécie précisément parce qu'on ne s'engage pas à rester ; et si ça ne convient pas, on échange.</p>
+          <div class="cc-today">Les <em>situationships</em>, le <em>ghosting</em>, les <em>talking stages</em> indéfinis, les «&nbsp;amis avec avantages&nbsp;» — autant de formes contemporaines des relations de poche que Bauman avait anticipées en 2003. La sociologie des usages de Tinder confirme empiriquement ce modèle.</div>
+        </div></div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))"><div class="cc-arrow">↓</div><span>Lire l'analyse</span></div>
+      </div>
+
+      <div class="concept-card" data-num="05" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept central · 05</span>
+        <div class="cc-title">Homo consumens</div>
+        <div class="cc-short">Le type humain produit par la modernité liquide : un acheteur solitaire qui traite les autres comme des objets de consommation et cherche dans les achats le remède à sa solitude.</div>
+        <div class="cc-expand"><div class="cc-expand-body">
+          <p>Bauman distingue l'<em>Homo oeconomicus</em> (acteur rationnel, auto-intéressé, calculateur — figure théorique de l'économie) de l'<strong>Homo consumens</strong> (acheteur solitaire, égocentrique, ayant adopté la recherche de la meilleure affaire comme traitement contre la solitude). Le second est la réalité de notre époque.</p>
+          <p>L'Homo consumens <em>traite les autres humains comme des objets de consommation</em> et les juge au volume de plaisir qu'ils peuvent offrir. La valeur intrinsèque des personnes en tant qu'êtres humains disparaît. Ce faisant, la <strong>solidarité humaine est la première victime</strong> des triomphes du marché de la consommation.</p>
+          <p>La conséquence : les liens humains deviennent des <em>investissements</em>. On y met du temps, des efforts, de l'attention — et on les retire dès que le rendement décroît. La logique boursière envahit la sphère intime.</p>
+          <div class="cc-today">Bauman anticipe ici les analyses d'Eva Illouz sur le «&nbsp;capitalisme émotionnel&nbsp;» et de Sherry Turkle sur la manière dont les technologies numériques nous font traiter les relations humaines comme des applications — utiles mais remplaçables.</div>
+        </div></div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))"><div class="cc-arrow">↓</div><span>Lire l'analyse</span></div>
+      </div>
+
+      <div class="concept-card" data-num="06" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept central · 06</span>
+        <div class="cc-title">Liberté vs Sécurité</div>
+        <div class="cc-short">Le dilemme fondamental irrésoluble de la modernité liquide : la sécurité sans liberté est oppressive, la liberté sans sécurité est terrifiante.</div>
+        <div class="cc-expand"><div class="cc-expand-body">
+          <p>Le dilemme liberté/sécurité est le nœud gordien de l'ouvrage. La <strong>sécurité</strong> (appartenance, engagement, liens durables, communauté) implique une réduction de la liberté : on est lié, on doit des choses aux autres, on ne peut pas partir quand on veut. La <strong>liberté</strong> (mobilité, désengagement, options ouvertes) implique solitude, incertitude, angoisse.</p>
+          <p>La modernité liquide a résolu le dilemme en faveur de la liberté — mais sans éliminer le besoin de sécurité. Le résultat est une double souffrance : les individus sont libres mais seuls, mobiles mais angoissés, connectés mais pas liés. <em>L'ambivalence est la condition permanente.</em></p>
+          <p>Cette structure explique pourquoi les hommes et femmes modernes font des choses contradictoires : ils fuient l'engagement tout en cherchant la communauté ; ils valorisent la liberté tout en souffrant de la solitude. Ce n'est pas incohérence mais réponse rationnelle à une situation insoluble.</p>
+          <div class="cc-today">Le dilemme liberté/sécurité informe les analyses contemporaines sur la <em>cancel culture</em> (trop d'engagement, trop de contrainte) vs la <em>culture du ghosting</em> (trop de liberté, trop de désengagement), sur le <em>FOMO</em> et le <em>JOMO</em>, et sur les attentes contradictoires envers les plateformes numériques.</div>
+        </div></div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))"><div class="cc-arrow">↓</div><span>Lire l'analyse</span></div>
+      </div>
+
+      <div class="concept-card" data-num="07" onclick="toggleCard(this)" style="grid-column:1/4">
+        <span class="cc-tag">Concept central · 07</span>
+        <div class="cc-title">Touriste vs Vagabond</div>
+        <div class="cc-short" style="max-width:680px;">Les deux figures paradigmatiques de la mondialisation liquide : le touriste mobile et glorieux qui choisit sa mobilité ; le vagabond contraint qui la subit. Deux conditions produites par le même système.</div>
+        <div class="cc-expand"><div class="cc-expand-body">
+          <p>Bauman propose une des distinctions les plus frappantes de son œuvre. Le <strong>touriste</strong> est le héros de la mondialisation liquide : il se déplace, explore, connecte, déconnecte, accumule les expériences. Sa mobilité est choisie, valorisée, enviée. Il bénéficie des infrastructures mondiales, des passeports puissants, des cartes de crédit.<br><strong>Le vagabond</strong> est son exact symétrique : il se déplace aussi, mais parce qu'il n'a pas le choix. Il fuit, cherche refuge, est repoussé aux frontières. Sa mobilité est subie, stigmatisée, criminalisée. Il est l'envers sombre du touriste — produit par le même système mondial qui glorifie la mobilité des uns en excluant les autres.</p>
+          <p>Les <strong>réfugiés</strong> incarnent cette figure du vagabond à son paroxysme. Ils sont «&nbsp;l'homme sans liens&nbsp;» dans sa version la plus dramatique : sans état, sans communauté, sans appartenance reconnue. Leur existence révèle que la liberté de mouvement n'est pas universelle — elle dépend du capital économique, culturel et politique qu'on possède.</p>
+          <div class="cc-today">Cette distinction est reprise dans toutes les analyses contemporaines sur les inégalités de la mondialisation (Sassen, Appadurai), dans la pensée décoloniale (les frontières ne sont pas des obstacles pour tous), et dans les études sur la crise des réfugiés. Elle anticipe directement les crises migratoires de 2015 et 2022.</div>
+        </div></div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))"><div class="cc-arrow">↓</div><span>Lire l'analyse</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── DIALECTIQUE ─── -->
+  <section class="sec" id="dialectique">
+    <div class="sec-eyebrow"><span class="sec-num">§ 05</span><h2 class="sec-h2">Solide <em>vs</em> Liquide</h2></div>
+    <p style="max-width:680px;margin-bottom:2.5rem;color:var(--mist);">La distinction entre modernité solide et modernité liquide est la grille d'analyse centrale de Bauman. Voici comment elle se déploie dans les différentes sphères de la vie sociale.</p>
+    <div class="dial">
+      <div class="dial-side sol">
+        <span class="dial-tag sol">Modernité solide — XXe siècle</span>
+        <div class="dial-title sol">Solide</div>
+        <ul class="dial-body">
+          <li>Mariage comme institution permanente («&nbsp;jusqu'à ce que la mort nous sépare&nbsp;»)</li>
+          <li>Famille nucléaire stable comme base sociale indiscutée</li>
+          <li>Emploi à vie, carrière linéaire, retraite prévisible</li>
+          <li>Classe sociale comme identité héritée et stable</li>
+          <li>État-nation comme cadre de protection et d'appartenance</li>
+          <li>Communauté de quartier, tissu associatif, vie collective partagée</li>
+          <li>Engagement politique de long terme (partis, syndicats)</li>
+          <li>Identité comme donnée stable, héritée, à maintenir</li>
+        </ul>
+      </div>
+      <div class="dial-center">
+        <div class="dial-vs">⟷</div>
+      </div>
+      <div class="dial-side liq">
+        <span class="dial-tag liq">Modernité liquide — XXIe siècle</span>
+        <div class="dial-title liq">Liquide</div>
+        <ul class="dial-body">
+          <li>Mariage comme contrat résiliable («&nbsp;aussi longtemps que ça dure&nbsp;»)</li>
+          <li>Famille comme arrangement flexible, recomposée, «&nbsp;choisie&nbsp;»</li>
+          <li>Emploi flexible, projets, gig economy, reconversions multiples</li>
+          <li>Identité comme projet individuel à construire et reconstruire</li>
+          <li>État délégitimé, remplacé par marché mondial et ONG</li>
+          <li>Communauté de circonstance, réseaux virtuels, tribus éphémères</li>
+          <li>Engagement politique ponctuel (pétitions, hashtags, causes)</li>
+          <li>Identité comme performance, fluide, choisie, altérable</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pq aqua" style="margin-top:3rem;">
+      <p>« Dans le monde modern liquide, la solidité des choses, tout comme la solidité des liens humains, est interprétée comme une menace : un signe de dépendance inhibitrice, d'une liberté perdue. »</p>
+      <cite>— L'Amour liquide, synthèse des thèmes</cite>
+    </div>
+  </section>
+
+  <!-- ─── RELATIONS VS CONNEXIONS ─── -->
+  <section class="sec alt" id="relations">
+    <div class="sec-eyebrow"><span class="sec-num">§ 06</span><h2 class="sec-h2">Relations <em>vs</em> Connexions</h2></div>
+    <p style="max-width:680px;margin-bottom:2.5rem;color:var(--mist);">La distinction entre relations et connexions est au cœur de l'analyse baumânienne de la vie intime. Voici comment les deux régimes du lien s'opposent dans chacune de leurs dimensions.</p>
+    <div class="compare-sec">
+      <div class="compare-header">
+        <div class="ch-title solide">Relations — régime solide</div>
+        <div></div>
+        <div class="ch-title liquide">Connexions — régime liquide</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l"><strong>Engagement durable</strong> — implique une promesse de continuité, une asymétrie temporelle : on se lie pour un avenir indéterminé</div>
+        <div class="cr-mid">Durée</div>
+        <div class="cr-label-r"><strong>Disponibilité temporaire</strong> — «&nbsp;aussi longtemps que les deux parties y trouvent leur compte&nbsp;». Résiliable à tout moment</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">Acceptation de la <strong>vulnérabilité</strong> : s'engager, c'est donner à l'autre le pouvoir de vous blesser</div>
+        <div class="cr-mid">Risque</div>
+        <div class="cr-label-r">Minimisation du <strong>risque</strong> : la connexion est optimisée pour le désengagement rapide sans dommages collatéraux excessifs</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">Transformation <strong>mutuelle</strong> — être en relation change les deux parties, crée une histoire partagée irréversible</div>
+        <div class="cr-mid">Altération</div>
+        <div class="cr-label-r">Idéal de <strong>non-altération</strong> — «&nbsp;passer à autre chose&nbsp;» sans porter les traces de l'expérience passée</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">L'<strong>altérité</strong> de l'autre est respectée, maintenue, c'est elle qui nourrit le lien</div>
+        <div class="cr-mid">L'Autre</div>
+        <div class="cr-label-r">L'<strong>altérité</strong> de l'autre est domestiquée, réduite, ou ignorée — le partenaire est un service</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l"><strong>Communauté</strong> comme horizon : partager une histoire, un espace, un avenir commun</div>
+        <div class="cr-mid">Horizon</div>
+        <div class="cr-label-r"><strong>Réseau</strong> comme horizon : être connecté à beaucoup, engagé avec personne ; la toile protège contre la solitude sans imposer de liens</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">La <strong>solitude</strong> est acceptable — elle est le prix temporaire de la profondeur du lien</div>
+        <div class="cr-mid">Solitude</div>
+        <div class="cr-label-r">La <strong>solitude</strong> est insupportable — elle est remplie compulsivement par des connexions qui n'y remédient pas</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── GLOSSAIRE ─── -->
+  <section class="sec" id="glossaire">
+    <div class="sec-eyebrow"><span class="sec-num">§ 07</span><h2 class="sec-h2">Glossaire <em>Baumânien</em></h2></div>
+    <div class="glos-grid">
+      <div class="gi" data-g="M">
+        <span class="gi-src">L'Amour liquide · Avant-propos</span>
+        <div class="gi-term">Modernité liquide</div>
+        <div class="gi-def">Époque caractérisée par la dissolution de toutes les formes sociales solides avant qu'elles n'aient le temps de se cristalliser en institutions durables. La mobilité, la flexibilité et l'adaptabilité y remplacent la stabilité, la durée et l'enracinement comme vertus cardinales.</div>
+        <div class="gi-now">Concept central de toute la sociologie de Bauman (à partir de 2000). Repris dans les analyses de la précarité du travail, de la crise de l'identité et des transformations de la vie amoureuse à l'ère numérique.</div>
+      </div>
+      <div class="gi" data-g="C">
+        <span class="gi-src">L'Amour liquide · Avant-propos</span>
+        <div class="gi-term">Connexion</div>
+        <div class="gi-def">Lien virtuel, réversible, optimisé pour le désengagement à la demande. Contrairement aux relations, les connexions peuvent être rompues avant même qu'on commence à les détester. Le réseau est la structure qui accumule les connexions sans en solidifier aucune.</div>
+        <div class="gi-now">Le terme «&nbsp;connexion&nbsp;» (connection) est devenu le mot dominant des réseaux sociaux numériques, confirmant l'analyse de Bauman sur le remplacement du registre de la relation par celui de la connexion.</div>
+      </div>
+      <div class="gi" data-g="R">
+        <span class="gi-src">L'Amour liquide · Ch. 1</span>
+        <div class="gi-term">Relation de poche</div>
+        <div class="gi-def">Relation légère, disponible, éphémère — que l'on garde dans sa poche pour la sortir en cas de besoin. Agréable précisément parce que sans conséquences durables. Implique une tête froide plutôt qu'un cœur ardent, et une vigilance permanente sur les «&nbsp;courants émotionnels sous-jacents&nbsp;».</div>
+        <div class="gi-now">Concept qui préfigure les <em>situationships</em>, le <em>casual dating</em> et les arrangements relationnels ambigus caractéristiques des années 2010-2020.</div>
+      </div>
+      <div class="gi" data-g="H">
+        <span class="gi-src">L'Amour liquide · Ch. 2</span>
+        <div class="gi-term">Homo consumens</div>
+        <div class="gi-def">Figure humaine produite par la modernité liquide : l'acheteur solitaire qui a adopté la logique marchande pour appréhender les relations humaines. Il juge les autres au volume de plaisir qu'ils peuvent offrir et les traite comme des biens de consommation — attirants à l'achat, potentiellement jetables après usage.</div>
+        <div class="gi-now">Précurseur des analyses d'Eva Illouz sur le «&nbsp;capitalisme émotionnel&nbsp;» et de la psychologie des applications de rencontre qui transforment littéralement les partenaires potentiels en articles d'un catalogue.</div>
+      </div>
+      <div class="gi" data-g="A">
+        <span class="gi-src">L'Amour liquide · Ch. 1</span>
+        <div class="gi-term">Ambivalence</div>
+        <div class="gi-def">Condition permanente des relations dans la modernité liquide : désirer simultanément la connexion (pour ne pas être seul) et la liberté (pour ne pas être enchaîné). Cette tension ne peut être résolue — elle ne peut être que gérée, supprimée ou fuie, jamais éliminée. Les relations sont l'incarnation la plus commune de cette ambivalence.</div>
+        <div class="gi-now">Concept repris par toute la psychologie des relations amoureuses contemporaines — du <em>attachment theory</em> (styles d'attachement anxieux, évitant, désorganisé) aux analyses du <em>gaslighting</em> et de la <em>codépendance</em>.</div>
+      </div>
+      <div class="gi" data-g="T">
+        <span class="gi-src">L'Amour liquide · Ch. 4–5</span>
+        <div class="gi-term">Touriste / Vagabond</div>
+        <div class="gi-def">Les deux figures paradigmatiques de la mondialisation. Le touriste choisit sa mobilité : elle lui apporte des expériences enrichissantes. Le vagabond la subit : il est mis en mouvement par des forces qui le dépassent. Tous deux sont des figures de la liquidité — mais l'un jouit, l'autre souffre du même système.</div>
+        <div class="gi-now">Distinction fondatrice de toutes les analyses contemporaines sur les inégalités de la mobilité mondiale — des privilèges du passeport aux crises migratoires en passant par le travail nomade des expatriés.</div>
+      </div>
+      <div class="gi" data-g="E">
+        <span class="gi-src">L'Amour liquide · Ch. 3</span>
+        <div class="gi-term">Économie morale</div>
+        <div class="gi-def">L'ensemble des biens et services partagés en famille et entre voisins et amis — tous les motifs, actes et impulsions dont sont tissés les liens humains et les engagements durables. Elle est systématiquement détruite ou marchandisée par le marché de la consommation, qui la remplace par des substituts payants ne répondant pas aux mêmes besoins.</div>
+        <div class="gi-now">Repris dans les analyses du <em>care</em> (Gilligan, Hochschild), des <em>communs</em> (Ostrom) et de l'<em>économie solidaire</em>. L'explosion du bénévolat numérique et des plateformes d'entraide témoigne d'une résistance à cette marchandisation.</div>
+      </div>
+      <div class="gi" data-g="C">
+        <span class="gi-src">L'Amour liquide · Ch. 3–4</span>
+        <div class="gi-term">Gated community</div>
+        <div class="gi-def">Résidence sécurisée, protégée par des murs et des gardiens, vendue comme «&nbsp;mode de vie total&nbsp;» offrant une alternative à l'espace public dégradé. Elle représente la réponse spatiale et architecturale à l'ambivalence baumânienne : on s'achète une sécurité en renonçant à la rencontre avec l'altérité.</div>
+        <div class="gi-now">Phénomène massif dans les métropoles mondiales (São Paulo, Lagos, Mumbai, mais aussi Paris et Londres avec les résidences sécurisées). Analysé comme symptôme de la crise du lien social et de la privatisation de la sécurité.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SCHÉMA ─── -->
+  <section class="sec aqua-bg" id="schema">
+    <div class="sec-eyebrow"><span class="sec-num">§ 08</span><h2 class="sec-h2">Schéma <em>Conceptuel</em></h2></div>
+    <p style="color:rgba(255,255,255,.45);max-width:640px;margin-bottom:2rem;font-size:.9rem;line-height:1.8;">L'architecture d'ensemble de la pensée baumânienne — du niveau macro (modernité liquide) jusqu'au niveau micro (la relation de poche) en passant par les figures de l'Homo consumens et de la connexion.</p>
+    <div style="background:#061520;border:1px solid rgba(255,255,255,.06);padding:2.5rem 2rem;border-radius:4px;">
+      <svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+        <defs>
+          <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="rgba(24,114,176,0.15)"/>
+            <stop offset="100%" stop-color="rgba(24,114,176,0)"/>
+          </radialGradient>
+          <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="rgba(216,64,96,0.12)"/>
+            <stop offset="100%" stop-color="rgba(216,64,96,0)"/>
+          </radialGradient>
+          <marker id="arrA" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="rgba(90,170,208,0.6)"/>
+          </marker>
+          <marker id="arrC" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="rgba(216,64,96,0.5)"/>
+          </marker>
+        </defs>
+
+        <!-- Fond liquide ondulant -->
+        <ellipse cx="250" cy="260" rx="200" ry="160" fill="url(#glow1)"/>
+        <ellipse cx="650" cy="260" rx="200" ry="160" fill="url(#glow2)"/>
+
+        <!-- Niveau 1 : Modernité liquide -->
+        <rect x="270" y="20" width="360" height="60" rx="20" fill="rgba(24,114,176,0.15)" stroke="rgba(90,170,208,0.5)" stroke-width="1.5"/>
+        <text x="450" y="47" font-family="'Barlow Condensed',sans-serif" font-size="16" font-weight="900" fill="#80c8f0" text-anchor="middle" letter-spacing="2">MODERNITÉ LIQUIDE</text>
+        <text x="450" y="65" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.3)" text-anchor="middle">dissolution des structures solides · fluidité généralisée</text>
+
+        <!-- Flèches vers les deux pôles -->
+        <line x1="350" y1="82" x2="220" y2="152" stroke="rgba(90,170,208,0.35)" stroke-width="1.5" marker-end="url(#arrA)"/>
+        <line x1="550" y1="82" x2="680" y2="152" stroke="rgba(216,64,96,0.3)" stroke-width="1.5" marker-end="url(#arrC)"/>
+
+        <!-- Pôle gauche : Liberté -->
+        <rect x="60" y="155" width="200" height="65" rx="4" fill="rgba(24,114,176,0.12)" stroke="rgba(90,170,208,0.4)" stroke-width="1"/>
+        <text x="160" y="181" font-family="'Barlow Condensed',sans-serif" font-size="16" font-weight="800" fill="#80c8f0" text-anchor="middle" letter-spacing="1">LIBERTÉ</text>
+        <text x="160" y="199" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.25)" text-anchor="middle">mobilité · déconnexion</text>
+        <text x="160" y="211" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.2)" text-anchor="middle">désengagement à la demande</text>
+
+        <!-- Pôle droit : Sécurité -->
+        <rect x="640" y="155" width="200" height="65" rx="4" fill="rgba(216,64,96,0.1)" stroke="rgba(216,64,96,0.35)" stroke-width="1"/>
+        <text x="740" y="181" font-family="'Barlow Condensed',sans-serif" font-size="16" font-weight="800" fill="#f090a8" text-anchor="middle" letter-spacing="1">SÉCURITÉ</text>
+        <text x="740" y="199" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.25)" text-anchor="middle">appartenance · engagement</text>
+        <text x="740" y="211" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.2)" text-anchor="middle">liens durables · communauté</text>
+
+        <!-- Tension centrale : ambivalence -->
+        <rect x="285" y="155" width="330" height="65" rx="4" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+        <text x="450" y="180" font-family="'Barlow Condensed',sans-serif" font-size="16" font-weight="900" fill="#fff" text-anchor="middle" letter-spacing="2">AMBIVALENCE</text>
+        <text x="450" y="198" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.28)" text-anchor="middle">vouloir simultanément liberté et sécurité</text>
+        <text x="450" y="212" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.2)" text-anchor="middle">tension permanente · irréductible</text>
+
+        <!-- Flèche vers les formes concrètes -->
+        <line x1="450" y1="222" x2="450" y2="263" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arrA)"/>
+
+        <!-- 4 formes concrètes -->
+        <rect x="60" y="265" width="175" height="70" rx="4" fill="rgba(24,114,176,0.1)" stroke="rgba(90,170,208,0.25)" stroke-width="1"/>
+        <text x="147" y="288" font-family="'Barlow Condensed',sans-serif" font-size="13" font-weight="700" fill="#80c8f0" text-anchor="middle" letter-spacing="1">CONNEXIONS</text>
+        <text x="147" y="306" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.22)" text-anchor="middle">liens virtuels réversibles</text>
+        <text x="147" y="320" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.18)" text-anchor="middle">vs relations durables</text>
+
+        <rect x="255" y="265" width="175" height="70" rx="4" fill="rgba(216,64,96,0.1)" stroke="rgba(216,64,96,0.25)" stroke-width="1"/>
+        <text x="342" y="288" font-family="'Barlow Condensed',sans-serif" font-size="13" font-weight="700" fill="#f090a8" text-anchor="middle" letter-spacing="1">RELATIONS DE POCHE</text>
+        <text x="342" y="306" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.22)" text-anchor="middle">éphémères · «&nbsp;à usage unique&nbsp;»</text>
+        <text x="342" y="320" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.18)" text-anchor="middle">jetables si décevantes</text>
+
+        <rect x="450" y="265" width="175" height="70" rx="4" fill="rgba(24,114,176,0.1)" stroke="rgba(90,170,208,0.25)" stroke-width="1"/>
+        <text x="537" y="288" font-family="'Barlow Condensed',sans-serif" font-size="13" font-weight="700" fill="#80c8f0" text-anchor="middle" letter-spacing="1">HOMO CONSUMENS</text>
+        <text x="537" y="306" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.22)" text-anchor="middle">logique marchande</text>
+        <text x="537" y="320" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.18)" text-anchor="middle">appliquée aux relations</text>
+
+        <rect x="645" y="265" width="195" height="70" rx="4" fill="rgba(216,64,96,0.1)" stroke="rgba(216,64,96,0.25)" stroke-width="1"/>
+        <text x="742" y="288" font-family="'Barlow Condensed',sans-serif" font-size="13" font-weight="700" fill="#f090a8" text-anchor="middle" letter-spacing="1">SOLITUDE ANGOISSÉE</text>
+        <text x="742" y="306" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.22)" text-anchor="middle">liberté sans communauté</text>
+        <text x="742" y="320" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.18)" text-anchor="middle">sécurité impossible</text>
+
+        <!-- Échelle macro -->
+        <rect x="60" y="370" width="370" height="70" rx="4" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <text x="245" y="393" font-family="'Barlow Condensed',sans-serif" font-size="13" font-weight="700" fill="rgba(255,255,255,.55)" text-anchor="middle" letter-spacing="1">TOURISTE</text>
+        <text x="245" y="411" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.22)" text-anchor="middle">mobile par choix · bénéficiaire de la liquidité</text>
+        <text x="245" y="425" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.18)" text-anchor="middle">héros glorifié de la mondialisation</text>
+
+        <rect x="450" y="370" width="390" height="70" rx="4" fill="rgba(216,64,96,0.06)" stroke="rgba(216,64,96,0.18)" stroke-width="1"/>
+        <text x="645" y="393" font-family="'Barlow Condensed',sans-serif" font-size="13" font-weight="700" fill="rgba(240,144,168,.7)" text-anchor="middle" letter-spacing="1">VAGABOND / RÉFUGIÉ</text>
+        <text x="645" y="411" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.22)" text-anchor="middle">mobile par contrainte · victime de la liquidité</text>
+        <text x="645" y="425" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.18)" text-anchor="middle">figure exclue, criminalisée, repoussée</text>
+
+        <text x="450" y="460" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.15)" text-anchor="middle">DEUX FACES DU MÊME SYSTÈME — MÊME MOBILITÉ, CONDITIONS OPPOSÉES</text>
+
+        <!-- Flèches vers macro -->
+        <line x1="245" y1="337" x2="245" y2="368" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="645" y1="337" x2="645" y2="368" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="3,3"/>
+
+        <!-- Footer -->
+        <text x="450" y="512" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="rgba(255,255,255,.1)" text-anchor="middle" letter-spacing="1.5">ZYGMUNT BAUMAN · L'AMOUR LIQUIDE · LIQUID LOVE · 2003</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ─── QUIZ ─── -->
+  <section class="sec dark" id="quiz">
+    <div class="sec-eyebrow"><span class="sec-num">§ 09</span><h2 class="sec-h2">Quiz <em>Interactif</em></h2></div>
+    <div class="quiz-wrap">
+      <div class="quiz-title">Testez votre compréhension</div>
+      <div class="quiz-meta">6 questions · niveaux progressifs · feedback détaillé</div>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgressFill" style="width:0%"></div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+        <div class="quiz-counter">Question <span id="qNum">1</span>/6</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:rgba(255,255,255,.3);">Score : <span id="scoreDisplay">0</span>/6</div>
+      </div>
+      <div class="quiz-question" id="qText"></div>
+      <div class="quiz-options" id="qOptions"></div>
+      <div class="quiz-feedback" id="qFeedback"></div>
+      <div class="quiz-nav">
+        <div class="quiz-status" id="qStatus">Sélectionnez une réponse</div>
+        <button class="quiz-btn" id="qNext" disabled onclick="nextQuestion()">Question suivante →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── RÉFLEXION ─── -->
+  <section class="sec aqua-bg" id="reflexion">
+    <div class="sec-eyebrow"><span class="sec-num">§ 10</span><h2 class="sec-h2">Questions <em>de Réflexion</em></h2></div>
+    <p style="color:rgba(255,255,255,.42);max-width:620px;margin-bottom:2rem;font-size:.9rem;line-height:1.8;">Pour prolonger la lecture, articuler Bauman avec d'autres auteurs, et tester la validité de ses analyses dans le contexte numérique actuel.</p>
+    <div class="qstack">
+      <div class="qi">
+        <div class="qi-n">Q·01</div>
+        <div>
+          <div class="qi-t">Bauman distingue amour et désir. Comment cette distinction s'applique-t-elle concrètement aux usages des applications de rencontre (Tinder, Hinge, Bumble) ? Ces plateformes institutionnalisent-elles le désir au détriment de l'amour ?</div>
+          <div class="qi-hint">Piste : L'interface du swipe-right institutionnalise le regard du désir (jugement immédiat sur l'apparence). La gamification des matches favorise la quantité sur la qualité. Mais certains témoignages montrent que des relations durables naissent aussi des applis. Bauman a-t-il trop simplifié ? Ou prédit avec précision ?</div>
+          <div class="qi-tags"><span class="qi-tag">Amour vs Désir</span><span class="qi-tag">Numérique</span><span class="qi-tag">Applications</span></div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·02</div>
+        <div>
+          <div class="qi-t">Bauman affirme que la modernité liquide a transformé les relations en connexions. Est-ce une tendance universelle ou une description de classes sociales et culturelles particulières (jeunes urbains occidentaux) ?</div>
+          <div class="qi-hint">Piste : Les recherches empiriques sur les pratiques amoureuses montrent des différences considérables selon le milieu social, l'âge, la religion, la région. Le mariage dure-t-il vraiment moins longtemps ? Les statistiques sont plus nuancées que le grand récit baumânien. Quelle est la portée réelle de sa thèse ?</div>
+          <div class="qi-tags"><span class="qi-tag">Modernité liquide</span><span class="qi-tag">Empirisme</span><span class="qi-tag">Sociologie critique</span></div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·03</div>
+        <div>
+          <div class="qi-t">Bauman est souvent lu comme un auteur pessimiste sur les relations humaines. Mais sa pensée offre-t-elle des ressources pour penser une alternative à la modernité liquide ? Une «&nbsp;liquidité choisie&nbsp;» est-elle possible ?</div>
+          <div class="qi-hint">Piste : Bauman ne propose pas de programme politique — il diagnostique. Mais d'autres penseurs (Byung-Chul Han sur la «&nbsp;force des liens&nbsp;», Hartmut Rosa sur la «&nbsp;résonance&nbsp;», Judith Butler sur la «&nbsp;précarité partagée&nbsp;») proposent des alternatives. En quoi ces pensées prolongent-elles ou contredisent-elles Bauman ?</div>
+          <div class="qi-tags"><span class="qi-tag">Alternative</span><span class="qi-tag">Rosa · Han · Butler</span><span class="qi-tag">Résonance</span></div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·04</div>
+        <div>
+          <div class="qi-t">Comment la distinction touriste/vagabond peut-elle s'appliquer à l'analyse de la crise climatique ? Qui sont les «&nbsp;touristes&nbsp;» et les «&nbsp;vagabonds&nbsp;» de la mobilité climatique ?</div>
+          <div class="qi-hint">Piste : Les réfugiés climatiques (Bangladais, Maldiviens, habitants des zones inondables) sont les vagabonds de la crise climatique — contraints à se déplacer par des causes qu'ils n'ont pas créées. Les «&nbsp;nomades numériques&nbsp;» qui travaillent depuis Bali ou Lisbonne sont des touristes climatiques qui profitent du même système. La dichotomie de Bauman est ici d'une pertinence saisissante.</div>
+          <div class="qi-tags"><span class="qi-tag">Touriste / Vagabond</span><span class="qi-tag">Crise climatique</span><span class="qi-tag">Justice globale</span></div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·05</div>
+        <div>
+          <div class="qi-t">La notion d'«&nbsp;économie morale&nbsp;» chez Bauman peut-elle être rapprochée de la notion d'«&nbsp;asabiyya&nbsp;» chez Ibn Khaldoun ? Ces deux penseurs décrivent-ils le même phénomène — la solidarité organique menacée par la civilisation avancée ?</div>
+          <div class="qi-hint">Piste : Ibn Khaldoun voit la ḥaḍāra (vie sédentaire et raffinée) éroder l'asabiyya (solidarité tribale). Bauman voit la modernité liquide éroder l'économie morale (liens d'entraide et de solidarité). Les deux diagnostics sont structurellement similaires. Mais Ibn Khaldoun est cyclique (les nomades reviennent), Bauman est-il plus pessimiste ?</div>
+          <div class="qi-tags"><span class="qi-tag">Ibn Khaldoun</span><span class="qi-tag">Économie morale</span><span class="qi-tag">Solidarité</span></div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·06</div>
+        <div>
+          <div class="qi-t">Bauman décrit la «&nbsp;chape d'acier&nbsp;» de Weber comme métaphore dépassée dans la modernité liquide — la cage est remplacée par la fluidité. Mais la fluidité n'est-elle pas une nouvelle forme de contrainte, peut-être plus efficace parce qu'invisible ?</div>
+          <div class="qi-hint">Piste : La cage d'acier de Weber contraint de l'extérieur — on voit les barreaux. La liquidité baumânienne contraint de l'intérieur — on intériorise la norme de flexibilité, de mobilité, de non-engagement. Byung-Chul Han parle de «&nbsp;sujet de performance&nbsp;» qui s'exploite lui-même librement. Foucault parlerait de gouvernementalité néolibérale. La liquidité est-elle plus insidieuse que la solidité ?</div>
+          <div class="qi-tags"><span class="qi-tag">Weber · Foucault · Han</span><span class="qi-tag">Cage d'acier</span><span class="qi-tag">Contrôle liquide</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer style="background:var(--ink2);color:rgba(255,255,255,.25);padding:3rem 6rem;display:flex;justify-content:space-between;align-items:center;">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.15);margin-bottom:.4rem;">Fiche pédagogique — Série « Grandes œuvres »</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.4);">L'Amour liquide · Zygmunt Bauman · 2003</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.12);">À lire aussi dans la série</div>
+      <div style="font-family:'DM Serif Display',serif;font-style:italic;font-size:.82rem;color:rgba(255,255,255,.2);margin-top:.3rem;">Weber — L'Éthique protestante · Ibn Khaldoun — Les Prolégomènes · Foucault — L'Archéologie du savoir · Dardot &amp; Laval</div>
+    </div>
+  </footer>
+
+</div><!-- end .main -->
+
+<!-- ═══ MODAL ═══ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-title">Résultats</div>
+    <div class="modal-score" id="modalScore">0/6</div>
+    <div class="modal-msg" id="modalMsg"></div>
+    <button class="modal-close" onclick="closeModal()">Recommencer →</button>
+  </div>
+</div>
+
+<script>
+/* ─── CURSOR ─── */
+const cur=document.getElementById('cur');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+document.addEventListener('mouseover',e=>{
+  if(e.target.closest('a,button,.concept-card,.qopt,.acc-head,.gi,.qi'))cur.classList.add('expand');
+  else cur.classList.remove('expand');
+});
+
+/* ─── PROGRESS ─── */
+window.addEventListener('scroll',()=>{
+  const max=document.body.scrollHeight-window.innerHeight;
+  document.getElementById('prog').style.transform=`scaleX(${window.scrollY/max})`;
+});
+
+/* ─── TIMELINE ─── */
+const tlObs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('tl-visible'),i*120);});
+},{threshold:0.1});
+document.querySelectorAll('.tl-item').forEach(el=>tlObs.observe(el));
+
+/* ─── ACTIVE NAV ─── */
+const navo=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      document.querySelectorAll('.snav-a').forEach(l=>l.classList.remove('on'));
+      const a=document.querySelector(`.snav-a[href="#${e.target.id}"]`);
+      if(a)a.classList.add('on');
+    }
+  });
+},{threshold:0.3});
+document.querySelectorAll('section[id]').forEach(s=>navo.observe(s));
+
+/* ─── ACCORDION ─── */
+function toggleAcc(head){
+  const item=head.parentElement,wasOpen=item.classList.contains('open');
+  item.parentElement.querySelectorAll('.acc-item.open').forEach(i=>i.classList.remove('open'));
+  if(!wasOpen)item.classList.add('open');
+}
+
+/* ─── CONCEPT CARDS ─── */
+let openedConcepts=new Set();
+function toggleCard(card){
+  const expand=card.querySelector('.cc-expand'),toggle=card.querySelector('.cc-toggle');
+  const num=card.dataset.num,isOpen=expand.classList.contains('open');
+  expand.classList.toggle('open',!isOpen);
+  toggle.classList.toggle('open-arrow',!isOpen);
+  toggle.querySelector('span:last-child').textContent=isOpen?'Lire l\'analyse':'Réduire';
+  if(!isOpen){openedConcepts.add(num);updateConceptCount();}
+}
+function updateConceptCount(){
+  const count=openedConcepts.size;
+  document.getElementById('conceptCount').textContent=`${count}/7`;
+  document.getElementById('conceptFill').style.width=`${(count/7)*100}%`;
+}
+
+/* ─── QUIZ ─── */
+const quizData=[
+  {
+    q:"Selon Bauman, qu'est-ce qui distingue fondamentalement la modernité liquide de la modernité solide ?",
+    opts:[
+      "La modernité liquide est plus riche économiquement que la modernité solide",
+      "Dans la modernité liquide, les formes sociales se dissolvent avant de se solidifier en institutions durables, tandis que la modernité solide construisait des structures stables",
+      "La modernité liquide est caractérisée par l'absence de toute structure sociale, contrairement à la modernité solide",
+      "La distinction porte sur la technologie : la modernité solide était industrielle, la modernité liquide est numérique"
+    ],
+    correct:1,
+    feedback:"Précisément. La métaphore du liquide chez Bauman désigne la dissolution des structures sociales solides — institutions stables, identités héritées, emplois à vie, familles permanentes, classes sociales fixes. Dans la modernité liquide, tout cela se fluidifie. Mais ce n'est pas la technologie numérique qui cause la liquidité — c'est une transformation structurelle du capitalisme (post-fordisme, déréglementation, individualisation) dont le numérique est plutôt le symptôme ou l'amplificateur."
+  },
+  {
+    q:"Bauman distingue amour et désir comme deux forces antagonistes. Laquelle de ces propositions décrit correctement cette distinction ?",
+    opts:[
+      "Le désir est positif car il crée de l'énergie ; l'amour est négatif car il crée de la dépendance",
+      "Le désir veut consommer et annihiler l'altérité de l'objet ; l'amour veut prendre soin et préserver cette altérité",
+      "Le désir est durable, l'amour est éphémère dans la modernité liquide",
+      "L'amour et le désir sont synonymes chez Bauman — il utilise les deux termes de manière interchangeable"
+    ],
+    correct:1,
+    feedback:"Exact. C'est la distinction philosophique centrale du premier chapitre. Le désir est centripète : il veut absorber l'autre, retirer sa différence, et sa satisfaction implique l'annihilation de son objet (le désiré devient déchet). L'amour est centrifuge : il veut s'étendre vers l'autre, le préserver dans son altérité, lui ajouter de la valeur sans le consommer. La tension entre ces deux pulsions est irréductible dans toute relation amoureuse."
+  },
+  {
+    q:"Qu'est-ce qu'une « relation de poche » selon Bauman, et pourquoi est-elle caractéristique de la modernité liquide ?",
+    opts:[
+      "Une relation entretenue exclusivement par téléphone portable, d'où le nom",
+      "Une relation légère, disponible à la demande, agréable précisément parce qu'éphémère — que l'on sort en cas de besoin et range quand on n'en a plus",
+      "Une relation secrète, cachée dans la poche de ceux qui trompent leurs partenaires officiels",
+      "Une relation fondée sur l'intérêt financier, dans laquelle l'argent (dans la poche) est le lien central"
+    ],
+    correct:1,
+    feedback:"Parfait. La relation de poche est l'une des formules les plus frappantes du livre. Elle est agréable parce qu'éphémère — sa légèreté tient précisément au fait qu'on n'est pas obligé de l'entretenir, de s'y investir, d'en assumer les conséquences. Elle s'oppose à la relation engagée qui demande effort, vulnérabilité et durée. Elle est caractéristique de la modernité liquide car elle applique la logique consommatoire (utilité immédiate + jetabilité) à la sphère intime."
+  },
+  {
+    q:"Selon Bauman, quelle est la différence fondamentale entre une « relation » et une « connexion » ?",
+    opts:[
+      "Les connexions sont plus sincères que les relations car elles ne sont pas contraintes par des conventions sociales",
+      "Les relations impliquent engagement, durée et vulnérabilité mutuelle ; les connexions sont réversibles, optimisées pour le désengagement rapide, sans engagement au-delà du moment",
+      "Il n'y a aucune différence — Bauman utilise ces deux termes pour désigner la même chose dans des contextes différents",
+      "Les relations sont en ligne (numériques), les connexions sont en présentiel (physiques)"
+    ],
+    correct:1,
+    feedback:"Précisément. La distinction relation/connexion est au cœur de l'analyse. Une relation implique du temps, de l'effort, une acceptation de la vulnérabilité, une altération mutuelle des deux partenaires — elle construit quelque chose. Une connexion peut être rompue avant même qu'on commence à la détester ; elle ne demande ni engagement ni transformation. Dans le réseau, connexion et déconnexion sont des choix également légitimes — le réseau est précisément la structure qui rend les deux également disponibles."
+  },
+  {
+    q:"Comment Bauman analyse-t-il la figure du téléphone portable dans L'Amour liquide ?",
+    opts:[
+      "Le téléphone portable est présenté positivement comme un outil qui permet enfin de maintenir des liens à distance",
+      "Le téléphone portable institue paradoxalement la distance permanente : il permet d'être connecté à tous sauf aux personnes physiquement présentes, et substitue la connexion virtuelle à la relation réelle",
+      "Bauman ne mentionne pas le téléphone portable, qui était encore peu répandu en 2003",
+      "Le téléphone portable est analysé comme un instrument de surveillance qui permet aux États de contrôler les citoyens"
+    ],
+    correct:1,
+    feedback:"Exact. Bauman consacre plusieurs pages à l'analyse du téléphone portable comme symptôme et vecteur de la modernité liquide. L'analyse est saisissante : 'ceux qui restent à distance, les portables leur permettent d'entrer en contact. Ceux qui entrent en contact, ils leur permettent de rester à distance.' Le portable n'est pas l'outil de la connexion — c'est l'outil qui institutionnalise la possibilité de la déconnexion permanente. La scène du café où le père téléphone pendant le repas familial résume parfaitement ce paradoxe."
+  },
+  {
+    q:"Quelle est la distinction centrale que Bauman établit entre le touriste et le vagabond dans sa description de la mondialisation liquide ?",
+    opts:[
+      "Le touriste est riche, le vagabond est pauvre — c'est simplement une distinction économique",
+      "Le touriste est mobile par choix et en bénéficie ; le vagabond est mobile par contrainte et en souffre — deux figures produites par le même système mondial de liquidité",
+      "Le touriste est occidental, le vagabond est du tiers-monde — c'est une distinction géographique",
+      "Le touriste et le vagabond sont deux figures positives de la liberté moderne — les deux représentent l'affranchissement des liens solides"
+    ],
+    correct:1,
+    feedback:"Parfaitement saisi. C'est l'une des distinctions analytiques les plus puissantes de Bauman. Les deux figures sont définies par la mobilité — mais la mobilité du touriste est choisie, valorisée, glorifiée, et bénéficie de toutes les infrastructures mondiales (passeports, banques, hôtels). Celle du vagabond est subie, stigmatisée, criminalisée, et se heurte à des murs, des centres de rétention, des refoulements. Les deux sont produits par le même système qui promeut la flexibilité comme valeur universelle tout en la réservant à ceux qui ont le capital pour en bénéficier."
+  }
+];
+
+let currentQ=0,score=0,answered=false;
+function renderQuestion(){
+  const q=quizData[currentQ];
+  document.getElementById('qNum').textContent=currentQ+1;
+  document.getElementById('qText').textContent=q.q;
+  document.getElementById('qFeedback').className='quiz-feedback';
+  document.getElementById('qFeedback').textContent='';
+  document.getElementById('qNext').disabled=true;
+  document.getElementById('qStatus').textContent='Sélectionnez une réponse';
+  answered=false;
+  document.getElementById('quizProgressFill').style.width=((currentQ/quizData.length)*100)+'%';
+  const opts=document.getElementById('qOptions');
+  opts.innerHTML='';
+  q.opts.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='qopt';
+    btn.innerHTML=`<span>${opt}</span>`;
+    btn.onclick=()=>selectAnswer(i);
+    opts.appendChild(btn);
+  });
+}
+function selectAnswer(idx){
+  if(answered)return;
+  answered=true;
+  const q=quizData[currentQ];
+  document.querySelectorAll('.qopt').forEach((o,i)=>{
+    if(i===q.correct)o.classList.add('correct');
+    else if(i===idx&&i!==q.correct)o.classList.add('wrong');
+    else o.classList.add('reveal');
+  });
+  const fb=document.getElementById('qFeedback');
+  fb.textContent=q.feedback;fb.classList.add('show');
+  if(idx===q.correct){
+    score++;
+    document.getElementById('scoreDisplay').textContent=score;
+    document.getElementById('qStatus').textContent='✓ Bonne réponse';
+  }else{
+    document.getElementById('qStatus').textContent='✗ Réponse incorrecte';
+  }
+  document.getElementById('qNext').disabled=false;
+  document.getElementById('sidebarScore').textContent=`${score}/${quizData.length}`;
+  document.getElementById('sidebarFill').style.width=`${Math.round((score/quizData.length)*100)}%`;
+  if(currentQ===quizData.length-1)document.getElementById('qNext').textContent='Voir mon score →';
+}
+function nextQuestion(){
+  currentQ++;
+  if(currentQ>=quizData.length){showModal();return;}
+  renderQuestion();
+}
+function showModal(){
+  const msgs=[
+    [0,1,"Relisez l'avant-propos sur l'homme sans liens et le chapitre 1 sur l'amour et le désir. Les concepts fondamentaux restent à saisir."],
+    [2,3,"Bonne intuition générale. Approfondissez la distinction connexion/relation et la figure du touriste/vagabond."],
+    [4,4,"Bonne maîtrise. Travaillez la nuance entre relation de poche et connexion, et l'analyse du téléphone portable."],
+    [5,5,"Très solide. Vous comprenez bien l'ambivalence baumânienne et ses implications théoriques."],
+    [6,6,"Maîtrise remarquable. Vous pouvez désormais mobiliser Bauman pour analyser les relations à l'ère des applications de rencontre et des réseaux sociaux."]
+  ];
+  const msg=msgs.find(m=>score>=m[0]&&score<=m[1]);
+  document.getElementById('modalScore').textContent=`${score}/6`;
+  document.getElementById('modalMsg').textContent=msg?msg[2]:'';
+  document.getElementById('modalOverlay').classList.add('show');
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('show');
+  currentQ=0;score=0;answered=false;
+  document.getElementById('scoreDisplay').textContent='0';
+  document.getElementById('quizProgressFill').style.width='0%';
+  document.getElementById('qNext').textContent='Question suivante →';
+  renderQuestion();
+}
+renderQuestion();
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('sidebarFill').style.width='0%';
+    document.getElementById('conceptFill').style.width='0%';
+  },500);
+});
+</script>
+</body>
+</html>

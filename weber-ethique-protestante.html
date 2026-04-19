@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'Éthique protestante — Max Weber</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN SYSTEM — Rigueur puritaine
+   Palette : graphite / ambre / acier / cendre
+   ═══════════════════════════════════════════ */
+:root {
+  --ash:   #f0eee8;
+  --ash2:  #e4e1d8;
+  --ash3:  #d4d0c4;
+  --ink:   #14110c;
+  --ink2:  #1e1a12;
+  --ember: #c07018;
+  --ember2:#965210;
+  --ember-pale: #f8ead4;
+  --iron:  #3a4050;
+  --iron2: #2a2e3a;
+  --iron-pale: #d8dce8;
+  --coal:  #1a1c24;
+  --smoke: #6e6a60;
+  --rule:  #c4bfb0;
+  --sidebar: 270px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ash);
+  color:var(--ink);
+  font-family:'Playfair Display',serif;
+  font-size:17px;
+  line-height:1.78;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ─── CURSOR ─── */
+#cur{
+  width:12px;height:12px;
+  background:var(--ember);
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,background .2s,border-radius .2s;
+}
+#cur.expand{width:36px;height:36px;background:rgba(192,112,24,.12);border:1px solid var(--ember);border-radius:50%;}
+
+/* ─── PROGRESS ─── */
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--ember);transform-origin:left;transform:scaleX(0);z-index:1002;transition:transform .08s linear;}
+
+/* ═══ SIDEBAR ═══ */
+.snav{
+  position:fixed;left:0;top:0;bottom:0;
+  width:var(--sidebar);
+  background:var(--coal);
+  z-index:100;
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+  scrollbar-width:thin;
+  scrollbar-color:var(--ember) transparent;
+}
+
+.snav-brand{
+  padding:2rem 1.8rem 1.8rem;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  position:relative;overflow:hidden;
+}
+
+/* Motif cage d'acier */
+.snav-brand::after{
+  content:'';
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:18px 18px;
+  pointer-events:none;
+}
+
+.snav-kicker{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ember);margin-bottom:.8rem;
+  position:relative;z-index:1;
+}
+
+.snav-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.42rem;font-weight:800;line-height:1;
+  color:#fff;letter-spacing:.02em;text-transform:uppercase;
+  position:relative;z-index:1;
+}
+
+.snav-authors{
+  font-family:'Playfair Display',serif;
+  font-style:italic;font-size:.78rem;
+  color:rgba(255,255,255,.35);margin-top:.4rem;
+  position:relative;z-index:1;
+}
+
+.snav-year{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;color:var(--ember);
+  letter-spacing:.1em;margin-top:.5rem;
+  position:relative;z-index:1;
+}
+
+.snav-lbl{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.18);
+  padding:.9rem 1.8rem .3rem;
+}
+
+.snav-a{
+  display:flex;align-items:center;gap:.7rem;
+  padding:.42rem 1.8rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.8rem;font-weight:500;letter-spacing:.04em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.38);
+  text-decoration:none;
+  border-left:2px solid transparent;
+  transition:all .2s;
+}
+.snav-a:hover{color:rgba(255,255,255,.85);border-left-color:var(--ember);padding-left:2.1rem;}
+.snav-a.on{color:#fff;border-left-color:var(--ember2);background:rgba(192,112,24,.1);}
+
+.snav-bullet{
+  width:5px;height:5px;
+  background:currentColor;opacity:.4;flex-shrink:0;
+}
+
+.snav-div{height:1px;background:rgba(255,255,255,.04);margin:.6rem 1.8rem;}
+
+.snav-score{
+  margin-top:auto;padding:1.5rem 1.8rem;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+
+.snav-score-title{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);margin-bottom:.8rem;
+}
+
+.score-bar{height:4px;background:rgba(255,255,255,.06);margin:.5rem 0;overflow:hidden;}
+.score-fill{height:100%;transition:width 1.5s cubic-bezier(.16,1,.3,1);}
+.score-label{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.1em;color:rgba(255,255,255,.25);margin-bottom:.2rem;}
+
+/* ═══ MAIN ═══ */
+.main{margin-left:var(--sidebar);}
+
+/* ═══ HERO ═══ */
+.hero{
+  min-height:100vh;
+  background:var(--coal);
+  color:#fff;
+  padding:5rem 6rem 4rem;
+  position:relative;overflow:hidden;
+  display:grid;grid-template-rows:1fr auto;
+}
+
+/* Grille de cage d'acier */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+  background-size:32px 32px;
+  pointer-events:none;
+}
+
+.hero-ember{
+  position:absolute;bottom:0;right:0;
+  width:50%;height:100%;
+  background:linear-gradient(135deg,transparent 40%,rgba(192,112,24,.07) 100%);
+  pointer-events:none;
+}
+
+/* Barre de braise en bas */
+.hero-strate{
+  position:absolute;bottom:0;left:0;right:0;
+  height:4px;
+  background:linear-gradient(90deg,transparent,var(--ember),var(--ember2),var(--ember),transparent);
+  opacity:.8;
+}
+
+.hero-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--ember);margin-bottom:2.5rem;
+  opacity:0;animation:fadeUp .7s ease forwards .1s;
+  position:relative;z-index:1;
+}
+
+.hero-h1{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(3rem,6.5vw,8.5rem);
+  font-weight:900;line-height:.88;
+  letter-spacing:-.01em;text-transform:uppercase;
+  opacity:0;animation:fadeUp .9s ease forwards .25s;
+  position:relative;z-index:1;
+}
+.hero-h1 .line-pre{display:block;color:rgba(255,255,255,.22);font-size:.38em;letter-spacing:.14em;font-weight:400;margin-bottom:.5rem;}
+.hero-h1 .line1{display:block;color:#fff;}
+.hero-h1 .line2{display:block;color:#fff;}
+.hero-h1 .line3{display:block;color:var(--ember);}
+
+.hero-rule{
+  width:120px;height:3px;
+  background:linear-gradient(90deg,var(--ember),var(--iron));
+  margin:2.5rem 0 2rem;
+  opacity:0;animation:fadeUp .7s ease forwards .5s;
+  position:relative;z-index:1;
+}
+
+.hero-sub{
+  max-width:680px;
+  font-size:1.02rem;font-weight:400;font-style:italic;
+  color:rgba(255,255,255,.55);line-height:1.88;
+  opacity:0;animation:fadeUp .8s ease forwards .4s;
+  position:relative;z-index:1;
+}
+.hero-sub strong{color:#fff;font-style:normal;}
+
+.hero-chips{
+  display:flex;flex-wrap:wrap;gap:.6rem;
+  margin-top:2rem;
+  opacity:0;animation:fadeUp .7s ease forwards .7s;
+  position:relative;z-index:1;
+}
+
+.chip{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.28rem .8rem;border:1px solid;
+}
+.chip-ember{color:var(--ember);border-color:rgba(192,112,24,.45);background:rgba(192,112,24,.1);}
+.chip-iron {color:#9aaec8;  border-color:rgba(58,64,80,.5);    background:rgba(58,64,80,.15);}
+.chip-ash  {color:rgba(255,255,255,.45);border-color:rgba(255,255,255,.15);background:rgba(255,255,255,.04);}
+
+.hero-bottom{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  padding-top:3rem;border-top:1px solid rgba(255,255,255,.07);
+  opacity:0;animation:fadeUp .7s ease forwards .9s;
+  position:relative;z-index:1;
+}
+.hb-label{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.4rem;}
+.hb-names{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff;line-height:1.1;}
+.hb-names span{color:var(--ember);}
+
+.hero-thesis{
+  text-align:right;max-width:420px;
+  font-family:'Playfair Display',serif;
+  font-style:italic;font-size:.92rem;
+  color:rgba(255,255,255,.4);line-height:1.72;
+}
+.hero-thesis cite{display:block;margin-top:.5rem;font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ember);}
+
+/* ═══ GENERIC SECTION ═══ */
+.sec{padding:5.5rem 6rem;border-bottom:1px solid var(--rule);}
+.sec.alt{background:var(--ash2);}
+.sec.dark{background:var(--coal);color:#fff;}
+.sec.iron{background:var(--iron2);color:#fff;}
+.sec.ember-bg{background:#1e1008;color:#fff;}
+
+.sec-eyebrow{display:flex;align-items:center;gap:1.2rem;margin-bottom:3rem;}
+
+.sec-num{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ember2);background:var(--ember-pale);
+  padding:.28rem .75rem;
+}
+.dark .sec-num,.iron .sec-num,.ember-bg .sec-num{background:rgba(192,112,24,.2);color:#f0a860;}
+
+.sec-h2{font-family:'Barlow Condensed',sans-serif;font-size:2.6rem;font-weight:800;letter-spacing:.01em;text-transform:uppercase;line-height:1;}
+.sec-h2 em{color:var(--ember);font-style:normal;}
+.dark .sec-h2,.iron .sec-h2,.ember-bg .sec-h2{color:#fff;}
+.dark .sec-h2 em,.ember-bg .sec-h2 em{color:var(--ember);}
+.iron .sec-h2 em{color:#f0c860;}
+
+/* ═══ CONCEPT CARDS ═══ */
+.concept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ink);border:1px solid var(--ink);margin-top:1rem;}
+.concept-card{
+  background:var(--ash);padding:2.2rem;
+  position:relative;overflow:hidden;cursor:pointer;
+  transition:background .3s;
+}
+.alt .concept-card{background:var(--ash2);}
+.concept-card::after{content:attr(data-num);position:absolute;right:.8rem;bottom:-1rem;font-family:'Barlow Condensed',sans-serif;font-size:7rem;font-weight:900;color:rgba(0,0,0,.04);line-height:1;pointer-events:none;}
+.concept-card:hover{background:var(--ember-pale);}
+
+.cc-tag{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ember2);display:block;margin-bottom:.5rem;}
+.cc-de{font-family:'IBM Plex Mono',monospace;font-style:normal;font-size:.72rem;color:var(--smoke);margin-bottom:.6rem;letter-spacing:.06em;}
+.cc-title{font-family:'Barlow Condensed',sans-serif;font-size:1.45rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;line-height:1.1;margin-bottom:.7rem;}
+.cc-short{font-size:.88rem;color:var(--smoke);line-height:1.72;}
+.cc-expand{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1),opacity .4s ease,padding .4s ease;opacity:0;}
+.cc-expand.open { max-height: 2000px; opacity: 1; padding-top: 1rem; }
+.cc-expand-body{font-size:.85rem;color:var(--ink);line-height:1.82;border-top:1px solid var(--rule);padding-top:1rem;}
+.cc-expand-body p{margin-bottom:.7rem;}
+.cc-expand-body p:last-child{margin-bottom:0;}
+.cc-expand-body strong{color:var(--ember2);font-weight:600;}
+.cc-today{margin-top:.8rem;padding:.8rem 1rem;background:var(--ember-pale);border-left:2px solid var(--ember);font-size:.8rem;font-style:italic;color:var(--ink2);line-height:1.6;}
+.cc-today::before{content:'Portée → ';font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ember2);display:block;margin-bottom:.2rem;}
+.cc-toggle{display:flex;align-items:center;gap:.5rem;margin-top:1rem;font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ember2);cursor:pointer;transition:color .2s;}
+.cc-arrow{width:16px;height:16px;border:1px solid var(--ember2);display:flex;align-items:center;justify-content:center;font-size:.7rem;transition:transform .3s;}
+.open-arrow .cc-arrow{transform:rotate(180deg);}
+
+/* ═══ ACCORDION ═══ */
+.accordion{margin-top:1.5rem;}
+.acc-item{border-bottom:1px solid var(--rule);overflow:hidden;}
+.dark .acc-item,.iron .acc-item,.ember-bg .acc-item{border-color:rgba(255,255,255,.08);}
+.acc-head{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 0;cursor:pointer;transition:color .2s;user-select:none;}
+.acc-head:hover .acc-title{color:var(--ember);}
+.dark .acc-head:hover .acc-title,.iron .acc-head:hover .acc-title,.ember-bg .acc-head:hover .acc-title{color:var(--ember);}
+.acc-title{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;transition:color .2s;}
+.dark .acc-title,.iron .acc-title,.ember-bg .acc-title{color:#fff;}
+.acc-icon{width:28px;height:28px;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s;font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;color:var(--ember);}
+.dark .acc-icon,.iron .acc-icon,.ember-bg .acc-icon{border-color:rgba(255,255,255,.12);color:var(--ember);}
+.acc-item.open .acc-icon{transform:rotate(45deg);background:var(--ember);color:#fff;border-color:var(--ember);}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1);}
+.acc-item.open .acc-body{max-height:1500px;}
+.acc-inner{padding:0 0 2rem;font-size:.9rem;color:#3a3028;line-height:1.88;}
+.dark .acc-inner,.iron .acc-inner,.ember-bg .acc-inner{color:rgba(255,255,255,.65);}
+.acc-inner p{margin-bottom:.9rem;}.acc-inner p:last-child{margin-bottom:0;}
+.acc-inner strong{color:var(--ink);font-weight:600;}
+.dark .acc-inner strong,.iron .acc-inner strong,.ember-bg .acc-inner strong{color:#fff;}
+.acc-inner em{font-style:italic;color:var(--ember2);}
+.dark .acc-inner em,.iron .acc-inner em,.ember-bg .acc-inner em{color:var(--ember);}
+
+/* ═══ PULL QUOTES ═══ */
+.pq{padding:3rem 4rem;margin:3rem 0;position:relative;overflow:hidden;}
+.pq.iron{background:var(--iron2);color:#fff;}
+.pq.ember{background:var(--ember2);color:#fff;}
+.pq.cage{background:var(--coal);color:#fff;border-left:4px solid var(--ember);}
+.pq::before{content:'\201C';position:absolute;top:-2rem;left:2rem;font-family:'Playfair Display',serif;font-size:14rem;line-height:1;opacity:.07;pointer-events:none;color:#fff;}
+.pq p{font-family:'Playfair Display',serif;font-size:1.35rem;font-style:italic;font-weight:400;line-height:1.68;position:relative;z-index:1;}
+.pq cite{display:block;margin-top:1.2rem;font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;font-style:normal;color:rgba(255,255,255,.4);}
+.pq.cage cite{color:var(--ember);}
+
+/* ═══ COMPARISON TABLE ═══ */
+.compare-sec{margin-top:2rem;}
+.compare-row{display:grid;grid-template-columns:1fr 80px 1fr;gap:1rem;align-items:center;padding:1rem 0;border-bottom:1px solid var(--rule);}
+.cr-label-l,.cr-label-r{font-size:.88rem;color:#3a3028;line-height:1.55;}
+.cr-label-r{text-align:right;}
+.cr-mid{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--smoke);text-align:center;line-height:1.3;}
+.compare-header{display:grid;grid-template-columns:1fr 80px 1fr;gap:1rem;padding-bottom:1rem;border-bottom:2px solid var(--rule);margin-bottom:.5rem;}
+.ch-title{font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+.ch-title.iron{color:var(--iron);}
+.ch-title.ember{color:var(--ember);text-align:right;}
+
+/* ═══ GLOSSAIRE ═══ */
+.glos-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);}
+.gi{background:var(--ash);padding:2rem 2.5rem;position:relative;overflow:hidden;transition:background .3s;}
+.alt .gi{background:var(--ash2);}
+.gi:hover{background:var(--ember-pale);}
+.gi::after{content:attr(data-g);position:absolute;right:1rem;bottom:-1rem;font-family:'Barlow Condensed',sans-serif;font-size:8rem;font-weight:900;color:rgba(0,0,0,.04);line-height:1;pointer-events:none;}
+.gi-src{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ember2);display:block;margin-bottom:.3rem;}
+.gi-term{font-family:'Barlow Condensed',sans-serif;font-size:1.55rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;margin-bottom:.25rem;line-height:1.1;}
+.gi-de{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--smoke);margin-bottom:.6rem;letter-spacing:.04em;}
+.gi-def{font-size:.88rem;color:#3a3028;line-height:1.78;margin-bottom:.7rem;}
+.gi-now{padding:.65rem 1rem;background:rgba(192,112,24,.1);border-left:2px solid var(--ember);font-style:italic;font-size:.8rem;color:var(--ink2);line-height:1.6;}
+.gi-now::before{content:'Enjeu → ';font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ember2);display:block;margin-bottom:.2rem;}
+
+/* ═══ TIMELINE ═══ */
+.timeline-container{position:relative;padding-left:3rem;margin-top:2rem;}
+.timeline-container::before{content:'';position:absolute;left:14px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--ember),var(--iron),var(--smoke));}
+.tl-item{position:relative;margin-bottom:2.5rem;opacity:0;transform:translateX(-20px);transition:opacity .6s ease,transform .6s ease;}
+.tl-item.tl-visible{opacity:1;transform:none;}
+.tl-dot{position:absolute;left:-2.75rem;top:.35rem;width:14px;height:14px;background:var(--ember);transition:transform .3s;clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);}
+.tl-item:hover .tl-dot{transform:scale(1.5) rotate(45deg);}
+.tl-dot.iron{background:var(--iron);}
+.tl-dot.smoke{background:var(--smoke);}
+.tl-year{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--smoke);margin-bottom:.3rem;}
+.tl-title{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:.4rem;}
+.tl-body{font-size:.88rem;color:var(--smoke);line-height:1.78;}
+.tl-body strong{color:var(--ink);font-weight:600;}
+
+/* ═══ STRATE ═══ */
+.strates-row{display:flex;gap:0;margin-top:1.5rem;border:1px solid var(--rule);overflow:hidden;}
+.strate{flex:1;padding:1.2rem 1.5rem;position:relative;border-right:1px solid var(--rule);transition:background .3s;}
+.strate:last-child{border-right:none;}
+.strate:hover{background:var(--ember-pale);}
+.strate-label{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;color:var(--smoke);margin-bottom:.4rem;}
+.strate-name{font-family:'Barlow Condensed',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);line-height:1.2;}
+.strate-color{position:absolute;bottom:0;left:0;right:0;height:3px;}
+
+/* ═══ QUIZ ═══ */
+.quiz-wrap{background:var(--coal);color:#fff;padding:4rem 5rem;margin-top:2rem;position:relative;overflow:hidden;}
+.quiz-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--ember2),var(--ember),var(--iron),var(--ember));}
+.quiz-title{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ember);margin-bottom:.4rem;}
+.quiz-meta{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:2rem;}
+.quiz-progress-bar{height:3px;background:rgba(255,255,255,.1);margin-bottom:2.5rem;overflow:hidden;}
+.quiz-progress-fill{height:100%;background:var(--ember);transition:width .5s ease;}
+.quiz-question{font-family:'Playfair Display',serif;font-size:1.2rem;font-style:italic;color:#fff;line-height:1.62;margin-bottom:2rem;}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.qopt{
+  padding:1.2rem 1.5rem;border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.02);cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:500;letter-spacing:.04em;
+  color:rgba(255,255,255,.7);text-transform:uppercase;
+  transition:all .2s;text-align:left;position:relative;overflow:hidden;
+}
+.qopt::before{content:'';position:absolute;inset:0;background:var(--ember2);transform:scaleX(0);transform-origin:left;transition:transform .3s ease;z-index:0;}
+.qopt:hover{color:#fff;border-color:var(--ember);}
+.qopt:hover::before{transform:scaleX(1);}
+.qopt span{position:relative;z-index:1;}
+.qopt.correct{background:rgba(58,64,80,.5);border-color:#6a80a8;color:#a8c0e0;}
+.qopt.wrong  {background:rgba(192,112,24,.25);border-color:var(--ember);color:#f0c070;}
+.qopt.reveal {background:rgba(58,64,80,.25);border-color:#6a80a8;color:#a8c0e0;}
+.quiz-feedback{margin-top:1.5rem;padding:1.2rem 1.5rem;background:rgba(255,255,255,.04);border-left:3px solid var(--ember);font-size:.9rem;color:rgba(255,255,255,.7);line-height:1.72;display:none;}
+.quiz-feedback.show{display:block;}
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;}
+.quiz-btn{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.7rem 2rem;border:none;background:var(--ember2);color:#fff;cursor:pointer;transition:background .2s;}
+.quiz-btn:hover{background:var(--ember);}
+.quiz-btn:disabled{opacity:.3;cursor:not-allowed;}
+.quiz-counter{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:rgba(255,255,255,.3);}
+.quiz-status{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:rgba(255,255,255,.35);}
+
+/* ═══ RÉFLEXION ═══ */
+.qstack{display:flex;flex-direction:column;gap:1px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);margin-top:1.5rem;}
+.qi{background:rgba(255,255,255,.02);padding:2rem 2.5rem;display:grid;grid-template-columns:60px 1fr;gap:1.5rem;align-items:start;transition:background .3s;border-left:3px solid transparent;}
+.qi:hover{background:rgba(192,112,24,.07);border-left-color:var(--ember);}
+.qi-n{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ember);padding-top:.2rem;}
+.qi-t{font-family:'Playfair Display',serif;font-size:1.05rem;font-style:italic;color:#fff;line-height:1.72;margin-bottom:.5rem;}
+.qi-hint{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:rgba(255,255,255,.28);line-height:1.65;}
+.qi-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem;}
+.qi-tag{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(192,112,24,.3);color:var(--ember);padding:.18rem .55rem;}
+
+/* ═══ MODAL ═══ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;}
+.modal-overlay.show{opacity:1;pointer-events:all;}
+.modal{background:var(--coal);color:#fff;padding:4rem;max-width:560px;width:90%;position:relative;border-top:4px solid var(--ember);}
+.modal-title{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:900;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem;}
+.modal-score{font-family:'Barlow Condensed',sans-serif;font-size:5rem;font-weight:900;color:var(--ember);line-height:1;margin:1.5rem 0;}
+.modal-msg{font-style:italic;color:rgba(255,255,255,.6);line-height:1.72;margin-bottom:2rem;}
+.modal-close{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.7rem 2rem;border:none;background:var(--ember2);color:#fff;cursor:pointer;}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* ═══ CAUSAL CHAIN ═══ */
+.chain{display:flex;align-items:stretch;gap:0;margin-top:2rem;overflow-x:auto;}
+.chain-node{
+  flex:1;min-width:120px;
+  padding:1.4rem 1rem;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
+  position:relative;
+  text-align:center;
+  transition:background .3s;
+}
+.chain-node:hover{background:rgba(192,112,24,.1);}
+.chain-node-num{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.2em;color:var(--ember);display:block;margin-bottom:.4rem;}
+.chain-node-title{font-family:'Barlow Condensed',sans-serif;font-size:.98rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff;line-height:1.2;margin-bottom:.5rem;}
+.chain-node-body{font-size:.75rem;color:rgba(255,255,255,.35);line-height:1.55;}
+.chain-arrow{
+  display:flex;align-items:center;padding:0 .4rem;
+  font-family:'IBM Plex Mono',monospace;font-size:1.2rem;
+  color:rgba(192,112,24,.5);flex-shrink:0;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
+  :root{--sidebar:0px}.snav{display:none}.main{margin-left:0}
+  .hero{padding:3rem 2rem 3rem}.sec{padding:3.5rem 2rem}
+  .concept-grid{grid-template-columns:1fr}.glos-grid{grid-template-columns:1fr}
+  .quiz-options{grid-template-columns:1fr}.pq{padding:2rem}
+  .chain{flex-direction:column}.chain-arrow{transform:rotate(90deg);}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="prog"></div>
+
+<!-- ═══════════════════ SIDEBAR ═══════════════════ -->
+<nav class="snav">
+  <div class="snav-brand">
+    <div class="snav-kicker">Fiche de lecture</div>
+    <div class="snav-title">L'Éthique<br>Protestante</div>
+    <div class="snav-authors">Max Weber</div>
+    <div class="snav-year">Die protestantische Ethik · 1904–1905</div>
+  </div>
+  <div class="snav-lbl">Navigation</div>
+  <a href="#contexte" class="snav-a"><span class="snav-bullet"></span>Contexte &amp; genèse</a>
+  <a href="#these" class="snav-a"><span class="snav-bullet"></span>Thèse centrale</a>
+  <a href="#structure" class="snav-a"><span class="snav-bullet"></span>Structure du livre</a>
+  <a href="#concepts" class="snav-a"><span class="snav-bullet"></span>Concepts clés</a>
+  <a href="#chaine" class="snav-a"><span class="snav-bullet"></span>Chaîne causale</a>
+  <a href="#comparaison" class="snav-a"><span class="snav-bullet"></span>Catholicisme vs protestantisme</a>
+  <a href="#glossaire" class="snav-a"><span class="snav-bullet"></span>Glossaire allemand</a>
+  <a href="#schema" class="snav-a"><span class="snav-bullet"></span>Schéma conceptuel</a>
+  <a href="#quiz" class="snav-a"><span class="snav-bullet"></span>Quiz interactif</a>
+  <a href="#reflexion" class="snav-a"><span class="snav-bullet"></span>Questions de réflexion</a>
+  <div class="snav-div"></div>
+  <div class="snav-lbl">Progression</div>
+  <div class="snav-score">
+    <div class="snav-score-title">Quiz — score actuel</div>
+    <div class="score-label"><span>Score</span><span id="sidebarScore">0/6</span></div>
+    <div class="score-bar"><div class="score-fill" id="sidebarFill" style="background:var(--ember);width:0%"></div></div>
+    <div class="score-label"><span>Concepts explorés</span><span id="conceptCount">0/7</span></div>
+    <div class="score-bar"><div class="score-fill" id="conceptFill" style="background:var(--iron);width:0%"></div></div>
+  </div>
+</nav>
+
+<!-- ═══════════════════ MAIN ═══════════════════ -->
+<div class="main">
+
+  <!-- ─── HERO ─── -->
+  <section class="hero" id="top">
+    <div class="hero-ember"></div>
+    <div class="hero-strate"></div>
+    <div>
+      <div class="hero-tag">Fiche pédagogique · Sociologie · Histoire des idées · Série « Grandes œuvres »</div>
+      <h1 class="hero-h1">
+        <span class="line-pre">Max Weber · 1904–1905</span>
+        <span class="line1">L'Éthique</span>
+        <span class="line2">protestante</span>
+        <span class="line3">&amp; l'esprit du capitalisme</span>
+      </h1>
+      <div class="hero-rule"></div>
+      <p class="hero-sub">
+        <strong>Pourquoi le capitalisme rationnel est-il né en Occident protestant, et non dans les civilisations chinoises ou indiennes pourtant plus anciennes ?</strong><br>
+        En 1904, Max Weber publie une réponse provocatrice : c'est la théologie calviniste de la prédestination qui, par un détour psychologique vertigineux, a forgé l'<em>éthos</em> capitaliste. Le protestantisme ascétique a fait du travail méthodique et de l'accumulation frugale un <em>devoir religieux</em> — transformant sans le vouloir le serviteur de Dieu en homo oeconomicus.
+      </p>
+      <div class="hero-chips">
+        <span class="chip chip-ember">Sociologie des religions</span>
+        <span class="chip chip-iron">Histoire du capitalisme</span>
+        <span class="chip chip-ash">Éthique et économie</span>
+        <span class="chip chip-ember">Beruf / Vocation</span>
+        <span class="chip chip-iron">Désenchantement</span>
+        <span class="chip chip-ash">Cage d'acier</span>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <div>
+        <div class="hb-label">Auteur</div>
+        <div class="hb-names">Max <span>Weber</span></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.12em;color:rgba(255,255,255,.3);margin-top:.4rem;">Erfurt 1864 — Munich 1920 · Archiv für Sozialwissenschaft, t. XX–XXI, 1904–1905</div>
+      </div>
+      <div class="hero-thesis">
+        « Le puritain voulait être un homme de métier — nous sommes forcés de l'être. »
+        <cite>— L'Éthique protestante, conclusion</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTEXTE ─── -->
+  <section class="sec" id="contexte">
+    <div class="sec-eyebrow"><span class="sec-num">§ 01</span><h2 class="sec-h2">Contexte <em>&amp;</em> Genèse</h2></div>
+    <div style="max-width:820px;">
+      <p style="margin-bottom:1.5rem;">Max Weber rédige <em>L'Éthique protestante</em> en 1903–1904, au sortir d'une grave dépression nerveuse qui l'avait tenu à l'écart du travail pendant cinq ans. C'est donc un texte écrit par un homme qui revient de loin — avec une lucidité particulière sur la question du <strong>rapport entre croyance et conduite de vie</strong>. Weber est aussi le fils d'une famille dans laquelle coexistent un père politicien libéral et une mère calviniste rigoriste : l'opposition entre ces deux types humains nourrit directement sa problématique.</p>
+      <p style="margin-bottom:2.5rem;">Le texte paraît d'abord en deux articles dans l'<em>Archiv für Sozialwissenschaft</em> (1904–1905), alors que Weber vient de visiter les États-Unis et a observé de près les sectes protestantes américaines et leur rapport étrange au travail, à la réussite et à la preuve de la grâce. Il révisera le texte en 1920 pour l'incorporer dans ses <em>Gesammelte Aufsätze zur Religionssoziologie</em> — version définitive que nous lisons.</p>
+      <div class="timeline-container">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">1864 — Erfurt</div>
+          <div class="tl-title">Naissance</div>
+          <div class="tl-body">Fils d'un politicien libéral rhénan et d'une mère calviniste réformée. <strong>Ce contraste familial entre engagement mondain et rigueur religieuse</strong> est au cœur de sa problématique intellectuelle.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot iron"></div>
+          <div class="tl-year">1897–1902</div>
+          <div class="tl-title">Effondrement nerveux</div>
+          <div class="tl-body">Après une violente dispute avec son père (mort quelques semaines plus tard), Weber sombre dans une <strong>dépression sévère</strong> qui le prive de toute capacité de travail. Quand il reprend la plume en 1902, sa pensée sur le sens du travail, la vocation et la souffrance est transformée.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-year">1904 — États-Unis</div>
+          <div class="tl-title">Voyage américain décisif</div>
+          <div class="tl-body">Weber assiste à une séance de baptême en Oklahoma, fréquente des sectes baptistes et méthodistes. Il observe un phénomène fascinant : <strong>l'appartenance à une secte sert de garantie de crédit moral</strong>. Ce n'est pas la foi qui compte mais la conduite vérifiable. Le capitalisme américain lui apparaît dans son lien profond avec l'ascétisme sectaire.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot iron"></div>
+          <div class="tl-year">1904–1905</div>
+          <div class="tl-title">Publication dans l'Archiv</div>
+          <div class="tl-body">Les deux articles paraissent et suscitent immédiatement une vive controverse, notamment avec <strong>Werner Sombart</strong> (qui attribue l'esprit capitaliste aux juifs, non aux protestants) et Lujo Brentano. Weber répond longuement — le texte des notes de bas de page est parfois aussi long que le corps du texte.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot smoke"></div>
+          <div class="tl-year">1919–1920</div>
+          <div class="tl-title">Révision finale et mort</div>
+          <div class="tl-body">Weber révise le texte pour ses <em>Gesammelte Aufsätze</em>, enrichissant l'argumentation. Il meurt le 14 juin 1920 de la grippe espagnole, à 56 ans, sans avoir achevé son <em>Wirtschaft und Gesellschaft</em>. <strong>L'Éthique protestante</strong> est publiée dans sa version définitive posthume.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── THÈSE ─── -->
+  <section class="sec alt" id="these">
+    <div class="sec-eyebrow"><span class="sec-num">§ 02</span><h2 class="sec-h2">Thèse <em>Centrale</em></h2></div>
+    <div style="max-width:820px;margin-bottom:2.5rem;">
+      <p style="margin-bottom:1.5rem;">La thèse de Weber peut se formuler en deux temps. <strong>Premier temps (négatif) :</strong> le capitalisme rationnel n'est pas la simple expression de l'avidité ou de la recherche du profit — ces passions ont existé partout et de tout temps. Ce qui distingue le capitalisme occidental moderne, c'est au contraire la <em>discipline</em> rationnelle de l'impulsion acquisitive, son organisation méthodique dans un cadre juridique et comptable rigoureux.</p>
+      <p style="margin-bottom:1.5rem;"><strong>Deuxième temps (positif) :</strong> cet éthos particulier — travailler méthodiquement, accumuler frugalement, considérer le profit comme un devoir — a été produit, contre toute apparence, par la théologie protestante ascétique. Le calvinisme, avec sa doctrine de la prédestination, a créé une <em>angoisse du salut</em> inédite dont la résolution psychologique a été de chercher dans le <strong>succès professionnel une preuve (Bewährung) de l'élection divine</strong>.</p>
+      <p>Weber insiste : c'est une <em>affinité élective</em> (Wahlverwandtschaft), non une causalité simple. L'éthique protestante n'a pas <em>créé</em> le capitalisme — elle a levé les résistances psychologiques et morales qui s'y opposaient, et forgé le type humain qui lui était nécessaire.</p>
+    </div>
+
+    <div class="pq cage">
+      <p>« La soif d'acquérir, la recherche du profit, de l'argent, de la plus grande quantité d'argent possible, n'ont en eux-mêmes rien à voir avec le capitalisme. [...] Ce qui caractérise le capitalisme, c'est la domination rationnelle de cette impulsion irrationnelle. »</p>
+      <cite>— L'Éthique protestante, Avant-propos</cite>
+    </div>
+
+    <div style="max-width:820px;margin-top:2.5rem;">
+      <p style="margin-bottom:1rem;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ember2);">Les trois affirmations fondamentales :</p>
+      <div class="strates-row">
+        <div class="strate">
+          <div class="strate-label">Affirmation 1</div>
+          <div class="strate-name">Anti-Marx</div>
+          <div style="font-size:.82rem;color:var(--smoke);margin-top:.4rem;line-height:1.6;">Les idées religieuses ne sont pas une simple « superstructure » des conditions économiques. Elles ont une <em>force propre</em> et peuvent transformer les comportements économiques de façon autonome.</div>
+          <div class="strate-color" style="background:var(--ember);"></div>
+        </div>
+        <div class="strate">
+          <div class="strate-label">Affirmation 2</div>
+          <div class="strate-name">Mécanisme psychologique</div>
+          <div style="font-size:.82rem;color:var(--smoke);margin-top:.4rem;line-height:1.6;">La doctrine de la prédestination produit une <em>angoisse du salut</em> (Heilsangst) si intense que les croyants cherchent des preuves (Bewährung) de leur élection dans le succès méthodique au travail.</div>
+          <div class="strate-color" style="background:var(--iron);"></div>
+        </div>
+        <div class="strate">
+          <div class="strate-label">Affirmation 3</div>
+          <div class="strate-name">La cage d'acier</div>
+          <div style="font-size:.82rem;color:var(--smoke);margin-top:.4rem;line-height:1.6;">Quand les racines religieuses de l'éthos capitaliste se sont desséchées, la <em>cage d'acier</em> (stahlhartes Gehäuse) est restée — contraignant les hommes à travailler sans que la foi y soit pour rien.</div>
+          <div class="strate-color" style="background:var(--smoke);"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── STRUCTURE ─── -->
+  <section class="sec dark" id="structure">
+    <div class="sec-eyebrow"><span class="sec-num">§ 03</span><h2 class="sec-h2">Structure <em>du Livre</em></h2></div>
+    <p style="color:rgba(255,255,255,.5);max-width:640px;margin-bottom:2rem;font-size:.9rem;line-height:1.8;">Le livre est organisé en deux chapitres encadrés par un avant-propos important (ajouté en 1920) et une longue conclusion. Weber construit son argument par strates successives — chaque section démonisant un obstacle avant d'avancer vers la thèse principale.</p>
+    <div class="accordion">
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-title">Avant-propos (1920) — Le problème du rationalisme occidental</div><div class="acc-icon">+</div></div>
+        <div class="acc-body"><div class="acc-inner">
+          <p>Weber ouvre en posant la question fondamentale de toute sa sociologie : <em>pourquoi le rationalisme moderne — science, droit, musique harmonique, architecture gothique, État bureaucratique, capitalisme — est-il apparu uniquement en Occident ?</em> Cette question n'est pas nationaliste : elle est analytique. Weber propose de l'expliquer par des <strong>combinaisons de facteurs spécifiques à la civilisation occidentale</strong>, dont les idées religieuses sont l'un des plus importants.</p>
+          <p>Il prend soin d'avertir : cet essai n'analyse qu'un seul aspect de la causalité. Les idées religieuses ne sont ni la seule ni la principale cause — mais elles ont une importance propre que le matérialisme historique méconnaît.</p>
+        </div></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-title">Chap. I §1 — Confession et stratification sociale</div><div class="acc-icon">+</div></div>
+        <div class="acc-body"><div class="acc-inner">
+          <p>Weber part d'un fait statistique observé en Allemagne et en Autriche : <strong>dans les régions où coexistent catholiques et protestants, les chefs d'entreprise, les dirigeants, les ingénieurs sont en grande majorité protestants</strong>. Ce n'est pas un hasard historique lié à la richesse héritée : l'explication réside dans des différences de <em>mentalité</em> et d'<em>orientation vers la vie économique</em>.</p>
+          <p>Il note l'apparent paradoxe : le protestantisme impose une réglementation de la vie <em>plus sévère</em> que le catholicisme traditionnel. C'est donc précisément cette rigueur, non le relâchement, qui favorise l'esprit capitaliste.</p>
+        </div></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-title">Chap. I §2 — L'«  esprit » du capitalisme</div><div class="acc-icon">+</div></div>
+        <div class="acc-body"><div class="acc-inner">
+          <p>Weber introduit le concept central par un exemple littéraire : les préceptes de <strong>Benjamin Franklin</strong> (<em>Le temps, c'est de l'argent ; le crédit, c'est de l'argent...</em>). Pour Franklin, ce n'est pas simplement une stratégie d'affaires : c'est une <em>éthique</em>. Dilapider son temps ou son argent est une faute morale — « assassiner » un embryon de capital.</p>
+          <p>Weber définit l'esprit du capitalisme non comme l'avidité (universelle) mais comme le <strong>devoir de travailler méthodiquement et d'accumuler frugalement dans une profession</strong>. Cette idée est historiquement récente et culturellement très spécifique — elle aurait été condamnée dans l'Antiquité comme avarice sordide.</p>
+        </div></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-title">Chap. I §3 — La notion de Beruf chez Luther</div><div class="acc-icon">+</div></div>
+        <div class="acc-body"><div class="acc-inner">
+          <p>Weber examine l'origine du concept de <em>Beruf</em> (à la fois « profession » et « vocation » en allemand). C'est Luther qui, en traduisant la Bible en allemand, forge ce mot décisif. Pour Luther, <strong>chaque état séculier est une vocation divine</strong> — l'artisan, le laboureur, le marchand servent Dieu dans leur métier autant que le moine dans son cloître. C'est une révolution par rapport au catholicisme médiéval qui hiérarchisait les états avec la vie monastique au sommet.</p>
+          <p>Mais Luther reste attaché au traditionalisme économique — il n'encourage pas encore la rationalisation méthodique du travail. C'est le calvinisme qui va franchir ce pas décisif.</p>
+        </div></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-title">Chap. II §1A — Le calvinisme et la prédestination</div><div class="acc-icon">+</div></div>
+        <div class="acc-body"><div class="acc-inner">
+          <p>C'est le cœur du livre. Weber analyse la doctrine calviniste de la <strong>prédestination absolue</strong> : Dieu a décidé de toute éternité, pour des raisons insondables, qui sera sauvé et qui sera damné. Aucune œuvre, aucun sacrement, aucune confession ne peut modifier ce décret. Le croyant calviniste se trouve dans une <em>solitude intérieure inouïe</em> face à un Dieu transcendant et impénétrable.</p>
+          <p>Cette doctrine génère une <strong>angoisse existentielle</strong> immense : <em>Suis-je élu ou réprouvé ?</em> Les pasteurs calvinistes ne peuvent pas répondre à cette question théologiquement — mais ils observent que les croyants cherchent des <em>signes</em> (Zeichen) de leur état de grâce. Et progressivement se développe l'idée que le <strong>succès méthodique dans sa besogne</strong> constitue un signe de l'élection divine.</p>
+        </div></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-title">Chap. II §1B–D — Piétisme, méthodisme, sectes baptistes</div><div class="acc-icon">+</div></div>
+        <div class="acc-body"><div class="acc-inner">
+          <p>Weber élargit son analyse au-delà du calvinisme strict pour montrer que la même logique — ascétisme méthodique, vérification de la grâce dans la conduite quotidienne — se retrouve dans toutes les formes du protestantisme ascétique : le <strong>piétisme</strong> (Spener, Francke), le <strong>méthodisme</strong> (Wesley) et les <strong>sectes baptistes</strong> (quakers, mennonites, frères moraves).</p>
+          <p>La convergence de ces courants très différents sur le même éthos (travail méthodique, frugalité, rejet du luxe ostensible, discipline intérieure) n'est pas un hasard — elle révèle une logique commune : <em>l'ascétisme séculier comme preuve de foi</em>.</p>
+        </div></div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-title">Chap. II §2 — Ascétisme et esprit capitaliste (conclusion)</div><div class="acc-icon">+</div></div>
+        <div class="acc-body"><div class="acc-inner">
+          <p>Weber tire les conséquences : l'ascétisme protestant a accompli deux choses simultanées qui sont à l'origine de l'accumulation capitaliste. <strong>D'un côté :</strong> il a libéré la recherche du profit de toute inhibition morale (puisque le succès est signe d'élection). <strong>De l'autre :</strong> il a freiné la <em>consommation</em> des richesses acquises (luxe, plaisirs = idolâtrie de la créature). Cette combinaison explosive — gain illimité + consommation minimale = <strong>investissement forcé</strong> — est la mécanique de l'accumulation du capital.</p>
+          <p>Weber conclut avec sa formule la plus célèbre : la cage d'acier. Quand les racines religieuses se sont desséchées, l'éthos capitaliste a survécu sous forme de contrainte économique pure — et nous y sommes prisonniers sans plus savoir pourquoi.</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONCEPTS CLÉS ─── -->
+  <section class="sec alt" id="concepts">
+    <div class="sec-eyebrow"><span class="sec-num">§ 04</span><h2 class="sec-h2">Concepts <em>Clés</em></h2></div>
+    <p style="max-width:680px;margin-bottom:2rem;color:var(--smoke);font-size:.9rem;line-height:1.8;">Cliquez sur chaque carte pour l'analyse complète et la portée du concept.</p>
+    <div class="concept-grid">
+      <div class="concept-card" data-num="01" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept central · 01</span>
+        <div class="cc-title">Beruf</div>
+        <div class="cc-de">Beruf — vocation / profession / appel</div>
+        <div class="cc-short">Le mot allemand qui contient tout le problème : vocation divine et profession séculière confondues en un seul terme.</div>
+        <div class="cc-expand"><div class="cc-expand-body">
+          <p>Le <em>Beruf</em> est la clé de voûte de l'argumentation wébérienne. Ce mot allemand est untranslatable de façon satisfaisante : il signifie à la fois <em>profession</em> (l'activité économique qu'on exerce) et <em>vocation</em> (l'appel divin qui oriente une vie). Cette double signification est précisément le résultat de la traduction de la Bible par <strong>Luther</strong>.</p>
+          <p>Dans la Bible catholique médiévale, les textes qui évoquent l'état dans lequel Dieu nous a appelés (1 Cor. 7:20) ne comportaient pas cette connotation professionnelle. Luther, en traduisant, forge le terme <em>Beruf</em> pour désigner l'état séculier comme vocation divine : <strong>l'artisan, le marchand, le laboureur servent Dieu autant que le moine</strong>. C'est une révolution anthropologique.</p>
+          <div class="cc-today">La notion de « calling » (anglais) ou de « vocation » (sens fort) est aujourd'hui mobilisée dans la psychologie positive (Damon, Wrzesniewski) et dans les études sur l'engagement au travail. Le fait que certains salariés « se sentent une vocation » pour leur métier est un héritage direct de cette transformation protestante.</div>
+        </div></div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))"><div class="cc-arrow">↓</div><span>Lire l'analyse</span></div>
+      </div>
+
+      <div class="concept-card" data-num="02" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept central · 02</span>
+        <div class="cc-title">Prédestination</div>
+        <div class="cc-de">Prädestination — décret éternel d'élection ou de damnation</div>
+        <div class="cc-short">Le dogme théologique le plus austère du calvinisme — et paradoxalement le plus puissant moteur d'activité économique.</div>
+        <div class="cc-expand"><div class="cc-expand-body">
+          <p>La doctrine calviniste de la prédestination affirme que <strong>Dieu a décidé de toute éternité, par un décret insondable, qui sera sauvé et qui sera damné</strong>. Aucune œuvre humaine, aucun sacrement, aucune confession, aucune intercession d'un prêtre ne peut modifier ce décret. Ce <em>decretum horribile</em> (comme Calvin lui-même l'appelle) place le croyant dans une solitude intérieure absolue.</p>
+          <p>Pour Weber, ce dogme produit une <strong>angoisse du salut (Heilsangst) sans précédent</strong> dans l'histoire des religions. Comment vivre sous un tel Dieu ? La réponse psychologique n'est pas le désespoir mais la recherche de <em>signes de confirmation</em> (Bewährungszeichen). Le succès méthodique dans sa vocation professionnelle devient progressivement le signe principal que l'on appartient aux élus.</p>
+          <div class="cc-today">Ce mécanisme — l'angoisse existentielle transformée en activisme frénétique — est analysé par Hannah Arendt, puis par le sociologue Hartmut Rosa dans sa théorie de l'accélération sociale : nos sociétés contemporaines maintiennent une logique d'activisme perpétuel dont les racines psychologiques sont ici.</div>
+        </div></div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))"><div class="cc-arrow">↓</div><span>Lire l'analyse</span></div>
+      </div>
+
+      <div class="concept-card" data-num="03" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept central · 03</span>
+        <div class="cc-title">Ascétisme séculier</div>
+        <div class="cc-de">Innerweltliche Askese — ascétisme intra-mondain</div>
+        <div class="cc-short">Non pas fuir le monde dans un cloître, mais le maîtriser de l'intérieur par une discipline méthodique de tous les instants.</div>
+        <div class="cc-expand"><div class="cc-expand-body">
+          <p>Weber distingue deux types d'ascétisme : l'ascétisme <em>extra-mondain</em> (le moine qui fuit le monde) et l'ascétisme <em>intra-mondain</em> (le puritain qui maîtrise le monde depuis l'intérieur). Le protestantisme ascétique développe cette seconde forme : <strong>le monde séculier est le lieu d'épreuve et de glorification de Dieu</strong>.</p>
+          <p>L'ascétisme intra-mondain implique : <em>travail méthodique et sans relâche</em> ; <em>rejet de tout luxe et jouissance inutile</em> (idolâtrie de la créature) ; <em>discipline intérieure de toutes les heures</em> ; <em>utilité rationnelle comme critère de tout usage des richesses</em>. Ces vertus, pensées comme devoir religieux, ont comme résultat économique l'accumulation du capital : <strong>on produit beaucoup et on consomme peu</strong>.</p>
+          <div class="cc-today">L'ascétisme séculier est la matrice culturelle du type humain que Foucault appellera le « sujet de performance » et que Byung-Chul Han analyse dans La Société de la fatigue (2010) : un sujet qui s'exploite lui-même librement, sans contrainte externe, au nom de sa propre réalisation.</div>
+        </div></div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))"><div class="cc-arrow">↓</div><span>Lire l'analyse</span></div>
+      </div>
+
+      <div class="concept-card" data-num="04" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept central · 04</span>
+        <div class="cc-title">Désenchantement</div>
+        <div class="cc-de">Entzauberung der Welt — désenchantement du monde</div>
+        <div class="cc-short">Le processus par lequel la magie, le sacrement et le mystère sont expulsés du monde — pour laisser la place à la rationalisation.</div>
+        <div class="cc-expand"><div class="cc-expand-body">
+          <p>L'un des concepts les plus célèbres de Weber, dont on trouve la formulation la plus claire dans <em>L'Éthique protestante</em>. Le désenchantement (terme emprunté à Schiller) désigne le <strong>processus historique par lequel le monde perd son caractère magique et mystérieux</strong>. Ce processus a commencé, selon Weber, avec les prophètes hébreux et la pensée grecque, mais le protestantisme calviniste en a représenté l'aboutissement religieux.</p>
+          <p>Le puritain refuse tout élément magique ou sacramentel dans sa religion (pas de confession, pas d'indulgences, pas de reliques, pas de saints intercesseurs). <strong>Il n'y a plus d'intermédiaire entre l'homme et Dieu.</strong> Cette radicalisation a comme effet indirect de rationaliser tous les domaines de la vie — économique, juridique, scientifique. Le monde devient un mécanisme gouverné par des lois, non un mystère habité par des esprits.</p>
+          <div class="cc-today">Le désenchantement est l'une des catégories analytiques les plus utilisées en sciences sociales contemporaines. Il alimente les débats sur le retour du religieux, le new age, les théories du complot (ré-enchantement du monde) et les réflexions sur la perte de sens dans les sociétés modernes (Charles Taylor, Marcel Gauchet).</div>
+        </div></div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))"><div class="cc-arrow">↓</div><span>Lire l'analyse</span></div>
+      </div>
+
+      <div class="concept-card" data-num="05" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept central · 05</span>
+        <div class="cc-title">La cage d'acier</div>
+        <div class="cc-de">Stahlhartes Gehäuse — coque dure comme l'acier</div>
+        <div class="cc-short">Quand la foi s'est éteinte, la contrainte capitaliste est restée — et nous y sommes prisonniers sans plus en comprendre les origines ni le sens.</div>
+        <div class="cc-expand"><div class="cc-expand-body">
+          <p>La formule la plus célèbre de Weber — et probablement l'une des plus célèbres des sciences sociales. Elle clôt l'essai dans un registre presque apocalyptique. L'expression originale <em>stahlhartes Gehäuse</em> (littéralement : « enveloppe dure comme l'acier ») a été rendue en français par « cage d'acier », traduction de Talcott Parsons qui, selon certains chercheurs, est plus dramatique que l'original.</p>
+          <p>Le sens est clair : <strong>le puritain voulait librement être un homme de métier</strong> — il y voyait un devoir envers Dieu. <em>Nous</em>, modernes, <strong>sommes forcés de l'être</strong> — par les contraintes du marché, par l'organisation capitaliste qui ne nous laisse pas le choix. Ce qui était une vocation est devenu une contrainte mécanique. Le fondement religieux s'est évaporé, la cage est restée.</p>
+          <div class="cc-today">La cage d'acier est l'ancêtre de toutes les théories contemporaines sur l'aliénation par le travail, de Herbert Marcuse (L'Homme unidimensionnel) à Zygmunt Bauman (Modernité liquide). Elle anticipe aussi les analyses de Foucault sur la discipline et la gouvernementalité — le sujet moderne s'auto-gouverne selon des normes qu'il a intégrées sans les choisir.</div>
+        </div></div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))"><div class="cc-arrow">↓</div><span>Lire l'analyse</span></div>
+      </div>
+
+      <div class="concept-card" data-num="06" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept central · 06</span>
+        <div class="cc-title">Affinité élective</div>
+        <div class="cc-de">Wahlverwandtschaft — affinité élective (Goethe)</div>
+        <div class="cc-short">La relation entre éthique protestante et capitalisme n'est ni causalité simple ni coïncidence — c'est une attraction mutuelle entre deux logiques qui se renforcent.</div>
+        <div class="cc-expand"><div class="cc-expand-body">
+          <p>Weber emprunte à Goethe ce terme chimique : l'affinité élective désigne une relation dans laquelle deux éléments s'attirent et se renforcent mutuellement sans que l'un soit simplement la cause de l'autre. Ce n'est pas : <em>le protestantisme a causé le capitalisme</em> (trop simple). Ce n'est pas non plus : <em>le capitalisme a causé le protestantisme</em> (matérialisme historique vulgaire). C'est : <strong>entre l'éthos du protestantisme ascétique et l'esprit du capitalisme, il y a une affinité structurelle profonde</strong> — deux logiques qui se reconnaissent et se soutiennent mutuellement.</p>
+          <p>Weber est rigoureux : il ne dit pas que le protestantisme est la <em>seule</em> cause du capitalisme. D'autres facteurs (droit romain, techniques comptables, bureaucratie) sont indispensables. Il dit que parmi les facteurs culturels, l'éthique protestante est celui qui a levé les <em>résistances intérieures</em> au développement de la rationalité capitaliste.</p>
+          <div class="cc-today">Le concept d'affinité élective est devenu un outil analytique majeur de la sociologie de la connaissance et de la culture. Michael Löwy l'a utilisé pour analyser les relations entre marxisme et romantisme révolutionnaire (1988), puis entre éthique protestante et esprit du capitalisme dans des pays non-occidentaux.</div>
+        </div></div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))"><div class="cc-arrow">↓</div><span>Lire l'analyse</span></div>
+      </div>
+
+      <div class="concept-card" data-num="07" onclick="toggleCard(this)" style="grid-column:1/4">
+        <span class="cc-tag">Concept central · 07</span>
+        <div class="cc-title">Type idéal</div>
+        <div class="cc-de">Idealtypus — construction analytique pure, jamais trouvée telle quelle dans la réalité</div>
+        <div class="cc-short" style="max-width:680px;">La méthode wébérienne : construire une image conceptuellement cohérente d'un phénomène historique — non pas pour la «vérifier » empiriquement, mais pour mesurer l'écart entre l'idéal et le réel.</div>
+        <div class="cc-expand"><div class="cc-expand-body">
+          <p>Weber utilise abondamment dans <em>L'Éthique protestante</em> sa méthode des types idéaux, sans toujours l'expliciter. Quand il décrit « l'esprit du capitalisme » ou « l'éthique protestante ascétique », il ne prétend pas décrire tous les capitalistes ou tous les protestants — il construit une <strong>image intellectuellement cohérente et exagérée</strong> qui permet de voir clairement ce qui est le plus caractéristique d'un phénomène.</p>
+          <p>Le type idéal est un <em>outil heuristique</em>, non une réalité empirique. Il permet de comparer : le puritain réel s'écarte du type idéal puritain — et cet écart est lui-même significatif. De même, l'entrepreneur réel s'écarte du type idéal de l'esprit capitaliste — et cet écart révèle les tensions et contradictions du phénomène.</p>
+          <div class="cc-today">Le type idéal est l'une des contributions méthodologiques les plus importantes de Weber à la sociologie. Il est au cœur de son refus du positivisme (on ne découvre pas des lois, on construit des concepts) et de son anti-essentialisme (les catégories sont des outils, non des essences). Il influence Parsons, Merton, Goffman et toute la sociologie interactionniste.</div>
+        </div></div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))"><div class="cc-arrow">↓</div><span>Lire l'analyse</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CHAÎNE CAUSALE ─── -->
+  <section class="sec ember-bg" id="chaine">
+    <div class="sec-eyebrow"><span class="sec-num">§ 05</span><h2 class="sec-h2">La Chaîne <em>Causale</em></h2></div>
+    <p style="color:rgba(255,255,255,.45);max-width:640px;margin-bottom:2rem;font-size:.9rem;line-height:1.8;">
+      Le mécanisme wébérien procède par une série d'étapes psychologiques et sociales. Chaque maillon de la chaîne est nécessaire — supprimer l'un, et l'argument s'effondre.
+    </p>
+
+    <div class="chain">
+      <div class="chain-node">
+        <span class="chain-node-num">ÉTAPE 1</span>
+        <div class="chain-node-title">Doctrine de la prédestination</div>
+        <div class="chain-node-body">Dieu a décidé de toute éternité qui sera sauvé. Rien ne peut changer ce décret.</div>
+      </div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-node">
+        <span class="chain-node-num">ÉTAPE 2</span>
+        <div class="chain-node-title">Angoisse du salut</div>
+        <div class="chain-node-body">Solitude intérieure absolue. Impossible de savoir si l'on est élu ou réprouvé.</div>
+      </div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-node">
+        <span class="chain-node-num">ÉTAPE 3</span>
+        <div class="chain-node-title">Besoin de signes (Bewährung)</div>
+        <div class="chain-node-body">Chercher dans la conduite quotidienne des preuves de son état de grâce.</div>
+      </div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-node">
+        <span class="chain-node-num">ÉTAPE 4</span>
+        <div class="chain-node-title">Travail méthodique comme signe</div>
+        <div class="chain-node-body">Le succès dans sa vocation (Beruf) devient preuve de l'élection divine.</div>
+      </div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-node">
+        <span class="chain-node-num">ÉTAPE 5</span>
+        <div class="chain-node-title">Ascétisme + frugalité</div>
+        <div class="chain-node-body">Travail maximal, consommation minimale. Toute jouissance = idolâtrie de la créature.</div>
+      </div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-node">
+        <span class="chain-node-num">ÉTAPE 6</span>
+        <div class="chain-node-title">Accumulation forcée</div>
+        <div class="chain-node-body">Le profit non dépensé devient capital investi. Formation structurelle du capital.</div>
+      </div>
+      <div class="chain-arrow">→</div>
+      <div class="chain-node" style="border-color:rgba(192,112,24,.5);background:rgba(192,112,24,.12);">
+        <span class="chain-node-num">RÉSULTAT</span>
+        <div class="chain-node-title" style="color:var(--ember);">Capitalisme rationnel</div>
+        <div class="chain-node-body" style="color:rgba(255,255,255,.45);">Quand la foi s'éteint : la cage d'acier reste.</div>
+      </div>
+    </div>
+
+    <div class="pq cage" style="margin-top:3rem;">
+      <p>« Le puritain voulait être un homme de métier — nous sommes forcés de l'être. Car lorsque l'ascétisme fut transporté hors des cellules monastiques dans la vie professionnelle et commença à dominer la moralité séculière, il contribua à bâtir ce cosmos prodigieux de l'ordre économique moderne, lié aux conditions techniques et économiques de la production mécanique. »</p>
+      <cite>— L'Éthique protestante, conclusion finale</cite>
+    </div>
+  </section>
+
+  <!-- ─── COMPARAISON ─── -->
+  <section class="sec alt" id="comparaison">
+    <div class="sec-eyebrow"><span class="sec-num">§ 06</span><h2 class="sec-h2">Catholicisme <em>vs</em> Protestantisme Ascétique</h2></div>
+    <p style="max-width:680px;margin-bottom:2.5rem;color:var(--smoke);">Weber construit son argument par opposition. L'éthique catholique traditionnelle et l'éthique protestante ascétique conduisent à des comportements économiques radicalement différents.</p>
+    <div class="compare-sec">
+      <div class="compare-header">
+        <div class="ch-title iron">Catholicisme traditionnel</div>
+        <div></div>
+        <div class="ch-title ember">Protestantisme ascétique</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">Hiérarchie des états : vie monastique supérieure à la vie séculière. Les <strong>œuvres religieuses</strong> (prières, pèlerinages, charité) valent plus que le travail professionnel ordinaire.</div>
+        <div class="cr-mid">Vocation</div>
+        <div class="cr-label-r">Chaque état séculier est une <strong>vocation divine</strong> (Beruf). Le travail dans le monde est une façon de glorifier Dieu aussi valable que la prière monastique.</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">La confession et l'absolution permettent de <strong>décharger périodiquement</strong> la conscience des péchés. Mécanisme de gestion des fautes qui libère de la tension.</div>
+        <div class="cr-mid">Gestion des fautes</div>
+        <div class="cr-label-r">Pas de confession, pas d'absolution. L'<strong>angoisse du salut</strong> est permanente et sans soupape. Elle se résout uniquement dans la conduite méthodique de toute la vie.</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">Méfiance théologique envers la richesse (usure condamnée, ideal de pauvreté) — mais <strong>tolérance pratique</strong> du luxe aristocratique et ecclésiastique.</div>
+        <div class="cr-mid">Rapport à la richesse</div>
+        <div class="cr-label-r">Le profit est <strong>signe d'élection</strong> si gagné par le travail méthodique. Mais le luxe et la consommation ostentatoire sont condamnés comme idolâtrie de la créature.</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">Le monde est un lieu de passage, de tentation et d'épreuve. L'idéal reste la retraite du monde (couvent) ou au moins une relation distante avec les affaires.</div>
+        <div class="cr-mid">Rapport au monde</div>
+        <div class="cr-label-r">Le monde séculier est le lieu de l'épreuve et de la <strong>glorification de Dieu</strong>. Il faut le dominer rationnellement de l'intérieur — non le fuir.</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">Salut accessible par les sacrements, l'appartenance à l'Église, les bonnes œuvres et la grâce distribuée par l'institution ecclésiale.</div>
+        <div class="cr-mid">Salut</div>
+        <div class="cr-label-r">Salut <strong>prédéterminé de toute éternité</strong>. Aucune Église, aucun sacrement, aucune œuvre ne peut l'obtenir. Seul le comportement peut en fournir des <em>signes</em>.</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">Économie de type <strong>traditionnel</strong> : on travaille pour vivre selon son rang. La richesse est dépensée en faste aristocratique, en charité et en construction d'édifices religieux.</div>
+        <div class="cr-mid">Comportement économique</div>
+        <div class="cr-label-r">Travail <strong>méthodique et rationnel</strong> comme fin en soi, frugalité systématique. Résultat : accumulation involontaire du capital et investissement productif.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── GLOSSAIRE ─── -->
+  <section class="sec" id="glossaire">
+    <div class="sec-eyebrow"><span class="sec-num">§ 07</span><h2 class="sec-h2">Glossaire <em>Allemand</em></h2></div>
+    <div class="glos-grid">
+      <div class="gi" data-g="B">
+        <span class="gi-src">L'Éthique protestante · ch. I §3</span>
+        <div class="gi-term">Beruf</div>
+        <div class="gi-de">vocation / profession / appel</div>
+        <div class="gi-def">Terme forgé par Luther dans sa traduction de la Bible. Désigne à la fois l'activité professionnelle séculière et la vocation divine. Contient en un seul mot toute la révolution luthérienne : chaque état dans le monde est un appel de Dieu.</div>
+        <div class="gi-now">Toujours au cœur des débats sur le « sens au travail », la « vocation professionnelle » et la souffrance au travail (burn-out comme pathologie du Beruf sans croyance).</div>
+      </div>
+      <div class="gi" data-g="E">
+        <span class="gi-src">L'Éthique protestante · ch. II §1A</span>
+        <div class="gi-term">Entzauberung</div>
+        <div class="gi-de">désenchantement du monde</div>
+        <div class="gi-def">Processus historique d'expulsion de la magie, du mystère et du sacrement de la compréhension du monde. Achevé par le protestantisme calviniste qui refuse tout intermédiaire magique entre l'homme et Dieu. Ouvre la voie à la rationalisation de tous les domaines de la vie.</div>
+        <div class="gi-now">Concept central de la philosophie contemporaine sur la modernité, le retour du religieux et la crise de sens (Taylor, Gauchet, Habermas). Le « ré-enchantement » du monde (New Age, conspirationnisme) est souvent analysé comme réaction au désenchantement wébérien.</div>
+      </div>
+      <div class="gi" data-g="B">
+        <span class="gi-src">L'Éthique protestante · ch. II §2</span>
+        <div class="gi-term">Bewährung</div>
+        <div class="gi-de">confirmation / preuve / vérification de la grâce</div>
+        <div class="gi-def">Le besoin psychologique de trouver des signes confirmant que l'on est parmi les élus. Pour le calviniste hanté par la prédestination, le succès méthodique dans sa vocation devient le signe de confirmation le plus accessible et le plus tangible de son état de grâce.</div>
+        <div class="gi-now">Mécanisme que l'on retrouve dans la culture de la performance contemporaine : les indicateurs de performance (KPIs), les évaluations, les diplômes et les promotions fonctionnent comme des Bewährungszeichen modernes — preuves de valeur personnelle, non plus divine.</div>
+      </div>
+      <div class="gi" data-g="I">
+        <span class="gi-src">L'Éthique protestante · méthode</span>
+        <div class="gi-term">Idealtypus</div>
+        <div class="gi-de">type idéal / type pur</div>
+        <div class="gi-def">Construction analytique qui exagère et systématise les traits les plus caractéristiques d'un phénomène historique. Outil heuristique, non description empirique. Le « puritain type » ou « l'entrepreneur capitaliste type » de Weber sont des types idéaux.</div>
+        <div class="gi-now">Méthode fondamentale de la sociologie weberienne. Permet de construire des modèles analytiques sans tomber dans l'essentialisme. Utilisé par Parsons, Merton, Goffman, et toute la tradition interactionniste américaine.</div>
+      </div>
+      <div class="gi" data-g="W">
+        <span class="gi-src">L'Éthique protestante · conclusion</span>
+        <div class="gi-term">Wahlverwandtschaft</div>
+        <div class="gi-de">affinité élective (terme de chimie, repris par Goethe)</div>
+        <div class="gi-def">Relation entre deux logiques qui s'attirent et se renforcent mutuellement sans que l'une soit simplement la cause de l'autre. Weber l'utilise pour décrire la relation entre éthique protestante et esprit capitaliste : pas une causalité mécanique mais une convergence structurelle.</div>
+        <div class="gi-now">Outil analytique repris par Michael Löwy dans ses études sur marxisme et romantisme révolutionnaire, et dans les études sur les relations entre idéologies politiques et traditions religieuses.</div>
+      </div>
+      <div class="gi" data-g="S">
+        <span class="gi-src">L'Éthique protestante · conclusion</span>
+        <div class="gi-term">Stahlhartes Gehäuse</div>
+        <div class="gi-de">enveloppe dure comme l'acier / « cage d'acier »</div>
+        <div class="gi-def">Métaphore finale de l'essai. L'ordre capitaliste moderne, une fois établi, contraint tous les individus à se conformer à ses règles, indépendamment de toute croyance religieuse. Ce qui était vocation libre est devenu contrainte mécanique.</div>
+        <div class="gi-now">Métaphore fondatrice des théories critiques de la modernité. Reprise par Foucault (discipline), Habermas (colonisation du monde vécu), Rosa (accélération) et Bauman (cage liquide).</div>
+      </div>
+      <div class="gi" data-g="R">
+        <span class="gi-src">L'Éthique protestante · ch. II §1A</span>
+        <div class="gi-term">Rationalisierung</div>
+        <div class="gi-de">rationalisation — processus d'organisation rationnelle</div>
+        <div class="gi-def">Processus par lequel les différents domaines de la vie (économie, droit, science, musique, État) se soumettent à des règles calculables et prévisibles. C'est le grand concept analytique de Weber — le capitalisme occidental moderne est le résultat d'une rationalisation unique dans l'histoire.</div>
+        <div class="gi-now">Concept central de toute la sociologie wébérienne (pas seulement de l'Éthique protestante). Max Horkheimer et Theodor Adorno l'ont radicalisé dans La Dialectique de la raison (1944) : la rationalisation finit par se retourner contre la liberté qu'elle promettait.</div>
+      </div>
+      <div class="gi" data-g="E">
+        <span class="gi-src">L'Éthique protestante · ch. II §1A</span>
+        <div class="gi-term">Ethos</div>
+        <div class="gi-de">disposition morale pratique — manière d'être dans le monde</div>
+        <div class="gi-def">Le mot grec que Weber utilise pour désigner l'ensemble des dispositions pratiques, des attitudes et des orientations de valeur qui guident effectivement la conduite quotidienne — au-delà des doctrines théologiques abstraites. L'éthos est la doctrine traduite en comportement.</div>
+        <div class="gi-now">Concept clé de la sociologie de la culture et de l'anthropologie. Proche de l' « habitus » de Bourdieu — mais Weber insiste sur la dimension religieuse et le mécanisme psychologique de la formation de l'éthos, que Bourdieu néglige.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SCHÉMA ─── -->
+  <section class="sec iron" id="schema">
+    <div class="sec-eyebrow"><span class="sec-num">§ 08</span><h2 class="sec-h2">Schéma <em>Conceptuel</em></h2></div>
+    <p style="color:rgba(255,255,255,.45);max-width:640px;margin-bottom:2rem;font-size:.9rem;line-height:1.8;">L'architecture d'ensemble de l'argument wébérien — du problème de départ (rationalisme occidental) jusqu'à la cage d'acier finale.</p>
+    <div style="background:var(--coal);border:1px solid rgba(255,255,255,.06);padding:2.5rem 2rem;">
+      <svg viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+        <defs>
+          <pattern id="cage" width="24" height="24" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="0" x2="0" y2="24" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+            <line x1="0" y1="0" x2="24" y2="0" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+          </pattern>
+          <marker id="arrW" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="rgba(192,112,24,0.6)"/>
+          </marker>
+          <marker id="arrI" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="rgba(58,64,80,0.7)"/>
+          </marker>
+        </defs>
+        <rect width="900" height="540" fill="url(#cage)"/>
+
+        <!-- Question centrale -->
+        <rect x="270" y="20" width="360" height="60" rx="0" fill="rgba(192,112,24,0.12)" stroke="rgba(192,112,24,0.5)" stroke-width="1.5"/>
+        <text x="450" y="44" font-family="'Barlow Condensed',sans-serif" font-size="14" font-weight="800" fill="#f0c860" text-anchor="middle" letter-spacing="2">POURQUOI LE CAPITALISME RATIONNEL</text>
+        <text x="450" y="62" font-family="'Barlow Condensed',sans-serif" font-size="14" font-weight="800" fill="#f0c860" text-anchor="middle" letter-spacing="2">N'EST NÉ QU'EN OCCIDENT ?</text>
+
+        <!-- Flèches depuis la question -->
+        <line x1="350" y1="82" x2="215" y2="142" stroke="rgba(192,112,24,0.3)" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrW)"/>
+        <line x1="450" y1="82" x2="450" y2="142" stroke="rgba(192,112,24,0.3)" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrW)"/>
+        <line x1="550" y1="82" x2="685" y2="142" stroke="rgba(192,112,24,0.3)" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrW)"/>
+
+        <!-- Trois réponses partielles -->
+        <rect x="80" y="145" width="175" height="60" fill="rgba(58,64,80,0.2)" stroke="rgba(58,64,80,0.4)" stroke-width="1"/>
+        <text x="167" y="168" font-family="'Barlow Condensed',sans-serif" font-size="12" font-weight="700" fill="#9aaec8" text-anchor="middle" letter-spacing="1">DROIT RATIONNEL</text>
+        <text x="167" y="186" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.25)" text-anchor="middle">droit romain · État</text>
+
+        <rect x="362" y="145" width="175" height="60" fill="rgba(192,112,24,0.15)" stroke="rgba(192,112,24,0.5)" stroke-width="1.5"/>
+        <text x="450" y="168" font-family="'Barlow Condensed',sans-serif" font-size="12" font-weight="700" fill="#f0c860" text-anchor="middle" letter-spacing="1">ÉTHIQUE RELIGIEUSE</text>
+        <text x="450" y="186" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.25)" text-anchor="middle">protestantisme ascétique ← étude ici</text>
+
+        <rect x="645" y="145" width="175" height="60" fill="rgba(58,64,80,0.2)" stroke="rgba(58,64,80,0.4)" stroke-width="1"/>
+        <text x="732" y="168" font-family="'Barlow Condensed',sans-serif" font-size="12" font-weight="700" fill="#9aaec8" text-anchor="middle" letter-spacing="1">TECHNIQUE RATIONNELLE</text>
+        <text x="732" y="186" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.25)" text-anchor="middle">comptabilité · organisation</text>
+
+        <!-- Zoom sur éthique religieuse -->
+        <line x1="450" y1="207" x2="450" y2="248" stroke="rgba(192,112,24,0.5)" stroke-width="1.5" marker-end="url(#arrW)"/>
+
+        <!-- Calvinisme -->
+        <rect x="290" y="250" width="320" height="70" fill="rgba(192,112,24,0.1)" stroke="rgba(192,112,24,0.55)" stroke-width="2"/>
+        <text x="450" y="278" font-family="'Barlow Condensed',sans-serif" font-size="18" font-weight="900" fill="#f0a860" text-anchor="middle" letter-spacing="2">CALVINISME</text>
+        <text x="450" y="298" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="rgba(255,255,255,.3)" text-anchor="middle">prédestination · désenchantement · solitude intérieure</text>
+        <text x="450" y="312" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="rgba(255,255,255,.2)" text-anchor="middle">+ piétisme · méthodisme · sectes baptistes</text>
+
+        <!-- Flèche vers angoisse -->
+        <line x1="450" y1="322" x2="450" y2="363" stroke="rgba(192,112,24,0.5)" stroke-width="1.5" marker-end="url(#arrW)"/>
+
+        <!-- Angoisse du salut + Bewährung -->
+        <rect x="210" y="365" width="480" height="65" fill="rgba(30,16,8,0.8)" stroke="rgba(192,112,24,0.35)" stroke-width="1"/>
+        <text x="450" y="390" font-family="'Barlow Condensed',sans-serif" font-size="15" font-weight="800" fill="#fff" text-anchor="middle" letter-spacing="1.5">ANGOISSE DU SALUT</text>
+        <text x="450" y="410" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.3)" text-anchor="middle">→ besoin de Bewährung (preuve d'élection) → travail méthodique comme signe</text>
+        <text x="450" y="424" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,.2)" text-anchor="middle">BERUF + ascétisme séculier + frugalité = accumulation forcée du capital</text>
+
+        <!-- Flèche vers cage -->
+        <line x1="450" y1="432" x2="450" y2="473" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arrI)"/>
+
+        <!-- Cage d'acier -->
+        <rect x="160" y="475" width="580" height="55" fill="rgba(58,64,80,0.5)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+        <!-- Barreaux cage -->
+        <line x1="245" y1="475" x2="245" y2="530" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+        <line x1="330" y1="475" x2="330" y2="530" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+        <line x1="415" y1="475" x2="415" y2="530" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+        <line x1="500" y1="475" x2="500" y2="530" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+        <line x1="585" y1="475" x2="585" y2="530" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+        <line x1="670" y1="475" x2="670" y2="530" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+        <text x="450" y="500" font-family="'Barlow Condensed',sans-serif" font-size="18" font-weight="900" fill="rgba(255,255,255,.45)" text-anchor="middle" letter-spacing="3">CAGE D'ACIER</text>
+        <text x="450" y="520" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="rgba(255,255,255,.18)" text-anchor="middle" letter-spacing="1.5">STAHLHARTES GEHÄUSE · LA FOI S'EST ÉTEINTE · LA CONTRAINTE RESTE</text>
+
+        <!-- Label -->
+        <text x="450" y="537" font-family="'IBM Plex Mono',monospace" font-size="7.5" fill="rgba(255,255,255,.1)" text-anchor="middle" letter-spacing="1">MAX WEBER · DIE PROTESTANTISCHE ETHIK UND DER GEIST DES KAPITALISMUS · 1904–1905 / 1920</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ─── QUIZ ─── -->
+  <section class="sec dark" id="quiz">
+    <div class="sec-eyebrow"><span class="sec-num">§ 09</span><h2 class="sec-h2">Quiz <em>Interactif</em></h2></div>
+    <div class="quiz-wrap">
+      <div class="quiz-title">Testez votre compréhension</div>
+      <div class="quiz-meta">6 questions · niveaux progressifs · feedback détaillé</div>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgressFill" style="width:0%"></div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+        <div class="quiz-counter">Question <span id="qNum">1</span>/6</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:rgba(255,255,255,.3);">Score : <span id="scoreDisplay">0</span>/6</div>
+      </div>
+      <div class="quiz-question" id="qText"></div>
+      <div class="quiz-options" id="qOptions"></div>
+      <div class="quiz-feedback" id="qFeedback"></div>
+      <div class="quiz-nav">
+        <div class="quiz-status" id="qStatus">Sélectionnez une réponse</div>
+        <button class="quiz-btn" id="qNext" disabled onclick="nextQuestion()">Question suivante →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── RÉFLEXION ─── -->
+  <section class="sec ember-bg" id="reflexion">
+    <div class="sec-eyebrow"><span class="sec-num">§ 10</span><h2 class="sec-h2">Questions <em>de Réflexion</em></h2></div>
+    <p style="color:rgba(255,255,255,.42);max-width:620px;margin-bottom:2rem;font-size:.9rem;line-height:1.8;">Pour approfondir, préparer un exposé ou articuler Weber avec d'autres auteurs.</p>
+    <div class="qstack">
+      <div class="qi">
+        <div class="qi-n">Q·01</div>
+        <div>
+          <div class="qi-t">Weber affirme que les idées religieuses ont une efficacité propre sur les comportements économiques. En quoi cette thèse s'oppose-t-elle au matérialisme historique de Marx ?</div>
+          <div class="qi-hint">Piste : Pour Marx, les idées sont une superstructure déterminée par la base économique. Weber ne nie pas l'importance des facteurs économiques mais insiste sur la relation réciproque. À la fin de l'Éthique protestante, il avertit contre toute « interprétation spiritualiste » qui serait aussi unilatérale que l'interprétation matérialiste.</div>
+          <div class="qi-tags"><span class="qi-tag">Marx vs Weber</span><span class="qi-tag">Causalité</span><span class="qi-tag">Idées & matière</span></div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·02</div>
+        <div>
+          <div class="qi-t">La notion de « cage d'acier » décrit-elle encore notre modernité contemporaine ? En quoi les sociétés de services, le télétravail et l'économie de la gig modifient-ils ou confirment-ils ce diagnostic ?</div>
+          <div class="qi-hint">Piste : La cage d'acier décrit une contrainte mécanique du capitalisme industriel. Dans le capitalisme post-fordiste, la contrainte est moins visible mais peut-être plus totale : le sujet s'auto-exploite librement. Byung-Chul Han (La Société de la fatigue) et Axel Honneth (Le Droit de la reconnaissance) offrent des prolongements utiles.</div>
+          <div class="qi-tags"><span class="qi-tag">Cage d'acier</span><span class="qi-tag">Capitalisme contemporain</span><span class="qi-tag">Auto-exploitation</span></div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·03</div>
+        <div>
+          <div class="qi-t">Weber analyse la relation entre protestantisme et capitalisme comme une « affinité élective », non une causalité. Qu'est-ce que cela implique pour la méthode de la sociologie historique ?</div>
+          <div class="qi-hint">Piste : L'affinité élective suppose des co-déterminations mutuelles, non des causes simples et des effets. Cela suppose aussi de rejeter à la fois le déterminisme économique (Marx) et le déterminisme idéologique (Hegel). Comparer avec la méthode d'Ibn Khaldoun ou de Foucault sur la question des causalités complexes.</div>
+          <div class="qi-tags"><span class="qi-tag">Méthode</span><span class="qi-tag">Causalité complexe</span><span class="qi-tag">Affinité élective</span></div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·04</div>
+        <div>
+          <div class="qi-t">La thèse de Weber s'applique-t-elle aux capitalismes asiatiques contemporains (Japon, Corée du Sud, Chine) — ou leur développement réfute-t-il l'argument de Weber ?</div>
+          <div class="qi-hint">Piste : Weber avait lui-même étudié les religions de Chine et d'Inde pour montrer pourquoi le capitalisme rationnel n'y avait pas émergé spontanément. Le développement capitaliste asiatique post-1945 s'est fait via l'État et l'importation de techniques et d'institutions occidentales — ce qui n'invalide pas la thèse wébérienne sur la genèse. Voir aussi l'argument de Peter Berger sur le « protestantisme séculier » asiatique.</div>
+          <div class="qi-tags"><span class="qi-tag">Capitalismes non-occidentaux</span><span class="qi-tag">Asie</span><span class="qi-tag">Test empirique</span></div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·05</div>
+        <div>
+          <div class="qi-t">Le désenchantement du monde est-il irréversible ? Certains sociologues parlent d'un « retour du religieux » ou d'un « ré-enchantement ». Ces phénomènes contredisent-ils Weber ?</div>
+          <div class="qi-hint">Piste : Weber ne dit pas que le désenchantement est total ou définitif — il décrit une tendance structurelle. Les formes contemporaines de religiosité (New Age, évangélisme, islamisme politique, spiritualité du développement personnel) peuvent être analysées comme des tentatives de ré-enchantement dans un cadre désenchanté — donc comme des confirmationes dialectiques, non des réfutations.</div>
+          <div class="qi-tags"><span class="qi-tag">Désenchantement</span><span class="qi-tag">Retour du religieux</span><span class="qi-tag">Modernité</span></div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·06</div>
+        <div>
+          <div class="qi-t">Comparez la notion de « Beruf » de Weber avec la notion d''asabiyya d'Ibn Khaldoun. Ces deux concepts peuvent-ils être articulés dans une théorie sociologique plus générale ?</div>
+          <div class="qi-hint">Piste : L''asabiyya est une solidarité de groupe qui produit la dynamique politique ; le Beruf est une discipline individuelle qui produit la dynamique économique. Les deux sont des concepts qui lient croyance ou appartenance à des comportements pratiques via un mécanisme psychologique. Weber lui-même s'est intéressé à Ibn Khaldoun (cité dans ses études sur l'Islam).</div>
+          <div class="qi-tags"><span class="qi-tag">Ibn Khaldoun</span><span class="qi-tag">Comparaison</span><span class="qi-tag">Sociologie générale</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer style="background:var(--coal);color:rgba(255,255,255,.25);padding:3rem 6rem;display:flex;justify-content:space-between;align-items:center;">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.15);margin-bottom:.4rem;">Fiche pédagogique — Série « Grandes œuvres »</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.4);">L'Éthique protestante · Max Weber · 1904–1905</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.12);">À lire aussi dans la série</div>
+      <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:.82rem;color:rgba(255,255,255,.2);margin-top:.3rem;">Foucault — L'Archéologie du savoir · Ibn Khaldoun — Les Prolégomènes · Dardot &amp; Laval — La Nouvelle Raison du Monde</div>
+    </div>
+  </footer>
+
+</div><!-- end .main -->
+
+<!-- ═══ MODAL ═══ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-title">Résultats</div>
+    <div class="modal-score" id="modalScore">0/6</div>
+    <div class="modal-msg" id="modalMsg"></div>
+    <button class="modal-close" onclick="closeModal()">Recommencer le quiz →</button>
+  </div>
+</div>
+
+<script>
+/* ─── CURSOR ─── */
+const cur=document.getElementById('cur');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
+document.addEventListener('mouseover',e=>{
+  if(e.target.closest('a,button,.concept-card,.qopt,.acc-head,.gi,.qi'))cur.classList.add('expand');
+  else cur.classList.remove('expand');
+});
+
+/* ─── PROGRESS ─── */
+window.addEventListener('scroll',()=>{
+  const max=document.body.scrollHeight-window.innerHeight;
+  document.getElementById('prog').style.transform=`scaleX(${window.scrollY/max})`;
+});
+
+/* ─── TIMELINE ─── */
+const tlObs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('tl-visible'),i*120);});
+},{threshold:0.1});
+document.querySelectorAll('.tl-item').forEach(el=>tlObs.observe(el));
+
+/* ─── ACTIVE NAV ─── */
+const navo=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      document.querySelectorAll('.snav-a').forEach(l=>l.classList.remove('on'));
+      const a=document.querySelector(`.snav-a[href="#${e.target.id}"]`);
+      if(a)a.classList.add('on');
+    }
+  });
+},{threshold:0.3});
+document.querySelectorAll('section[id]').forEach(s=>navo.observe(s));
+
+/* ─── ACCORDION ─── */
+function toggleAcc(head){
+  const item=head.parentElement,wasOpen=item.classList.contains('open');
+  item.parentElement.querySelectorAll('.acc-item.open').forEach(i=>i.classList.remove('open'));
+  if(!wasOpen)item.classList.add('open');
+}
+
+/* ─── CONCEPT CARDS ─── */
+let openedConcepts=new Set();
+function toggleCard(card){
+  const expand=card.querySelector('.cc-expand'),toggle=card.querySelector('.cc-toggle');
+  const num=card.dataset.num,isOpen=expand.classList.contains('open');
+  expand.classList.toggle('open',!isOpen);
+  toggle.classList.toggle('open-arrow',!isOpen);
+  toggle.querySelector('span:last-child').textContent=isOpen?'Lire l\'analyse':'Réduire';
+  if(!isOpen){openedConcepts.add(num);updateConceptCount();}
+}
+function updateConceptCount(){
+  const count=openedConcepts.size;
+  document.getElementById('conceptCount').textContent=`${count}/7`;
+  document.getElementById('conceptFill').style.width=`${(count/7)*100}%`;
+}
+
+/* ─── QUIZ ─── */
+const quizData=[
+  {
+    q:"Selon Weber, qu'est-ce qui distingue l'« esprit du capitalisme » de la simple avidité ou du désir de profit ?",
+    opts:[
+      "L'esprit du capitalisme est caractérisé par une accumulation de richesses plus grande et plus rapide que dans d'autres civilisations",
+      "L'esprit du capitalisme est la domination rationnelle et méthodique de l'impulsion acquisitive — un éthos qui fait du travail et de l'accumulation un devoir moral",
+      "L'esprit du capitalisme est lié à l'invention de la comptabilité en partie double par les marchands italiens de la Renaissance",
+      "L'esprit du capitalisme résulte directement de l'invention du salariat et de l'exploitation des ouvriers"
+    ],
+    correct:1,
+    feedback:"Exact. C'est la distinction fondamentale de l'Avant-propos : la soif de gain (auri sacra fames) est universelle et existait partout. Ce qui caractérise l'esprit capitaliste, c'est précisément l'inverse de l'avidité déchaînée — c'est la discipline rationnelle de cette impulsion, transformée en éthos professionnel. L'entrepreneur capitaliste type de Weber n'est pas avide : il est méthodique, frugal et considère l'accumulation comme un devoir."
+  },
+  {
+    q:"Quel est le mécanisme psychologique central que Weber décrit pour expliquer comment la doctrine calviniste de la prédestination a conduit à l'éthos capitaliste ?",
+    opts:[
+      "Les calvinistes croyaient que prier et faire des donations à l'Église leur garantissait une place parmi les élus",
+      "Les pasteurs calvinistes encourageaient directement le commerce et l'accumulation de richesses",
+      "L'angoisse du salut (impossibilité de savoir si l'on est élu) conduisait à chercher des preuves (Bewährung) de l'état de grâce dans le succès méthodique au travail",
+      "La prédestination libérait les croyants de toute obligation morale, ce qui les rendait libres de s'enrichir sans scrupules"
+    ],
+    correct:2,
+    feedback:"Précisément. C'est le cœur du mécanisme wébérien. La prédestination absolue place le croyant dans une solitude intérieure inouïe : il ne peut rien faire pour mériter le salut, mais il ne peut pas non plus vivre sans savoir s'il est élu. Cette tension intenable se résout psychologiquement par la recherche de signes (Bewährungszeichen). Et progressivement, le succès méthodique dans sa vocation professionnelle s'impose comme le signe le plus tangible et accessible de l'élection divine."
+  },
+  {
+    q:"Que signifie le concept de Beruf chez Luther, et en quoi est-il révolutionnaire par rapport à la conception catholique médiévale ?",
+    opts:[
+      "Le Beruf désigne le métier artisanal, que Luther valorise contre le commerce et la finance",
+      "Luther forge le terme Beruf pour désigner l'état séculier comme vocation divine — l'artisan et le marchand glorifient Dieu dans leur métier autant que le moine dans son cloître",
+      "Le Beruf désigne la vocation religieuse stricto sensu — Luther n'applique le terme qu'aux prédicateurs et théologiens",
+      "Le concept de Beruf est emprunté par Luther à Calvin, qui l'avait forgé pour désigner les élus de Dieu"
+    ],
+    correct:1,
+    feedback:"Exact. C'est la révolution luthérienne dans la conception du travail. Le catholicisme médiéval hiérarchisait les états, avec la vie monastique comme idéal supérieur. Luther renverse cette hiérarchie : en traduisant la Bible (1 Cor. 7:20), il forge le mot Beruf qui confond en un seul terme la profession séculière et l'appel divin. Chaque état dans le monde est une vocation. L'artisan, le laboureur, le marchand servent Dieu dans leur métier — c'est le fondement conceptuel de toute l'éthique du travail moderne."
+  },
+  {
+    q:"Comment Weber définit-il l'ascétisme « intra-mondain » (innerweltliche Askese), et en quoi diffère-t-il de l'ascétisme monastique ?",
+    opts:[
+      "L'ascétisme intra-mondain consiste à vivre dans le monde tout en se mortifiant physiquement — jeûnes, flagellations — comme les moines, mais sans quitter la vie séculière",
+      "L'ascétisme intra-mondain désigne la maîtrise rationnelle et méthodique du monde depuis l'intérieur : travail sans relâche, frugalité, rejet des plaisirs — non pour fuir le monde mais pour le dominer et glorifier Dieu en lui",
+      "L'ascétisme intra-mondain est une forme d'ascétisme affaibli, propre aux Lumières, qui consiste simplement à éviter les excès",
+      "Weber utilise ce terme pour désigner l'ascétisme des moines mendiants (franciscains) qui vivaient dans le monde tout en pratiquant la pauvreté"
+    ],
+    correct:1,
+    feedback:"Parfait. La distinction intra-mondain / extra-mondain est fondamentale dans la sociologie des religions de Weber. Le moine médiéval fuyait le monde pour trouver le salut dans la retraite. Le puritain, au contraire, reste dans le monde et le domine depuis l'intérieur par une discipline méthodique de tous les instants. Ce retournement est crucial : l'ascétisme ne vise plus à fuir les richesses mais à les produire tout en refusant de les consommer — d'où l'accumulation capitaliste."
+  },
+  {
+    q:"Que désigne la métaphore de la « cage d'acier » (stahlhartes Gehäuse) dans la conclusion de l'Éthique protestante ?",
+    opts:[
+      "La rigueur morale imposée par le calvinisme aux individus, qui les enferme dans un code de conduite strict",
+      "L'État bureaucratique moderne qui contraint les individus par des règles juridiques et administratives",
+      "Le fait que l'ordre capitaliste moderne, une fois établi, contraint mécaniquement les individus à se conformer à ses règles, indépendamment de toute croyance religieuse — la foi s'est éteinte, la contrainte reste",
+      "La rigidité du système de classes sociales capitaliste, qui empêche la mobilité sociale"
+    ],
+    correct:2,
+    feedback:"Exactement. C'est la formule finale la plus célèbre de l'essai. Weber décrit l'évolution historique : à l'origine, le puritain voulait librement être un homme de métier — c'était sa vocation divine. Aujourd'hui (1905), nous sommes forcés d'être des hommes de métier — par les contraintes mécaniques du marché capitaliste. La foi s'est évaporée, la discipline est restée comme contrainte externe. Ce diagnostic alimente toute la critique sociale du XXe siècle, de Marcuse à Foucault en passant par Habermas."
+  },
+  {
+    q:"En quoi la thèse de Weber sur le protestantisme et le capitalisme s'oppose-t-elle à la position de Werner Sombart, son principal adversaire dans le débat ?",
+    opts:[
+      "Sombart pensait que le capitalisme n'avait aucune relation avec la religion ; Weber voulait montrer que toute l'économie est déterminée par la théologie",
+      "Sombart attribuait l'esprit capitaliste aux Juifs (via l'éthique talmudique) et au capitalisme florentin de la Renaissance ; Weber souligne au contraire le rôle spécifique du protestantisme ascétique",
+      "Sombart était d'accord avec Weber sur le rôle du calvinisme mais pensait que le luthéranisme suffisait à expliquer l'essor du capitalisme",
+      "Sombart attribuait le capitalisme à la technologie et à la révolution industrielle ; Weber voulait réduire ce rôle au profit des facteurs religieux"
+    ],
+    correct:1,
+    feedback:"Précisément. Weber est explicitement en dialogue polémique avec Sombart tout au long du livre (notamment dans les notes). Sombart avait attribué l'esprit capitaliste à l'éthique économique juive (Die Juden und das Wirtschaftsleben, 1911) et au rationalisme du capitalisme florentin pré-Renaissance. Weber réfute les deux : les Juifs ont développé un capitalisme d'aventuriers politiques, non le capitalisme rationnel d'entreprise ; et les humanistes de la Renaissance comme Alberti n'avaient pas l'éthos éthique spécifique de Franklin, seulement un rationalisme économique utilitaire sans dimension morale ou religieuse."
+  }
+];
+
+let currentQ=0,score=0,answered=false;
+
+function renderQuestion(){
+  const q=quizData[currentQ];
+  document.getElementById('qNum').textContent=currentQ+1;
+  document.getElementById('qText').textContent=q.q;
+  document.getElementById('qFeedback').className='quiz-feedback';
+  document.getElementById('qFeedback').textContent='';
+  document.getElementById('qNext').disabled=true;
+  document.getElementById('qStatus').textContent='Sélectionnez une réponse';
+  answered=false;
+  document.getElementById('quizProgressFill').style.width=((currentQ/quizData.length)*100)+'%';
+  const opts=document.getElementById('qOptions');
+  opts.innerHTML='';
+  q.opts.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='qopt';
+    btn.innerHTML=`<span>${opt}</span>`;
+    btn.onclick=()=>selectAnswer(i);
+    opts.appendChild(btn);
+  });
+}
+
+function selectAnswer(idx){
+  if(answered)return;
+  answered=true;
+  const q=quizData[currentQ];
+  document.querySelectorAll('.qopt').forEach((o,i)=>{
+    if(i===q.correct)o.classList.add('correct');
+    else if(i===idx&&i!==q.correct)o.classList.add('wrong');
+    else o.classList.add('reveal');
+  });
+  const fb=document.getElementById('qFeedback');
+  fb.textContent=q.feedback;fb.classList.add('show');
+  if(idx===q.correct){
+    score++;
+    document.getElementById('scoreDisplay').textContent=score;
+    document.getElementById('qStatus').textContent='✓ Bonne réponse';
+  }else{
+    document.getElementById('qStatus').textContent='✗ Réponse incorrecte';
+  }
+  document.getElementById('qNext').disabled=false;
+  const pct=Math.round((score/quizData.length)*100);
+  document.getElementById('sidebarScore').textContent=`${score}/${quizData.length}`;
+  document.getElementById('sidebarFill').style.width=pct+'%';
+  if(currentQ===quizData.length-1)document.getElementById('qNext').textContent='Voir mon score →';
+}
+
+function nextQuestion(){
+  currentQ++;
+  if(currentQ>=quizData.length){showModal();return;}
+  renderQuestion();
+}
+
+function showModal(){
+  const msgs=[
+    [0,1,"Relisez le Chapitre I sur Benjamin Franklin et la notion de Beruf, et le Chapitre II §1A sur le calvinisme. Le cœur de la thèse reste à découvrir."],
+    [2,3,"Quelques concepts restent flous. Revenez sur la prédestination et le mécanisme psychologique de la Bewährung."],
+    [4,4,"Bonne compréhension générale. Approfondissez la cage d'acier et la distinction Weber/Sombart."],
+    [5,5,"Très solide. Vous saisissez bien la chaîne causale et les distinctions conceptuelles fondamentales."],
+    [6,6,"Maîtrise remarquable. Vous pouvez désormais articuler Weber avec Marx, Foucault et les débats contemporains sur l'éthique du travail."]
+  ];
+  const msg=msgs.find(m=>score>=m[0]&&score<=m[1]);
+  document.getElementById('modalScore').textContent=`${score}/6`;
+  document.getElementById('modalMsg').textContent=msg?msg[2]:'';
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('show');
+  currentQ=0;score=0;answered=false;
+  document.getElementById('scoreDisplay').textContent='0';
+  document.getElementById('quizProgressFill').style.width='0%';
+  document.getElementById('qNext').textContent='Question suivante →';
+  renderQuestion();
+}
+
+renderQuestion();
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('sidebarFill').style.width='0%';
+    document.getElementById('conceptFill').style.width='0%';
+  },500);
+});
+</script>
+</body>
+</html>

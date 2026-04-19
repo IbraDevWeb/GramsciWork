@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Société du Spectacle — Guy Debord</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN SYSTEM — Typographie spectaculaire
+   Palette : cinéma / écran / braise / or
+   ═══════════════════════════════════════════ */
+:root {
+  --concrete: #f0ebe2;
+  --concrete2: #e6e0d5;
+  --concrete3: #d5cfc4;
+  --ink: #0c0906;
+  --ink2: #1a1410;
+  --blood: #b52018;
+  --blood2: #8a1510;
+  --blood-pale: #f5dcda;
+  --neon: #c47c10;
+  --neon2: #9a6008;
+  --neon-pale: #f5e8d0;
+  --steel: #4a3a5a;
+  --steel2: #2e2040;
+  --steel-pale: #ddd8ea;
+  --rust: #7a3a18;
+  --dust: #7a7060;
+  --rule: #c4b8ae;
+  --sidebar: 270px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--concrete);
+  color:var(--ink);
+  font-family:'Libre Baskerville',serif;
+  font-size:17px;
+  line-height:1.75;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ─── CURSOR ─── */
+#cur{
+  width:14px;height:14px;
+  border:2px solid var(--neon);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width .25s,height .25s,background .25s,border-color .25s;
+}
+#cur.expand{width:40px;height:40px;background:rgba(196,124,16,.08);border-color:var(--blood);}
+
+/* ─── PROGRESS ─── */
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--blood);transform-origin:left;transform:scaleX(0);z-index:1002;transition:transform .08s linear;}
+
+/* ═══ SIDEBAR ═══ */
+.snav{
+  position:fixed;left:0;top:0;bottom:0;
+  width:var(--sidebar);
+  background:var(--ink2);
+  z-index:100;
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+  scrollbar-width:thin;
+  scrollbar-color:var(--blood) transparent;
+}
+
+.snav-brand{
+  padding:2rem 1.8rem 1.8rem;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.snav-kicker{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:.8rem;
+}
+
+.snav-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.45rem;font-weight:800;line-height:1;
+  color:#fff;letter-spacing:.02em;text-transform:uppercase;
+}
+
+.snav-authors{
+  font-family:'Libre Baskerville',serif;
+  font-style:italic;font-size:.78rem;
+  color:rgba(255,255,255,.35);margin-top:.4rem;
+}
+
+.snav-year{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;color:var(--blood);
+  letter-spacing:.1em;margin-top:.5rem;
+}
+
+.snav-lbl{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.18);
+  padding:.9rem 1.8rem .3rem;
+}
+
+.snav-a{
+  display:flex;align-items:center;gap:.7rem;
+  padding:.42rem 1.8rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.8rem;font-weight:500;letter-spacing:.04em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.38);
+  text-decoration:none;
+  border-left:2px solid transparent;
+  transition:all .2s;
+}
+.snav-a:hover{color:rgba(255,255,255,.85);border-left-color:var(--neon);padding-left:2.1rem;}
+.snav-a.on{color:#fff;border-left-color:var(--blood);background:rgba(181,32,24,.08);}
+
+.snav-bullet{
+  width:5px;height:5px;border-radius:50%;
+  background:currentColor;opacity:.4;flex-shrink:0;
+}
+
+.snav-div{height:1px;background:rgba(255,255,255,.04);margin:.6rem 1.8rem;}
+
+.snav-score{
+  margin-top:auto;padding:1.5rem 1.8rem;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+
+.snav-score-title{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);margin-bottom:.8rem;
+}
+
+.score-bar{
+  height:4px;background:rgba(255,255,255,.06);
+  border-radius:2px;margin:.5rem 0;overflow:hidden;
+}
+
+.score-fill{
+  height:100%;border-radius:2px;
+  transition:width 1.5s cubic-bezier(.16,1,.3,1);
+}
+
+.score-label{
+  display:flex;justify-content:space-between;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.1em;
+  color:rgba(255,255,255,.25);margin-bottom:.2rem;
+}
+
+/* ═══ MAIN ═══ */
+.main{margin-left:var(--sidebar);}
+
+/* ═══ HERO ═══ */
+.hero{
+  min-height:100vh;
+  background:var(--ink);
+  color:#fff;
+  padding:5rem 6rem 4rem;
+  position:relative;overflow:hidden;
+  display:grid;grid-template-rows:1fr auto;
+}
+
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+
+.hero-diag{
+  position:absolute;bottom:0;right:0;
+  width:40%;height:100%;
+  background:var(--blood2);
+  clip-path:polygon(40% 0,100% 0,100% 100%,0% 100%);
+  opacity:.09;pointer-events:none;
+}
+
+.hero-strate{
+  position:absolute;bottom:0;left:0;right:0;
+  height:6px;
+  background:linear-gradient(90deg,var(--blood),var(--neon),var(--steel),var(--blood));
+  opacity:.6;
+}
+
+.hero-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:2.5rem;
+  opacity:0;animation:fadeUp .7s ease forwards .1s;
+}
+
+.hero-h1{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(3.5rem,7.5vw,9.5rem);
+  font-weight:900;line-height:.88;
+  letter-spacing:-.01em;text-transform:uppercase;
+  opacity:0;animation:fadeUp .9s ease forwards .25s;
+}
+
+.hero-h1 .line1{display:block;color:rgba(255,255,255,.3);font-size:.42em;letter-spacing:.12em;font-weight:400;margin-bottom:.5rem;}
+.hero-h1 .line2{display:block;color:#fff;}
+.hero-h1 .line3{display:block;color:#fff;}
+.hero-h1 .line4{display:block;color:var(--blood);}
+
+.hero-rule{
+  width:120px;height:3px;
+  background:linear-gradient(90deg,var(--blood),var(--neon));
+  margin:2.5rem 0 2rem;
+  opacity:0;animation:fadeUp .7s ease forwards .5s;
+}
+
+.hero-sub{
+  max-width:680px;
+  font-size:1.05rem;font-weight:400;font-style:italic;
+  color:rgba(255,255,255,.6);line-height:1.85;
+  opacity:0;animation:fadeUp .8s ease forwards .4s;
+}
+
+.hero-sub strong{color:#fff;font-style:normal;}
+
+.hero-chips{
+  display:flex;flex-wrap:wrap;gap:.6rem;
+  margin-top:2rem;
+  opacity:0;animation:fadeUp .7s ease forwards .7s;
+}
+
+.chip{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.28rem .8rem;border-radius:2px;border:1px solid;
+}
+
+.chip-blood{color:var(--blood);border-color:rgba(181,32,24,.4);background:rgba(181,32,24,.08);}
+.chip-neon {color:#e8a040;    border-color:rgba(196,124,16,.4); background:rgba(196,124,16,.08);}
+.chip-steel{color:#9080c0;    border-color:rgba(144,128,192,.3);background:rgba(144,128,192,.06);}
+
+.hero-bottom{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  padding-top:3rem;border-top:1px solid rgba(255,255,255,.07);
+  opacity:0;animation:fadeUp .7s ease forwards .9s;
+}
+
+.hb-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.25);margin-bottom:.4rem;
+}
+
+.hb-names{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.6rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:#fff;line-height:1.1;
+}
+
+.hb-names span{color:var(--neon);}
+
+.hero-thesis{
+  text-align:right;max-width:420px;
+  font-family:'Libre Baskerville',serif;
+  font-style:italic;font-size:.92rem;
+  color:rgba(255,255,255,.45);line-height:1.7;
+}
+
+.hero-thesis cite{
+  display:block;margin-top:.5rem;
+  font-style:normal;font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--neon);
+}
+
+/* ═══ GENERIC SECTION ═══ */
+.sec{
+  padding:5.5rem 6rem;
+  border-bottom:1px solid var(--rule);
+}
+
+.sec.alt{background:var(--concrete2);}
+.sec.dark{background:var(--ink2);color:#fff;}
+.sec.steel{background:var(--steel2);color:#fff;}
+.sec.blood{background:var(--blood2);color:#fff;}
+.sec.neon-bg{background:#1c0e04;color:#fff;}
+
+.sec-eyebrow{display:flex;align-items:center;gap:1.2rem;margin-bottom:3rem;}
+
+.sec-num{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--neon2);background:var(--neon-pale);
+  padding:.28rem .75rem;border-radius:2px;
+}
+.dark .sec-num,.steel .sec-num,.blood .sec-num,.neon-bg .sec-num{
+  background:rgba(196,124,16,.2);color:#e8a040;
+}
+
+.sec-h2{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2.6rem;font-weight:800;
+  letter-spacing:.01em;text-transform:uppercase;line-height:1;
+}
+
+.sec-h2 em{color:var(--blood);font-style:normal;}
+.dark .sec-h2,.steel .sec-h2,.blood .sec-h2,.neon-bg .sec-h2{color:#fff;}
+.dark .sec-h2 em,.steel .sec-h2 em,.neon-bg .sec-h2 em{color:var(--neon);}
+
+/* ═══ CONCEPT CARDS ═══ */
+.concept-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;background:var(--ink);
+  border:1px solid var(--ink);
+  margin-top:1rem;
+}
+
+.concept-card{
+  background:var(--concrete);
+  padding:2.2rem;
+  position:relative;overflow:hidden;
+  cursor:pointer;
+  transition:background .3s;
+}
+
+.alt .concept-card{background:var(--concrete2);}
+
+.concept-card::after{
+  content:attr(data-num);
+  position:absolute;right:.8rem;bottom:-1rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:7rem;font-weight:900;
+  color:rgba(0,0,0,.04);line-height:1;
+  pointer-events:none;
+}
+
+.cc-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--neon2);display:block;margin-bottom:.5rem;
+}
+
+.cc-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.45rem;font-weight:800;
+  letter-spacing:.02em;text-transform:uppercase;
+  line-height:1.1;margin-bottom:.8rem;
+}
+
+.cc-short{
+  font-size:.88rem;color:var(--dust);
+  line-height:1.7;
+}
+
+.cc-expand{
+  max-height:0;overflow:hidden;
+  transition:max-height .5s cubic-bezier(.16,1,.3,1),
+             opacity .4s ease,
+             padding .4s ease;
+  opacity:0;
+}
+
+.cc-expand.open { max-height: 2000px; opacity: 1; padding-top: 1rem; }
+
+.cc-expand-body{
+  font-size:.85rem;color:var(--ink);line-height:1.8;
+  border-top:1px solid var(--rule);padding-top:1rem;
+}
+
+.cc-expand-body p{margin-bottom:.7rem;}
+.cc-expand-body p:last-child{margin-bottom:0;}
+.cc-expand-body strong{color:var(--blood);font-weight:600;}
+
+.cc-today{
+  margin-top:.8rem;padding:.8rem 1rem;
+  background:var(--neon-pale);
+  border-left:2px solid var(--neon);
+  font-size:.8rem;font-style:italic;
+  color:var(--rust);line-height:1.6;
+}
+
+.cc-today::before{
+  content:'Usage actuel → ';
+  font-style:normal;font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--neon2);display:block;margin-bottom:.2rem;
+}
+
+.cc-toggle{
+  display:flex;align-items:center;gap:.5rem;
+  margin-top:1rem;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--neon2);cursor:pointer;
+  transition:color .2s;
+}
+
+.cc-arrow{
+  width:16px;height:16px;border:1px solid var(--neon2);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;transition:transform .3s;
+}
+
+.open-arrow .cc-arrow{transform:rotate(180deg);}
+.concept-card:hover{background:var(--neon-pale);}
+
+/* ═══ ACCORDION ═══ */
+.accordion{margin-top:1.5rem;}
+
+.acc-item{
+  border-bottom:1px solid var(--rule);
+  overflow:hidden;
+}
+
+.dark .acc-item,.steel .acc-item,.neon-bg .acc-item{border-color:rgba(255,255,255,.08);}
+
+.acc-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.4rem 0;cursor:pointer;
+  transition:color .2s;
+  user-select:none;
+}
+
+.acc-head:hover .acc-title{color:var(--neon2);}
+.dark .acc-head:hover .acc-title,.steel .acc-head:hover .acc-title,.neon-bg .acc-head:hover .acc-title{color:var(--neon);}
+
+.acc-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.1rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  transition:color .2s;
+}
+
+.dark .acc-title,.steel .acc-title,.neon-bg .acc-title{color:#fff;}
+
+.acc-icon{
+  width:28px;height:28px;border:1px solid var(--rule);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all .3s;
+  font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;
+  color:var(--neon2);
+}
+
+.dark .acc-icon,.steel .acc-icon,.neon-bg .acc-icon{border-color:rgba(255,255,255,.12);color:var(--neon);}
+.acc-item.open .acc-icon{transform:rotate(45deg);background:var(--neon2);color:#fff;border-color:var(--neon2);}
+.dark .acc-item.open .acc-icon,.steel .acc-item.open .acc-icon,.neon-bg .acc-item.open .acc-icon{background:var(--neon);color:var(--ink);border-color:var(--neon);}
+
+.acc-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .5s cubic-bezier(.16,1,.3,1);
+}
+
+.acc-item.open .acc-body{max-height:1200px;}
+
+.acc-inner{
+  padding:0 0 2rem;
+  font-size:.9rem;color:#3a3530;line-height:1.85;
+}
+
+.dark .acc-inner,.steel .acc-inner,.neon-bg .acc-inner{color:rgba(255,255,255,.65);}
+
+.acc-inner p{margin-bottom:.9rem;}
+.acc-inner p:last-child{margin-bottom:0;}
+.acc-inner strong{color:var(--ink);font-weight:600;}
+.dark .acc-inner strong,.steel .acc-inner strong,.neon-bg .acc-inner strong{color:#fff;}
+.acc-inner em{font-style:italic;color:var(--neon2);}
+.dark .acc-inner em,.steel .acc-inner em,.neon-bg .acc-inner em{color:var(--neon);}
+
+/* ═══ PULL QUOTES ═══ */
+.pq{
+  padding:3rem 4rem;margin:3rem 0;
+  position:relative;overflow:hidden;
+}
+.pq.blood{background:var(--blood2);color:#fff;}
+.pq.neon{background:#1c0e04;color:#fff;border-left:4px solid var(--neon);}
+.pq.steel{background:var(--steel2);color:#fff;}
+
+.pq::before{
+  content:'\201C';
+  position:absolute;top:-2rem;left:2rem;
+  font-family:'Libre Baskerville',serif;
+  font-size:14rem;line-height:1;
+  opacity:.08;pointer-events:none;
+  color:#fff;
+}
+
+.pq p{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.4rem;font-style:italic;font-weight:400;
+  line-height:1.65;position:relative;z-index:1;
+}
+
+.pq cite{
+  display:block;margin-top:1.2rem;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;
+  font-style:normal;color:rgba(255,255,255,.4);
+}
+
+.pq.neon cite{color:var(--neon);}
+
+/* ═══ COMPARISON TABLE ═══ */
+.compare-sec{margin-top:2rem;}
+
+.compare-row{
+  display:grid;grid-template-columns:1fr 80px 1fr;
+  gap:1rem;align-items:center;
+  padding:1rem 0;border-bottom:1px solid var(--rule);
+}
+
+.cr-label-l,.cr-label-r{
+  font-size:.88rem;color:#3a3530;line-height:1.5;
+}
+
+.cr-label-r{text-align:right;}
+
+.cr-mid{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dust);text-align:center;line-height:1.3;
+}
+
+.compare-header{
+  display:grid;grid-template-columns:1fr 80px 1fr;
+  gap:1rem;padding-bottom:1rem;
+  border-bottom:2px solid var(--rule);
+  margin-bottom:.5rem;
+}
+
+.ch-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.9rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+}
+
+.ch-title.blood{color:var(--blood);}
+.ch-title.neon{color:var(--neon2);}
+
+/* ═══ GLOSSAIRE ═══ */
+.glos-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:2px;background:var(--rule);
+  border:1px solid var(--rule);
+}
+
+.gi{
+  background:var(--concrete);
+  padding:2rem 2.5rem;
+  position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.alt .gi{background:var(--concrete2);}
+.gi:hover{background:var(--neon-pale);}
+
+.gi::after{
+  content:attr(data-g);
+  position:absolute;right:1rem;bottom:-1rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:8rem;font-weight:900;color:rgba(0,0,0,.04);
+  line-height:1;pointer-events:none;
+}
+
+.gi-src{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--neon2);display:block;margin-bottom:.3rem;
+}
+
+.gi-term{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.55rem;font-weight:800;letter-spacing:.02em;
+  text-transform:uppercase;margin-bottom:.7rem;line-height:1.1;
+}
+
+.gi-def{font-size:.88rem;color:#3a3530;line-height:1.78;margin-bottom:.7rem;}
+
+.gi-now{
+  padding:.65rem 1rem;
+  background:rgba(196,124,16,.1);
+  border-left:2px solid var(--neon);
+  font-style:italic;font-size:.8rem;color:var(--rust);line-height:1.6;
+}
+
+.gi-now::before{
+  content:'Enjeu → ';
+  font-style:normal;font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--neon2);display:block;margin-bottom:.2rem;
+}
+
+/* ═══ TIMELINE ═══ */
+.timeline-container{position:relative;padding-left:3rem;margin-top:2rem;}
+.timeline-container::before{
+  content:'';position:absolute;
+  left:14px;top:0;bottom:0;width:2px;
+  background:linear-gradient(to bottom,var(--blood),var(--neon),var(--steel));
+}
+
+.tl-item{
+  position:relative;margin-bottom:2.5rem;
+  opacity:0;transform:translateX(-20px);
+  transition:opacity .6s ease,transform .6s ease;
+}
+
+.tl-item.tl-visible{opacity:1;transform:none;}
+
+.tl-dot{
+  position:absolute;left:-2.75rem;top:.35rem;
+  width:16px;height:16px;border-radius:50%;
+  border:2px solid;background:var(--concrete);
+  transition:transform .3s,background .3s;
+}
+
+.alt .tl-dot{background:var(--concrete2);}
+.tl-item:hover .tl-dot{transform:scale(1.4);background:var(--neon2);}
+
+.tl-dot.blood{border-color:var(--blood);}
+.tl-dot.neon {border-color:var(--neon2);}
+.tl-dot.steel{border-color:var(--steel);}
+
+.tl-year{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--dust);margin-bottom:.3rem;
+}
+
+.tl-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.15rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;margin-bottom:.4rem;
+}
+
+.tl-body{font-size:.88rem;color:var(--dust);line-height:1.75;}
+.tl-body strong{color:var(--ink);font-weight:600;}
+
+/* ═══ STRATE INDICATOR ═══ */
+.strates-row{
+  display:flex;gap:0;margin-top:1.5rem;
+  border:1px solid var(--rule);overflow:hidden;
+}
+
+.strate{
+  flex:1;padding:1.2rem 1.5rem;
+  position:relative;
+  border-right:1px solid var(--rule);
+  transition:background .3s;
+}
+.strate:last-child{border-right:none;}
+.strate:hover{background:var(--neon-pale);}
+
+.strate-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--dust);margin-bottom:.4rem;
+}
+
+.strate-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--ink);line-height:1.2;
+}
+
+.strate-color{
+  position:absolute;bottom:0;left:0;right:0;
+  height:3px;
+}
+
+/* ═══ SCHEMA ═══ */
+.schema-wrap{
+  background:var(--ink);
+  border:1px solid rgba(255,255,255,.06);
+  padding:3rem 2rem 2rem;
+  margin-top:2rem;
+  position:relative;
+}
+
+.schema-wrap svg text{font-family:'IBM Plex Mono',monospace;}
+
+/* ═══ REFLEXION ═══ */
+.qstack{
+  display:flex;flex-direction:column;gap:2px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.05);
+  margin-top:1.5rem;
+}
+
+.qi{
+  background:rgba(255,255,255,.02);
+  padding:2rem 2.5rem;
+  display:grid;grid-template-columns:60px 1fr;
+  gap:1.5rem;align-items:start;
+  transition:background .3s;
+  border-left:3px solid transparent;
+}
+
+.qi:hover{background:rgba(196,124,16,.06);border-left-color:var(--neon);}
+
+.qi-n{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--neon);padding-top:.2rem;
+}
+
+.qi-t{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.05rem;font-style:italic;
+  color:#fff;line-height:1.7;margin-bottom:.5rem;
+}
+
+.qi-hint{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.58rem;color:rgba(255,255,255,.28);
+  line-height:1.65;
+}
+
+.qi-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem;}
+
+.qi-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid rgba(196,124,16,.3);color:var(--neon);
+  padding:.18rem .55rem;border-radius:2px;
+}
+
+/* ═══ QUIZ ═══ */
+.quiz-wrap{
+  background:var(--ink);color:#fff;
+  padding:4rem 5rem;margin-top:2rem;
+  position:relative;overflow:hidden;
+}
+
+.quiz-wrap::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blood),var(--neon),var(--blood));
+}
+
+.quiz-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:.4rem;
+}
+
+.quiz-meta{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.25);margin-bottom:2rem;
+}
+
+.quiz-progress-bar{
+  height:3px;background:rgba(255,255,255,.1);
+  border-radius:2px;margin-bottom:2.5rem;overflow:hidden;
+}
+
+.quiz-progress-fill{
+  height:100%;background:var(--blood);
+  transition:width .5s ease;
+}
+
+.quiz-question{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.25rem;font-style:italic;
+  color:#fff;line-height:1.6;margin-bottom:2rem;
+}
+
+.quiz-options{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1rem;
+}
+
+.qopt{
+  padding:1.2rem 1.5rem;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.02);
+  cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.92rem;font-weight:500;letter-spacing:.04em;
+  color:rgba(255,255,255,.7);
+  text-transform:uppercase;
+  transition:all .2s;
+  text-align:left;
+  position:relative;overflow:hidden;
+}
+
+.qopt::before{
+  content:'';position:absolute;inset:0;
+  background:var(--neon2);transform:scaleX(0);transform-origin:left;
+  transition:transform .3s ease;z-index:0;
+}
+
+.qopt:hover{color:#fff;border-color:var(--neon);}
+.qopt:hover::before{transform:scaleX(1);}
+.qopt span{position:relative;z-index:1;}
+
+.qopt.correct{background:rgba(30,120,50,.3);border-color:#4a9a60;color:#7dd89a;}
+.qopt.wrong  {background:rgba(180,40,30,.3);border-color:var(--blood);color:#f08880;}
+.qopt.reveal {background:rgba(30,120,50,.15);border-color:#4a9a60;color:#7dd89a;}
+
+.quiz-feedback{
+  margin-top:1.5rem;padding:1.2rem 1.5rem;
+  background:rgba(255,255,255,.04);
+  border-left:3px solid var(--neon);
+  font-size:.9rem;color:rgba(255,255,255,.7);
+  line-height:1.7;display:none;
+}
+
+.quiz-feedback.show{display:block;}
+
+.quiz-nav{
+  display:flex;justify-content:space-between;
+  align-items:center;margin-top:2rem;
+}
+
+.quiz-btn{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:.7rem 2rem;border:none;
+  background:var(--blood2);color:#fff;
+  cursor:pointer;transition:background .2s;
+}
+
+.quiz-btn:hover{background:var(--blood);}
+.quiz-btn:disabled{opacity:.3;cursor:not-allowed;}
+
+.quiz-counter{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.6rem;letter-spacing:.15em;
+  color:rgba(255,255,255,.3);
+}
+
+.quiz-status{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.6rem;letter-spacing:.12em;
+  color:rgba(255,255,255,.35);
+}
+
+/* ═══ MODAL ═══ */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.85);
+  z-index:2000;display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+
+.modal-overlay.show{opacity:1;pointer-events:all;}
+
+.modal{
+  background:var(--ink2);color:#fff;
+  padding:4rem;max-width:560px;width:90%;
+  position:relative;
+  border-top:4px solid var(--blood);
+}
+
+.modal-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2.5rem;font-weight:900;text-transform:uppercase;
+  letter-spacing:.04em;margin-bottom:.5rem;
+}
+
+.modal-score{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:5rem;font-weight:900;
+  color:var(--blood);line-height:1;margin:1.5rem 0;
+}
+
+.modal-msg{
+  font-style:italic;color:rgba(255,255,255,.6);
+  line-height:1.7;margin-bottom:2rem;
+}
+
+.modal-close{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:.7rem 2rem;border:none;
+  background:var(--blood2);color:#fff;cursor:pointer;
+}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
+  :root{--sidebar:0px}
+  .snav{display:none}
+  .main{margin-left:0}
+  .hero{padding:3rem 2rem 3rem}
+  .sec{padding:3.5rem 2rem}
+  .concept-grid{grid-template-columns:1fr}
+  .glos-grid{grid-template-columns:1fr}
+  .quiz-options{grid-template-columns:1fr}
+  .pq{padding:2rem}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="prog"></div>
+
+<!-- ═══════════════════ SIDEBAR ═══════════════════ -->
+<nav class="snav">
+  <div class="snav-brand">
+    <div class="snav-kicker">Fiche de lecture</div>
+    <div class="snav-title">La Société<br>du Spectacle</div>
+    <div class="snav-authors">Guy Debord</div>
+    <div class="snav-year">Buchet-Chastel · 1967</div>
+  </div>
+
+  <div class="snav-lbl">Navigation</div>
+  <a href="#contexte" class="snav-a"><span class="snav-bullet"></span>Contexte & genèse</a>
+  <a href="#these" class="snav-a"><span class="snav-bullet"></span>Thèse centrale</a>
+  <a href="#structure" class="snav-a"><span class="snav-bullet"></span>Structure du livre</a>
+  <a href="#concepts" class="snav-a"><span class="snav-bullet"></span>Concepts clés</a>
+  <a href="#contre" class="snav-a"><span class="snav-bullet"></span>L'ennemi visé</a>
+  <a href="#glossaire" class="snav-a"><span class="snav-bullet"></span>Glossaire complet</a>
+  <a href="#schema" class="snav-a"><span class="snav-bullet"></span>Schéma conceptuel</a>
+  <a href="#quiz" class="snav-a"><span class="snav-bullet"></span>Quiz interactif</a>
+  <a href="#reflexion" class="snav-a"><span class="snav-bullet"></span>Questions de réflexion</a>
+
+  <div class="snav-div"></div>
+  <div class="snav-lbl">Progression</div>
+
+  <div class="snav-score">
+    <div class="snav-score-title">Quiz — score actuel</div>
+    <div class="score-label">
+      <span>Score</span>
+      <span id="sidebarScore">0/6</span>
+    </div>
+    <div class="score-bar">
+      <div class="score-fill" id="sidebarFill" style="background:var(--blood);width:0%"></div>
+    </div>
+    <div class="score-label">
+      <span>Concepts explorés</span>
+      <span id="conceptCount">0/7</span>
+    </div>
+    <div class="score-bar">
+      <div class="score-fill" id="conceptFill" style="background:var(--neon);width:0%"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════ MAIN ═══════════════════ -->
+<div class="main">
+
+  <!-- ─── HERO ─── -->
+  <section class="hero" id="top">
+    <div class="hero-diag"></div>
+    <div class="hero-strate"></div>
+
+    <div>
+      <div class="hero-tag">Fiche pédagogique · Philosophie / Critique sociale · Série « Grandes œuvres »</div>
+      <h1 class="hero-h1">
+        <span class="line1">Guy Debord</span>
+        <span class="line2">La Société</span>
+        <span class="line3">du Spec</span>
+        <span class="line4">tacle</span>
+      </h1>
+      <div class="hero-rule"></div>
+      <p class="hero-sub">
+        <strong>Le spectacle n'est pas un ensemble d'images — c'est un rapport social entre des personnes, médiatisé par des images.</strong><br>
+        En 1967, Debord forge en 221 thèses une critique radicale de la société capitaliste avancée : la vie authentique s'est évaporée dans une représentation généralisée. L'<em>avoir</em> avait remplacé l'<em>être</em> ; le <em>paraître</em> a désormais supplanté l'avoir. Le spectacle est le stade suprême de l'aliénation.
+      </p>
+      <div class="hero-chips">
+        <span class="chip chip-blood">Situationnisme</span>
+        <span class="chip chip-neon">Critique du capitalisme</span>
+        <span class="chip chip-steel">Aliénation</span>
+        <span class="chip chip-blood">Marxisme hétérodoxe</span>
+        <span class="chip chip-neon">Culture & médias</span>
+        <span class="chip chip-steel">Mai 68</span>
+      </div>
+    </div>
+
+    <div class="hero-bottom">
+      <div class="hero-authors-block">
+        <div class="hb-label">Auteur</div>
+        <div class="hb-names">Guy <span>Debord</span></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.12em;color:rgba(255,255,255,.3);margin-top:.4rem;">Buchet-Chastel, 1967 · Gallimard (Folio), 1992 · 221 thèses · 9 chapitres</div>
+      </div>
+      <div class="hero-thesis">
+        « Toute la vie des sociétés dans lesquelles règnent les conditions modernes de production s'annonce comme une immense accumulation de spectacles. »
+        <cite>— La Société du Spectacle, thèse 1</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONTEXTE ─── -->
+  <section class="sec" id="contexte">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 01</span>
+      <h2 class="sec-h2">Contexte <em>&amp;</em> Genèse</h2>
+    </div>
+
+    <div style="max-width:820px;">
+      <p style="margin-bottom:1.5rem;">
+        <em>La Société du spectacle</em> paraît en novembre 1967 à Paris, chez Buchet-Chastel. Debord est alors le principal théoricien de l'<strong>Internationale Situationniste</strong> (IS), mouvement d'avant-garde fondé en 1957 qui mêle critique artistique, révolution culturelle et marxisme radical. Le livre est une synthèse théorique de dix ans d'analyses situationnistes — mais aussi une <strong>bombe à retardement</strong> : les événements de Mai 68 en feront le manifeste le plus lu de la rébellion.
+      </p>
+      <p style="margin-bottom:2.5rem;">
+        Debord s'inscrit dans le sillage de Marx, Lukács (<em>Histoire et conscience de classe</em>, 1923) et de la critique de la vie quotidienne de Lefebvre, mais il les radicalise : ce n'est plus seulement le travail qui est aliéné, c'est <strong>toute la vie vécue</strong>. L'économie a colonisé l'existence entière, et le spectacle est le nom de cette colonisation devenue totale.
+      </p>
+
+      <div class="timeline-container">
+        <div class="tl-item">
+          <div class="tl-dot blood"></div>
+          <div class="tl-year">1952–1957</div>
+          <div class="tl-title">Lettrisme & premières théories</div>
+          <div class="tl-body">Debord fréquente les Lettristes Internationalistes (Isou). Il développe les concepts de <strong>dérive</strong> (exploration urbaine libre) et de <strong>détournement</strong> (réemploi subversif de matériaux culturels existants). Ces pratiques seront théorisées dans le livre.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot neon"></div>
+          <div class="tl-year">1957</div>
+          <div class="tl-title">Fondation de l'Internationale Situationniste</div>
+          <div class="tl-body">Création de l'IS à Cosio d'Arroscia. Objectif : dépasser l'art, construire des <strong>situations vécues</strong> en lieu et place du spectacle passif. La revue <em>Internationale Situationniste</em> (1958–1969) diffuse la théorie.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot blood"></div>
+          <div class="tl-year">1958–1966</div>
+          <div class="tl-title">Critique de la vie quotidienne</div>
+          <div class="tl-body">Henri Lefebvre publie ses volumes sur la vie quotidienne — Debord s'en inspire et le discute. La revue IS analyse la <strong>société de consommation</strong>, le spectacle télévisuel, l'urbanisme standardisé. La théorie mûrit.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot steel"></div>
+          <div class="tl-year">1967</div>
+          <div class="tl-title">La Société du Spectacle — parution</div>
+          <div class="tl-body">Publication en novembre. Le livre s'ouvre sur une phrase-manifeste (détournement de Marx) et développe en 221 thèses numérotées une critique totale de la société capitaliste avancée. Tirage d'abord modeste — jusqu'à Mai 68.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot neon"></div>
+          <div class="tl-year">1968</div>
+          <div class="tl-title">Mai 68 — le livre prend feu</div>
+          <div class="tl-body">Les situationnistes jouent un rôle clé à Nanterre et à la Sorbonne. Les murs de Paris se couvrent de slogans tirés ou inspirés du livre : <em>« Sous les pavés, la plage »</em>, <em>« Ne travaillez jamais »</em>. <em>La Société du spectacle</em> devient le texte de référence de la révolte.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot blood"></div>
+          <div class="tl-year">1988</div>
+          <div class="tl-title">Commentaires sur la société du spectacle</div>
+          <div class="tl-body">Debord prolonge l'analyse : le <strong>spectaculaire intégré</strong> a fusionné les formes concentrée et diffuse. Le spectacle a muté, s'est approfondi, a digéré ses propres critiques. L'ère de la démocratie spectaculaire et du marché mondial.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot steel"></div>
+          <div class="tl-year">1994</div>
+          <div class="tl-title">Mort de Guy Debord</div>
+          <div class="tl-body">Debord se suicide le 30 novembre 1994. Son œuvre connaît depuis une redécouverte permanente : les réseaux sociaux, la société du divertissement et le marketing d'expérience n'ont fait qu'actualiser et amplifier ses intuitions.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── THÈSE ─── -->
+  <section class="sec alt" id="these">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 02</span>
+      <h2 class="sec-h2">Thèse <em>Centrale</em></h2>
+    </div>
+
+    <div style="max-width:820px;margin-bottom:2.5rem;">
+      <p style="margin-bottom:1.5rem;">
+        La thèse de Debord tient en une formule : <strong>le spectacle est le capital parvenu à un tel degré d'accumulation qu'il devient image</strong> (thèse 34). Dans les sociétés modernes, la vie authentique — directement vécue, produite et maîtrisée par les hommes — s'est totalement éloignée dans une représentation autonomisée. Ce qui était <em>être</em> est devenu <em>avoir</em>, puis ce qui était avoir est devenu <em>paraître</em>.
+      </p>
+      <p>
+        Le spectacle n'est pas d'abord la télévision ou les médias (c'est sa manifestation superficielle) — c'est un <strong>rapport social entre des personnes, médiatisé par des images</strong> (thèse 4). C'est le système économique lui-même, parvenu à un point où il produit sa propre représentation comme finalité principale, justification permanente et mode de domination généralisée. Le spectacle est à la fois le résultat du capitalisme et son projet.
+      </p>
+    </div>
+
+    <div class="pq neon">
+      <p>« Le spectacle n'est pas un ensemble d'images, mais un rapport social entre des personnes, médiatisé par des images. »</p>
+      <cite>— La Société du Spectacle, thèse 4</cite>
+    </div>
+
+    <div style="max-width:820px;margin-top:2.5rem;">
+      <p style="margin-bottom:1rem;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--neon2);">Les trois glissements fondamentaux de la modernité spectaculaire :</p>
+      <div class="strates-row">
+        <div class="strate">
+          <div class="strate-label">Stade 1 · pré-capitaliste</div>
+          <div class="strate-name">Être</div>
+          <div style="font-size:.82rem;color:var(--dust);margin-top:.4rem;line-height:1.6;">L'identité sociale et la valeur humaine résident dans ce qu'on <em>est</em> — naissance, appartenance, vertus incarnées. Le lien est direct, non médiatisé.</div>
+          <div class="strate-color" style="background:var(--steel);"></div>
+        </div>
+        <div class="strate">
+          <div class="strate-label">Stade 2 · capitalisme industriel</div>
+          <div class="strate-name">Avoir</div>
+          <div style="font-size:.82rem;color:var(--dust);margin-top:.4rem;line-height:1.6;">La société bourgeoise substitue l'<em>avoir</em> à l'être. La possession de biens devient le critère de valeur. L'aliénation du travail est centrale : on se dépossède de soi en produisant.</div>
+          <div class="strate-color" style="background:var(--neon2);"></div>
+        </div>
+        <div class="strate">
+          <div class="strate-label">Stade 3 · spectacle</div>
+          <div class="strate-name">Paraître</div>
+          <div style="font-size:.82rem;color:var(--dust);margin-top:.4rem;line-height:1.6;">L'abondance marchande bascule dans le <em>paraître</em> : ce qui compte n'est plus d'avoir mais d'en avoir l'image. La représentation supplante la réalité. Le spectacle est la forme achevée de cette mutation.</div>
+          <div class="strate-color" style="background:var(--blood);"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── STRUCTURE ─── -->
+  <section class="sec dark" id="structure">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 03</span>
+      <h2 class="sec-h2">Structure <em>du Livre</em></h2>
+    </div>
+
+    <p style="color:rgba(255,255,255,.55);max-width:640px;margin-bottom:2rem;font-size:.9rem;line-height:1.8;">
+      Le livre est composé de 221 thèses numérotées, réparties en neuf chapitres. La forme est délibérément aphoristique — héritière de Marx, Hegel et Feuerbach — et pratique elle-même le <em>détournement</em> : de nombreuses thèses sont des détournements à peine modifiés d'auteurs antérieurs.
+    </p>
+
+    <div class="accordion">
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <div class="acc-title">I. La séparation achevée (thèses 1–34)</div>
+          <div class="acc-icon">+</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p>C'est le chapitre fondateur. Debord définit le <strong>spectacle</strong> à partir de sa thèse-manifeste (th. 1, détournement de Marx : « Toute la vie des sociétés… »). Il pose la définition centrale (th. 4 : rapport social médiatisé par des images), distingue le spectacle de la simple accumulation d'images, et introduit la logique de la <strong>séparation</strong> : la vie vécue s'est scindée en réalité et en représentation. Le chapitre se clôt sur la formule la plus citée du livre : <em>« Le spectacle est le capital à un tel degré d'accumulation qu'il devient image »</em> (th. 34).</p>
+            <p>La référence à Feuerbach en exergue (l'image a supplanté la chose) ancre d'emblée la critique dans une tradition de la <strong>critique de la religion</strong> transposée au capitalisme : le spectacle est l'illusion religieuse matérialisée.</p>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <div class="acc-title">II. La marchandise comme spectacle (thèses 35–53)</div>
+          <div class="acc-icon">+</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p>Ce chapitre articule le spectacle à la <strong>forme-marchandise</strong> de Marx. Debord montre que le spectacle est « le moment où la marchandise est parvenue à l'occupation totale de la vie sociale » (th. 42). S'appuyant sur Lukács et sa notion de <strong>réification</strong>, il décrit comment la valeur d'échange a triomphé de la valeur d'usage : on ne consomme plus des choses pour leur usage, mais pour leur image, leur signe, leur prestige.</p>
+            <p>La formule clé : <em>« Le spectacle est l'autre face de l'argent »</em> (th. 49). Si l'argent unifie par l'échangeabilité quantitative, le spectacle unifie par la représentation de cette équivalence — il est l'argent que l'on regarde seulement. La consommation aliénée devient pour les masses un <strong>devoir supplémentaire</strong> à la production aliénée.</p>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <div class="acc-title">III. Unité et division dans l'apparence (thèses 54–73)</div>
+          <div class="acc-icon">+</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p>Debord analyse les deux grandes formes historiques du spectacle : le <strong>spectaculaire concentré</strong> (dictatures bureaucratiques, culte de la personnalité — th. 64) et le <strong>spectaculaire diffus</strong> (démocraties capitalistes avancées, abondance marchande — th. 65). Ces formes paraissent opposées mais participent du même système : elles sont la division du spectacle au sein de l'unité du capitalisme mondial.</p>
+            <p>Le chapitre analyse aussi la figure de la <strong>vedette</strong> (th. 60–61) : dans la société spectaculaire, les individus s'identifient à des personnalités-écrans qui incarnent des styles de vie inaccessibles. La vedette est la spécialisation du vécu apparent — elle existe pour que le spectateur ne vive pas.</p>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <div class="acc-title">IV. Le prolétariat comme sujet et représentation (thèses 74–121)</div>
+          <div class="acc-icon">+</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p>Le chapitre le plus long et le plus directement marxiste. Debord retrace l'histoire du mouvement ouvrier et analyse son <strong>échec spectaculaire</strong> : la social-démocratie (réformisme intégré au système) et le bolchévisme (bureaucratie stalinienne comme spectaculaire concentré) ont tous deux trahi le projet de la <em>Commune</em> — seule réalisation historique d'un <strong>pouvoir ouvrier non séparé</strong>.</p>
+            <p>La thèse centrale : le prolétariat est à la fois le sujet potentiel de la révolution (il peut reprendre la totalité de sa vie) et l'objet par excellence du spectacle (sa conscience est colonisée). L'organisation autonome des travailleurs — les <em>conseils ouvriers</em> — est la seule forme politique capable de dépasser la séparation spectaculaire.</p>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <div class="acc-title">V–VI. Temps et histoire / Le temps spectaculaire (thèses 122–179)</div>
+          <div class="acc-icon">+</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p>Debord développe une <strong>philosophie du temps</strong> articulée à la critique du spectacle. Le <em>temps cyclique</em> des sociétés pré-capitalistes (rythmes naturels, fêtes, répétition) et le <em>temps irréversible</em> de l'histoire (linéaire, cumulatif, transformateur) ont été remplacés par le <strong>temps spectaculaire</strong> : un pseudo-temps consommable, fait de marchandises-instants interchangeables.</p>
+            <p>Le temps spectaculaire est la <em>fausse conscience du temps</em> : le tourisme spectaculaire, les pseudo-événements, les commémorations médiatiques produisent l'illusion d'une histoire vécue alors que l'immobilité règne. Le spectacle est <em>« le mauvais rêve de la société moderne enchaînée »</em> (th. 21).</p>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <div class="acc-title">VII. L'aménagement du territoire (thèses 165–179)</div>
+          <div class="acc-icon">+</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p>Le spectacle s'inscrit dans l'espace. Debord analyse l'<strong>urbanisme spectaculaire</strong> : les villes sont restructurées pour la circulation des marchandises et des voitures, non pour la vie des habitants. Les grands ensembles, les centres commerciaux, les autoroutes <em>isolent</em> les individus les uns des autres — ils renforcent la séparation spectaculaire dans la pierre et le béton.</p>
+            <p>Contre l'urbanisme de la passivité, les situationnistes prônent la <strong>psychogéographie</strong> (étude des effets du milieu géographique sur le comportement) et la <strong>dérive</strong> (errance urbaine non dirigée) comme formes de réappropriation de l'espace vécu.</p>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <div class="acc-head" onclick="toggleAcc(this)">
+          <div class="acc-title">VIII–IX. Culture &amp; Idéologie matérialisée (thèses 180–221)</div>
+          <div class="acc-icon">+</div>
+        </div>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p>Les deux derniers chapitres analysent la <strong>culture</strong> comme terrain central du spectacle. La culture est à la fois ce que le spectacle récupère (les avant-gardes, les révolutions culturelles deviennent marchandises) et ce qui contient potentiellement sa négation. Le <strong>détournement</strong> — réemploi subversif des produits culturels dominants — est la pratique situationniste par excellence contre la récupération.</p>
+            <p>L'<strong>idéologie matérialisée</strong> (ch. IX) désigne le fait que le spectacle n'est pas une idéologie parmi d'autres : il est l'idéologie devenue réelle, concrète, matériellement investie dans chaque marchandise, chaque image, chaque infrastructure. La thèse finale (221) : <em>« La théorie n'a pas à se soucier de savoir ce qui est pensable... mais ce qui est possible. »</em></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CONCEPTS CLÉS ─── -->
+  <section class="sec alt" id="concepts">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 04</span>
+      <h2 class="sec-h2">Concepts <em>Clés</em></h2>
+    </div>
+
+    <p style="max-width:680px;margin-bottom:2rem;color:var(--dust);font-size:.9rem;line-height:1.8;">
+      Cliquez sur chaque carte pour découvrir l'analyse complète et les usages contemporains du concept.
+    </p>
+
+    <div class="concept-grid">
+      <div class="concept-card" data-num="01" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept fondamental · 01</span>
+        <div class="cc-title">Le Spectacle</div>
+        <div class="cc-short">Rapport social entre des personnes médiatisé par des images — non pas la télévision, mais la forme prise par le capitalisme lorsque la représentation domine la vie.</div>
+        <div class="cc-expand">
+          <div class="cc-expand-body">
+            <p>Le spectacle est le concept central et le plus difficile à saisir car il désigne à la fois un état de la société, une forme économique et un rapport entre les hommes. Debord s'attache à le distinguer de sa manifestation superficielle (les médias, les images) pour montrer qu'il est <strong>le mode d'être du capitalisme avancé lui-même</strong>.</p>
+            <p>Il s'agit de la <em>forme autonomisée de la représentation</em> : lorsque la production économique atteint un certain degré d'abondance, elle ne se contente plus de produire des marchandises — elle produit sa propre justification, sa propre image, comme finalité principale. Le spectacle est « le capital à un tel degré d'accumulation qu'il devient image » (th. 34). Il est tautologique : ses moyens sont son but, il se justifie lui-même.</p>
+            <div class="cc-today">Le concept est aujourd'hui mobilisé pour analyser les réseaux sociaux (Instagram comme spectacle de soi), la politique-spectacle (le marketing des candidats), l'économie de l'attention, ou encore le tourisme de masse qui transforme l'expérience vécue en photo à partager.</div>
+          </div>
+        </div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))">
+          <div class="cc-arrow">↓</div>
+          <span>Lire l'analyse</span>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="02" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept fondamental · 02</span>
+        <div class="cc-title">La Séparation</div>
+        <div class="cc-short">Le principe organisateur du spectacle : la scission entre la vie vécue et sa représentation, entre les producteurs et leurs produits, entre l'individu et la communauté.</div>
+        <div class="cc-expand">
+          <div class="cc-expand-body">
+            <p>La <strong>séparation</strong> est « l'alpha et l'oméga du spectacle » (th. 25). Elle désigne la scission fondamentale introduite par la division du travail et amplifiée par le capitalisme : les travailleurs sont séparés de leurs produits (aliénation), les individus sont séparés les uns des autres (isolement), et la vie est séparée de sa représentation (spectacle).</p>
+            <p>La séparation est à la fois <em>économique</em> (division du travail, prolétarisation), <em>sociale</em> (fragmentation des communautés, atomisation des individus), <em>spatiale</em> (urbanisme de la séparation) et <em>temporelle</em> (le temps spectaculaire remplace le temps vécu). Le spectacle est la forme que prend cette séparation lorsqu'elle est <strong>érigée en système total</strong>, en second monde autonome qui s'impose à la vie réelle.</p>
+            <div class="cc-today">Le diagnostic de la séparation résonne avec les analyses contemporaines sur la <em>solitude de masse</em>, le paradoxe des réseaux sociaux (hyper-connexion et isolement réel) ou encore la dissociation entre travail et vie dans le télétravail néolibéral.</div>
+          </div>
+        </div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))">
+          <div class="cc-arrow">↓</div>
+          <span>Lire l'analyse</span>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="03" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept fondamental · 03</span>
+        <div class="cc-title">Spectaculaire concentré / diffus / intégré</div>
+        <div class="cc-short">Les trois formes historiques du spectacle : dictature totalitaire, démocratie consumériste, et leur fusion contemporaine en spectacle intégré.</div>
+        <div class="cc-expand">
+          <div class="cc-expand-body">
+            <p>Debord distingue en 1967 deux formes du spectacle. Le <strong>spectaculaire concentré</strong> (capitalisme bureaucratique, URSS maoïsme) concentre l'image dans un seul homme ou une idéologie officielle : la vedette absolue (Staline, Mao) incarne la totalité du système. La violence et la terreur en sont inséparables.</p>
+            <p>Le <strong>spectaculaire diffus</strong> (démocraties capitalistes avancées) laisse s'affronter une multitude de marchandises-spectacles concurrentes : l'unité du système passe par la diversité apparente des choix. Pas de vedette unique, mais des milliers de marchandises-vedettes.</p>
+            <p>Dans les <em>Commentaires</em> (1988), Debord ajoute une troisième forme : le <strong>spectaculaire intégré</strong>, résultant de la fusion des deux précédentes après l'effondrement du bloc soviétique. Il transforme économiquement le monde <em>et</em> policièrement la perception — c'est notre présent.</p>
+            <div class="cc-today">Le spectaculaire intégré décrit précisément notre époque : GAFAM, algorithmes de personnalisation, surveillance de masse, et uniformisation mondiale des modes de vie sous couvert de diversité spectaculaire.</div>
+          </div>
+        </div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))">
+          <div class="cc-arrow">↓</div>
+          <span>Lire l'analyse</span>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="04" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept fondamental · 04</span>
+        <div class="cc-title">Le Détournement</div>
+        <div class="cc-short">La pratique situationniste par excellence : réemployer des éléments culturels préexistants dans un nouveau contexte pour en retourner le sens contre le spectacle.</div>
+        <div class="cc-expand">
+          <div class="cc-expand-body">
+            <p>Le <strong>détournement</strong> est à la fois une théorie et une pratique. Il consiste à s'emparer de matériaux existants — films, publicités, textes philosophiques, chansons — et à les réorganiser de façon à produire un <em>effet critique inverse</em>. Le livre lui-même pratique le détournement : de nombreuses thèses sont des reformulations de Marx, Hegel, Feuerbach ou Lukács avec une légère modification qui en retourne la portée.</p>
+            <p>Le détournement s'oppose à la <em>récupération</em> : là où le spectacle absorbe et neutralise les éléments subversifs (en les transformant en marchandises, en modes), le détournement retourne les armes du spectacle contre lui-même. C'est un acte de <strong>piraterie culturelle</strong> — appropriation non autorisée au service de la désaliénation.</p>
+            <div class="cc-today">Le détournement est devenu une pratique culturelle massive avec internet : mèmes subversifs, culture du remix, <em>culture jamming</em> (Adbusters), mashups politiques. Mais Debord noterait que la récupération reste plus rapide que le détournement à l'ère du spectaculaire intégré.</div>
+          </div>
+        </div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))">
+          <div class="cc-arrow">↓</div>
+          <span>Lire l'analyse</span>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="05" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept fondamental · 05</span>
+        <div class="cc-title">La Dérive</div>
+        <div class="cc-short">Errance urbaine non dirigée, sensible aux variations du milieu — alternative pratique à la passivité spectaculaire et à l'urbanisme de la circulation marchande.</div>
+        <div class="cc-expand">
+          <div class="cc-expand-body">
+            <p>La <strong>dérive</strong> est une technique de passage à travers des ambiances variées. Elle consiste à laisser de côté les raisons ordinaires du déplacement (travail, courses) pour se laisser attirer par le terrain et les rencontres qui y correspondent. Elle est inséparable de la <strong>psychogéographie</strong> — étude de l'influence précise des milieux géographiques sur les comportements et les émotions.</p>
+            <p>La dérive n'est pas une simple promenade : c'est une <em>pratique critique de l'espace</em>. Elle suppose une sensibilité aux variations de l'environnement urbain et une disponibilité à en être affecté, en dehors des itinéraires planifiés par l'urbanisme fonctionnel. Elle est la réponse situationniste au tourisme spectaculaire : là où le touriste consomme des sites préformatés, le dériveur <strong>produit sa propre expérience</strong> de l'espace.</p>
+            <div class="cc-today">La dérive inspire des pratiques contemporaines de réappropriation urbaine (psychogéographie numérique, cartographies alternatives, urbex), mais aussi des approches pédagogiques et artistiques qui cherchent à réenchanter l'expérience de la ville contre le tout-automobile et le tout-commercial.</div>
+          </div>
+        </div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))">
+          <div class="cc-arrow">↓</div>
+          <span>Lire l'analyse</span>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="06" onclick="toggleCard(this)">
+        <span class="cc-tag">Concept fondamental · 06</span>
+        <div class="cc-title">La Situation Construite</div>
+        <div class="cc-short">L'objectif programmatique des situationnistes : construire des situations vécues, des moments de vie authentiquement produits et maîtrisés par leurs protagonistes.</div>
+        <div class="cc-expand">
+          <div class="cc-expand-body">
+            <p>La <strong>situation construite</strong> est le contraire du spectacle : là où le spectacle impose une représentation séparée et passive, la situation construite est un <em>événement collectif délibérément organisé</em> pour produire une expérience nouvelle et non aliénée. Elle ne se donne pas à voir — elle se vit.</p>
+            <p>Ce concept est l'horizon positif de la critique situationniste. Il implique la suppression des rôles séparés de l'artiste et du spectateur : dans la situation construite, il n'y a pas de public, seulement des participants. Elle préfigure la révolution comprise non comme prise du pouvoir mais comme <strong>transformation radicale de la vie quotidienne</strong> — réappropriation du temps, de l'espace et des relations humaines.</p>
+            <div class="cc-today">La situation construite résonne avec des pratiques contemporaines : hackerspaces, raves underground, flashmobs politiques, théâtre participatif, mais aussi — de façon plus ambigu — avec les <em>expériences immersives</em> commerciales qui récupèrent l'idéal situationniste en le transformant en marchandise.</div>
+          </div>
+        </div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))">
+          <div class="cc-arrow">↓</div>
+          <span>Lire l'analyse</span>
+        </div>
+      </div>
+
+      <div class="concept-card" data-num="07" onclick="toggleCard(this)" style="grid-column:1/4">
+        <span class="cc-tag">Concept fondamental · 07</span>
+        <div class="cc-title">La Récupération</div>
+        <div class="cc-short" style="max-width:680px;">Le processus par lequel le spectacle absorbe et neutralise les éléments qui le contestent : les révolutions culturelles deviennent des modes, les critiques deviennent des publicités, les utopies deviennent des marques.</div>
+        <div class="cc-expand">
+          <div class="cc-expand-body">
+            <p>La <strong>récupération</strong> est le mécanisme par lequel le spectacle survit à ses propres crises. Toute contestation, tout art subversif, toute utopie peut être absorbée par le marché et transformée en marchandise. Le rock'n'roll devient industrie musicale ; le punk devient mode chez H&M ; les slogans de Mai 68 apparaissent en publicité pour des voitures.</p>
+            <p>La récupération fonctionne selon une logique paradoxale : plus une critique du spectacle est radicale et efficace, plus elle présente une valeur marchande élevée pour le spectacle qui cherche à s'en emparer. <strong>La nouveauté est la marchandise du spectacle diffus</strong> : il a besoin en permanence de renouvellement, et la contestation est l'une de ses principales matières premières.</p>
+            <p>Debord en était parfaitement conscient de son vivant — il a assisté à la récupération des situationnistes eux-mêmes (T-shirts IS, musées qui exposent leurs œuvres). La question qui demeure : peut-on critiquer le spectacle sans être récupéré ? Debord répondrait que seule la <em>révolution pratique</em> — la transformation réelle des conditions de vie — peut briser ce cercle.</p>
+            <div class="cc-today">La récupération est devenue plus rapide et totale à l'ère du spectaculaire intégré : le féminisme radical devient publicité L'Oréal, l'écologie devient green washing, le situationnisme lui-même devient un master universitaire en études culturelles. Toute critique est potentiellement une future marchandise.</div>
+          </div>
+        </div>
+        <div class="cc-toggle" onclick="event.stopPropagation();toggleCard(this.closest('.concept-card'))">
+          <div class="cc-arrow">↓</div>
+          <span>Lire l'analyse</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── L'ENNEMI VISÉ ─── -->
+  <section class="sec" id="contre">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 05</span>
+      <h2 class="sec-h2">L'Ennemi <em>Visé</em></h2>
+    </div>
+    <p style="max-width:680px;margin-bottom:2.5rem;color:var(--dust);">
+      Debord critique simultanément plusieurs traditions intellectuelles et politiques qu'il juge complices — à des degrés divers — du spectacle qu'elles prétendent analyser ou combattre.
+    </p>
+
+    <div class="compare-sec">
+      <div class="compare-header">
+        <div class="ch-title blood">Illusion / complicité</div>
+        <div></div>
+        <div class="ch-title neon" style="text-align:right">Critique situationniste</div>
+      </div>
+
+      <div class="compare-row">
+        <div class="cr-label-l">Le <strong>marxisme orthodoxe</strong> (PCF, Stalinisme) qui croit transformer la société en prenant le pouvoir d'État — reproduisant en fait une bureaucratie spectaculaire</div>
+        <div class="cr-mid">vs</div>
+        <div class="cr-label-r">La révolution comme <strong>suppression du pouvoir séparé</strong> — conseils ouvriers, démocratie directe, appropriation collective de la vie et non de l'État</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">Le <strong>réformisme social-démocrate</strong> qui intègre le mouvement ouvrier au spectacle, transformant la contestation en gestion du système</div>
+        <div class="cr-mid">vs</div>
+        <div class="cr-label-r">Le refus de toute <strong>représentation séparée</strong> du mouvement social — pas de délégation, pas de leaders, pas de parti entre les travailleurs et leur pratique</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">Les <strong>avant-gardes artistiques</strong> (surréalisme, lettrisme) qui maintiennent la séparation art/vie et deviennent des marchandises culturelles récupérées par le marché</div>
+        <div class="cr-mid">vs</div>
+        <div class="cr-label-r">Le <strong>dépassement de l'art</strong> : la situation construite, qui supprime la séparation artiste/spectateur et réintègre la créativité dans la vie quotidienne</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">L'<strong>urbanisme fonctionnel</strong> (Le Corbusier, grands ensembles) qui organise la ville pour la circulation des marchandises et <em>isole</em> les individus</div>
+        <div class="cr-mid">vs</div>
+        <div class="cr-label-r">La <strong>psychogéographie</strong> et la dérive : réapproprier l'espace vécu, construire des ambiances, résister à la fonctionnalisation de la vie urbaine</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">La <strong>sociologie du spectacle</strong> (McLuhan, Debray) qui décrit les médias sans critiquer la totalité économique qui les produit</div>
+        <div class="cr-mid">vs</div>
+        <div class="cr-label-r">Une critique <strong>totale</strong> : le spectacle n'est pas un problème de médias mais un rapport social — c'est la forme du capitalisme, pas son outil</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-label-l">La <strong>consommation comme liberté</strong> — l'idéologie qui fait du choix de marchandises une expression de l'individualité et de la démocratie</div>
+        <div class="cr-mid">vs</div>
+        <div class="cr-label-r">La consommation comme <strong>faux choix</strong> dans l'abondance spectaculaire : une liberté illusoire qui renforce la soumission au système marchand</div>
+      </div>
+    </div>
+
+    <div class="pq blood" style="margin-top:3rem;">
+      <p>« Le spectacle est le gardien du sommeil. »</p>
+      <cite>— La Société du Spectacle, thèse 21</cite>
+    </div>
+  </section>
+
+  <!-- ─── GLOSSAIRE ─── -->
+  <section class="sec alt" id="glossaire">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 06</span>
+      <h2 class="sec-h2">Glossaire <em>Complet</em></h2>
+    </div>
+    <div class="glos-grid">
+      <div class="gi" data-g="S">
+        <span class="gi-src">La Société du spectacle · thèse 4</span>
+        <div class="gi-term">Spectacle</div>
+        <div class="gi-def">Rapport social entre des personnes médiatisé par des images. Non pas une accumulation d'images (cinéma, télévision), mais la forme que prend le capitalisme lorsque la représentation autonomisée domine et justifie la totalité de la vie sociale.</div>
+        <div class="gi-now">Concept central des Media Studies critiques, des analyses des réseaux sociaux (spectacle de soi), et de la critique du <em>storytelling</em> politique contemporain.</div>
+      </div>
+      <div class="gi" data-g="S">
+        <span class="gi-src">La Société du spectacle · thèse 25</span>
+        <div class="gi-term">Séparation</div>
+        <div class="gi-def">Scission constitutive du spectacle entre la vie vécue et sa représentation, entre les producteurs et leurs produits, entre les individus et la communauté. La séparation est produite par la division du travail et amplifiée par la forme-marchandise jusqu'à devenir le principe organisateur de toute existence.</div>
+        <div class="gi-now">Résonance avec les analyses contemporaines sur la solitude de masse, le paradoxe des réseaux sociaux, et la dissociation entre travail et sens dans l'économie de plateforme.</div>
+      </div>
+      <div class="gi" data-g="D">
+        <span class="gi-src">Théorie situationniste</span>
+        <div class="gi-term">Détournement</div>
+        <div class="gi-def">Réemploi subversif d'éléments culturels préexistants (textes, films, publicités) dans un nouveau contexte qui en retourne le sens contre le spectacle. Pratique centrale des situationnistes, le détournement est à la récupération ce que la révolution est à la réforme.</div>
+        <div class="gi-now">Culture du mème, <em>culture jamming</em>, mashups politiques, détournement de logos corporatifs — autant de pratiques qui prolongent (et souvent diluent) l'ambition situationniste.</div>
+      </div>
+      <div class="gi" data-g="D">
+        <span class="gi-src">Théorie situationniste</span>
+        <div class="gi-term">Dérive</div>
+        <div class="gi-def">Technique de passage rapide à travers des ambiances variées — errance urbaine non dirigée, sensible aux effets du milieu géographique sur les comportements. Pratique de désaliénation de l'espace contre l'urbanisme fonctionnel et le tourisme spectaculaire.</div>
+        <div class="gi-now">Réappropriée par la psychogéographie contemporaine, les pratiques d'exploration urbaine (urbex), et certaines approches pédagogiques de réenchantement du territoire.</div>
+      </div>
+      <div class="gi" data-g="R">
+        <span class="gi-src">La Société du spectacle</span>
+        <div class="gi-term">Récupération</div>
+        <div class="gi-def">Processus par lequel le spectacle absorbe et neutralise les éléments qui le contestent en les transformant en marchandises. La récupération est le mécanisme de survie du spectacle face à la critique : toute subversion peut devenir publicité, mode ou musée.</div>
+        <div class="gi-now">Mécanisme central du capitalisme culturel contemporain : féminisme-marchandise, écologie de marché, <em>woke capitalism</em> — autant de récupérations que Debord aurait reconnu immédiatement.</div>
+      </div>
+      <div class="gi" data-g="S">
+        <span class="gi-src">La Société du spectacle · ch. III</span>
+        <div class="gi-term">Spectaculaire intégré</div>
+        <div class="gi-def">Forme contemporaine du spectacle (identifiée dans les <em>Commentaires</em> de 1988) résultant de la fusion du spectaculaire concentré et diffus. Il transforme à la fois économiquement le monde et policièrement la perception — sans laisser d'extérieur à la représentation dominante.</div>
+        <div class="gi-now">Notre présent : GAFAM, algorithmes de personnalisation, information-spectacle, surveillance généralisée, et uniformisation mondiale sous couvert de diversité identitaire.</div>
+      </div>
+      <div class="gi" data-g="A">
+        <span class="gi-src">La Société du spectacle · th. 17</span>
+        <div class="gi-term">Avoir / Paraître</div>
+        <div class="gi-def">Les deux stades de la dégradation de l'être dans la modernité : d'abord l'<em>avoir</em> (capitalisme industriel : posséder des biens) remplace l'<em>être</em> (identité authentique) ; puis le <em>paraître</em> (spectacle : avoir l'image d'avoir) supplante l'avoir lui-même. Dialectique de l'aliénation croissante.</div>
+        <div class="gi-now">Résume l'économie des réseaux sociaux : l'expérience vécue doit être documentée (paraître) pour valoir — le voyage n'existe vraiment que posté, le repas n'est réel que photographié.</div>
+      </div>
+      <div class="gi" data-g="S">
+        <span class="gi-src">Théorie situationniste</span>
+        <div class="gi-term">Situation construite</div>
+        <div class="gi-def">Moment de vie délibérément organisé et collectivement vécu pour produire une expérience non aliénée. Objectif programmatique des situationnistes : remplacer le spectacle passif par la participation active à des situations où l'art et la vie fusionnent, sans séparation artiste/public.</div>
+        <div class="gi-now">Résonances ambiguës avec les <em>expériences immersives</em> commerciales (Meow Wolf, escape games) qui récupèrent l'idéal participatif en le transformant en divertissement spectaculaire haut de gamme.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SCHÉMA ─── -->
+  <section class="sec neon-bg" id="schema">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 07</span>
+      <h2 class="sec-h2">Schéma <em>Conceptuel</em></h2>
+    </div>
+    <p style="color:rgba(255,255,255,.5);max-width:640px;margin-bottom:2rem;font-size:.9rem;line-height:1.8;">
+      Le spectacle est produit par l'économie, se manifeste sous trois formes historiques, et opère via la séparation pour produire l'aliénation totale — à laquelle les situationnistes opposent des pratiques de désaliénation.
+    </p>
+    <div class="schema-wrap">
+      <svg viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+        <defs>
+          <pattern id="grid2" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          </pattern>
+          <marker id="arrow2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="rgba(196,124,16,0.7)"/>
+          </marker>
+          <marker id="arrow3" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="rgba(181,32,24,0.7)"/>
+          </marker>
+        </defs>
+        <rect width="900" height="560" fill="url(#grid2)"/>
+
+        <!-- Source : Économie -->
+        <rect x="320" y="20" width="260" height="60" rx="2" fill="rgba(196,124,16,0.15)" stroke="rgba(196,124,16,0.5)" stroke-width="1.5"/>
+        <text x="450" y="45" font-family="'Barlow Condensed',sans-serif" font-size="16" font-weight="800" fill="#e8a040" text-anchor="middle" letter-spacing="2">ÉCONOMIE CAPITALISTE</text>
+        <text x="450" y="65" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(255,255,255,0.3)" text-anchor="middle">accumulation · production · marchandise</text>
+
+        <!-- Flèche vers spectacle -->
+        <line x1="450" y1="82" x2="450" y2="118" stroke="rgba(196,124,16,0.5)" stroke-width="1.5" marker-end="url(#arrow2)"/>
+
+        <!-- Centre : Le Spectacle -->
+        <rect x="250" y="120" width="400" height="70" rx="2" fill="rgba(181,32,24,0.2)" stroke="rgba(181,32,24,0.6)" stroke-width="2"/>
+        <text x="450" y="148" font-family="'Barlow Condensed',sans-serif" font-size="24" font-weight="900" fill="#f05040" text-anchor="middle" letter-spacing="3">LE SPECTACLE</text>
+        <text x="450" y="168" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(255,255,255,0.3)" text-anchor="middle">rapport social médiatisé par des images · capital devenu image</text>
+
+        <!-- 3 formes -->
+        <line x1="300" y1="192" x2="195" y2="235" stroke="rgba(181,32,24,0.4)" stroke-width="1.5" marker-end="url(#arrow3)"/>
+        <line x1="450" y1="192" x2="450" y2="235" stroke="rgba(181,32,24,0.4)" stroke-width="1.5" marker-end="url(#arrow3)"/>
+        <line x1="600" y1="192" x2="705" y2="235" stroke="rgba(181,32,24,0.4)" stroke-width="1.5" marker-end="url(#arrow3)"/>
+
+        <rect x="80" y="237" width="220" height="65" rx="2" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+        <text x="190" y="260" font-family="'Barlow Condensed',sans-serif" font-size="14" font-weight="800" fill="#fff" text-anchor="middle" letter-spacing="1">CONCENTRÉ</text>
+        <text x="190" y="278" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">bureaucratie · culte du chef</text>
+        <text x="190" y="294" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,0.2)" text-anchor="middle">URSS · Maoïsme</text>
+
+        <rect x="340" y="237" width="220" height="65" rx="2" fill="rgba(181,32,24,0.1)" stroke="rgba(181,32,24,0.35)" stroke-width="1"/>
+        <text x="450" y="260" font-family="'Barlow Condensed',sans-serif" font-size="14" font-weight="800" fill="#f05040" text-anchor="middle" letter-spacing="1">INTÉGRÉ</text>
+        <text x="450" y="278" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">fusion · surveillance · GAFAM</text>
+        <text x="450" y="294" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,0.2)" text-anchor="middle">notre présent (1988→)</text>
+
+        <rect x="600" y="237" width="220" height="65" rx="2" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+        <text x="710" y="260" font-family="'Barlow Condensed',sans-serif" font-size="14" font-weight="800" fill="#fff" text-anchor="middle" letter-spacing="1">DIFFUS</text>
+        <text x="710" y="278" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">abondance · vedettes · choix</text>
+        <text x="710" y="294" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,0.2)" text-anchor="middle">capitalisme occidental</text>
+
+        <!-- Effets : séparation / aliénation -->
+        <line x1="190" y1="304" x2="320" y2="370" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arrow2)"/>
+        <line x1="450" y1="304" x2="450" y2="370" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arrow2)"/>
+        <line x1="710" y1="304" x2="580" y2="370" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arrow2)"/>
+
+        <rect x="220" y="372" width="460" height="60" rx="2" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <text x="450" y="397" font-family="'Barlow Condensed',sans-serif" font-size="18" font-weight="800" fill="rgba(255,255,255,0.6)" text-anchor="middle" letter-spacing="2">SÉPARATION · ALIÉNATION TOTALE</text>
+        <text x="450" y="420" font-family="'IBM Plex Mono',monospace" font-size="9" fill="rgba(255,255,255,0.2)" text-anchor="middle">être → avoir → paraître · contemplation passive · isolement</text>
+
+        <!-- Contre-pratiques -->
+        <g transform="translate(0,455)">
+          <rect x="60" y="0" width="180" height="60" rx="2" fill="rgba(196,124,16,0.08)" stroke="rgba(196,124,16,0.25)" stroke-width="1"/>
+          <text x="150" y="22" font-family="'Barlow Condensed',sans-serif" font-size="13" font-weight="700" fill="#e8a040" text-anchor="middle" letter-spacing="1">DÉTOURNEMENT</text>
+          <text x="150" y="40" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">réemploi subversif</text>
+          <text x="150" y="54" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,0.2)" text-anchor="middle">contre la récupération</text>
+        </g>
+
+        <g transform="translate(0,455)">
+          <rect x="260" y="0" width="180" height="60" rx="2" fill="rgba(196,124,16,0.08)" stroke="rgba(196,124,16,0.25)" stroke-width="1"/>
+          <text x="350" y="22" font-family="'Barlow Condensed',sans-serif" font-size="13" font-weight="700" fill="#e8a040" text-anchor="middle" letter-spacing="1">DÉRIVE</text>
+          <text x="350" y="40" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">errance urbaine libre</text>
+          <text x="350" y="54" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,0.2)" text-anchor="middle">psychogéographie</text>
+        </g>
+
+        <g transform="translate(0,455)">
+          <rect x="460" y="0" width="195" height="60" rx="2" fill="rgba(196,124,16,0.08)" stroke="rgba(196,124,16,0.25)" stroke-width="1"/>
+          <text x="557" y="22" font-family="'Barlow Condensed',sans-serif" font-size="13" font-weight="700" fill="#e8a040" text-anchor="middle" letter-spacing="1">SITUATION</text>
+          <text x="557" y="40" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">vie directement vécue</text>
+          <text x="557" y="54" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,0.2)" text-anchor="middle">art + vie fusionnés</text>
+        </g>
+
+        <g transform="translate(0,455)">
+          <rect x="675" y="0" width="170" height="60" rx="2" fill="rgba(196,124,16,0.08)" stroke="rgba(196,124,16,0.25)" stroke-width="1"/>
+          <text x="760" y="22" font-family="'Barlow Condensed',sans-serif" font-size="13" font-weight="700" fill="#e8a040" text-anchor="middle" letter-spacing="1">CONSEILS</text>
+          <text x="760" y="40" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">démocratie directe</text>
+          <text x="760" y="54" font-family="'IBM Plex Mono',monospace" font-size="8" fill="rgba(255,255,255,0.2)" text-anchor="middle">pouvoir non séparé</text>
+        </g>
+
+        <!-- Étiquette bas -->
+        <text x="450" y="548" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="rgba(255,255,255,.15)" text-anchor="middle" letter-spacing="1.5">STRUCTURE CONCEPTUELLE DE LA SOCIÉTÉ DU SPECTACLE (DEBORD, 1967)</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ─── QUIZ ─── -->
+  <section class="sec dark" id="quiz">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 08</span>
+      <h2 class="sec-h2">Quiz <em>Interactif</em></h2>
+    </div>
+
+    <div class="quiz-wrap">
+      <div class="quiz-title">Testez votre compréhension</div>
+      <div class="quiz-meta">6 questions · niveaux progressifs · feedback détaillé</div>
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" id="quizProgressFill" style="width:0%"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+        <div class="quiz-counter">Question <span id="qNum">1</span>/6</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:rgba(255,255,255,.3);">Score : <span id="scoreDisplay">0</span>/6</div>
+      </div>
+      <div class="quiz-question" id="qText"></div>
+      <div class="quiz-options" id="qOptions"></div>
+      <div class="quiz-feedback" id="qFeedback"></div>
+      <div class="quiz-nav">
+        <div class="quiz-status" id="qStatus">Sélectionnez une réponse</div>
+        <button class="quiz-btn" id="qNext" disabled onclick="nextQuestion()">Question suivante →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── RÉFLEXION ─── -->
+  <section class="sec neon-bg" id="reflexion">
+    <div class="sec-eyebrow">
+      <span class="sec-num">§ 09</span>
+      <h2 class="sec-h2">Questions <em>de Réflexion</em></h2>
+    </div>
+    <p style="color:rgba(255,255,255,.45);max-width:620px;margin-bottom:2rem;font-size:.9rem;line-height:1.8;">
+      Des questions ouvertes pour prolonger la lecture, préparer un exposé ou mobiliser les concepts dans d'autres contextes.
+    </p>
+
+    <div class="qstack">
+      <div class="qi">
+        <div class="qi-n">Q·01</div>
+        <div>
+          <div class="qi-t">Debord affirme que le spectacle est un « rapport social entre des personnes médiatisé par des images » et non une accumulation d'images. En quoi cette distinction est-elle décisive — et en quoi change-t-elle l'analyse des réseaux sociaux ?</div>
+          <div class="qi-hint">Piste : Si le spectacle était seulement des images, il suffirait de les éteindre. Puisqu'il est un rapport social, c'est l'organisation économique et sociale elle-même qui le produit. Instagram n'est pas le problème — il est le symptôme d'une économie qui a besoin de médiatiser toute relation par l'image.</div>
+          <div class="qi-tags">
+            <span class="qi-tag">Définition du spectacle</span>
+            <span class="qi-tag">Réseaux sociaux</span>
+            <span class="qi-tag">Médias</span>
+          </div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·02</div>
+        <div>
+          <div class="qi-t">En quoi le mécanisme de la « récupération » rend-il difficile, voire impossible, toute critique du spectacle à l'intérieur du spectacle ? Peut-on critiquer le système en restant dans ses cadres ?</div>
+          <div class="qi-hint">Piste : Chaque critique devient potentiellement une marchandise. Les situationnistes eux-mêmes ont été récupérés. Debord répondrait que seule la transformation pratique des conditions de vie (et non la critique théorique ou artistique) peut briser ce cercle — d'où l'importance de la situation construite et des conseils ouvriers.</div>
+          <div class="qi-tags">
+            <span class="qi-tag">Récupération</span>
+            <span class="qi-tag">Critique immanente</span>
+            <span class="qi-tag">Politique</span>
+          </div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·03</div>
+        <div>
+          <div class="qi-t">Le triptyque être/avoir/paraître décrit-il adéquatement la logique des réseaux sociaux contemporains ? Ou bien faut-il ajouter un quatrième stade à la dialectique de Debord ?</div>
+          <div class="qi-hint">Piste : On pourrait envisager un stade « partager » ou « engager » — l'expérience n'existe que si elle suscite des réactions (likes, commentaires). Ce n'est plus seulement paraître, c'est être performé et validé par d'autres. Ou bien est-ce simplement la forme actuelle du paraître ?</div>
+          <div class="qi-tags">
+            <span class="qi-tag">Avoir / Paraître</span>
+            <span class="qi-tag">Économie de l'attention</span>
+            <span class="qi-tag">Réseaux sociaux</span>
+          </div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·04</div>
+        <div>
+          <div class="qi-t">Debord analyse la vedette comme le « contraire de l'individu ». Dans quelle mesure les influenceurs contemporains et les célébrités des réseaux sociaux correspondent-ils (ou non) à cette analyse ?</div>
+          <div class="qi-hint">Piste : La vedette chez Debord incarne un style de vie inaccessible et efface son individualité réelle pour devenir un modèle d'identification. L'influenceur produit un effet de proximité et d'authenticité — mais est-ce une vraie différence ou une nouvelle forme de spectacle de l'intime ? La question de la performance de l'authenticité est centrale.</div>
+          <div class="qi-tags">
+            <span class="qi-tag">Vedette</span>
+            <span class="qi-tag">Influenceurs</span>
+            <span class="qi-tag">Identification</span>
+          </div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·05</div>
+        <div>
+          <div class="qi-t">Le projet situationniste de « situation construite » peut-il avoir une pertinence politique aujourd'hui ? Ou bien la récupération est-elle inévitable dès qu'une pratique gagne en visibilité ?</div>
+          <div class="qi-hint">Piste : Les expériences immersives commerciales (Meow Wolf, escape rooms) semblent avoir récupéré l'idéal participatif. Mais d'autres pratiques (ZADs, communs, assemblées horizontales) semblent résister plus longtemps. La question est : qu'est-ce qui rend une pratique récupérable ? Est-ce sa visibilité, son rapport à l'argent, ou son degré de rupture réelle avec la séparation ?</div>
+          <div class="qi-tags">
+            <span class="qi-tag">Situation construite</span>
+            <span class="qi-tag">Récupération</span>
+            <span class="qi-tag">Pratique politique</span>
+          </div>
+        </div>
+      </div>
+      <div class="qi">
+        <div class="qi-n">Q·06</div>
+        <div>
+          <div class="qi-t">Dardot &amp; Laval montrent comment le néolibéralisme gouverne les subjectivités. En quel sens leur analyse du « sujet entrepreneurial » prolonge-t-elle ou contredit-elle la critique debordienne du spectacle ?</div>
+          <div class="qi-hint">Piste : Debord insiste sur la passivité et la contemplation du spectateur. Dardot & Laval décrivent au contraire un sujet néolibéral actif, entrepreneur de lui-même, constamment en performance. Ces deux logiques ne sont-elles pas complémentaires ? L'actif néolibéral ne serait-il pas la forme la plus aboutie du spectacle — celui qui s'imagine maître de sa vie alors qu'il en produit les images ?</div>
+          <div class="qi-tags">
+            <span class="qi-tag">Néolibéralisme</span>
+            <span class="qi-tag">Subjectivité</span>
+            <span class="qi-tag">Dardot &amp; Laval</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer style="background:var(--ink);color:rgba(255,255,255,.25);padding:3rem 6rem;display:flex;justify-content:space-between;align-items:center;">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.15);margin-bottom:.4rem;">Fiche pédagogique — Série « Grandes œuvres »</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.4);">La Société du Spectacle · Guy Debord · 1967</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.12);">À lire aussi dans la série</div>
+      <div style="font-family:'Libre Baskerville',serif;font-style:italic;font-size:.82rem;color:rgba(255,255,255,.2);margin-top:.3rem;">Dardot & Laval — La Nouvelle Raison du Monde<br>Foucault — L'Archéologie du Savoir</div>
+    </div>
+  </footer>
+
+</div><!-- end .main -->
+
+<!-- ═══ MODAL ═══ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-title">Résultats</div>
+    <div class="modal-score" id="modalScore">0/6</div>
+    <div class="modal-msg" id="modalMsg"></div>
+    <button class="modal-close" onclick="closeModal()">Recommencer le quiz →</button>
+  </div>
+</div>
+
+<script>
+/* ─── CURSOR ─── */
+const cur = document.getElementById('cur');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top  = e.clientY + 'px';
+});
+document.addEventListener('mouseover', e => {
+  if (e.target.closest('a,button,.concept-card,.qopt,.acc-head,.gi,.qi')) cur.classList.add('expand');
+  else cur.classList.remove('expand');
+});
+
+/* ─── PROGRESS ─── */
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const max = document.body.scrollHeight - window.innerHeight;
+  prog.style.transform = `scaleX(${window.scrollY / max})`;
+});
+
+/* ─── TIMELINE REVEAL ─── */
+const tlObs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('tl-visible'), i * 120);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.tl-item').forEach(el => tlObs.observe(el));
+
+/* ─── ACTIVE NAV ─── */
+const secs = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('.snav-a');
+const navo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('on'));
+      const a = document.querySelector(`.snav-a[href="#${e.target.id}"]`);
+      if (a) a.classList.add('on');
+    }
+  });
+}, { threshold: 0.3 });
+secs.forEach(s => navo.observe(s));
+
+/* ─── ACCORDION ─── */
+function toggleAcc(head) {
+  const item = head.parentElement;
+  const wasOpen = item.classList.contains('open');
+  item.parentElement.querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+/* ─── CONCEPT CARDS ─── */
+let openedConcepts = new Set();
+
+function toggleCard(card) {
+  const expand = card.querySelector('.cc-expand');
+  const toggle = card.querySelector('.cc-toggle');
+  const num = card.dataset.num;
+  const isOpen = expand.classList.contains('open');
+
+  expand.classList.toggle('open', !isOpen);
+  toggle.classList.toggle('open-arrow', !isOpen);
+  toggle.querySelector('span:last-child').textContent = isOpen ? 'Lire l\'analyse' : 'Réduire';
+
+  if (!isOpen) {
+    openedConcepts.add(num);
+    updateConceptCount();
+  }
+}
+
+function updateConceptCount() {
+  const count = openedConcepts.size;
+  document.getElementById('conceptCount').textContent = `${count}/7`;
+  document.getElementById('conceptFill').style.width = `${(count/7)*100}%`;
+}
+
+/* ─── QUIZ ─── */
+const quizData = [
+  {
+    q: "Debord définit le spectacle comme :",
+    opts: [
+      "L'ensemble des émissions télévisées et des films produits par l'industrie culturelle",
+      "Un rapport social entre des personnes, médiatisé par des images",
+      "La propagande utilisée par les États pour manipuler les masses",
+      "La domination de l'image sur la pensée dans les sociétés modernes"
+    ],
+    correct: 1,
+    feedback: "C'est la définition centrale du livre (thèse 4). Debord insiste sur ce point : le spectacle n'est pas d'abord un ensemble d'images (télévision, cinéma) — c'est un rapport social qui prend la forme d'images. Cette définition est décisive car elle implique que l'on ne peut pas supprimer le spectacle en éteignant les écrans : il faudrait transformer les rapports sociaux eux-mêmes, c'est-à-dire le mode de production capitaliste."
+  },
+  {
+    q: "La formule « Le spectacle est le capital à un tel degré d'accumulation qu'il devient image » (thèse 34) signifie que :",
+    opts: [
+      "Le spectacle est un phénomène purement culturel, distinct de l'économie",
+      "Le capitalisme avancé produit sa propre représentation comme finalité principale de la production",
+      "Les images ont remplacé l'argent comme monnaie d'échange dans la société moderne",
+      "Les médias sont devenus le secteur économique le plus important du capitalisme"
+    ],
+    correct: 1,
+    feedback: "Exactement. Cette formule — l'une des plus denses du livre — articule le spectacle directement à la logique du capital. Quand l'accumulation capitaliste parvient à un certain degré d'abondance, la production ne suffit plus à se justifier elle-même : elle doit produire sa propre représentation glorieuse, sa propre image comme finalité. Le spectacle n'est pas un secteur de l'économie — il est l'économie elle-même, à son stade le plus développé."
+  },
+  {
+    q: "Quelle est la progression dialectique que décrit Debord pour caractériser la modernité spectaculaire ?",
+    opts: [
+      "Du travail au loisir, du loisir à la consommation",
+      "De la nécessité à l'abondance, de l'abondance à la liberté",
+      "De l'être à l'avoir, de l'avoir au paraître",
+      "De la production à la circulation, de la circulation à la communication"
+    ],
+    correct: 2,
+    feedback: "C'est la thèse 17. Les sociétés prémodernes valorisaient ce qu'on est (naissance, vertu, appartenance). Le capitalisme industriel a substitué l'avoir à l'être : on vaut ce qu'on possède. Le spectacle opère une troisième mutation : l'avoir lui-même est désormais dominé par le paraître. Ce qui compte n'est plus de posséder mais d'en avoir l'image — ce que confirme parfaitement l'économie des réseaux sociaux contemporains."
+  },
+  {
+    q: "Le « détournement » situationniste consiste à :",
+    opts: [
+      "Boycotter les produits culturels dominants en refusant de les consommer",
+      "Réemployer des matériaux culturels existants dans un contexte qui retourne leur sens contre le spectacle",
+      "Créer des œuvres d'art entièrement originales, sans référence à la culture existante",
+      "Détourner les subventions publiques au profit d'activités culturelles alternatives"
+    ],
+    correct: 1,
+    feedback: "Le détournement est la pratique centrale des situationnistes. Il s'agit de s'emparer d'éléments existants — publicités, films, textes philosophiques — et de les réorganiser pour produire un effet critique inverse. Debord lui-même pratique le détournement tout au long de la Société du Spectacle : de nombreuses thèses sont des reformulations légèrement modifiées de Marx, Hegel ou Feuerbach. C'est une forme de piraterie culturelle au service de la désaliénation."
+  },
+  {
+    q: "Quelle différence Debord établit-il entre le « spectaculaire concentré » et le « spectaculaire diffus » ?",
+    opts: [
+      "Le concentré désigne la culture savante, le diffus désigne la culture populaire",
+      "Le concentré est la domination d'un seul média, le diffus correspond à la multiplicité des médias",
+      "Le concentré (bureaucraties totalitaires) impose une image unique, le diffus (démocraties marchandes) laisse s'affronter une multiplicité de marchandises-spectacles concurrentes",
+      "Le concentré vise les élites, le diffus vise les masses"
+    ],
+    correct: 2,
+    feedback: "Exact. Cette distinction (thèses 64-65) est fondamentale. Le spectaculaire concentré (URSS, maoïsme) concentre le spectacle dans une seule image — le chef, le Parti, l'idéologie officielle. Il exige une violence permanente. Le spectaculaire diffus (démocraties occidentales) laisse coexister une multitude de marchandises-vedettes concurrentes : l'unité du système passe par la diversité apparente des choix. Les deux formes appartiennent au même système capitaliste mondial. Dans les Commentaires (1988), Debord ajoute une troisième forme : le spectaculaire intégré, résultat de leur fusion."
+  },
+  {
+    q: "Pourquoi Debord accorde-t-il une importance particulière à la Commune de Paris (1871) dans son analyse politique ?",
+    opts: [
+      "Parce que la Commune était une société sans spectacle, fondée sur l'art de rue et la fête populaire",
+      "Parce qu'elle représente le seul exemple historique d'un pouvoir ouvrier non séparé — une démocratie directe qui a brièvement supprimé la séparation spectaculaire",
+      "Parce que les communards étaient les premiers à avoir théorisé la critique du capitalisme industriel",
+      "Parce que sa défaite par l'armée versaillaise a directement produit les conditions du spectacle moderne"
+    ],
+    correct: 1,
+    feedback: "Pour Debord, la Commune (chap. IV) est le moment historique où le prolétariat a tenté de ne pas simplement prendre le pouvoir d'État mais de le dissoudre — de réapproprier directement la totalité de la vie sociale sans déléguer cette réappropriation à une représentation séparée (parti, État). C'est la forme politique qui correspond au projet situationniste : les conseils ouvriers comme instance d'auto-organisation non spectaculaire. La social-démocratie (intégration au système) et le bolchévisme (nouveau spectaculaire concentré) ont tous deux trahi cet héritage."
+  }
+];
+
+let currentQ = 0, score = 0, answered = false;
+
+function renderQuestion() {
+  const q = quizData[currentQ];
+  document.getElementById('qNum').textContent = currentQ + 1;
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('qFeedback').className = 'quiz-feedback';
+  document.getElementById('qFeedback').textContent = '';
+  document.getElementById('qNext').disabled = true;
+  document.getElementById('qStatus').textContent = 'Sélectionnez une réponse';
+  answered = false;
+
+  const pct = (currentQ / quizData.length) * 100;
+  document.getElementById('quizProgressFill').style.width = pct + '%';
+
+  const opts = document.getElementById('qOptions');
+  opts.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'qopt';
+    btn.innerHTML = `<span>${opt}</span>`;
+    btn.onclick = () => selectAnswer(i, btn);
+    opts.appendChild(btn);
+  });
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = quizData[currentQ];
+  const opts = document.querySelectorAll('.qopt');
+
+  opts.forEach((o, i) => {
+    if (i === q.correct) o.classList.add('correct');
+    else if (i === idx && i !== q.correct) o.classList.add('wrong');
+    else o.classList.add('reveal');
+  });
+
+  const fb = document.getElementById('qFeedback');
+  fb.textContent = q.feedback;
+  fb.classList.add('show');
+
+  if (idx === q.correct) {
+    score++;
+    document.getElementById('scoreDisplay').textContent = score;
+    document.getElementById('qStatus').textContent = '✓ Bonne réponse';
+  } else {
+    document.getElementById('qStatus').textContent = '✗ Réponse incorrecte';
+  }
+
+  document.getElementById('qNext').disabled = false;
+
+  const pct = Math.round((score / quizData.length) * 100);
+  document.getElementById('sidebarScore').textContent = `${score}/${quizData.length}`;
+  document.getElementById('sidebarFill').style.width = pct + '%';
+
+  if (currentQ === quizData.length - 1) {
+    document.getElementById('qNext').textContent = 'Voir mon score →';
+  }
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= quizData.length) { showModal(); return; }
+  renderQuestion();
+}
+
+function showModal() {
+  const msgs = [
+    [0,1, "Reprenez la lecture des thèses 1 à 34. La définition du spectacle et le glissement être/avoir/paraître sont les fondements indispensables du reste."],
+    [2,3, "Quelques notions restent floues. Revenez sur la distinction spectaculaire concentré/diffus et sur le concept de détournement."],
+    [4,4, "Bonne compréhension. Approfondissez le lien entre spectacle, forme-marchandise et la question politique des conseils ouvriers."],
+    [5,5, "Très solide. Vous maîtrisez les articulations conceptuelles majeures de l'œuvre."],
+    [6,6, "Maîtrise remarquable. Vous pouvez désormais mobiliser ces concepts pour analyser le spectaculaire intégré contemporain."]
+  ];
+  const msg = msgs.find(m => score >= m[0] && score <= m[1]);
+  document.getElementById('modalScore').textContent = `${score}/6`;
+  document.getElementById('modalMsg').textContent = msg ? msg[2] : '';
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+  currentQ = 0; score = 0; answered = false;
+  document.getElementById('scoreDisplay').textContent = '0';
+  document.getElementById('quizProgressFill').style.width = '0%';
+  document.getElementById('qNext').textContent = 'Question suivante →';
+  renderQuestion();
+}
+
+renderQuestion();
+
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('sidebarFill').style.width = '0%';
+    document.getElementById('conceptFill').style.width = '0%';
+  }, 500);
+});
+</script>
+</body>
+</html>

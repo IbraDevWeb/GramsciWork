@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bibliothèque Critique — Fiches de lecture</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Barlow+Condensed:wght@400;600;800&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ═══════════════════════════════════════════
+     DESIGN SYSTEM — Page d'accueil globale
+     Palette : Encre profonde / Or / Cendre
+     ═══════════════════════════════════════════ */
+  :root {
+    --bg-dark: #0a0a0a;
+    --bg-card: #141414;
+    --text-main: #f0f0f0;
+    --text-muted: #888888;
+    --accent: #d4af37; /* Or sombre */
+    --accent-hover: #f1c40f;
+    --border: rgba(255, 255, 255, 0.1);
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: 'Playfair Display', serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ─── CURSEUR ─── */
+  #cur {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s;
+  }
+  #cur.expand {
+    width: 40px; height: 40px;
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid var(--accent);
+  }
+
+  /* ─── HEADER ─── */
+  .hero {
+    padding: 6rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none; z-index: 0;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: block;
+    animation: fadeInDown 0.8s ease backwards;
+  }
+
+  .title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    animation: fadeInDown 0.8s ease 0.2s backwards;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    font-style: italic;
+    animation: fadeInDown 0.8s ease 0.4s backwards;
+  }
+
+  /* ─── GRID DES FICHES ─── */
+  .collection {
+    padding: 5rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s;
+    animation: fadeIn 1s ease backwards;
+  }
+
+  .card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .card-year {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .card-author {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+  }
+
+  .card-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .card-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    flex-grow: 1;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+    color: #ccc;
+  }
+
+  .card-action {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: auto;
+    transition: gap 0.3s;
+  }
+
+  .card:hover .card-action {
+    gap: 1rem;
+    color: var(--accent-hover);
+  }
+
+  /* Delays for staggered grid animation */
+  .card:nth-child(1) { animation-delay: 0.1s; }
+  .card:nth-child(2) { animation-delay: 0.2s; }
+  .card:nth-child(3) { animation-delay: 0.3s; }
+  .card:nth-child(4) { animation-delay: 0.4s; }
+  .card:nth-child(5) { animation-delay: 0.5s; }
+  .card:nth-child(6) { animation-delay: 0.6s; }
+  .card:nth-child(7) { animation-delay: 0.7s; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .grid { grid-template-columns: 1fr; }
+    .hero { padding: 4rem 1rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+
+<header class="hero">
+  <div class="hero-content">
+    <span class="kicker">Série « Grandes œuvres »</span>
+    <h1 class="title">La Bibliothèque Critique</h1>
+    <p class="subtitle">Une sélection de fiches de lecture interactives explorant les mécanismes du pouvoir, de l'hégémonie et de la rationalité moderne.</p>
+  </div>
+</header>
+
+<main class="collection">
+  <div class="grid">
+    
+    <a href="dardot-laval-nouvelle-raison.html" class="card">
+      <div class="card-year">2009</div>
+      <div class="card-author">Dardot & Laval</div>
+      <h2 class="card-title">La Nouvelle Raison du Monde</h2>
+      <p class="card-desc">Le néolibéralisme analysé non comme une simple politique économique, mais comme une rationalité globale façonnant l'État et l'individu.</p>
+      <div class="card-tags">
+        <span class="tag">Néolibéralisme</span>
+        <span class="tag">Biopolitique</span>
+      </div>
+      <div class="card-action">Ouvrir la fiche <span>→</span></div>
+    </a>
+
+    <a href="debord-societe-du-spectacle.html" class="card">
+      <div class="card-year">1967</div>
+      <div class="card-author">Guy Debord</div>
+      <h2 class="card-title">La Société du Spectacle</h2>
+      <p class="card-desc">La vie authentique remplacée par la représentation. Une critique radicale du capitalisme où tout rapport social est médiatisé par l'image.</p>
+      <div class="card-tags">
+        <span class="tag">Situationnisme</span>
+        <span class="tag">Aliénation</span>
+      </div>
+      <div class="card-action">Ouvrir la fiche <span>→</span></div>
+    </a>
+
+    <a href="foucault-archeologie-du-savoir.html" class="card">
+      <div class="card-year">1969</div>
+      <div class="card-author">Michel Foucault</div>
+      <h2 class="card-title">L'Archéologie du Savoir</h2>
+      <p class="card-desc">Comment les discours se forment-ils ? Une méthode révolutionnaire pour décrire les règles invisibles qui conditionnent ce qu'il est possible de penser.</p>
+      <div class="card-tags">
+        <span class="tag">Épistémologie</span>
+        <span class="tag">Discours</span>
+      </div>
+      <div class="card-action">Ouvrir la fiche <span>→</span></div>
+    </a>
+
+    <a href="gramsci-hegemonie.html" class="card">
+      <div class="card-year">1929–1935</div>
+      <div class="card-author">Antonio Gramsci</div>
+      <h2 class="card-title">L'Hégémonie Culturelle</h2>
+      <p class="card-desc">Depuis sa prison, Gramsci explique pourquoi le pouvoir repose sur le consentement culturel et l'imposition d'un "sens commun" par la classe dominante.</p>
+      <div class="card-tags">
+        <span class="tag">Marxisme</span>
+        <span class="tag">Société civile</span>
+      </div>
+      <div class="card-action">Ouvrir la fiche <span>→</span></div>
+    </a>
+
+    <a href="weber-ethique-protestante.html" class="card">
+      <div class="card-year">1904–1905</div>
+      <div class="card-author">Max Weber</div>
+      <h2 class="card-title">L'Éthique Protestante</h2>
+      <p class="card-desc">Le lien paradoxal entre l'angoisse religieuse du salut calviniste et le développement de la rationalité économique capitaliste.</p>
+      <div class="card-tags">
+        <span class="tag">Sociologie religieuse</span>
+        <span class="tag">Capitalisme</span>
+      </div>
+      <div class="card-action">Ouvrir la fiche <span>→</span></div>
+    </a>
+
+    <a href="bauman-amour-liquide.html" class="card">
+      <div class="card-year">2003</div>
+      <div class="card-author">Zygmunt Bauman</div>
+      <h2 class="card-title">L'Amour Liquide</h2>
+      <p class="card-desc">La fragilité des liens humains dans une modernité où la sécurité étouffe et la liberté terrifie, transformant l'amour en bien de consommation.</p>
+      <div class="card-tags">
+        <span class="tag">Modernité liquide</span>
+        <span class="tag">Individualisme</span>
+      </div>
+      <div class="card-action">Ouvrir la fiche <span>→</span></div>
+    </a>
+
+    <a href="bourdieu-television.html" class="card">
+      <div class="card-year">1996</div>
+      <div class="card-author">Pierre Bourdieu</div>
+      <h2 class="card-title">Sur la Télévision</h2>
+      <p class="card-desc">Les mécanismes invisibles de la censure médiatique, la tyrannie de l'urgence et la soumission du débat démocratique à la logique de l'Audimat.</p>
+      <div class="card-tags">
+        <span class="tag">Médias</span>
+        <span class="tag">Violence symbolique</span>
+      </div>
+      <div class="card-action">Ouvrir la fiche <span>→</span></div>
+    </a>
+
+  </div>
+</main>
+
+<footer>
+  <p>Index de la collection · Créé pour faciliter la navigation inter-documents</p>
+</footer>
+
+<script>
+  /* ─── CURSEUR ─── */
+  const cur = document.getElementById('cur');
+  
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX + 'px';
+    cur.style.top = e.clientY + 'px';
+  });
+
+  document.querySelectorAll('a').forEach(link => {
+    link.addEventListener('mouseenter', () => cur.classList.add('expand'));
+    link.addEventListener('mouseleave', () => cur.classList.remove('expand'));
+  });
+</script>
+</body>
+</html>

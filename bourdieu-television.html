@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bourdieu — Sur la télévision</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --noir: #0d0d0d;
+    --creme: #f4efe6;
+    --rouge: #c0392b;
+    --rouge-doux: #e8d5d3;
+    --gris: #8a8480;
+    --gris-clair: #e8e3dc;
+    --or: #b8860b;
+    --tv-blue: #1a2744;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--creme);
+    color: var(--noir);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    background-color: var(--noir);
+    color: var(--creme);
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(255,255,255,0.015) 3px,
+      rgba(255,255,255,0.015) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero-left {
+    padding: 4rem 3rem 4rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rouge);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--gris);
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+    color: rgba(244,239,230,0.7);
+    max-width: 380px;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .tv-illustration {
+    width: 320px;
+    height: 260px;
+    background: var(--tv-blue);
+    border-radius: 24px;
+    border: 3px solid rgba(255,255,255,0.1);
+    position: relative;
+    box-shadow: 0 0 80px rgba(192,57,43,0.3), inset 0 0 40px rgba(0,0,0,0.5);
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards 1s;
+  }
+
+  .tv-screen {
+    position: absolute;
+    inset: 20px 30px;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tv-scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0,0,0,0.15),
+      rgba(0,0,0,0.15) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    z-index: 2;
+  }
+
+  .tv-glitch {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--rouge);
+    text-align: center;
+    padding: 1rem;
+    animation: glitch 4s ease-in-out infinite;
+    z-index: 1;
+    position: relative;
+  }
+
+  .tv-stand {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 30px;
+    background: var(--tv-blue);
+    border-radius: 0 0 10px 10px;
+  }
+
+  .tv-stand::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 8px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1.5s;
+    z-index: 2;
+  }
+
+  .hero-scroll span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gris);
+  }
+
+  .scroll-line {
+    width: 60px;
+    height: 1px;
+    background: var(--gris);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    left: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--rouge);
+    animation: scrollAnim 2s ease-in-out infinite;
+  }
+
+  /* OBJECTIFS */
+  .objectifs-section {
+    background: var(--rouge);
+    color: var(--creme);
+    padding: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .objectifs-section::before {
+    content: 'OBJECTIFS';
+    position: absolute;
+    right: -2rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem;
+    font-weight: 900;
+    opacity: 0.08;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .objectifs-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 3rem;
+    max-width: 900px;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    padding-top: 0.3rem;
+  }
+
+  .objectifs-list {
+    list-style: none;
+  }
+
+  .objectifs-list li {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    line-height: 1.6;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(244,239,230,0.2);
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .objectifs-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    font-style: normal;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* GLOSSAIRE */
+  .glossaire-section {
+    padding: 6rem 5rem;
+    background: var(--creme);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    border-bottom: 2px solid var(--noir);
+    padding-bottom: 1.5rem;
+  }
+
+  .section-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--rouge);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+
+  .concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2px;
+    background: var(--noir);
+    border: 2px solid var(--noir);
+  }
+
+  .concept-card {
+    background: var(--creme);
+    padding: 2.5rem;
+    position: relative;
+    transition: background 0.3s ease;
+    cursor: default;
+  }
+
+  .concept-card:hover {
+    background: var(--noir);
+    color: var(--creme);
+  }
+
+  .concept-card:hover .concept-term {
+    color: var(--rouge);
+  }
+
+  .concept-card:hover .concept-number {
+    color: rgba(244,239,230,0.3);
+  }
+
+  .concept-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--gris);
+    display: block;
+    margin-bottom: 0.8rem;
+    transition: color 0.3s;
+  }
+
+  .concept-term {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--noir);
+    margin-bottom: 1rem;
+    transition: color 0.3s;
+  }
+
+  .concept-def {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    transition: color 0.3s;
+  }
+
+  /* THEMES */
+  .themes-section {
+    background: #111;
+    color: var(--creme);
+    padding: 6rem 5rem;
+  }
+
+  .themes-section .section-title {
+    color: var(--creme);
+  }
+
+  .themes-section .section-number {
+    color: var(--rouge);
+  }
+
+  .themes-section .section-header {
+    border-color: rgba(244,239,230,0.2);
+  }
+
+  .theme-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    padding: 3rem 0;
+    border-bottom: 1px solid rgba(244,239,230,0.1);
+    position: relative;
+    align-items: start;
+  }
+
+  .theme-item:last-child { border-bottom: none; }
+
+  .theme-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: var(--rouge);
+    line-height: 1;
+    opacity: 0.8;
+  }
+
+  .theme-content {}
+
+  .theme-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--creme);
+  }
+
+  .theme-body {
+    font-size: 0.9rem;
+    color: rgba(244,239,230,0.7);
+    line-height: 1.8;
+  }
+
+  .theme-body strong {
+    color: var(--creme);
+    font-weight: 500;
+  }
+
+  .theme-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rouge);
+    border: 1px solid var(--rouge);
+    padding: 0.2rem 0.7rem;
+    border-radius: 2px;
+    margin-bottom: 0.8rem;
+  }
+
+  /* DÉBAT SECTION */
+  .debat-section {
+    background: var(--creme);
+    padding: 6rem 5rem;
+  }
+
+  .debat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--noir);
+    border: 2px solid var(--noir);
+    margin-top: 3rem;
+  }
+
+  .debat-card {
+    background: var(--creme);
+    padding: 3rem;
+  }
+
+  .debat-card.dark {
+    background: var(--noir);
+    color: var(--creme);
+  }
+
+  .debat-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .debat-title .pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--rouge);
+    color: var(--creme);
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+  }
+
+  .debat-card.dark .pill {
+    background: var(--rouge);
+  }
+
+  .tools-list {
+    list-style: none;
+  }
+
+  .tools-list li {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .dark .tools-list li {
+    border-color: rgba(255,255,255,0.08);
+  }
+
+  .tools-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--rouge);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* RÉFLEXION */
+  .reflexion-section {
+    background: var(--tv-blue);
+    color: var(--creme);
+    padding: 6rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reflexion-section::after {
+    content: '?';
+    position: absolute;
+    right: 5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 30rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .reflexion-section .section-header {
+    border-color: rgba(244,239,230,0.2);
+  }
+
+  .questions-list {
+    list-style: none;
+    max-width: 800px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .questions-list li {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid rgba(244,239,230,0.15);
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .q-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--rouge);
+    padding-top: 0.2rem;
+  }
+
+  .q-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--noir);
+    color: var(--gris);
+    padding: 3rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+  }
+
+  footer span { text-transform: uppercase; }
+
+  footer a {
+    color: var(--rouge);
+    text-decoration: none;
+  }
+
+  footer a:hover { color: var(--creme); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes glitch {
+    0%, 95% { transform: translate(0); filter: none; }
+    96%      { transform: translate(-2px, 1px); filter: hue-rotate(90deg); }
+    97%      { transform: translate(2px, -1px); filter: hue-rotate(-90deg); }
+    98%      { transform: translate(-1px, 0); filter: brightness(1.5); }
+    99%      { transform: translate(1px, 1px); filter: none; }
+    100%     { transform: translate(0); filter: none; }
+  }
+
+  @keyframes scrollAnim {
+    0%   { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 4rem 2rem 2rem; }
+    .hero-right { padding: 2rem; }
+    .tv-illustration { width: 240px; height: 200px; }
+    .hero-scroll { left: 2rem; }
+    .objectifs-section,
+    .glossaire-section,
+    .themes-section,
+    .debat-section,
+    .reflexion-section { padding: 4rem 2rem; }
+    .objectifs-grid { grid-template-columns: 1fr; }
+    .section-label { display: none; }
+    .debat-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .concepts-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <span class="hero-tag">Fiche Pédagogique · Sociologie des Médias</span>
+    <h1 class="hero-title">Pierre<br>Bourdieu</h1>
+    <p class="hero-subtitle">Sur la télévision</p>
+    <p class="hero-desc">Une analyse sociologique des mécanismes invisibles qui structurent l'information télévisuelle — la censure cachée, la tyrannie de l'Audimat, et la menace sur l'autonomie culturelle.</p>
+  </div>
+  <div class="hero-right">
+    <div class="tv-illustration">
+      <div class="tv-screen">
+        <div class="tv-scanlines"></div>
+        <div class="tv-glitch">«&nbsp;La télévision<br>cache en montrant&nbsp;»</div>
+      </div>
+      <div class="tv-stand"></div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll pour explorer</span>
+  </div>
+</section>
+
+<!-- OBJECTIFS -->
+<section class="objectifs-section">
+  <div class="objectifs-grid reveal">
+    <span class="section-label">01 — Objectifs</span>
+    <ul class="objectifs-list">
+      <li>Comprendre les mécanismes invisibles qui structurent l'information télévisuelle</li>
+      <li>Déconstruire le mythe de l'objectivité journalistique en analysant les contraintes systémiques</li>
+      <li>Analyser l'impact de la télévision sur la pensée, la démocratie et les champs de production culturelle</li>
+    </ul>
+  </div>
+</section>
+
+<!-- GLOSSAIRE -->
+<section class="glossaire-section">
+  <div class="section-header reveal">
+    <span class="section-number">01</span>
+    <h2 class="section-title">Concepts Fondamentaux</h2>
+  </div>
+  <div class="concepts-grid reveal">
+    <div class="concept-card">
+      <span class="concept-number">CONCEPT 01</span>
+      <div class="concept-term">Violence symbolique</div>
+      <p class="concept-def">Violence invisible exercée avec la complicité tacite de ses victimes et de ses auteurs, tous deux inconscients des mécanismes en jeu.</p>
+    </div>
+    <div class="concept-card">
+      <span class="concept-number">CONCEPT 02</span>
+      <div class="concept-term">Catégories de perception</div>
+      <p class="concept-def">Les « lunettes » mentales issues de l'éducation et de l'histoire, filtrant la réalité et poussant les journalistes vers le spectaculaire et l'extraordinaire.</p>
+    </div>
+    <div class="concept-card">
+      <span class="concept-number">CONCEPT 03</span>
+      <div class="concept-term">L'effet divers</div>
+      <p class="concept-def">Jeu de mots désignant les « faits divers » comme diversion : ils occupent le temps d'antenne pour masquer les informations essentielles à l'exercice démocratique.</p>
+    </div>
+    <div class="concept-card">
+      <span class="concept-number">CONCEPT 04</span>
+      <div class="concept-term">Fast thinkers</div>
+      <p class="concept-def">Intervenants télévisuels aptes à répondre dans l'urgence grâce à des idées reçues — des idées déjà acceptées par tous, ne demandant aucun effort de décodage, à l'opposé de la vraie pensée.</p>
+    </div>
+    <div class="concept-card">
+      <span class="concept-number">CONCEPT 05</span>
+      <div class="concept-term">L'Audimat</div>
+      <p class="concept-def">Véritable « Dieu caché » et « jugement dernier » de l'univers télévisuel. Il impose la logique du succès commercial au détriment de l'autonomie intellectuelle.</p>
+    </div>
+    <div class="concept-card">
+      <span class="concept-number">CONCEPT 06</span>
+      <div class="concept-term">Circulation circulaire</div>
+      <p class="concept-def">Les informateurs sont informés par d'autres informateurs. La revue de presse sert moins à informer qu'à savoir ce que font les concurrents — pour faire pareil.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THEMES -->
+<section class="themes-section">
+  <div class="section-header reveal">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Synthèse Thématique</h2>
+  </div>
+
+  <div class="theme-item reveal">
+    <div class="theme-letter">A</div>
+    <div class="theme-content">
+      <span class="theme-tag">Censure</span>
+      <div class="theme-title">Une censure invisible et déresponsabilisante</div>
+      <p class="theme-body">La télévision est un lieu de <strong>multiples censures cachées</strong>. Ce n'est pas la censure grossière de l'État ou des propriétaires, mais une <strong>censure systémique</strong> où les journalistes sont « manipulateurs autant que manipulés ». Analyser ce système n'est pas attaquer des individus, c'est dévoiler des <strong>mécanismes structurels</strong> : les individus ne sont que les marionnettes du système.</p>
+    </div>
+  </div>
+
+  <div class="theme-item reveal">
+    <div class="theme-letter">B</div>
+    <div class="theme-content">
+      <span class="theme-tag">Réalité</span>
+      <div class="theme-title">Le monopole du spectaculaire</div>
+      <p class="theme-body">La télévision <strong>cache la réalité en la montrant</strong>. Soumis à la course à l'audience, les journalistes privilégient l'exceptionnel et le dramatique. Plus grave encore, l'image possède un <strong>« effet de réel »</strong> qui fabrique la réalité : en filmant des événements, la télévision les crée. Aujourd'hui, il faut « produire des manifestations pour la télévision » pour exister politiquement.</p>
+    </div>
+  </div>
+
+  <div class="theme-item reveal">
+    <div class="theme-letter">C</div>
+    <div class="theme-content">
+      <span class="theme-tag">Concurrence</span>
+      <div class="theme-title">La concurrence génératrice d'homogénéité</div>
+      <p class="theme-body">Contre l'idée reçue, la concurrence entre médias ne produit pas de diversité mais une <strong>« unification par la concurrence »</strong>. L'outil principal du journaliste — la revue de presse — sert à savoir ce que font les autres pour faire pareil, en introduisant seulement des <strong>différences infinitésimales</strong> imperceptibles par le public. Résultat : un <strong>nivellement total</strong> de la hiérarchie de l'information.</p>
+    </div>
+  </div>
+
+  <div class="theme-item reveal">
+    <div class="theme-letter">D</div>
+    <div class="theme-content">
+      <span class="theme-tag">Temps</span>
+      <div class="theme-title">La tyrannie du temps et de l'urgence</div>
+      <p class="theme-body">Le temps est la denrée la plus rare à la télévision. Le format impose <strong>l'urgence, incompatible avec la pensée</strong>. Les « longues chaînes de raisons » de Descartes — subversives par nature — requièrent du temps pour déconstruire les évidences. La télévision exclut cette complexité pour ne laisser place qu'aux <strong>bons clients</strong> débitant des lieux communs.</p>
+    </div>
+  </div>
+
+  <div class="theme-item reveal">
+    <div class="theme-letter">F</div>
+    <div class="theme-content">
+      <span class="theme-tag">Culture</span>
+      <div class="theme-title">La menace sur l'autonomie culturelle</div>
+      <p class="theme-body">La conclusion alerte sur une dérive historique : la télévision étend son emprise bien au-delà de son propre champ. <strong>L'Audimat impose la logique commerciale</strong> à des sphères « pures » — mathématiques, poésie, sociologie, avant-garde — qui, historiquement, se sont construites <strong>contre</strong> la logique du marché.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DÉBAT -->
+<section class="debat-section">
+  <div class="section-header reveal">
+    <span class="section-number">03</span>
+    <h2 class="section-title">L'Illusion du Débat Démocratique</h2>
+  </div>
+  <div class="debat-grid reveal">
+    <div class="debat-card">
+      <div class="debat-title">
+        Faux débats
+        <span class="pill">Type 1</span>
+      </div>
+      <ul class="tools-list">
+        <li>Espaces clos entre invités qui se connaissent</li>
+        <li>Auto-congratulation sans véritable opposition</li>
+        <li>Consensus masqué sous des apparences de pluralité</li>
+        <li>Mise en scène du désaccord sans risque</li>
+      </ul>
+    </div>
+    <div class="debat-card dark">
+      <div class="debat-title">
+        Outils du présentateur
+        <span class="pill">Censure cachée</span>
+      </div>
+      <ul class="tools-list">
+        <li>Imposition de la <strong>problématique</strong> et du sujet</li>
+        <li>Distribution <strong>inégale</strong> de la parole</li>
+        <li>Sémantique non verbale : tons, regards, signes d'impatience</li>
+        <li>Contrainte du <strong>chronomètre</strong> pour interrompre</li>
+        <li>Rôle de porte-parole d'un téléspectateur « incapable »</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- RÉFLEXION -->
+<section class="reflexion-section">
+  <div class="section-header reveal">
+    <span class="section-number">04</span>
+    <h2 class="section-title" style="color:var(--creme)">Pistes de Réflexion</h2>
+  </div>
+  <ul class="questions-list">
+    <li class="reveal">
+      <span class="q-num">Q.01</span>
+      <span class="q-text">Comment identifier une « idée reçue » lors d'une intervention dans un journal télévisé ou sur une chaîne d'information en continu moderne ?</span>
+    </li>
+    <li class="reveal">
+      <span class="q-num">Q.02</span>
+      <span class="q-text">En quoi la quête du « fait divers » sur les médias sociaux ressemble-t-elle aujourd'hui à la dynamique télévisuelle décrite par Bourdieu ?</span>
+    </li>
+    <li class="reveal">
+      <span class="q-num">Q.03</span>
+      <span class="q-text">Analysez un débat récent à la télévision : relevez les interventions du présentateur (signes d'impatience, répartition du temps, formulation des questions) pour démontrer en quoi l'égalité des participants est, ou n'est pas, respectée.</span>
+    </li>
+  </ul>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>Pierre Bourdieu — Sur la télévision, 1996</span>
+  <span>Fiche pédagogique · Sociologie des médias</span>
+  <a href="https://youtu.be/vcc6AEpjdcY?si=BbHJ19UsRTAkHFD6" target="_blank">↗ Vidéo de cours</a>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
