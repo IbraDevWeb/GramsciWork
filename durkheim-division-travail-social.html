@@ -44,16 +44,24 @@ body{
 }
 
 /* ─── CURSOR ─── */
-#cur{
-  width:14px;height:14px;
-  border:2px solid var(--blood);
-  border-radius:50%;
-  position:fixed;top:0;left:0;
-  pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);
-  transition:width .25s,height .25s,background .25s,border-color .25s;
+#dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #c0231b;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: background .15s, width .15s, height .15s;
 }
-#cur.expand{width:40px;height:40px;background:rgba(192,35,27,.08);border-color:var(--neon);}
+#ring {
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+#trail {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 9997;
+}
 
 /* ─── PROGRESS ─── */
 #prog{position:fixed;top:0;left:0;height:3px;background:var(--blood);transform-origin:left;transform:scaleX(0);z-index:1002;transition:transform .08s linear;}
@@ -836,7 +844,9 @@ footer a:hover{color:var(--neon);}
 <body>
 
 <div id="prog"></div>
-<div id="cur"></div>
+<canvas id="trail"></canvas>
+<div id="dot"></div>
+<div id="ring"></div>
 
 <!-- ═══════ MODAL SCORE ═══════ -->
 <div class="modal-overlay" id="modalOverlay">
@@ -1458,17 +1468,96 @@ footer a:hover{color:var(--neon);}
 
 <!-- ═══════ SCRIPTS ═══════ -->
 <script>
-/* ─── CURSOR ─── */
-const cur = document.getElementById('cur');
-document.addEventListener('mousemove', e => {
-  cur.style.left = e.clientX + 'px';
-  cur.style.top = e.clientY + 'px';
+const dot   = document.getElementById('dot');
+const ring  = document.getElementById('ring');
+const canvas = document.getElementById('trail');
+const ctx   = canvas.getContext('2d');
+canvas.width  = window.innerWidth;
+canvas.height = window.innerHeight;
+const mouse   = { x: 0, y: 0 };
+const ringPos = { x: 0, y: 0 };
+let ringW = 28, ringH = 28, ringR = 50;
+let isDown = false, hovType = null;
+const particles = [];
+function lerp(a, b, t) { return a + (b - a) * t }
+function tick() {
+  dot.style.left = mouse.x + 'px';
+  dot.style.top  = mouse.y + 'px';
+  const lf = hovType ? .06 : .12;
+  ringPos.x = lerp(ringPos.x, mouse.x, lf);
+  ringPos.y = lerp(ringPos.y, mouse.y, lf);
+  let tw = 28, th = 28, tR = 50;
+  let tbg = 'transparent', tborder = '1.5px solid rgba(192,35,27,.55)';
+  let dotColor = '#c0231b';
+  if (hovType === 'btn') {
+    tw = 64; th = 28; tR = 2;
+    tborder = '1.5px solid rgba(192,35,27,.9)';
+    tbg = 'rgba(192,35,27,.08)';
+    dotColor = '#e84030';
+  } else if (hovType === 'link') {
+    tw = 44; th = 6; tR = 2;
+    tborder = '1px solid rgba(232,160,32,.9)';
+    tbg = 'rgba(232,160,32,.08)';
+    dotColor = '#e8a020';
+  } else if (hovType === 'drag') {
+    tw = 36; th = 36; tR = 4;
+    tborder = '1px dashed rgba(138,172,204,.7)';
+    dotColor = '#8aaccc';
+  }
+  if (isDown) { tw *= .7; th *= .7; }
+  ringW = lerp(ringW, tw, .15);
+  ringH = lerp(ringH, th, .15);
+  ringR = lerp(ringR, tR, .18);
+  dot.style.background = dotColor;
+  ring.style.cssText = `
+    position:fixed; top:0; left:0; pointer-events:none; z-index:9998;
+    transform: translate(calc(${ringPos.x}px - 50%), calc(${ringPos.y}px - 50%))
+               ${hovType === 'link' ? 'rotate(-8deg)' : ''};
+    width:${ringW}px; height:${ringH}px;
+    border-radius:${tR === 2 ? '2px' : ringR + '%'};
+    border:${tborder}; background:${tbg};
+    transition: border .2s, background .2s;
+  `;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.life -= .04; p.x += p.vx; p.y += p.vy;
+    p.vx *= .93; p.vy *= .93; p.r = lerp(p.r, 0, .05);
+    if (p.life <= 0) { particles.splice(i, 1); continue; }
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, Math.max(0, p.r), 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${p.cr},${p.cg},${p.cb},${p.life * p.alpha})`;
+    ctx.fill();
+  }
+  requestAnimationFrame(tick);
+}
+function spawnParticles(x, y, type) {
+  let cr = 192, cg = 35, cb = 27;
+  if (type === 'link') { cr = 232; cg = 160; cb = 32; }
+  if (type === 'drag') { cr = 138; cg = 172; cb = 204; }
+  for (let i = 0; i < 8; i++) {
+    const a = Math.random() * Math.PI * 2;
+    const spd = .5 + Math.random() * 2;
+    particles.push({
+      x, y, vx: Math.cos(a) * spd, vy: Math.sin(a) * spd,
+      r: 2 + Math.random() * 3, life: 1, alpha: .7, cr, cg, cb
+    });
+    if (particles.length > 60) particles.shift();
+  }
+}
+document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+document.addEventListener('mousedown', e => { isDown = true; spawnParticles(e.clientX, e.clientY, hovType); });
+document.addEventListener('mouseup',   () => { isDown = false; });
+window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+document.querySelectorAll('button, [role="button"]').forEach(el => {
+  el.addEventListener('mouseenter', () => { hovType = 'btn'; });
+  el.addEventListener('mouseleave', () => { hovType = null; });
 });
-document.querySelectorAll('a,button,.concept-card,.acc-head,.qopt').forEach(el => {
-  el.addEventListener('mouseenter', () => cur.classList.add('expand'));
-  el.addEventListener('mouseleave', () => cur.classList.remove('expand'));
+document.querySelectorAll('a').forEach(el => {
+  el.addEventListener('mouseenter', () => { hovType = 'link'; });
+  el.addEventListener('mouseleave', () => { hovType = null; });
 });
-
+tick();
 /* ─── SCROLL PROGRESS ─── */
 window.addEventListener('scroll', () => {
   const max = document.documentElement.scrollHeight - window.innerHeight;
