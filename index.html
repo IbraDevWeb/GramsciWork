@@ -173,6 +173,18 @@ body:has(a:hover) #C{width:14px;height:14px;}
 .a7{background:#0a0804;}
 .a7 svg{position:absolute;inset:0;width:100%;height:100%;}
 
+/* Art 8 — Durkheim: grille modulaire & solidarité */
+.a8{background:#07090d;}
+.a8::before{content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(90,110,138,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(90,110,138,.12) 1px,transparent 1px);
+  background-size:28px 28px;}
+.a8::after{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(90,110,138,.12),transparent 70%);}
+.hcell{position:absolute;border:1px solid rgba(90,110,138,.35);background:rgba(90,110,138,.07);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  width:38px;height:44px;animation:hpulse 4s ease-in-out infinite alternate;}
+@keyframes hpulse{from{opacity:.2;border-color:rgba(90,110,138,.2);}to{opacity:1;border-color:rgba(90,110,138,.7);}}
+
 /* Card text */
 .cinfo{padding:1.8rem 2rem 1.4rem;flex:1;display:flex;flex-direction:column;border-top:1px solid var(--rule);position:relative;}
 .cnum{position:absolute;bottom:0;right:1rem;font-family:'Cormorant Garamond',serif;font-size:7rem;font-weight:300;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(240,235,226,.05);pointer-events:none;user-select:none;transition:-webkit-text-stroke-color .4s;}
@@ -239,12 +251,12 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
   <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
   <div class="hgrid"></div>
   <div class="hero-inner">
-    <p class="eyebrow">Théorie critique · 7 fiches de lecture</p>
+    <p class="eyebrow">Théorie critique · 8 fiches de lecture</p>
     <h1 class="htitle" aria-label="Bibliothèque Critique">
       <span class="ln"><span class="wd">Bibliothèque</span></span>
       <span class="ln"><span class="wd">des Idées</span></span>
     </h1>
-    <p class="hsub">Sept œuvres qui ont permis de faire évoluer la pensée que l'on avait du monde social</p>
+    <p class="hsub">Huit œuvres qui ont permis de faire évoluer la pensée que l'on avait du monde social</p>
     <nav class="pips" aria-label="Accès rapide">
       <span class="pip" onclick="goTo(1)">01</span>
       <span class="pip" onclick="goTo(2)">02</span>
@@ -253,6 +265,7 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
       <span class="pip" onclick="goTo(5)">05</span>
       <span class="pip" onclick="goTo(6)">06</span>
       <span class="pip" onclick="goTo(7)">07</span>
+      <span class="pip" onclick="goTo(8)">08</span>
     </nav>
   </div>
   <hr class="hrule">
@@ -264,6 +277,7 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
     <span class="hbi" style="--d:4"><strong>Bauman</strong> — Liquidité</span>
     <span class="hbi" style="--d:5"><strong>Bourdieu</strong> — Médias</span>
     <span class="hbi" style="--d:6"><strong>Dardot &amp; Laval</strong> — Néolibéralisme</span>
+    <span class="hbi" style="--d:7"><strong>Durkheim</strong> — Division</span>
   </div>
 </header>
 
@@ -271,7 +285,7 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
 <section class="col">
   <div class="col-h">
     <h2 class="col-t">La Collection</h2>
-    <span class="col-c">7 / 7 fiches</span>
+    <span class="col-c">8 / 8 fiches</span>
   </div>
 
   <!-- Row 1 -->
@@ -434,10 +448,39 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
     </div>
 
   </div>
+
+  <!-- Row 4 — Durkheim -->
+  <div class="grid" style="margin-top:2px">
+
+    <a href="durkheim-division-travail-social.html" class="card c4" id="k8" style="--c:#5a6e8a">
+      <div class="cbar"></div>
+      <div class="art art-md a8">
+        <div class="hcell" style="top:18%;left:8%;animation-delay:0s"></div>
+        <div class="hcell" style="top:18%;left:22%;animation-delay:.7s"></div>
+        <div class="hcell" style="top:18%;left:36%;animation-delay:1.4s"></div>
+        <div class="hcell" style="top:18%;left:50%;animation-delay:2.1s"></div>
+        <div class="hcell" style="top:52%;left:15%;animation-delay:.35s"></div>
+        <div class="hcell" style="top:52%;left:29%;animation-delay:1.05s"></div>
+        <div class="hcell" style="top:52%;left:43%;animation-delay:1.75s"></div>
+        <div class="hcell" style="top:52%;left:57%;animation-delay:2.45s"></div>
+      </div>
+      <div class="cinfo">
+        <span class="cnum" aria-hidden="true">08</span>
+        <span class="cidx">Fiche 08 · Sociologie fonctionnaliste</span>
+        <p class="cauthor">Émile Durkheim</p>
+        <h3 class="ctitle">De la Division du Travail Social</h3>
+        <p class="cyear">1893</p>
+        <div class="cquote"><p>« La solidarité mécanique lie les individus par similitude ; la solidarité organique les unit par complémentarité — c'est la spécialisation qui crée le lien social. »</p></div>
+      </div>
+      <div class="cfoot"><span class="ctag">Solidarité & cohésion sociale</span><span class="ccta">Lire la fiche ↗</span></div>
+    </a>
+
+  </div>
+
 </section>
 
 <footer>
-  <p class="ft-l">Sept regards sur le monde social</p>
+  <p class="ft-l">Huit regards sur le monde social</p>
   <p class="ft-r">Bibliothèque de fiches de lecture</p>
 </footer>
 
