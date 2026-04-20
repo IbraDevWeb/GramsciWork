@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discours de la Servitude Volontaire — Étienne de La Boétie</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN SYSTEM — Typographie industrielle brutale
+   Palette : ardoise / ocre / encre
+   ═══════════════════════════════════════════ */
+:root {
+  --concrete: #f2ede6;
+  --concrete2: #e8e2da;
+  --concrete3: #d8d0c6;
+  --ink: #0e0c0a;
+  --ink2: #1e1a16;
+  --blood: #c0231b;
+  --blood2: #8c180f;
+  --blood-pale: #f5dedd;
+  --neon: #e8a020;
+  --neon2: #c07818;
+  --neon-pale: #faf0d8;
+  --steel: #3a4a5a;
+  --steel2: #2a3848;
+  --steel-pale: #d8e0ea;
+  --rust: #7a3a18;
+  --dust: #8a8278;
+  --rule: #c8c0b4;
+  --sidebar: 270px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--concrete);
+  color:var(--ink);
+  font-family:'Libre Baskerville',serif;
+  font-size:17px;
+  line-height:1.75;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ─── CURSOR ─── */
+#dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #c0231b;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: background .15s, width .15s, height .15s;
+}
+#ring {
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+#trail {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 9997;
+}
+
+/* ─── PROGRESS ─── */
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--blood);transform-origin:left;transform:scaleX(0);z-index:1002;transition:transform .08s linear;}
+
+/* ═══ SIDEBAR ═══ */
+.snav{
+  position:fixed;left:0;top:0;bottom:0;
+  width:var(--sidebar);
+  background:var(--ink2);
+  z-index:100;
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+  scrollbar-width:thin;
+  scrollbar-color:var(--blood) transparent;
+}
+
+.snav-brand{
+  padding:2rem 1.8rem 1.8rem;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.snav-kicker{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:.8rem;
+}
+
+.snav-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.5rem;font-weight:800;line-height:1;
+  color:#fff;letter-spacing:.02em;text-transform:uppercase;
+}
+
+.snav-authors{
+  font-family:'Libre Baskerville',serif;
+  font-style:italic;font-size:.78rem;
+  color:rgba(255,255,255,.35);margin-top:.4rem;
+}
+
+.snav-year{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;color:var(--blood);
+  letter-spacing:.1em;margin-top:.5rem;
+}
+
+.snav-lbl{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.18);
+  padding:.9rem 1.8rem .3rem;
+}
+
+.snav-a{
+  display:flex;align-items:center;gap:.7rem;
+  padding:.42rem 1.8rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.8rem;font-weight:500;letter-spacing:.04em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.38);
+  text-decoration:none;
+  border-left:2px solid transparent;
+  transition:all .2s;
+}
+.snav-a:hover{color:rgba(255,255,255,.85);border-left-color:var(--neon);padding-left:2.1rem;}
+.snav-a.on{color:#fff;border-left-color:var(--blood);background:rgba(192,35,27,.08);}
+
+.snav-bullet{
+  width:5px;height:5px;border-radius:50%;
+  background:currentColor;opacity:.4;flex-shrink:0;
+}
+
+.snav-div{height:1px;background:rgba(255,255,255,.04);margin:.6rem 1.8rem;}
+
+.snav-score{
+  margin-top:auto;padding:1.5rem 1.8rem;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+
+.snav-score-title{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);margin-bottom:.8rem;
+}
+
+.score-bar{
+  height:4px;background:rgba(255,255,255,.06);
+  border-radius:2px;margin:.5rem 0;overflow:hidden;
+}
+
+.score-fill{
+  height:100%;border-radius:2px;
+  transition:width 1.5s cubic-bezier(.16,1,.3,1);
+}
+
+.score-label{
+  display:flex;justify-content:space-between;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.1em;
+  color:rgba(255,255,255,.25);margin-bottom:.2rem;
+}
+
+/* ═══ MAIN ═══ */
+.main{margin-left:var(--sidebar);}
+
+/* ═══ HERO ═══ */
+.hero{
+  min-height:100vh;
+  background:var(--ink);
+  color:#fff;
+  padding:5rem 6rem 4rem;
+  position:relative;overflow:hidden;
+  display:grid;grid-template-rows:1fr auto;
+}
+
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:80px 80px;
+  pointer-events:none;
+}
+
+.hero-diag{
+  position:absolute;bottom:0;right:0;
+  width:45%;height:100%;
+  background:var(--blood2);
+  clip-path:polygon(30% 0,100% 0,100% 100%,0% 100%);
+  opacity:.12;pointer-events:none;
+}
+
+.hero-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:2.5rem;
+  opacity:0;animation:fadeUp .7s ease forwards .1s;
+}
+
+.hero-h1{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(4rem,8vw,10rem);
+  font-weight:900;line-height:.88;
+  letter-spacing:-.01em;text-transform:uppercase;
+  opacity:0;animation:fadeUp .9s ease forwards .25s;
+}
+
+.hero-h1 .line1{display:block;color:#fff;}
+.hero-h1 .line2{display:block;color:#fff;}
+.hero-h1 .line3{display:block;color:var(--blood);}
+
+.hero-rule{
+  width:120px;height:3px;
+  background:linear-gradient(90deg,var(--blood),var(--neon));
+  margin:2.5rem 0 2rem;
+  opacity:0;animation:fadeUp .7s ease forwards .5s;
+}
+
+.hero-sub{
+  max-width:680px;
+  font-size:1.05rem;font-weight:400;font-style:italic;
+  color:rgba(255,255,255,.6);line-height:1.85;
+  opacity:0;animation:fadeUp .8s ease forwards .4s;
+}
+
+.hero-sub strong{color:#fff;font-style:normal;}
+
+.hero-chips{
+  display:flex;flex-wrap:wrap;gap:.6rem;
+  margin-top:2rem;
+  opacity:0;animation:fadeUp .7s ease forwards .7s;
+}
+
+.chip{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.28rem .8rem;border-radius:2px;border:1px solid;
+}
+
+.chip-blood{color:var(--blood);border-color:rgba(192,35,27,.4);background:rgba(192,35,27,.08);}
+.chip-neon {color:var(--neon); border-color:rgba(232,160,32,.4); background:rgba(232,160,32,.08);}
+.chip-steel{color:#8aaccc;    border-color:rgba(138,172,204,.3);background:rgba(138,172,204,.06);}
+
+.hero-bottom{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  padding-top:3rem;border-top:1px solid rgba(255,255,255,.07);
+  opacity:0;animation:fadeUp .7s ease forwards .9s;
+}
+
+.hb-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.25);margin-bottom:.4rem;
+}
+
+.hb-names{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.6rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:#fff;line-height:1.1;
+}
+
+.hb-names span{color:var(--neon);}
+
+.hero-thesis{
+  text-align:right;max-width:420px;
+  font-family:'Libre Baskerville',serif;
+  font-style:italic;font-size:.92rem;
+  color:rgba(255,255,255,.45);line-height:1.7;
+}
+
+.hero-thesis cite{
+  display:block;margin-top:.5rem;
+  font-style:normal;font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--neon);
+}
+
+/* ═══ GENERIC SECTION ═══ */
+.sec{
+  padding:5.5rem 6rem;
+  border-bottom:1px solid var(--rule);
+}
+
+.sec.alt{background:var(--concrete2);}
+.sec.dark{background:var(--ink2);color:#fff;}
+.sec.steel{background:var(--steel2);color:#fff;}
+.sec.blood{background:var(--blood2);color:#fff;}
+
+.sec-eyebrow{display:flex;align-items:center;gap:1.2rem;margin-bottom:3rem;}
+
+.sec-num{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--blood);background:var(--blood-pale);
+  padding:.28rem .75rem;border-radius:2px;
+}
+.dark .sec-num,.steel .sec-num,.blood .sec-num{
+  background:rgba(192,35,27,.2);color:#f08880;
+}
+
+.sec-h2{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2.6rem;font-weight:800;
+  letter-spacing:.01em;text-transform:uppercase;line-height:1;
+}
+
+.sec-h2 em{color:var(--blood);font-style:normal;}
+.dark .sec-h2,.steel .sec-h2,.blood .sec-h2{color:#fff;}
+.dark .sec-h2 em,.steel .sec-h2 em{color:var(--neon);}
+.blood .sec-h2 em{color:var(--neon);}
+
+/* ═══ TIMELINE ═══ */
+.timeline-container{position:relative;padding-left:3rem;margin-top:2rem;}
+.timeline-container::before{
+  content:'';position:absolute;
+  left:14px;top:0;bottom:0;width:2px;
+  background:linear-gradient(to bottom,var(--blood),var(--neon),var(--steel));
+}
+
+.tl-item{
+  position:relative;margin-bottom:2.5rem;
+  opacity:0;transform:translateX(-20px);
+  transition:opacity .6s ease,transform .6s ease;
+}
+
+.tl-item.v{opacity:1;transform:none;}
+
+.tl-dot{
+  position:absolute;left:-2.45rem;top:.35rem;
+  width:12px;height:12px;border-radius:50%;border:2px solid;
+}
+
+.tl-dot.blood{background:var(--blood);border-color:var(--blood);}
+.tl-dot.neon{background:var(--neon);border-color:var(--neon);}
+
+.tl-year{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--blood);margin-bottom:.2rem;
+}
+
+.tl-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.25rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  margin-bottom:.5rem;
+}
+
+.tl-body{font-size:.88rem;color:#3a3530;line-height:1.8;max-width:680px;}
+
+/* ═══ CONCEPT CARDS ═══ */
+.concept-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;background:var(--ink);
+  border:1px solid var(--ink);
+  margin-top:1rem;
+}
+
+.concept-card{
+  background:var(--concrete);
+  padding:2.2rem;
+  position:relative;overflow:hidden;
+  cursor:pointer;
+  transition:background .3s;
+}
+
+.alt .concept-card{background:var(--concrete2);}
+
+.concept-card::after{
+  content:attr(data-num);
+  position:absolute;right:.8rem;bottom:-1rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:7rem;font-weight:900;
+  color:rgba(0,0,0,.04);line-height:1;
+  pointer-events:none;
+}
+
+.cc-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--blood);display:block;margin-bottom:.5rem;
+}
+
+.cc-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.45rem;font-weight:800;
+  letter-spacing:.02em;text-transform:uppercase;
+  line-height:1.1;margin-bottom:.8rem;
+}
+
+.cc-short{
+  font-size:.88rem;color:var(--dust);
+  line-height:1.7;
+}
+
+.cc-expand{
+  max-height:0;overflow:hidden;
+  transition:max-height .5s cubic-bezier(.16,1,.3,1),
+             opacity .4s ease,
+             padding .4s ease;
+  opacity:0;
+}
+
+.cc-expand.open{max-height:600px;opacity:1;padding-top:1rem;}
+
+.cc-expand-body{
+  font-size:.85rem;color:var(--ink);line-height:1.8;
+  border-top:1px solid var(--rule);padding-top:1rem;
+}
+
+.cc-expand-body p{margin-bottom:.7rem;}
+.cc-expand-body p:last-child{margin-bottom:0;}
+.cc-expand-body strong{color:var(--blood);font-weight:600;}
+
+.cc-today{
+  margin-top:.8rem;padding:.8rem 1rem;
+  background:var(--neon-pale);
+  border-left:2px solid var(--neon);
+  font-size:.8rem;font-style:italic;
+  color:var(--rust);line-height:1.6;
+}
+
+.cc-today::before{
+  content:'Aujourd\'hui → ';
+  font-style:normal;font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--neon2);display:block;margin-bottom:.2rem;
+}
+
+.cc-toggle{
+  display:flex;align-items:center;gap:.5rem;
+  margin-top:1rem;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--blood);cursor:pointer;
+  transition:color .2s;
+}
+
+.cc-arrow{
+  width:16px;height:16px;border:1px solid var(--blood);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;transition:transform .3s;
+}
+
+.open-arrow .cc-arrow{transform:rotate(180deg);}
+.concept-card:hover{background:var(--blood-pale);}
+
+/* ═══ ACCORDION ═══ */
+.accordion{display:flex;flex-direction:column;gap:2px;}
+
+.acc-item{background:var(--concrete);border-left:3px solid transparent;transition:border-color .3s,background .3s;}
+.alt .acc-item{background:var(--concrete2);}
+.acc-item.open{border-left-color:var(--blood);background:var(--blood-pale);}
+
+.acc-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.2rem 1.5rem;cursor:pointer;
+  transition:background .2s;
+}
+.acc-head:hover{background:rgba(192,35,27,.04);}
+
+.acc-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.05rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+}
+
+.acc-icon{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:1.2rem;color:var(--blood);
+  transition:transform .3s;flex-shrink:0;
+}
+
+.acc-item.open .acc-icon{transform:rotate(45deg);}
+
+.acc-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .5s cubic-bezier(.16,1,.3,1);
+}
+
+.acc-item.open .acc-body{max-height:400px;}
+
+.acc-inner{
+  padding:0 1.5rem 1.5rem;
+  font-size:.88rem;color:#3a3530;line-height:1.85;
+}
+
+.acc-inner p{margin-bottom:.7rem;}
+.acc-inner p:last-child{margin-bottom:0;}
+.acc-inner strong{color:var(--blood);font-weight:600;}
+.dark .acc-inner,.steel .acc-inner{color:rgba(255,255,255,.7);}
+.dark .acc-inner em,.steel .acc-inner em{color:var(--neon);}
+
+/* ═══ PULL QUOTES ═══ */
+.pq{
+  padding:3rem 4rem;margin:3rem 0;
+  position:relative;overflow:hidden;
+}
+.pq.blood{background:var(--blood2);color:#fff;}
+.pq.neon{background:var(--ink);color:#fff;border-left:4px solid var(--neon);}
+.pq.steel{background:var(--steel2);color:#fff;}
+
+.pq::before{
+  content:'\201C';
+  position:absolute;top:-2rem;left:2rem;
+  font-family:'Libre Baskerville',serif;
+  font-size:14rem;line-height:1;
+  opacity:.08;pointer-events:none;
+  color:#fff;
+}
+
+.pq p{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.4rem;font-style:italic;font-weight:400;
+  line-height:1.65;position:relative;z-index:1;
+}
+
+.pq cite{
+  display:block;margin-top:1.2rem;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;
+  font-style:normal;color:rgba(255,255,255,.4);
+}
+
+.pq.neon cite{color:var(--neon);}
+
+/* ═══ GLOSSAIRE / RÉSEAU ═══ */
+.glos-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:2px;background:var(--rule);
+  border:1px solid var(--rule);
+}
+
+.gi{
+  background:var(--concrete);
+  padding:2rem 2.5rem;
+  position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.alt .gi{background:var(--concrete2);}
+.gi:hover{background:var(--neon-pale);}
+
+.gi::after{
+  content:attr(data-g);
+  position:absolute;right:1rem;bottom:-1rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:8rem;font-weight:900;color:rgba(0,0,0,.04);
+  line-height:1;pointer-events:none;
+}
+
+.gi-src{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--blood);display:block;margin-bottom:.3rem;
+}
+
+.gi-term{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.55rem;font-weight:800;letter-spacing:.02em;
+  text-transform:uppercase;margin-bottom:.7rem;line-height:1.1;
+}
+
+.gi-def{font-size:.88rem;color:#3a3530;line-height:1.78;margin-bottom:.7rem;}
+
+.gi-now{
+  padding:.65rem 1rem;
+  background:rgba(232,160,32,.1);
+  border-left:2px solid var(--neon);
+  font-style:italic;font-size:.8rem;color:var(--rust);line-height:1.6;
+}
+
+.gi-now::before{
+  content:'Aujourd\'hui → ';
+  font-style:normal;font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--neon2);display:block;margin-bottom:.2rem;
+}
+
+/* ═══ QUIZ ═══ */
+.quiz-wrap{
+  background:var(--ink);color:#fff;
+  padding:4rem 5rem;margin-top:2rem;
+  position:relative;overflow:hidden;
+}
+
+.quiz-wrap::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blood),var(--neon),var(--blood));
+}
+
+.quiz-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:.4rem;
+}
+
+.quiz-question{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.25rem;font-style:italic;
+  color:#fff;line-height:1.6;margin-bottom:2rem;
+}
+
+.quiz-options{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1rem;
+}
+
+.qopt{
+  padding:1.2rem 1.5rem;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.02);
+  cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.92rem;font-weight:500;letter-spacing:.04em;
+  color:rgba(255,255,255,.7);
+  text-transform:uppercase;
+  transition:all .2s;
+  text-align:left;
+  position:relative;
+  overflow:hidden;
+}
+
+.qopt::before{
+  content:'';position:absolute;inset:0;
+  background:var(--blood);transform:scaleX(0);transform-origin:left;
+  transition:transform .3s ease;z-index:0;
+}
+
+.qopt:hover{color:#fff;border-color:var(--blood);}
+.qopt:hover::before{transform:scaleX(1);}
+.qopt span{position:relative;z-index:1;}
+
+.qopt.correct{background:rgba(30,120,50,.3);border-color:#4a9a60;color:#7dd89a;}
+.qopt.wrong  {background:rgba(180,40,30,.3);border-color:var(--blood);color:#f08880;}
+.qopt.reveal {background:rgba(30,120,50,.15);border-color:#4a9a60;color:#7dd89a;}
+
+.quiz-feedback{
+  margin-top:1.5rem;padding:1.2rem 1.5rem;
+  background:rgba(255,255,255,.04);
+  border-left:3px solid var(--neon);
+  font-size:.9rem;color:rgba(255,255,255,.7);
+  line-height:1.7;display:none;
+}
+
+.quiz-feedback.show{display:block;}
+
+.quiz-nav{
+  display:flex;justify-content:space-between;
+  align-items:center;margin-top:2rem;
+}
+
+.quiz-btn{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:.7rem 2rem;border:none;
+  background:var(--blood);color:#fff;
+  cursor:pointer;transition:background .2s;
+}
+
+.quiz-btn:hover{background:var(--blood2);}
+.quiz-btn:disabled{opacity:.3;cursor:not-allowed;}
+
+.quiz-progress-bar{
+  height:3px;background:rgba(255,255,255,.1);
+  border-radius:2px;margin-bottom:2.5rem;overflow:hidden;
+}
+
+.quiz-progress-fill{
+  height:100%;background:var(--blood);
+  transition:width .5s ease;
+}
+
+.quiz-counter{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.6rem;letter-spacing:.15em;
+  color:rgba(255,255,255,.3);
+}
+
+/* ═══ PISTES DE RÉFLEXION ═══ */
+.qstack{
+  display:flex;flex-direction:column;gap:2px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.05);
+  margin-top:1.5rem;
+}
+
+.qi{
+  background:rgba(255,255,255,.02);
+  padding:2rem 2.5rem;
+  display:grid;grid-template-columns:60px 1fr;
+  gap:1.5rem;align-items:start;
+  transition:background .3s;
+  border-left:3px solid transparent;
+}
+
+.qi:hover{background:rgba(192,35,27,.06);border-left-color:var(--blood);}
+
+.qi-n{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--blood);padding-top:.2rem;
+}
+
+.qi-t{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.05rem;font-style:italic;
+  color:#fff;line-height:1.7;margin-bottom:.5rem;
+}
+
+.qi-hint{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.58rem;color:rgba(255,255,255,.28);
+  line-height:1.65;
+}
+
+.qi-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem;}
+
+.qi-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid rgba(232,160,32,.3);color:var(--neon);
+  padding:.18rem .55rem;border-radius:2px;
+}
+
+/* ═══ SYNTHÈSE ═══ */
+.synth-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2rem;margin-top:1.5rem;
+}
+
+.sc{
+  background:rgba(0,0,0,.15);
+  padding:2rem;
+  border-top:3px solid rgba(255,255,255,.15);
+  transition:background .3s;
+}
+
+.sc:hover{background:rgba(0,0,0,.25);}
+
+.sc-title{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);margin-bottom:.7rem;
+}
+
+.sc-body{font-size:.9rem;line-height:1.75;color:rgba(255,255,255,.85);}
+
+/* ═══ MODAL ═══ */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.85);
+  z-index:2000;display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+
+.modal-overlay.show{opacity:1;pointer-events:all;}
+
+.modal{
+  background:var(--ink2);color:#fff;
+  padding:4rem;max-width:560px;width:90%;
+  position:relative;
+  border-top:4px solid var(--blood);
+}
+
+.modal-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2.5rem;font-weight:900;text-transform:uppercase;
+  letter-spacing:.04em;margin-bottom:.5rem;
+}
+
+.modal-score{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:5rem;font-weight:900;
+  color:var(--neon);line-height:1;margin:1.5rem 0;
+}
+
+.modal-msg{
+  font-family:'Libre Baskerville',serif;
+  font-style:italic;font-size:.95rem;
+  color:rgba(255,255,255,.6);line-height:1.7;
+  margin-bottom:2rem;
+}
+
+.modal-close{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:.7rem 2rem;border:none;background:var(--blood);color:#fff;
+  cursor:pointer;transition:background .2s;
+}
+
+.modal-close:hover{background:var(--blood2);}
+
+/* ═══ FOOTER ═══ */
+footer{
+  background:var(--ink);color:rgba(255,255,255,.2);
+  padding:3rem 6rem;
+  display:grid;grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;
+}
+
+.fc{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:3rem;font-weight:900;letter-spacing:.06em;
+  opacity:.06;text-align:center;text-transform:uppercase;
+}
+
+footer a{color:var(--blood);text-decoration:none;display:block;text-align:right;}
+footer a:hover{color:var(--neon);}
+
+/* ═══ REVEAL ═══ */
+.r{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+.r.v{opacity:1;transform:none;}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1100px){
+  :root{--sidebar:220px}
+  .hero,.sec{padding-left:4rem;padding-right:4rem}
+  .synth-grid{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:820px){
+  :root{--sidebar:0px}
+  .snav{display:none}
+  .hero,.sec{padding:4rem 2rem}
+  .concept-grid,.glos-grid{grid-template-columns:1fr}
+  .quiz-options{grid-template-columns:1fr}
+  .synth-grid{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr;gap:1rem;text-align:center}
+  footer a{text-align:center}
+  .qi{grid-template-columns:1fr}
+  .hero-bottom{flex-direction:column;gap:2rem;align-items:flex-start}
+  .hero-thesis{text-align:left}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<canvas id="trail"></canvas>
+<div id="dot"></div>
+<div id="ring"></div>
+
+<!-- ═══════ MODAL SCORE ═══════ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-title">Résultat du Quiz</div>
+    <div class="modal-score" id="modalScore">0/6</div>
+    <p class="modal-msg" id="modalMsg"></p>
+    <button class="modal-close" onclick="closeModal()">Fermer et réviser</button>
+  </div>
+</div>
+
+<!-- ═══════ SIDEBAR ═══════ -->
+<nav class="snav">
+  <div class="snav-brand">
+    <div class="snav-kicker">Philosophie politique · ~1548</div>
+    <div class="snav-title">Discours de la<br>Servitude<br>Volontaire</div>
+    <div class="snav-authors">Étienne de La Boétie</div>
+    <div class="snav-year">Contr'un · ~1548 (circulé ms.)</div>
+  </div>
+
+  <span class="snav-lbl">Introduction</span>
+  <a href="#hero" class="snav-a on"><span class="snav-bullet"></span>Présentation</a>
+  <a href="#genese" class="snav-a"><span class="snav-bullet"></span>Genèse intellectuelle</a>
+  <a href="#these" class="snav-a"><span class="snav-bullet"></span>La thèse centrale</a>
+
+  <div class="snav-div"></div>
+  <span class="snav-lbl">Concepts clés</span>
+  <a href="#concepts" class="snav-a"><span class="snav-bullet"></span>Concepts fondamentaux</a>
+  <a href="#sujet" class="snav-a"><span class="snav-bullet"></span>Les trois tyrans</a>
+  <a href="#structure" class="snav-a"><span class="snav-bullet"></span>La pyramide du pouvoir</a>
+
+  <div class="snav-div"></div>
+  <span class="snav-lbl">Dialogues</span>
+  <a href="#dialogue" class="snav-a"><span class="snav-bullet"></span>La Boétie contre Machiavel</a>
+  <a href="#reseau" class="snav-a"><span class="snav-bullet"></span>Réseau d'auteurs</a>
+  <a href="#aujourdhui" class="snav-a"><span class="snav-bullet"></span>Actualité</a>
+
+  <div class="snav-div"></div>
+  <span class="snav-lbl">Pédagogie</span>
+  <a href="#quiz" class="snav-a"><span class="snav-bullet"></span>⚡ Quiz interactif</a>
+  <a href="#reflexion" class="snav-a"><span class="snav-bullet"></span>Pistes de réflexion</a>
+  <a href="#synthese" class="snav-a"><span class="snav-bullet"></span>Synthèse critique</a>
+
+  <div class="snav-score">
+    <div class="snav-score-title">Votre progression</div>
+    <div class="score-label"><span>Quiz</span><span id="sidebarScore">—</span></div>
+    <div class="score-bar"><div class="score-fill" id="sidebarFill" style="width:0%;background:var(--blood)"></div></div>
+    <div class="score-label" style="margin-top:.5rem"><span>Concepts lus</span><span id="conceptCount">0/6</span></div>
+    <div class="score-bar"><div class="score-fill" id="conceptFill" style="width:0%;background:var(--neon)"></div></div>
+  </div>
+</nav>
+
+<!-- ═══════ MAIN ═══════ -->
+<main class="main">
+
+<!-- ═══ HERO ═══ -->
+<section id="hero" class="hero">
+  <div class="hero-diag"></div>
+  <div>
+    <div class="hero-tag">Philosophie politique · Humanisme · Théorie de la domination</div>
+    <h1 class="hero-h1">
+      <span class="line1">Discours de la</span>
+      <span class="line2">Servitude</span>
+      <span class="line3">Volontaire</span>
+    </h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">
+      La tyrannie ne se soutient pas par la force : elle se nourrit du <strong>consentement de ceux qu'elle opprime</strong>. La question n'est pas pourquoi le tyran est puissant — mais pourquoi les peuples acceptent de servir alors qu'il suffirait de <strong>cesser d'obéir</strong> pour être libres.
+    </p>
+    <div class="hero-chips">
+      <span class="chip chip-blood">Philosophie politique</span>
+      <span class="chip chip-blood">Théorie du consentement</span>
+      <span class="chip chip-neon">Servitude volontaire</span>
+      <span class="chip chip-neon">Liberté naturelle</span>
+      <span class="chip chip-steel">~1548 · Humanisme renaissance</span>
+      <span class="chip chip-steel">Écrit à ~18 ans</span>
+    </div>
+  </div>
+  <div class="hero-bottom">
+    <div class="hero-authors-block">
+      <div class="hb-label">Auteur</div>
+      <div class="hb-names">Étienne de <span>La Boétie</span></div>
+    </div>
+    <div class="hero-thesis">
+      « Soyez résolus à ne plus servir, et vous voilà libres. Je ne vous demande pas de le pousser, de l'ébranler, mais seulement de ne plus le soutenir. »
+      <cite>— La Boétie, Discours de la Servitude Volontaire</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GENÈSE ═══ -->
+<section id="genese" class="sec alt">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">01 — Genèse</span>
+    <h2 class="sec-h2">Naissance d'un <em>pamphlet</em> philosophique</h2>
+  </div>
+
+  <p class="r" style="max-width:760px;font-size:.95rem;color:#3a3530;line-height:1.9;margin-bottom:3rem;">
+    Le <em>Discours de la Servitude Volontaire</em>, aussi connu sous le titre <em>Contr'un</em>, aurait été rédigé par La Boétie vers 1548, alors qu'il n'avait pas vingt ans et étudiait le droit à Orléans. Nourri de l'Antiquité grecque et romaine — Plutarque, Xénophon, Tacite — il pose une question qui traversera toute la philosophie politique moderne : comment le nombre consent-il à être gouverné par un seul ? Ce texte, qui ne fut jamais publié du vivant de son auteur, circula en manuscrit avant d'être récupéré par les protestants huguenots dans les années 1570, puis transmis à la postérité par Montaigne, ami intime de La Boétie.
+  </p>
+
+  <div class="timeline-container r">
+    <div class="tl-item">
+      <div class="tl-dot blood"></div>
+      <div class="tl-year">1530 — Sarlat</div>
+      <div class="tl-title">Naissance d'Étienne de La Boétie</div>
+      <p class="tl-body">Né dans une famille de magistrats périgourdins, La Boétie reçoit une formation humaniste solide. Orphelin de père à sept ans, il est élevé par un oncle ecclésiastique cultivé. Il apprend le latin, le grec, baigne dans les auteurs de l'Antiquité — ce substrat formera le tissu de références du <em>Discours</em>.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot neon"></div>
+      <div class="tl-year">~1548 — Orléans</div>
+      <div class="tl-title">Rédaction présumée du Discours</div>
+      <p class="tl-body">La date exacte est disputée. Le texte est probablement rédigé lors des études de droit à Orléans, peu après la révolte de la gabelle en Guyenne (1548), sévèrement réprimée. L'humeur du texte — indignation tranquille, appel à la résistance non violente — correspond à ce contexte de sujétion fiscale et politique sous Henri II.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot blood"></div>
+      <div class="tl-year">1557 — Bordeaux</div>
+      <div class="tl-title">Rencontre avec Montaigne</div>
+      <p class="tl-body">La Boétie entre au Parlement de Bordeaux comme conseiller. Il y rencontre Michel de Montaigne : une amitié qui deviendra légendaire, « parce que c'était lui, parce que c'était moi ». C'est Montaigne qui conservera et transmettra l'œuvre de La Boétie après sa mort prématurée en 1563, refusant toutefois de publier le <em>Discours</em> de son vivant, craignant son usage partisan.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot neon"></div>
+      <div class="tl-year">1574 — Paris</div>
+      <div class="tl-title">Publication par les huguenots</div>
+      <p class="tl-body">Le <em>Discours</em> est publié sans autorisation par des militants protestants dans le recueil <em>Mémoires de l'état de France sous Charles IX</em>. Ils y voient un outil de légitimation de la résistance à la monarchie catholique après la Saint-Barthélemy (1572). La Boétie, qui avait été catholique et royaliste, est instrumentalisé contre sa pensée d'ensemble — ce que Montaigne déplorait.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot blood"></div>
+      <div class="tl-year">XIXe–XXe s. — Postérité</div>
+      <div class="tl-title">Redécouvertes successives</div>
+      <p class="tl-body">Le texte connaît plusieurs renaissances : les anarchistes du XIXe siècle (Proudhon, puis les cercles libertaires) y lisent une critique radicale de toute autorité. Au XXe siècle, Claude Lefort l'introduit dans la philosophie politique française sérieuse. Il reste aujourd'hui une référence dans les théories du consentement, de la désobéissance civile et de l'analyse des régimes autoritaires.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THÈSE CENTRALE ═══ -->
+<section id="these" class="sec dark">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">02 — Thèse centrale</span>
+    <h2 class="sec-h2">Le <em>consentement</em> — Ce que dit vraiment le texte</h2>
+  </div>
+
+  <p class="r" style="max-width:760px;font-size:.95rem;color:rgba(255,255,255,.65);line-height:1.9;margin-bottom:3rem;">
+    La question de La Boétie n'est pas : comment renverser le tyran ? C'est une question antérieure et plus radicale : pourquoi le peuple lui obéit-il ? La réponse renverse toute la tradition politique : le tyran n'est puissant que parce que les sujets lui donnent sa puissance. Cessez de servir — sans combattre — et la tyrannie s'effondre d'elle-même comme un colosse privé de sa base.
+  </p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:3rem;" class="r">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neon);margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:2px solid var(--neon);">La servitude comme énigme</div>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">La Boétie part d'un paradoxe : un seul homme opprime des millions. Ce n'est pas la force qui l'explique — un seul corps ne peut matériellement en contraindre un million. C'est donc quelque chose d'autre : le <strong style="color:#fff;">consentement actif</strong> des opprimés à leur propre oppression.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">La servitude n'est pas seulement subie — elle est <strong style="color:#fff;">produite</strong> par ceux qui la vivent. Le peuple « s'asservit et se coupe la gorge », il « consent à son mal, ou plutôt le recherche ».</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;">Ce n'est pas de la couardise ordinaire — la couardise a des bornes. C'est quelque chose de plus mystérieux : une volonté de servir que La Boétie nomme « servitude volontaire ».</p>
+    </div>
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blood);margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:2px solid rgba(192,35,27,.6);">La solution : cesser de donner</div>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">La révolution que propose La Boétie est paradoxalement la plus simple qui soit : il ne s'agit pas de combattre, de s'organiser, de renverser — il suffit de <strong style="color:#fff;">retirer son consentement</strong>. Le tyran n'a pas d'armée propre : ses soldats sont vos enfants. Ses yeux sont vos regards. Sa force est votre force.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">La liberté est le seul bien que les hommes n'ont pas la force de désirer, dit La Boétie avec amertume — précisément parce que s'ils le désiraient, ils l'auraient.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;">La thèse est donc à la fois un diagnostic (la servitude est volontaire) et un programme (la liberté s'obtient par la <strong style="color:#fff;">désobéissance passive</strong>).</p>
+    </div>
+  </div>
+
+  <div class="pq neon r">
+    <p>« Ce maître n'a pourtant que deux yeux, deux mains, un corps, et rien de plus que n'a le dernier des habitants du nombre infini de nos villes. Ce qu'il a de plus, ce sont les moyens que vous lui fournissez pour vous détruire. »</p>
+    <cite>— La Boétie, Discours de la Servitude Volontaire</cite>
+  </div>
+</section>
+
+<!-- ═══ CONCEPTS ═══ -->
+<section id="concepts" class="sec alt">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">03 — Lexique</span>
+    <h2 class="sec-h2">Concepts <em>fondamentaux</em> — Cliquer pour développer</h2>
+  </div>
+
+  <div class="concept-grid r">
+
+    <div class="concept-card" data-num="01" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">Servitude volontaire</div>
+      <p class="cc-short">L'asservissement librement consenti d'un peuple à un seul — énigme centrale et objet de tout le traité.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>La <strong>servitude volontaire</strong> est le nom que La Boétie donne à un phénomène qu'il juge à la fois universel, scandaleux et mal compris. Ce n'est pas la servitude contrainte par la force des armes — cela, dit-il, peut se comprendre et même s'excuser. C'est la servitude librement choisie, ou du moins acceptée sans résistance, alors que la résistance serait facile.</p>
+          <p>L'adjectif « volontaire » est fondamental : il signale que la tyrannie n'est pas un phénomène naturel imposé du dehors, mais une <strong>production sociale</strong> à laquelle les opprimés participent. La responsabilité du peuple est engagée — non pour en faire une faute morale, mais pour identifier le levier de la libération : le même vouloir qui produit la servitude peut produire la liberté.</p>
+          <p>La notion anticipe des concepts modernes comme le « consentement des gouvernés », la « domination symbolique » de Bourdieu, ou le concept arendtien de la banalité du mal comme participation ordinaire à un système.</p>
+          <div class="cc-today">Le concept a été mobilisé pour analyser les régimes fascistes (comment des millions ont-ils suivi Hitler ou Mussolini ?) mais aussi les comportements contemporains : soumission aux algorithmes, servitude numérique, acceptation de la surveillance généralisée.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" data-num="02" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">Liberté naturelle</div>
+      <p class="cc-short">Principe fondateur : la nature a fait tous les hommes égaux et libres — la servitude est une dénaturation.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>La Boétie fonde son argumentation sur un droit naturel : <strong>tous les hommes naissent libres et égaux</strong>. La nature les a tous formés « sur le même moule », leur a donné la voix et la raison pour fraterniser. Il en déduit que la servitude est contre nature — c'est une dénaturation produite par l'histoire, la coutume et l'oubli.</p>
+          <p>L'argument des animaux est frappant : même les bêtes résistent à la captivité, préfèrent mourir libres plutôt que vivre en servitude. L'éléphant qui casse ses dents pour négocier sa liberté, le cheval qui mord son frein — la nature elle-même crie « Vive la liberté ! ». Si les animaux ont ce réflexe de résistance, comment l'homme a-t-il pu le perdre ?</p>
+          <p>Cette naturalisation de la liberté est un geste rhétorique fort : elle rend la servitude <strong>inexplicable</strong> par la seule nature et oblige à chercher des causes historiques et sociales — ce que La Boétie fait ensuite avec la théorie de l'habitude.</p>
+          <div class="cc-today">La Déclaration des droits de l'homme de 1789 reprend exactement cet argument : « Les hommes naissent et demeurent libres et égaux en droits. » Le droit naturel de La Boétie est l'ancêtre philosophique des droits fondamentaux constitutionnels modernes.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" data-num="03" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">L'habitude comme servitude</div>
+      <p class="cc-short">La première cause de la servitude volontaire : la coutume qui éteint le désir de liberté et naturalise l'obéissance.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>La Boétie propose une théorie causale de la servitude : la <strong>première raison</strong> pour laquelle les hommes servent est qu'ils sont nés serfs et élevés comme tels. L'habitude — plus puissante que la nature — éteint le désir de liberté chez ceux qui ne l'ont jamais connue. On ne peut regretter ce qu'on n'a jamais eu.</p>
+          <p>L'analogie avec Mithridate est saisissante : le roi du Pont s'était habitué à avaler du poison pour le rendre inoffensif. De même, les peuples habitués à la servitude finissent par trouver le joug naturel, voire confortable. Ils disent : « nous avons toujours été ainsi, nos pères ont vécu ainsi. »</p>
+          <p>Cette analyse est profondément moderne : elle anticipe ce que les sociologues appelleront la <strong>socialisation</strong>, la reproduction de dispositions incorporées, la violence symbolique qui fait accepter l'ordre établi comme naturel. La liberté doit être apprise — et son oubli aussi se transmet.</p>
+          <div class="cc-today">L'habitude de la démocratie peut aussi se perdre. Les études sur les « démocraties illibérales » montrent que des générations élevées sous un régime autoritaire finissent par intérioriser ses valeurs et par ne plus désirer la liberté politique qu'elles n'ont jamais connue.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" data-num="04" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">Panem et circenses</div>
+      <p class="cc-short">La stratégie des tyrans pour abêtir leurs sujets : jeux, spectacles, festins — les instruments de la servitude heureuse.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>La Boétie décrit avec précision la technique de gouvernement par le divertissement. <strong>Cyrus</strong>, après avoir conquis la Lydie, ne voulant pas maintenir une armée dans la ville révoltée, y installa bordels, tavernes et jeux publics — et n'eut plus jamais besoin de l'épée. De là viendrait même le mot latin <em>Ludi</em> (jeux), dérivé de <em>Lydi</em> (Lydiens).</p>
+          <p>Les Romains perfectionnèrent l'art : « le théâtre, les jeux, les farces, les spectacles, les gladiateurs, les bêtes curieuses, les médailles, les tableaux » — autant d'appâts de la servitude. Le peuple qui reçoit son sesterce de blé crie « Vive le roi ! » sans réaliser qu'on lui rend une infime part de ce qu'on lui a d'abord volé.</p>
+          <p>La logique est celle du <strong>désenchantement de soi</strong> : les sujets aliènent leur discernement politique contre du plaisir immédiat. Le divertissement n'est pas innocent — il est un instrument de gouvernement qui détourne l'attention et anesthésie la volonté de liberté.</p>
+          <div class="cc-today">Guy Debord (La Société du spectacle, 1967) et Neil Postman (Se distraire jusqu'à en mourir, 1985) ont directement hérité de cette intuition. Les réseaux sociaux, le divertissement algorithmique, le scroll infini — autant de formes contemporaines du pain et des jeux.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" data-num="05" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">La pyramide de complicité</div>
+      <p class="cc-short">Le mécanisme structurel de la tyrannie : non des armes, mais une chaîne hiérarchique de complices intéressés.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>La révélation finale du texte est d'ordre structurel : ce qui maintient la tyrannie, ce ne sont pas les gardes ni les armées. C'est une <strong>pyramide de complicité</strong> : cinq ou six favoris qui ont l'oreille du tyran ; sous eux, six cents qu'ils corrompent ; sous ceux-là, six mille qu'on élève en dignité et à qui on donne le gouvernement des provinces.</p>
+          <p>La chaîne s'étend jusqu'à comprendre « cent mille, des millions » — jusqu'à ce que la tyrannie profite à presque autant de personnes que la liberté plairait. Les complices ne sont pas des victimes innocentes : ils participent activement au maintien du système parce qu'ils en tirent profit. Ils sont à la fois exploiteurs vers le bas et exploités vers le haut.</p>
+          <p>Cette analyse préfigure la sociologie des <strong>bureaucraties autoritaires</strong> (Arendt), la théorie des élites (Pareto, Mosca) et les analyses des systèmes de corruption institutionnalisée. La tyrannie est moins le fait d'un homme que d'un <strong>réseau social organisé autour du bénéfice mutuel de la domination</strong>.</p>
+          <div class="cc-today">Les régimes kleptocratiques contemporains (Russie de Poutine, certains régimes africains) fonctionnent exactement selon ce modèle : un cercle de favoris oligarques, un réseau de fonctionnaires corrompus, une base de bénéficiaires — chacun ayant intérêt à maintenir le système qui le nourrit.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" data-num="06" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">Désenchantement politique</div>
+      <p class="cc-short">L'usage de la religion, des mystères et des symboles sacrés par les tyrans pour légitimer leur pouvoir auprès des crédules.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>La Boétie consacre un passage remarquable à la <strong>fabrication du sacré politique</strong> : les rois d'Assyrie se cachaient pour paraître mystérieux et surhumains ; les pharaons d'Égypte se masquaient et jouaient aux bateleurs ; les tyrans se couvraient du manteau de la religion pour « cautionner leur méchante vie ».</p>
+          <p>La crédulité populaire est activement cultivée : on répand des miracles (l'orteil de Pyrrhus qui guérit), des origines divines, des signes célestes. Le peuple « a toujours ainsi fabriqué lui-même les mensonges, pour y ajouter ensuite une foi stupide ». La religiosité politique n'est pas spontanée — elle est <strong>instrumentalisée</strong>.</p>
+          <p>Cette analyse de la fabrication idéologique du pouvoir anticipera Marx (la religion comme opium du peuple), Sorel (les mythes politiques) et les théories contemporaines de la <strong>légitimation symbolique du pouvoir</strong>. Le pouvoir a besoin de croyance autant que de force.</p>
+          <div class="cc-today">Les cultes de la personnalité (Kim Jong-un, Poutine, etc.), le nationalisme religieux, le recours aux symboles sacrés (drapeaux, hymnes, rituels) dans les régimes autoritaires contemporains — autant d'héritiers de ce que La Boétie décrivait dès 1548.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ LES TROIS TYRANS ═══ -->
+<section id="sujet" class="sec dark">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">04 — Taxonomie</span>
+    <h2 class="sec-h2">Les <em>trois sortes</em> de tyrans</h2>
+  </div>
+
+  <p class="r" style="max-width:760px;font-size:.95rem;color:rgba(255,255,255,.65);line-height:1.9;margin-bottom:3rem;">
+    La Boétie établit une classification des tyrans selon leur mode d'accession au pouvoir. La conclusion, cependant, est la même dans tous les cas : quel que soit le chemin emprunté, la tyrannie produit les mêmes effets. Il n'y a pas de bonne tyrannie.
+  </p>
+
+  <div class="accordion r">
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title">Le tyran élu — Le plus dangereux</span>
+        <span class="acc-icon">+</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p>Le tyran élu par le peuple semble le plus légitime. Et pourtant, dit La Boétie, il est souvent <strong>pire que les autres</strong>. Dès qu'il se voit élevé au-dessus de tous, « flatté par je ne sais quoi qu'on appelle grandeur », il considère que la puissance qui lui a été confiée doit être transmise à ses enfants — et ses enfants surpassent en cruauté tous les autres tyrans.</p>
+          <p>L'exemple romain est celui de <strong>Denys de Syracuse</strong> : élu général pour défendre la ville contre ses ennemis, il devint d'abord capitaine, puis roi, puis tyran. Le peuple, une fois assujetti, tombe dans un « si profond oubli de sa liberté qu'il lui est impossible de se réveiller pour la reconquérir : il sert si bien, et si volontiers, qu'on dirait à le voir qu'il n'a pas seulement perdu sa liberté mais bien gagné sa servitude. »</p>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title">Le tyran conquérant — Le plus franc</span>
+        <span class="acc-icon">+</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p>Ceux qui ont acquis le pouvoir par la guerre « s'y comportent — on le sait et le dit fort justement — comme en pays conquis ». Leur tyrannie est au moins <strong>sans hypocrisie</strong> : ils ne prétendent pas gouverner dans l'intérêt du peuple. Ils traitent le royaume comme leur proie.</p>
+          <p>La Boétie ne les absout pas — mais leur franchise les rend paradoxalement moins corrupteurs moralement que le tyran élu, qui pervertit la notion même de représentation en détournant à son profit la confiance que le peuple lui avait accordée.</p>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title">Le tyran héréditaire — Le plus durable</span>
+        <span class="acc-icon">+</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p>Les rois héréditaires « sucent avec le lait le naturel du tyran et ils regardent les peuples qui leur sont soumis comme leurs serfs héréditaires ». Nés dans la tyrannie, ils la perpétuent sans même avoir à la conquérir. Leur danger particulier est la <strong>naturalisation de la domination</strong> : pour les sujets nés sous leur règne, servir semble naturel.</p>
+          <p>La Boétie observe que le tyran héréditaire a même intérêt à effacer le souvenir de la liberté passée : « pour récent qu'en soit le souvenir, il s'efface bientôt de leur mémoire. » La mémoire politique est elle-même un enjeu de pouvoir — maintenir ou détruire la conscience historique des peuples, c'est maintenir ou détruire leur capacité à se révolter.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pq blood r" style="margin-top:3rem;">
+    <p>« Pour dire vrai, je vois bien entre ces tyrans quelques différences, mais de choix, je n'en vois pas : car s'ils arrivent au trône par des moyens divers, leur manière de règne est toujours à peu près la même. »</p>
+    <cite>— La Boétie, Discours de la Servitude Volontaire</cite>
+  </div>
+</section>
+
+<!-- ═══ PYRAMIDE ═══ -->
+<section id="structure" class="sec alt">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">05 — Structure du pouvoir</span>
+    <h2 class="sec-h2">La <em>pyramide</em> de la domination</h2>
+  </div>
+
+  <p class="r" style="max-width:760px;font-size:.95rem;color:#3a3530;line-height:1.9;margin-bottom:2rem;">
+    La Boétie décrit la structure concrète par laquelle une tyrannie se maintient. Ce n'est pas la force brute — c'est un réseau hiérarchique de complicité et d'intérêt mutuels. Ce passage est l'une des premières analyses sociologiques du fonctionnement interne d'un régime autoritaire.
+  </p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:2px;background:var(--ink);border:1px solid var(--ink);margin-bottom:3rem;" class="r">
+    <div style="background:var(--blood2);padding:2.5rem 2rem;text-align:center;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:4rem;font-weight:900;color:#fff;line-height:1;">1</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:.5rem;">Le Tyran</div>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.7);line-height:1.65;margin-top:1rem;">Un seul homme. Deux yeux, deux mains, un corps. Rien de plus que n'importe quel citoyen. Sa puissance vient entièrement d'ailleurs.</p>
+    </div>
+    <div style="background:var(--concrete2);padding:2.5rem 2rem;text-align:center;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:4rem;font-weight:900;color:var(--blood);line-height:1;">5–6</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dust);margin-top:.5rem;">Les Favoris</div>
+      <p style="font-size:.82rem;color:#3a3530;line-height:1.65;margin-top:1rem;">Complices des cruautés, compagnons des plaisirs. Ils forment le tyran à la méchanceté — non pas la sienne seulement mais la leur propre.</p>
+    </div>
+    <div style="background:var(--concrete);padding:2.5rem 2rem;text-align:center;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:4rem;font-weight:900;color:var(--neon2);line-height:1;">600</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dust);margin-top:.5rem;">Les Corrompus</div>
+      <p style="font-size:.82rem;color:#3a3530;line-height:1.65;margin-top:1rem;">Corrompus par les favoris à l'image du tyran. Ils reçoivent en échange gouvernements de provinces, maniement des deniers publics.</p>
+    </div>
+    <div style="background:var(--steel-pale);padding:2.5rem 2rem;text-align:center;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:4rem;font-weight:900;color:var(--steel2);line-height:1;">∞</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;color:var(--dust);margin-top:.5rem;">Le Peuple</div>
+      <p style="font-size:.82rem;color:#3a3530;line-height:1.65;margin-top:1rem;">Des millions enchaînés par une chaîne ininterrompue. Non pas six mille, mais cent mille et des millions tiennent au tyran.</p>
+    </div>
+  </div>
+
+  <div class="pq neon r">
+    <p>« Ces six en ont sous eux six cents, qu'ils corrompent autant qu'ils ont corrompu le tyran. Ces six cents en tiennent sous leur dépendance six mille, qu'ils élèvent en dignité. »</p>
+    <cite>— La Boétie, Discours de la Servitude Volontaire</cite>
+  </div>
+</section>
+
+<!-- ═══ DIALOGUE ═══ -->
+<section id="dialogue" class="sec steel">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">06 — Dialogue philosophique</span>
+    <h2 class="sec-h2">La Boétie <em>avec et contre</em> Machiavel</h2>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:1rem;">
+    <div class="r">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neon);margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:2px solid var(--neon);">Ce que Machiavel apporte — le terrain commun</div>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">Machiavel et La Boétie partagent un ancrage dans les auteurs antiques (Tite-Live, Tacite) et un refus des illusions pieuses sur le pouvoir. Tous deux analysent la politique comme un phénomène de forces réelles, non de vertus idéales. Tous deux s'intéressent aux conditions de maintien du pouvoir.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;"><em>Le Prince</em> (1513) et le <em>Discours</em> (~1548) appartiennent au même tournant humaniste qui dessacralise la politique — elle n'est plus théologie, mais technique et psychologie.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;">L'un et l'autre savent que le peuple peut être trompé et manipulé, et qu'il importe au prince de maîtriser cette mécanique.</p>
+    </div>
+    <div class="r d2">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blood);margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:2px solid rgba(192,35,27,.6);">Ce que La Boétie lui reproche — la rupture décisive</div>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">Machiavel écrit <em>pour</em> le prince — comment acquérir et conserver le pouvoir. La Boétie écrit <em>contre</em> le prince — comment le peuple doit reconnaître et refuser sa propre servitude. L'orientation politique est inversée : d'un manuel du dominant, on passe à une analyse de la domination depuis le <strong>point de vue du dominé</strong>.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">Chez Machiavel, la violence et la ruse sont des outils légitimes du gouvernement. Chez La Boétie, elles ne font que révéler la vérité honteuse du pouvoir — qu'il ne se tient que par l'ignorance et l'abdication des gouvernés.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;">Enfin, Machiavel ne remet pas en cause la légitimité du pouvoir en soi — il en optimise l'exercice. La Boétie questionne le <strong>fondement même</strong> de toute obéissance politique.</p>
+    </div>
+  </div>
+
+  <div class="pq blood r" style="margin-top:3rem;">
+    <p>« La liberté, les hommes la dédaignent uniquement, semble-t-il, parce que s'ils la désiraient, ils l'auraient ; comme s'ils refusaient de faire cette précieuse acquisition parce qu'elle est trop aisée. »</p>
+    <cite>— La Boétie, Discours de la Servitude Volontaire</cite>
+  </div>
+</section>
+
+<!-- ═══ RÉSEAU D'AUTEURS ═══ -->
+<section id="reseau" class="sec alt">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">07 — Dialogues</span>
+    <h2 class="sec-h2">Le réseau <em>d'auteurs</em> en dialogue</h2>
+  </div>
+
+  <div class="glos-grid r">
+
+    <div class="gi" data-g="R">
+      <span class="gi-src">Philosophie politique / Contrat social</span>
+      <div class="gi-term">Jean-Jacques Rousseau</div>
+      <p class="gi-def">Rousseau hérite directement de La Boétie la question du consentement et de la légitimité. Le <em>Contrat social</em> (1762) répond exactement à la même interrogation : sur quelle base l'obéissance politique peut-elle être légitime ? Mais là où La Boétie décrit un fait pathologique (la servitude volontaire), Rousseau tente de construire un idéal normatif (le contrat comme aliénation totale à la volonté générale). La volonté générale rousseauiste est l'antidote proposé à ce que La Boétie diagnostiquait comme servitude — la liberté comme auto-législation collective plutôt que comme obéissance à un tyran.</p>
+      <div class="gi-now">La tension entre liberté individuelle et contrat social — entre La Boétie et Rousseau — structure encore le débat contemporain entre libéralisme et républicanisme : peut-on être libre en obéissant à la loi que la collectivité s'est donnée ?</div>
+    </div>
+
+    <div class="gi" data-g="H">
+      <span class="gi-src">Philosophie politique / État</span>
+      <div class="gi-term">Thomas Hobbes</div>
+      <p class="gi-def">Hobbes (<em>Léviathan</em>, 1651) est l'anti-La Boétie : là où celui-ci voit dans la soumission au souverain un scandale et une aliénation, Hobbes la présente comme une nécessité rationnelle — sans le Léviathan, la vie serait « solitaire, pauvre, désagréable, brutale et courte ». Pour Hobbes, le consentement à la servitude n'est pas une mystification mais un calcul rationnel : le peuple cède sa liberté naturelle pour la sécurité. La Boétie répondrait que Hobbes est lui-même victime de l'habitude tyrannique — il a si bien intériorisé la servitude qu'il la prend pour de la raison.</p>
+      <div class="gi-now">Le débat sécurité contre liberté est directement hobbesio-laboétien. Après le 11-Septembre, les démocraties ont massivement accepté des restrictions de liberté au nom de la sécurité. La Boétie aurait demandé : est-ce de la rationalité ou de la servitude volontaire ?</div>
+    </div>
+
+    <div class="gi" data-g="T">
+      <span class="gi-src">Philosophie politique / Démocratie</span>
+      <div class="gi-term">Alexis de Tocqueville</div>
+      <p class="gi-def">Tocqueville dans <em>De la Démocratie en Amérique</em> (1835-1840) décrit ce qu'il nomme le « despotisme doux » — une nouvelle forme de servitude propre aux démocraties modernes. Les citoyens sont libres en apparence mais se soumettent à un pouvoir tutélaire immense, « doux, prévoyant et régulier », qui les dispense de penser par eux-mêmes. C'est la servitude volontaire de La Boétie transposée dans la démocratie de masse : non plus un tyran violent, mais un État paternaliste qui absorbe les volontés. Tocqueville nomme ce risque propre aux démocraties là où La Boétie ne l'avait diagnostiqué que dans les monarchies tyranniques.</p>
+      <div class="gi-now">L'État providence contemporain, les algorithmes de recommandation qui pensent à notre place, la bureaucratisation de la vie quotidienne — autant de formes du despotisme doux tocquevillien qui héritent de la problématique laboétienne du consentement à la dépendance.</div>
+    </div>
+
+    <div class="gi" data-g="A">
+      <span class="gi-src">Philosophie politique / Totalitarisme</span>
+      <div class="gi-term">Hannah Arendt</div>
+      <p class="gi-def">Arendt dans <em>Les Origines du totalitarisme</em> (1951) et <em>Eichmann à Jérusalem</em> (1963) reprend à nouveaux frais la question laboétienne : comment des millions d'hommes ordinaires participent-ils à des systèmes d'oppression ? Sa réponse — la « banalité du mal », la participation bureaucratique sans intentionnalité criminelle — est une version moderne de la pyramide de complicité que La Boétie décrivait. Eichmann n'est pas un monstre mais un fonctionnaire : il obéit, remplit des formulaires, participe à la chaîne sans en voir la finalité. La servitude volontaire prend ici un visage bureaucratique et banal.</p>
+      <div class="gi-now">La question de la responsabilité des « petits rouages » dans les grands crimes institutionnels — fonctionnaires d'immigration, employés de plateformes numériques qui modèrent du contenu — reste posée dans ces termes : jusqu'où l'obéissance à la hiérarchie déresponsabilise-t-elle ?</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ ACTUALITÉ ═══ -->
+<section id="aujourdhui" class="sec dark">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">08 — Actualité</span>
+    <h2 class="sec-h2">La <em>servitude volontaire</em> à l'œuvre aujourd'hui</h2>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;margin-top:1rem;" class="r">
+    <div style="background:rgba(255,255,255,.03);padding:2rem;border-top:2px solid var(--blood);">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blood);margin-bottom:1rem;">Démocraties illibérales</div>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.85;">Hongrie, Turquie, Russie — des gouvernements élus démocratiquement qui démantèlent progressivement les contre-pouvoirs. Le peuple vote pour celui qui lui retire sa liberté. La Boétie avait raison : l'élection ne garantit pas la liberté. La servitude volontaire peut prendre la forme du bulletin de vote.</p>
+    </div>
+    <div style="background:rgba(255,255,255,.03);padding:2rem;border-top:2px solid var(--neon);">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neon);margin-bottom:1rem;">Servitude numérique</div>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.85;">Les plateformes numériques (Meta, Google, TikTok) captent l'attention, modèlent les désirs, surveillent les comportements — et les utilisateurs cèdent leurs données et leur autonomie de jugement en échange de services gratuits. C'est le divertissement de Cyrus à l'échelle planétaire, offert non par un roi mais par des algorithmes.</p>
+    </div>
+    <div style="background:rgba(255,255,255,.03);padding:2rem;border-top:2px solid var(--steel);">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:#8aaccc;margin-bottom:1rem;">Désobéissance civile</div>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.85;">La thèse de La Boétie — il suffit de ne plus servir — inspire toutes les traditions de résistance non violente : Gandhi, Martin Luther King, Mandela. La désobéissance civile est la traduction pratique du programme laboétien : retirer le consentement, assécher la légitimité du pouvoir injuste sans recourir à la violence.</p>
+    </div>
+  </div>
+
+  <div class="pq steel r" style="margin-top:3rem;">
+    <p>« Pauvres gens misérables, peuples insensés, nations opiniâtres à votre mal et aveugles à votre bien ! Vous vous laissez enlever sous vos yeux le plus beau et le plus clair de votre revenu. »</p>
+    <cite>— La Boétie, Discours de la Servitude Volontaire</cite>
+  </div>
+</section>
+
+<!-- ═══ QUIZ ═══ -->
+<section id="quiz" class="sec alt">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">09 — Interactif</span>
+    <h2 class="sec-h2">Quiz — <em>Testez</em> votre compréhension</h2>
+  </div>
+
+  <div class="quiz-wrap r">
+    <div class="quiz-progress-bar">
+      <div class="quiz-progress-fill" id="quizProgressFill" style="width:0%"></div>
+    </div>
+    <div class="quiz-title">Question <span id="qNum">1</span>/6 — <span id="qStatus">Sélectionnez une réponse</span></div>
+    <p class="quiz-question" id="qText"></p>
+    <div class="quiz-options" id="qOptions"></div>
+    <div class="quiz-feedback" id="qFeedback"></div>
+    <div class="quiz-nav">
+      <span class="quiz-counter">Score : <span id="scoreDisplay">0</span> / 6</span>
+      <button class="quiz-btn" id="qNext" onclick="nextQuestion()" disabled>Question suivante →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PISTES DE RÉFLEXION ═══ -->
+<section id="reflexion" class="sec dark">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">10 — Pédagogie</span>
+    <h2 class="sec-h2">Pistes de <em>réflexion</em></h2>
+  </div>
+
+  <div class="qstack r">
+    <div class="qi">
+      <span class="qi-n">Q.01</span>
+      <div>
+        <p class="qi-t">La Boétie affirme que la servitude est « volontaire ». Est-ce que cette thèse tient compte des contraintes économiques et sociales qui pèsent réellement sur les dominés ? N'y a-t-il pas une part d'idéalisme dans l'idée qu'il suffirait de « vouloir » la liberté pour l'avoir ?</p>
+        <p class="qi-hint">Piste : La Boétie reconnaît lui-même que la contrainte initiale est parfois réelle. C'est la perpétuation de la servitude par les générations suivantes qui est « volontaire ». Comparer avec Marx (la conscience aliénée ne peut pas se voir elle-même) et Bourdieu (les dominés participent à leur propre domination sans le savoir). La liberté est-elle une question de vouloir ou d'information ?</p>
+        <div class="qi-tags">
+          <span class="qi-tag">Consentement</span>
+          <span class="qi-tag">Domination</span>
+          <span class="qi-tag">Faisabilité</span>
+        </div>
+      </div>
+    </div>
+    <div class="qi">
+      <span class="qi-n">Q.02</span>
+      <div>
+        <p class="qi-t">La Boétie propose la désobéissance passive comme remède à la tyrannie. Cette stratégie est-elle réaliste face aux régimes autoritaires contemporains qui disposent de moyens de surveillance, de répression et de manipulation sans commune mesure avec ceux du XVIe siècle ?</p>
+        <p class="qi-hint">Piste : Gandhi et King ont montré l'efficacité de la non-coopération contre l'Empire britannique et la ségrégation américaine. Mais les régimes totalitaires (Chine, Corée du Nord) ont développé des outils qui rendent la résistance quasi impossible. Quelles conditions politiques et sociales la désobéissance civile requiert-elle pour être efficace ?</p>
+        <div class="qi-tags">
+          <span class="qi-tag">Désobéissance civile</span>
+          <span class="qi-tag">Résistance non violente</span>
+          <span class="qi-tag">Totalitarisme</span>
+        </div>
+      </div>
+    </div>
+    <div class="qi">
+      <span class="qi-n">Q.03</span>
+      <div>
+        <p class="qi-t">Le divertissement comme outil de domination (panem et circenses) est-il une manipulation consciente et calculée des dirigeants, ou peut-il s'expliquer autrement — comme un sous-produit non intentionnel du capitalisme du divertissement ? La thèse de La Boétie exige-t-elle une intentionnalité tyrannique ?</p>
+        <p class="qi-hint">Piste : Comparer La Boétie avec Debord (le spectacle comme rapport social aliéné, non complot) et avec Byung-Chul Han (la société de la performance comme auto-exploitation sans tyran apparent). La domination moderne n'a peut-être plus besoin d'un tyran conscient pour fonctionner.</p>
+        <div class="qi-tags">
+          <span class="qi-tag">Divertissement</span>
+          <span class="qi-tag">Debord</span>
+          <span class="qi-tag">Intentionnalité</span>
+        </div>
+      </div>
+    </div>
+    <div class="qi">
+      <span class="qi-n">Q.04</span>
+      <div>
+        <p class="qi-t">La Boétie voit dans les « gens de bien » — philosophes, lettrés, hommes d'esprit — les seuls capables de résister à la tyrannie car ils ont l'entendement net et refusent la servitude. Cette vision élitiste de la résistance est-elle compatible avec une théorie démocratique de la liberté ?</p>
+        <p class="qi-hint">Piste : La Boétie distingue les ignorants (qui ne voient que ce qui est à leurs pieds) et ceux qui ont « la tête bien faite » par l'étude. Il y a une tension entre ce passage aristocratique et la thèse générale selon laquelle tout homme désire naturellement la liberté. Comment concilier les deux ?</p>
+        <div class="qi-tags">
+          <span class="qi-tag">Élitisme intellectuel</span>
+          <span class="qi-tag">Démocratie</span>
+          <span class="qi-tag">Éducation</span>
+        </div>
+      </div>
+    </div>
+    <div class="qi">
+      <span class="qi-n">Q.05</span>
+      <div>
+        <p class="qi-t">La thèse de La Boétie implique que la tyrannie est toujours, en dernière instance, la faute du peuple qui consent. Cette assignation de responsabilité aux victimes ne risque-t-elle pas d'absoudre le tyran et ses complices de leur propre responsabilité ?</p>
+        <p class="qi-hint">Piste : La Boétie ne dit pas que le peuple est coupable au sens moral — il dit qu'il est la cause efficiente du maintien de la tyrannie, ce qui est une analyse sociologique, non un jugement moral. Mais la rhétorique du texte (« pauvres gens misérables, nations opiniâtres ») penche vers le reproche. Comment articuler analyse structurelle et responsabilité individuelle ?</p>
+        <div class="qi-tags">
+          <span class="qi-tag">Responsabilité</span>
+          <span class="qi-tag">Structure vs. agentivité</span>
+          <span class="qi-tag">Victimes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SYNTHÈSE ═══ -->
+<section id="synthese" class="sec dark">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">11 — Synthèse</span>
+    <h2 class="sec-h2">Ce que le texte <em>nous apprend</em></h2>
+  </div>
+
+  <div class="synth-grid r">
+    <div class="sc">
+      <div class="sc-title">La force du texte</div>
+      <p class="sc-body">Sa radicalité analytique : en cherchant non dans le tyran mais dans ses sujets la cause de la tyrannie, La Boétie opère un retournement copernicien de la philosophie politique. Il invente une sociologie de la domination avant la sociologie elle-même. Son programme de libération est également radical dans sa simplicité : ne pas combattre, ne pas mourir — cesser de servir. La désobéissance passive comme philosophie politique.</p>
+    </div>
+    <div class="sc">
+      <div class="sc-title">Les limites du texte</div>
+      <p class="sc-body">Son idéalisme volontariste : La Boétie sous-estime les contraintes matérielles, économiques et cognitives qui rendent la « liberté de vouloir » inaccessible à beaucoup. Sa confiance dans la raison naturelle ne laisse pas assez de place à la socialisation, à l'idéologie, à la violence symbolique. Son élitisme intellectuel (les « gens de bien » contre la « populace ») entre en tension avec son universalisme de la liberté.</p>
+    </div>
+    <div class="sc">
+      <div class="sc-title">L'héritage vivant</div>
+      <p class="sc-body">Cinq siècles après sa rédaction, le <em>Discours</em> reste une arme intellectuelle. Il fournit le vocabulaire de la résistance non violente, de la désobéissance civile et de la critique de la complicité ordinaire avec le pouvoir. Dans chaque mouvement de résistance — Solidarité, le Printemps arabe, les manifestations hong-kongaises, les révolutions de velours — La Boétie est présent : il suffit de retirer le consentement.</p>
+    </div>
+  </div>
+
+  <div class="pq steel r" style="margin-top:3rem;">
+    <p>« Apprenons donc ; apprenons à bien faire. Levons les yeux vers le ciel pour notre honneur ou pour l'amour de la vertu. »</p>
+    <cite>— La Boétie, Discours de la Servitude Volontaire — conclusion</cite>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div>Fiche de lecture · Philosophie politique</div>
+  <div class="fc">SV</div>
+  <div>
+    <a href="#hero">↑ Retour en haut</a>
+  </div>
+</footer>
+
+<script>
+/* ─── CURSOR ─── */
+const dot = document.getElementById('dot');
+const ring = document.getElementById('ring');
+const trail = document.getElementById('trail');
+const ctx = trail.getContext('2d');
+let mx = 0, my = 0, rx = 0, ry = 0;
+let particles = [];
+
+trail.width = window.innerWidth;
+trail.height = window.innerHeight;
+window.addEventListener('resize', () => { trail.width = window.innerWidth; trail.height = window.innerHeight; });
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+  particles.push({ x: mx, y: my, life: 1, size: Math.random() * 3 + 1 });
+  if (particles.length > 60) particles.shift();
+});
+
+(function animate() {
+  requestAnimationFrame(animate);
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  ring.style.width = ring.style.height = Math.abs(mx - rx) * 1.5 + 16 + 'px';
+  ring.style.border = '1.5px solid rgba(192,35,27,' + Math.min(1, 0.4 / (Math.hypot(mx-rx,my-ry)+1)*10) + ')';
+  ctx.clearRect(0, 0, trail.width, trail.height);
+  particles.forEach((p, i) => {
+    p.life -= 0.025;
+    if (p.life <= 0) { particles.splice(i, 1); return; }
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(192,35,27,${p.life * 0.15})`;
+    ctx.fill();
+  });
+})();
+
+/* ─── PROGRESS BAR ─── */
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const h = document.body.scrollHeight - window.innerHeight;
+  prog.style.transform = `scaleX(${window.scrollY / h})`;
+});
+
+/* ─── REVEAL ON SCROLL ─── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('v'); });
+}, { threshold: 0.07 });
+document.querySelectorAll('.r,.tl-item').forEach(el => obs.observe(el));
+
+/* ─── ACTIVE NAV ─── */
+const secs = document.querySelectorAll('section[id], footer');
+const links = document.querySelectorAll('.snav-a');
+const navo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('on'));
+      const a = document.querySelector('.snav-a[href="#' + e.target.id + '"]');
+      if (a) a.classList.add('on');
+    }
+  });
+}, { threshold: 0.3 });
+secs.forEach(s => navo.observe(s));
+
+/* ─── ACCORDION ─── */
+function toggleAcc(head) {
+  const item = head.parentElement;
+  const wasOpen = item.classList.contains('open');
+  const parent = item.parentElement;
+  parent.querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+/* ─── CONCEPT CARDS ─── */
+let openedConcepts = new Set();
+
+function toggleCard(card) {
+  const expand = card.querySelector('.cc-expand');
+  const toggle = card.querySelector('.cc-toggle');
+  const num = card.dataset.num;
+  const isOpen = expand.classList.contains('open');
+
+  expand.classList.toggle('open', !isOpen);
+  toggle.classList.toggle('open-arrow', !isOpen);
+  toggle.querySelector('span:last-child').textContent = isOpen ? 'Lire l\'analyse' : 'Réduire';
+
+  if (!isOpen) {
+    openedConcepts.add(num);
+    updateConceptCount();
+  }
+}
+
+function updateConceptCount() {
+  const count = openedConcepts.size;
+  document.getElementById('conceptCount').textContent = `${count}/6`;
+  document.getElementById('conceptFill').style.width = `${(count/6)*100}%`;
+}
+
+/* ─── QUIZ ─── */
+const quizData = [
+  {
+    q: "Selon La Boétie, pourquoi la tyrannie se maintient-elle alors que le tyran est seul contre des millions ?",
+    opts: [
+      "Par la force des armes et l'impossibilité physique de se révolter",
+      "Parce que le peuple consent à sa propre oppression et fournit lui-même au tyran les moyens de le dominer",
+      "Grâce à la religion qui sacralise le pouvoir royal et paralyse la résistance",
+      "Par la terreur et la surveillance permanente qui empêchent toute organisation"
+    ],
+    correct: 1,
+    feedback: "C'est la thèse centrale du Discours. La Boétie refuse l'explication par la force : un seul corps ne peut physiquement en contraindre un million. Le tyran n'a que « deux yeux, deux mains, un corps ». Ce qu'il a de plus, ce sont les moyens que le peuple lui fournit. La servitude est donc volontaire — c'est le peuple qui s'asservit, et il en serait quitte en cessant simplement de servir."
+  },
+  {
+    q: "La Boétie identifie trois causes principales de la servitude volontaire. Laquelle n'en fait PAS partie ?",
+    opts: [
+      "L'habitude et la coutume qui font oublier la liberté aux générations nées sous le joug",
+      "La peur naturelle de la mort qui retient les hommes de se révolter",
+      "Le divertissement et les spectacles offerts par les tyrans pour abêtir le peuple",
+      "La pyramide de complicité qui associe des millions d'intéressés au maintien du pouvoir"
+    ],
+    correct: 1,
+    feedback: "La Boétie ne retient pas la peur de la mort comme cause principale — au contraire, il cite des exemples de peuples qui préfèrent mourir libres (les Spartiates, certains animaux). Les trois causes qu'il développe sont bien : l'habitude (première raison, les hommes nés sous le joug ne connaissent pas d'autre état), le divertissement (spectacles, festins, jeux — les instruments de l'abrutissement volontaire) et la pyramide de complices qui donne à des millions intérêt au maintien de la tyrannie."
+  },
+  {
+    q: "Qu'est-ce que La Boétie entend par « panem et circenses » dans son analyse de la tyrannie ?",
+    opts: [
+      "Le contrat social par lequel le peuple cède sa liberté contre la sécurité matérielle",
+      "La stratégie des tyrans d'offrir divertissements et nourriture pour détourner le peuple de sa liberté",
+      "Le droit naturel des peuples à être nourris et divertis par leur gouvernement",
+      "La solidarité économique entre le tyran et ses favoris fondée sur le partage des richesses pillées"
+    ],
+    correct: 1,
+    feedback: "La Boétie analyse avec précision la technique du divertissement comme instrument de domination. L'exemple de Cyrus est central : ayant conquis la Lydie, il installa bordels, tavernes et jeux publics et n'eut plus jamais besoin de l'épée. Les Romains perfectionnèrent l'art : théâtre, gladiateurs, distributions de blé et de vin. Le peuple qui crie « Vive le roi ! » en recevant son sesterce ne réalise pas qu'on lui rend une part infime de ce qu'on lui a d'abord volé."
+  },
+  {
+    q: "Selon La Boétie, quel est le « ressort et secret de la domination » qui maintient réellement la tyrannie ?",
+    opts: [
+      "La terreur exercée par les armées et les gardes personnels du tyran",
+      "La légitimité religieuse et le caractère divin attribué au souverain",
+      "Une pyramide de complices intéressés — favoris, fonctionnaires, bénéficiaires — qui ont tous intérêt au système",
+      "L'ignorance politique du peuple entretenue par l'absence d'éducation"
+    ],
+    correct: 2,
+    feedback: "Le passage sur la pyramide de complicité est l'une des analyses les plus originales du texte. La Boétie révèle que les gardes et archers ne sont qu'une façade — ils ont souvent tué leurs propres empereurs. Ce qui tient réellement la tyrannie, c'est une chaîne hiérarchique : 5 ou 6 favoris corrompent 600, qui tiennent 6000, jusqu'à ce que des millions aient intérêt au maintien du système. La tyrannie n'est pas l'affaire d'un homme mais d'un réseau social organisé autour du bénéfice mutuel de la domination."
+  },
+  {
+    q: "La Boétie distingue trois types de tyrans selon leur mode d'accession au pouvoir. Quelle affirmation résume correctement sa conclusion sur cette classification ?",
+    opts: [
+      "Le tyran élu est le plus légitime et le plus susceptible de gouverner justement",
+      "Le tyran héréditaire est le plus doux car il n'a pas besoin de conquérir le pouvoir par la violence",
+      "Malgré leurs différences d'accession, les trois types exercent leur pouvoir de la même façon tyrannique",
+      "Le tyran conquérant est le pire car il traite le pays comme une proie et non comme un héritage"
+    ],
+    correct: 2,
+    feedback: "La conclusion de La Boétie est radicale : « je vois bien entre ces tyrans quelques différences, mais de choix, je n'en vois pas. » Quelle que soit la voie d'accession — élection populaire, conquête militaire, succession héréditaire — la manière de régner est toujours à peu près la même. Le tyran élu finit même souvent par surpasser les autres en cruauté, car il considère que la puissance que le peuple lui a confiée doit être transmise à ses enfants."
+  },
+  {
+    q: "Pourquoi La Boétie refuse-t-il de recommander une révolte armée contre le tyran ?",
+    opts: [
+      "Parce qu'il pense que la violence engendre toujours plus de violence et perpétue la tyrannie",
+      "Parce que la tyrannie s'effondre d'elle-même si le peuple cesse simplement de lui donner : retirer le consentement suffit",
+      "Parce qu'une révolte ne ferait que remplacer un tyran par un autre sans résoudre le problème fondamental",
+      "Parce qu'il estime que seuls les philosophes et les hommes instruits peuvent agir efficacement"
+    ],
+    correct: 1,
+    feedback: "La cohérence de la thèse laboétienne interdit le recours aux armes. Si la tyrannie ne tient que par le consentement du peuple, alors la solution est de retirer ce consentement — non de combattre. « Il n'est pas besoin de le combattre, ni de l'abattre. Il est défait de lui-même, pourvu que le pays ne consente point à sa servitude. » C'est le programme de la désobéissance passive que Gandhi et Luther King mettront en œuvre quatre siècles plus tard."
+  }
+];
+
+let currentQ = 0;
+let score = 0;
+let answered = false;
+
+function renderQuestion() {
+  const q = quizData[currentQ];
+  document.getElementById('qNum').textContent = currentQ + 1;
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('qFeedback').className = 'quiz-feedback';
+  document.getElementById('qFeedback').textContent = '';
+  document.getElementById('qNext').disabled = true;
+  document.getElementById('qStatus').textContent = 'Sélectionnez une réponse';
+  answered = false;
+
+  const prog2 = ((currentQ) / quizData.length) * 100;
+  document.getElementById('quizProgressFill').style.width = prog2 + '%';
+
+  const opts = document.getElementById('qOptions');
+  opts.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'qopt';
+    btn.innerHTML = `<span>${opt}</span>`;
+    btn.onclick = () => selectAnswer(i, btn);
+    opts.appendChild(btn);
+  });
+}
+
+function selectAnswer(idx, btn) {
+  if (answered) return;
+  answered = true;
+  const q = quizData[currentQ];
+  const opts = document.querySelectorAll('.qopt');
+
+  opts.forEach((o, i) => {
+    if (i === q.correct) o.classList.add('correct');
+    else if (i === idx && i !== q.correct) o.classList.add('wrong');
+    else o.classList.add('reveal');
+  });
+
+  const fb = document.getElementById('qFeedback');
+  fb.textContent = q.feedback;
+  fb.classList.add('show');
+
+  if (idx === q.correct) {
+    score++;
+    document.getElementById('scoreDisplay').textContent = score;
+    document.getElementById('qStatus').textContent = '✓ Bonne réponse';
+  } else {
+    document.getElementById('qStatus').textContent = '✗ Réponse incorrecte';
+  }
+
+  document.getElementById('qNext').disabled = false;
+
+  const pct = Math.round((score / quizData.length) * 100);
+  document.getElementById('sidebarScore').textContent = `${score}/${quizData.length}`;
+  document.getElementById('sidebarFill').style.width = pct + '%';
+
+  if (currentQ === quizData.length - 1) {
+    document.getElementById('qNext').textContent = 'Voir mon score →';
+  }
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= quizData.length) {
+    showModal();
+    return;
+  }
+  renderQuestion();
+}
+
+function showModal() {
+  const msgs = [
+    [0,1, "Relisez attentivement les sections Thèse centrale et Concepts. La logique du consentement de La Boétie reste à découvrir."],
+    [2,3, "Quelques concepts restent flous. Revenez sur la pyramide de complicité et sur le rôle du divertissement."],
+    [4,4, "Bonne compréhension des grandes lignes. Approfondissez les dialogues avec Machiavel et Rousseau."],
+    [5,5, "Très solide. Vous saisissez bien l'articulation entre consentement, habitude et libération."],
+    [6,6, "Maîtrise remarquable. Vous êtes prêt(e) à mobiliser La Boétie pour analyser les formes contemporaines de servitude."]
+  ];
+  const msg = msgs.find(m => score >= m[0] && score <= m[1]);
+  document.getElementById('modalScore').textContent = `${score}/6`;
+  document.getElementById('modalMsg').textContent = msg ? msg[2] : '';
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+  currentQ = 0; score = 0; answered = false;
+  document.getElementById('scoreDisplay').textContent = '0';
+  document.getElementById('quizProgressFill').style.width = '0%';
+  document.getElementById('qNext').textContent = 'Question suivante →';
+  renderQuestion();
+}
+
+// Init quiz
+renderQuestion();
+
+/* ─── Sidebar score bars init ─── */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('sidebarFill').style.width = '0%';
+    document.getElementById('conceptFill').style.width = '0%';
+  }, 500);
+});
+</script>
+</body>
+</html>
