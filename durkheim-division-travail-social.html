@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>De la Division du Travail Social — Émile Durkheim</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN SYSTEM — Typographie industrielle brutale
+   Palette : ardoise / ocre / encre
+   ═══════════════════════════════════════════ */
+:root {
+  --concrete: #f2ede6;
+  --concrete2: #e8e2da;
+  --concrete3: #d8d0c6;
+  --ink: #0e0c0a;
+  --ink2: #1e1a16;
+  --blood: #c0231b;
+  --blood2: #8c180f;
+  --blood-pale: #f5dedd;
+  --neon: #e8a020;
+  --neon2: #c07818;
+  --neon-pale: #faf0d8;
+  --steel: #3a4a5a;
+  --steel2: #2a3848;
+  --steel-pale: #d8e0ea;
+  --rust: #7a3a18;
+  --dust: #8a8278;
+  --rule: #c8c0b4;
+  --sidebar: 270px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--concrete);
+  color:var(--ink);
+  font-family:'Libre Baskerville',serif;
+  font-size:17px;
+  line-height:1.75;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ─── CURSOR ─── */
+#cur{
+  width:14px;height:14px;
+  border:2px solid var(--blood);
+  border-radius:50%;
+  position:fixed;top:0;left:0;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width .25s,height .25s,background .25s,border-color .25s;
+}
+#cur.expand{width:40px;height:40px;background:rgba(192,35,27,.08);border-color:var(--neon);}
+
+/* ─── PROGRESS ─── */
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--blood);transform-origin:left;transform:scaleX(0);z-index:1002;transition:transform .08s linear;}
+
+/* ═══ SIDEBAR ═══ */
+.snav{
+  position:fixed;left:0;top:0;bottom:0;
+  width:var(--sidebar);
+  background:var(--ink2);
+  z-index:100;
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+  scrollbar-width:thin;
+  scrollbar-color:var(--blood) transparent;
+}
+
+.snav-brand{
+  padding:2rem 1.8rem 1.8rem;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.snav-kicker{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:.8rem;
+}
+
+.snav-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.5rem;font-weight:800;line-height:1;
+  color:#fff;letter-spacing:.02em;text-transform:uppercase;
+}
+
+.snav-authors{
+  font-family:'Libre Baskerville',serif;
+  font-style:italic;font-size:.78rem;
+  color:rgba(255,255,255,.35);margin-top:.4rem;
+}
+
+.snav-year{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;color:var(--blood);
+  letter-spacing:.1em;margin-top:.5rem;
+}
+
+.snav-lbl{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.18);
+  padding:.9rem 1.8rem .3rem;
+}
+
+.snav-a{
+  display:flex;align-items:center;gap:.7rem;
+  padding:.42rem 1.8rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.8rem;font-weight:500;letter-spacing:.04em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.38);
+  text-decoration:none;
+  border-left:2px solid transparent;
+  transition:all .2s;
+}
+.snav-a:hover{color:rgba(255,255,255,.85);border-left-color:var(--neon);padding-left:2.1rem;}
+.snav-a.on{color:#fff;border-left-color:var(--blood);background:rgba(192,35,27,.08);}
+
+.snav-bullet{
+  width:5px;height:5px;border-radius:50%;
+  background:currentColor;opacity:.4;flex-shrink:0;
+}
+
+.snav-div{height:1px;background:rgba(255,255,255,.04);margin:.6rem 1.8rem;}
+
+.snav-score{
+  margin-top:auto;padding:1.5rem 1.8rem;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+
+.snav-score-title{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.2);margin-bottom:.8rem;
+}
+
+.score-bar{
+  height:4px;background:rgba(255,255,255,.06);
+  border-radius:2px;margin:.5rem 0;overflow:hidden;
+}
+
+.score-fill{
+  height:100%;border-radius:2px;
+  transition:width 1.5s cubic-bezier(.16,1,.3,1);
+}
+
+.score-label{
+  display:flex;justify-content:space-between;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.1em;
+  color:rgba(255,255,255,.25);margin-bottom:.2rem;
+}
+
+/* ═══ MAIN ═══ */
+.main{margin-left:var(--sidebar);}
+
+/* ═══ HERO ═══ */
+.hero{
+  min-height:100vh;
+  background:var(--ink);
+  color:#fff;
+  padding:5rem 6rem 4rem;
+  position:relative;overflow:hidden;
+  display:grid;grid-template-rows:1fr auto;
+}
+
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:80px 80px;
+  pointer-events:none;
+}
+
+.hero-diag{
+  position:absolute;bottom:0;right:0;
+  width:45%;height:100%;
+  background:var(--blood2);
+  clip-path:polygon(30% 0,100% 0,100% 100%,0% 100%);
+  opacity:.12;pointer-events:none;
+}
+
+.hero-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:2.5rem;
+  opacity:0;animation:fadeUp .7s ease forwards .1s;
+}
+
+.hero-h1{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(4rem,8vw,10rem);
+  font-weight:900;line-height:.88;
+  letter-spacing:-.01em;text-transform:uppercase;
+  opacity:0;animation:fadeUp .9s ease forwards .25s;
+}
+
+.hero-h1 .line1{display:block;color:#fff;}
+.hero-h1 .line2{display:block;color:#fff;}
+.hero-h1 .line3{display:block;color:var(--blood);}
+
+.hero-rule{
+  width:120px;height:3px;
+  background:linear-gradient(90deg,var(--blood),var(--neon));
+  margin:2.5rem 0 2rem;
+  opacity:0;animation:fadeUp .7s ease forwards .5s;
+}
+
+.hero-sub{
+  max-width:680px;
+  font-size:1.05rem;font-weight:400;font-style:italic;
+  color:rgba(255,255,255,.6);line-height:1.85;
+  opacity:0;animation:fadeUp .8s ease forwards .4s;
+}
+
+.hero-sub strong{color:#fff;font-style:normal;}
+
+.hero-chips{
+  display:flex;flex-wrap:wrap;gap:.6rem;
+  margin-top:2rem;
+  opacity:0;animation:fadeUp .7s ease forwards .7s;
+}
+
+.chip{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.28rem .8rem;border-radius:2px;border:1px solid;
+}
+
+.chip-blood{color:var(--blood);border-color:rgba(192,35,27,.4);background:rgba(192,35,27,.08);}
+.chip-neon {color:var(--neon); border-color:rgba(232,160,32,.4); background:rgba(232,160,32,.08);}
+.chip-steel{color:#8aaccc;    border-color:rgba(138,172,204,.3);background:rgba(138,172,204,.06);}
+
+.hero-bottom{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  padding-top:3rem;border-top:1px solid rgba(255,255,255,.07);
+  opacity:0;animation:fadeUp .7s ease forwards .9s;
+}
+
+.hb-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.25);margin-bottom:.4rem;
+}
+
+.hb-names{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.6rem;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:#fff;line-height:1.1;
+}
+
+.hb-names span{color:var(--neon);}
+
+.hero-thesis{
+  text-align:right;max-width:420px;
+  font-family:'Libre Baskerville',serif;
+  font-style:italic;font-size:.92rem;
+  color:rgba(255,255,255,.45);line-height:1.7;
+}
+
+.hero-thesis cite{
+  display:block;margin-top:.5rem;
+  font-style:normal;font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--neon);
+}
+
+/* ═══ GENERIC SECTION ═══ */
+.sec{
+  padding:5.5rem 6rem;
+  border-bottom:1px solid var(--rule);
+}
+
+.sec.alt{background:var(--concrete2);}
+.sec.dark{background:var(--ink2);color:#fff;}
+.sec.steel{background:var(--steel2);color:#fff;}
+.sec.blood{background:var(--blood2);color:#fff;}
+
+.sec-eyebrow{display:flex;align-items:center;gap:1.2rem;margin-bottom:3rem;}
+
+.sec-num{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--blood);background:var(--blood-pale);
+  padding:.28rem .75rem;border-radius:2px;
+}
+.dark .sec-num,.steel .sec-num,.blood .sec-num{
+  background:rgba(192,35,27,.2);color:#f08880;
+}
+
+.sec-h2{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2.6rem;font-weight:800;
+  letter-spacing:.01em;text-transform:uppercase;line-height:1;
+}
+
+.sec-h2 em{color:var(--blood);font-style:normal;}
+.dark .sec-h2,.steel .sec-h2,.blood .sec-h2{color:#fff;}
+.dark .sec-h2 em,.steel .sec-h2 em{color:var(--neon);}
+.blood .sec-h2 em{color:var(--neon);}
+
+/* ═══ TIMELINE ═══ */
+.timeline-container{position:relative;padding-left:3rem;margin-top:2rem;}
+.timeline-container::before{
+  content:'';position:absolute;
+  left:14px;top:0;bottom:0;width:2px;
+  background:linear-gradient(to bottom,var(--blood),var(--neon),var(--steel));
+}
+
+.tl-item{
+  position:relative;margin-bottom:2.5rem;
+  opacity:0;transform:translateX(-20px);
+  transition:opacity .6s ease,transform .6s ease;
+}
+
+.tl-item.v{opacity:1;transform:none;}
+
+.tl-dot{
+  position:absolute;left:-2.45rem;top:.35rem;
+  width:12px;height:12px;border-radius:50%;border:2px solid;
+}
+
+.tl-dot.blood{background:var(--blood);border-color:var(--blood);}
+.tl-dot.neon{background:var(--neon);border-color:var(--neon);}
+
+.tl-year{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--blood);margin-bottom:.2rem;
+}
+
+.tl-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.25rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  margin-bottom:.5rem;
+}
+
+.tl-body{font-size:.88rem;color:#3a3530;line-height:1.8;max-width:680px;}
+
+/* ═══ CONCEPT CARDS ═══ */
+.concept-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;background:var(--ink);
+  border:1px solid var(--ink);
+  margin-top:1rem;
+}
+
+.concept-card{
+  background:var(--concrete);
+  padding:2.2rem;
+  position:relative;overflow:hidden;
+  cursor:pointer;
+  transition:background .3s;
+}
+
+.alt .concept-card{background:var(--concrete2);}
+
+.concept-card::after{
+  content:attr(data-num);
+  position:absolute;right:.8rem;bottom:-1rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:7rem;font-weight:900;
+  color:rgba(0,0,0,.04);line-height:1;
+  pointer-events:none;
+}
+
+.cc-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--blood);display:block;margin-bottom:.5rem;
+}
+
+.cc-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.45rem;font-weight:800;
+  letter-spacing:.02em;text-transform:uppercase;
+  line-height:1.1;margin-bottom:.8rem;
+}
+
+.cc-short{
+  font-size:.88rem;color:var(--dust);
+  line-height:1.7;
+}
+
+.cc-expand{
+  max-height:0;overflow:hidden;
+  transition:max-height .5s cubic-bezier(.16,1,.3,1),
+             opacity .4s ease,
+             padding .4s ease;
+  opacity:0;
+}
+
+.cc-expand.open{max-height:600px;opacity:1;padding-top:1rem;}
+
+.cc-expand-body{
+  font-size:.85rem;color:var(--ink);line-height:1.8;
+  border-top:1px solid var(--rule);padding-top:1rem;
+}
+
+.cc-expand-body p{margin-bottom:.7rem;}
+.cc-expand-body p:last-child{margin-bottom:0;}
+.cc-expand-body strong{color:var(--blood);font-weight:600;}
+
+.cc-today{
+  margin-top:.8rem;padding:.8rem 1rem;
+  background:var(--neon-pale);
+  border-left:2px solid var(--neon);
+  font-size:.8rem;font-style:italic;
+  color:var(--rust);line-height:1.6;
+}
+
+.cc-today::before{
+  content:'Aujourd\'hui → ';
+  font-style:normal;font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--neon2);display:block;margin-bottom:.2rem;
+}
+
+.cc-toggle{
+  display:flex;align-items:center;gap:.5rem;
+  margin-top:1rem;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--blood);cursor:pointer;
+  transition:color .2s;
+}
+
+.cc-arrow{
+  width:16px;height:16px;border:1px solid var(--blood);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;transition:transform .3s;
+}
+
+.open-arrow .cc-arrow{transform:rotate(180deg);}
+.concept-card:hover{background:var(--blood-pale);}
+
+/* ═══ ACCORDION ═══ */
+.accordion{display:flex;flex-direction:column;gap:2px;}
+
+.acc-item{background:var(--concrete);border-left:3px solid transparent;transition:border-color .3s,background .3s;}
+.alt .acc-item{background:var(--concrete2);}
+.acc-item.open{border-left-color:var(--blood);background:var(--blood-pale);}
+
+.acc-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.2rem 1.5rem;cursor:pointer;
+  transition:background .2s;
+}
+.acc-head:hover{background:rgba(192,35,27,.04);}
+
+.acc-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.05rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+}
+
+.acc-icon{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:1.2rem;color:var(--blood);
+  transition:transform .3s;flex-shrink:0;
+}
+
+.acc-item.open .acc-icon{transform:rotate(45deg);}
+
+.acc-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .5s cubic-bezier(.16,1,.3,1);
+}
+
+.acc-item.open .acc-body{max-height:400px;}
+
+.acc-inner{
+  padding:0 1.5rem 1.5rem;
+  font-size:.88rem;color:#3a3530;line-height:1.85;
+}
+
+.acc-inner p{margin-bottom:.7rem;}
+.acc-inner p:last-child{margin-bottom:0;}
+.acc-inner strong{color:var(--blood);font-weight:600;}
+.dark .acc-inner,.steel .acc-inner{color:rgba(255,255,255,.7);}
+.dark .acc-inner em,.steel .acc-inner em{color:var(--neon);}
+
+/* ═══ PULL QUOTES ═══ */
+.pq{
+  padding:3rem 4rem;margin:3rem 0;
+  position:relative;overflow:hidden;
+}
+.pq.blood{background:var(--blood2);color:#fff;}
+.pq.neon{background:var(--ink);color:#fff;border-left:4px solid var(--neon);}
+.pq.steel{background:var(--steel2);color:#fff;}
+
+.pq::before{
+  content:'\201C';
+  position:absolute;top:-2rem;left:2rem;
+  font-family:'Libre Baskerville',serif;
+  font-size:14rem;line-height:1;
+  opacity:.08;pointer-events:none;
+  color:#fff;
+}
+
+.pq p{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.4rem;font-style:italic;font-weight:400;
+  line-height:1.65;position:relative;z-index:1;
+}
+
+.pq cite{
+  display:block;margin-top:1.2rem;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;
+  font-style:normal;color:rgba(255,255,255,.4);
+}
+
+.pq.neon cite{color:var(--neon);}
+
+/* ═══ GLOSSAIRE / RÉSEAU ═══ */
+.glos-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:2px;background:var(--rule);
+  border:1px solid var(--rule);
+}
+
+.gi{
+  background:var(--concrete);
+  padding:2rem 2.5rem;
+  position:relative;overflow:hidden;
+  transition:background .3s;
+}
+.alt .gi{background:var(--concrete2);}
+.gi:hover{background:var(--neon-pale);}
+
+.gi::after{
+  content:attr(data-g);
+  position:absolute;right:1rem;bottom:-1rem;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:8rem;font-weight:900;color:rgba(0,0,0,.04);
+  line-height:1;pointer-events:none;
+}
+
+.gi-src{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--blood);display:block;margin-bottom:.3rem;
+}
+
+.gi-term{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.55rem;font-weight:800;letter-spacing:.02em;
+  text-transform:uppercase;margin-bottom:.7rem;line-height:1.1;
+}
+
+.gi-def{font-size:.88rem;color:#3a3530;line-height:1.78;margin-bottom:.7rem;}
+
+.gi-now{
+  padding:.65rem 1rem;
+  background:rgba(232,160,32,.1);
+  border-left:2px solid var(--neon);
+  font-style:italic;font-size:.8rem;color:var(--rust);line-height:1.6;
+}
+
+.gi-now::before{
+  content:'Aujourd\'hui → ';
+  font-style:normal;font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--neon2);display:block;margin-bottom:.2rem;
+}
+
+/* ═══ QUIZ ═══ */
+.quiz-wrap{
+  background:var(--ink);color:#fff;
+  padding:4rem 5rem;margin-top:2rem;
+  position:relative;overflow:hidden;
+}
+
+.quiz-wrap::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blood),var(--neon),var(--blood));
+}
+
+.quiz-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--neon);margin-bottom:.4rem;
+}
+
+.quiz-question{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.25rem;font-style:italic;
+  color:#fff;line-height:1.6;margin-bottom:2rem;
+}
+
+.quiz-options{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1rem;
+}
+
+.qopt{
+  padding:1.2rem 1.5rem;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.02);
+  cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.92rem;font-weight:500;letter-spacing:.04em;
+  color:rgba(255,255,255,.7);
+  text-transform:uppercase;
+  transition:all .2s;
+  text-align:left;
+  position:relative;
+  overflow:hidden;
+}
+
+.qopt::before{
+  content:'';position:absolute;inset:0;
+  background:var(--blood);transform:scaleX(0);transform-origin:left;
+  transition:transform .3s ease;z-index:0;
+}
+
+.qopt:hover{color:#fff;border-color:var(--blood);}
+.qopt:hover::before{transform:scaleX(1);}
+.qopt span{position:relative;z-index:1;}
+
+.qopt.correct{background:rgba(30,120,50,.3);border-color:#4a9a60;color:#7dd89a;}
+.qopt.wrong  {background:rgba(180,40,30,.3);border-color:var(--blood);color:#f08880;}
+.qopt.reveal {background:rgba(30,120,50,.15);border-color:#4a9a60;color:#7dd89a;}
+
+.quiz-feedback{
+  margin-top:1.5rem;padding:1.2rem 1.5rem;
+  background:rgba(255,255,255,.04);
+  border-left:3px solid var(--neon);
+  font-size:.9rem;color:rgba(255,255,255,.7);
+  line-height:1.7;display:none;
+}
+
+.quiz-feedback.show{display:block;}
+
+.quiz-nav{
+  display:flex;justify-content:space-between;
+  align-items:center;margin-top:2rem;
+}
+
+.quiz-btn{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:.7rem 2rem;border:none;
+  background:var(--blood);color:#fff;
+  cursor:pointer;transition:background .2s;
+}
+
+.quiz-btn:hover{background:var(--blood2);}
+.quiz-btn:disabled{opacity:.3;cursor:not-allowed;}
+
+.quiz-progress-bar{
+  height:3px;background:rgba(255,255,255,.1);
+  border-radius:2px;margin-bottom:2.5rem;overflow:hidden;
+}
+
+.quiz-progress-fill{
+  height:100%;background:var(--blood);
+  transition:width .5s ease;
+}
+
+.quiz-counter{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.6rem;letter-spacing:.15em;
+  color:rgba(255,255,255,.3);
+}
+
+/* ═══ PISTES DE RÉFLEXION ═══ */
+.qstack{
+  display:flex;flex-direction:column;gap:2px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.05);
+  margin-top:1.5rem;
+}
+
+.qi{
+  background:rgba(255,255,255,.02);
+  padding:2rem 2.5rem;
+  display:grid;grid-template-columns:60px 1fr;
+  gap:1.5rem;align-items:start;
+  transition:background .3s;
+  border-left:3px solid transparent;
+}
+
+.qi:hover{background:rgba(192,35,27,.06);border-left-color:var(--blood);}
+
+.qi-n{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--blood);padding-top:.2rem;
+}
+
+.qi-t{
+  font-family:'Libre Baskerville',serif;
+  font-size:1.05rem;font-style:italic;
+  color:#fff;line-height:1.7;margin-bottom:.5rem;
+}
+
+.qi-hint{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.58rem;color:rgba(255,255,255,.28);
+  line-height:1.65;
+}
+
+.qi-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem;}
+
+.qi-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid rgba(232,160,32,.3);color:var(--neon);
+  padding:.18rem .55rem;border-radius:2px;
+}
+
+/* ═══ SYNTHÈSE ═══ */
+.synth-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2rem;margin-top:1.5rem;
+}
+
+.sc{
+  background:rgba(0,0,0,.15);
+  padding:2rem;
+  border-top:3px solid rgba(255,255,255,.15);
+  transition:background .3s;
+}
+
+.sc:hover{background:rgba(0,0,0,.25);}
+
+.sc-title{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);margin-bottom:.7rem;
+}
+
+.sc-body{font-size:.9rem;line-height:1.75;color:rgba(255,255,255,.85);}
+
+/* ═══ MODAL ═══ */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.85);
+  z-index:2000;display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+
+.modal-overlay.show{opacity:1;pointer-events:all;}
+
+.modal{
+  background:var(--ink2);color:#fff;
+  padding:4rem;max-width:560px;width:90%;
+  position:relative;
+  border-top:4px solid var(--blood);
+}
+
+.modal-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2.5rem;font-weight:900;text-transform:uppercase;
+  letter-spacing:.04em;margin-bottom:.5rem;
+}
+
+.modal-score{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:5rem;font-weight:900;
+  color:var(--neon);line-height:1;margin:1.5rem 0;
+}
+
+.modal-msg{
+  font-family:'Libre Baskerville',serif;
+  font-style:italic;font-size:.95rem;
+  color:rgba(255,255,255,.6);line-height:1.7;
+  margin-bottom:2rem;
+}
+
+.modal-close{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:.7rem 2rem;border:none;background:var(--blood);color:#fff;
+  cursor:pointer;transition:background .2s;
+}
+
+.modal-close:hover{background:var(--blood2);}
+
+/* ═══ FOOTER ═══ */
+footer{
+  background:var(--ink);color:rgba(255,255,255,.2);
+  padding:3rem 6rem;
+  display:grid;grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;
+}
+
+.fc{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:3rem;font-weight:900;letter-spacing:.06em;
+  opacity:.06;text-align:center;text-transform:uppercase;
+}
+
+footer a{color:var(--blood);text-decoration:none;display:block;text-align:right;}
+footer a:hover{color:var(--neon);}
+
+/* ═══ REVEAL ═══ */
+.r{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+.r.v{opacity:1;transform:none;}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:1100px){
+  :root{--sidebar:220px}
+  .hero,.sec{padding-left:4rem;padding-right:4rem}
+  .synth-grid{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:820px){
+  :root{--sidebar:0px}
+  .snav{display:none}
+  .hero,.sec{padding:4rem 2rem}
+  .concept-grid,.glos-grid{grid-template-columns:1fr}
+  .quiz-options{grid-template-columns:1fr}
+  .synth-grid{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr;gap:1rem;text-align:center}
+  footer a{text-align:center}
+  .qi{grid-template-columns:1fr}
+  .hero-bottom{flex-direction:column;gap:2rem;align-items:flex-start}
+  .hero-thesis{text-align:left}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<div id="cur"></div>
+
+<!-- ═══════ MODAL SCORE ═══════ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-title">Résultat du Quiz</div>
+    <div class="modal-score" id="modalScore">0/6</div>
+    <p class="modal-msg" id="modalMsg"></p>
+    <button class="modal-close" onclick="closeModal()">Fermer et réviser</button>
+  </div>
+</div>
+
+<!-- ═══════ SIDEBAR ═══════ -->
+<nav class="snav">
+  <div class="snav-brand">
+    <div class="snav-kicker">Sociologie · 1893</div>
+    <div class="snav-title">De la Division<br>du Travail<br>Social</div>
+    <div class="snav-authors">Émile Durkheim</div>
+    <div class="snav-year">PUF · 1893 (1ère éd.)</div>
+  </div>
+
+  <span class="snav-lbl">Introduction</span>
+  <a href="#hero" class="snav-a on"><span class="snav-bullet"></span>Présentation</a>
+  <a href="#genese" class="snav-a"><span class="snav-bullet"></span>Genèse intellectuelle</a>
+  <a href="#these" class="snav-a"><span class="snav-bullet"></span>La thèse centrale</a>
+
+  <div class="snav-div"></div>
+  <span class="snav-lbl">Concepts clés</span>
+  <a href="#concepts" class="snav-a"><span class="snav-bullet"></span>Concepts fondamentaux</a>
+  <a href="#sujet" class="snav-a"><span class="snav-bullet"></span>L'individu et la société</a>
+  <a href="#structure" class="snav-a"><span class="snav-bullet"></span>Les formes anormales</a>
+
+  <div class="snav-div"></div>
+  <span class="snav-lbl">Dialogues</span>
+  <a href="#dialogue" class="snav-a"><span class="snav-bullet"></span>Durkheim contre Spencer</a>
+  <a href="#reseau" class="snav-a"><span class="snav-bullet"></span>Réseau d'auteurs</a>
+  <a href="#aujourdhui" class="snav-a"><span class="snav-bullet"></span>Actualité</a>
+
+  <div class="snav-div"></div>
+  <span class="snav-lbl">Pédagogie</span>
+  <a href="#quiz" class="snav-a"><span class="snav-bullet"></span>⚡ Quiz interactif</a>
+  <a href="#reflexion" class="snav-a"><span class="snav-bullet"></span>Pistes de réflexion</a>
+  <a href="#synthese" class="snav-a"><span class="snav-bullet"></span>Synthèse critique</a>
+
+  <div class="snav-score">
+    <div class="snav-score-title">Votre progression</div>
+    <div class="score-label"><span>Quiz</span><span id="sidebarScore">—</span></div>
+    <div class="score-bar"><div class="score-fill" id="sidebarFill" style="width:0%;background:var(--blood)"></div></div>
+    <div class="score-label" style="margin-top:.5rem"><span>Concepts lus</span><span id="conceptCount">0/6</span></div>
+    <div class="score-bar"><div class="score-fill" id="conceptFill" style="width:0%;background:var(--neon)"></div></div>
+  </div>
+</nav>
+
+<!-- ═══════ MAIN ═══════ -->
+<main class="main">
+
+<!-- ═══ HERO ═══ -->
+<section id="hero" class="hero">
+  <div class="hero-diag"></div>
+  <div>
+    <div class="hero-tag">Sociologie · Morphologie sociale · Théorie du lien social</div>
+    <h1 class="hero-h1">
+      <span class="line1">De la Division</span>
+      <span class="line2">du Travail</span>
+      <span class="line3">Social</span>
+    </h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">
+      La division du travail n'est pas seulement un phénomène économique. C'est le <strong>fondement moral des sociétés modernes</strong>, le mécanisme par lequel l'individuation croissante et la cohésion sociale ne s'excluent pas mais se <strong>supposent mutuellement</strong>. Durkheim en fait la démonstration et en dégage les pathologies.
+    </p>
+    <div class="hero-chips">
+      <span class="chip chip-blood">Sociologie fondamentale</span>
+      <span class="chip chip-blood">Morphologie sociale</span>
+      <span class="chip chip-neon">Solidarité mécanique / organique</span>
+      <span class="chip chip-neon">Anomie</span>
+      <span class="chip chip-steel">PUF, 1893</span>
+      <span class="chip chip-steel">Thèse de doctorat</span>
+    </div>
+  </div>
+  <div class="hero-bottom">
+    <div class="hero-authors-block">
+      <div class="hb-label">Auteur</div>
+      <div class="hb-names">Émile <span>Durkheim</span></div>
+    </div>
+    <div class="hero-thesis">
+      « La division du travail a pour fonction de créer entre deux ou plusieurs personnes un sentiment de solidarité. »
+      <cite>— Durkheim, De la Division du Travail Social, Livre I</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GENÈSE ═══ -->
+<section id="genese" class="sec alt">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">01 — Genèse</span>
+    <h2 class="sec-h2">Naissance d'une <em>sociologie</em></h2>
+  </div>
+
+  <p class="r" style="max-width:760px;font-size:.95rem;color:#3a3530;line-height:1.9;margin-bottom:3rem;">
+    La <em>Division du Travail Social</em> est la thèse principale de Durkheim, soutenue en 1893. Elle s'inscrit dans un double contexte : la révolution industrielle a profondément transformé les structures sociales européennes, et la sociologie cherche à s'imposer comme discipline scientifique autonome. Contre l'économie politique qui fait de la spécialisation un simple mécanisme de productivité, Durkheim veut montrer que la division du travail est avant tout un <strong>fait moral</strong> — la source de nouveaux liens qui remplacent les anciens.
+  </p>
+
+  <div class="timeline-container r">
+    <div class="tl-item">
+      <div class="tl-dot blood"></div>
+      <div class="tl-year">1858 — Épinal</div>
+      <div class="tl-title">Naissance d'Émile Durkheim</div>
+      <p class="tl-body">Issu d'une famille de rabbins alsaciens, Durkheim est formé à l'École Normale Supérieure, où il côtoie Jaurès. Il rejette rapidement la vocation religieuse pour se consacrer à la philosophie morale et à ce qui deviendra la sociologie — une science des faits sociaux conçue sur le modèle des sciences de la nature.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot neon"></div>
+      <div class="tl-year">1887 — Bordeaux</div>
+      <div class="tl-title">Premier cours de sociologie en France</div>
+      <p class="tl-body">Durkheim obtient la première chaire de sociologie en France à l'Université de Bordeaux. Il enseigne la <strong>pédagogie et la science sociale</strong>, construisant progressivement le cadre théorique qui aboutira à la thèse de 1893. Le projet : faire de la sociologie une discipline rigoureuse, distincte de la psychologie et de la philosophie.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot blood"></div>
+      <div class="tl-year">1893 — Paris</div>
+      <div class="tl-title">Soutenance de la thèse — Publication</div>
+      <p class="tl-body">La <em>Division du Travail Social</em> est soutenue et publiée simultanément. Elle répond à une question centrale : <strong>comment une société d'individus de plus en plus différenciés peut-elle rester cohérente ?</strong> La réponse de Durkheim renverse l'intuition commune : ce n'est pas malgré les différences mais grâce à elles que les sociétés modernes tiennent ensemble.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot neon"></div>
+      <div class="tl-year">1895 — Paris</div>
+      <div class="tl-title">Les Règles de la méthode sociologique</div>
+      <p class="tl-body">Durkheim publie son œuvre méthodologique, qui explicite les fondements épistémologiques de la <em>Division</em> : les faits sociaux sont des choses extérieures aux individus, dotées d'une force contraignante. Ce qu'il avait pratiqué implicitement dans la thèse de 1893 devient un programme explicite de rupture avec le psychologisme et l'économisme.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot blood"></div>
+      <div class="tl-year">1897 — Paris</div>
+      <div class="tl-title">Le Suicide — confirmation empirique</div>
+      <p class="tl-body">Durkheim publie <em>Le Suicide</em>, qui peut être lu comme un développement de la thèse de 1893 : le suicide anomique et le suicide égoïste illustrent empiriquement les pathologies décrites dans le Livre III de la <em>Division</em>. L'anomie et l'intégration sociale défaillante se traduisent statistiquement en mortalité différentielle — la preuve par les chiffres de la sociologie morale.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THÈSE CENTRALE ═══ -->
+<section id="these" class="sec dark">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">02 — Thèse centrale</span>
+    <h2 class="sec-h2">La <em>solidarité</em> — Ce que dit vraiment le livre</h2>
+  </div>
+
+  <p class="r" style="max-width:760px;font-size:.95rem;color:rgba(255,255,255,.65);line-height:1.9;margin-bottom:3rem;">
+    La question de Durkheim n'est pas économique — c'est une question morale : qu'est-ce qui lie les hommes entre eux dans les sociétés modernes ? Il distingue deux régimes fondamentaux de solidarité, correspondant à deux types de sociétés, et montre que la division du travail est le mécanisme qui produit le passage de l'un à l'autre — non pas la destruction du lien social, mais sa transformation.
+  </p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:3rem;" class="r">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neon);margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:2px solid var(--neon);">Solidarité mécanique — Sociétés archaïques</div>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">Les individus se ressemblent. Ils partagent les mêmes croyances, les mêmes valeurs, les mêmes façons de faire. La <strong style="color:#fff;">conscience collective</strong> est forte, étendue, définie. Elle absorbe les consciences individuelles.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">Le lien social repose sur la <strong style="color:#fff;">similitude</strong> — on appartient au groupe parce qu'on lui ressemble totalement. La transgression des normes communes est vécue comme un sacrilège, punie par le droit <strong style="color:#fff;">répressif</strong>.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;">L'individu n'a pas encore émergé comme entité distincte de la collectivité. La personnalité individuelle est minimale — c'est la société qui pense, sent et agit <em>en lui</em>.</p>
+    </div>
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blood);margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:2px solid rgba(192,35,27,.6);">Solidarité organique — Sociétés modernes</div>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">Les individus se différencient. Chacun occupe une fonction spécialisée dans un organisme complexe. La conscience collective s'efface, mais les individus sont <strong style="color:#fff;">interdépendants</strong> précisément par leurs différences.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">Le lien social repose sur la <strong style="color:#fff;">complémentarité fonctionnelle</strong> — comme les organes d'un corps. La transgression des règles est réparée par le droit <strong style="color:#fff;">restitutif</strong>, non vengée.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;">La personnalité individuelle s'affirme. Le culte de l'individu devient la seule religion partagée — la morale des sociétés organiques est centrée sur la dignité et l'autonomie de la personne.</p>
+    </div>
+  </div>
+
+  <div class="pq neon r">
+    <p>« La solidarité sociale est un phénomène tout moral qui, par lui-même, ne se prête pas à l'observation exacte ni surtout à la mesure. Pour procéder à cette classification et à cette comparaison, il faut donc substituer au fait interne qui nous échappe un fait extérieur qui le symbolise. »</p>
+    <cite>— Durkheim, De la Division du Travail Social, Livre I, ch. I</cite>
+  </div>
+</section>
+
+<!-- ═══ CONCEPTS ═══ -->
+<section id="concepts" class="sec alt">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">03 — Lexique</span>
+    <h2 class="sec-h2">Concepts <em>fondamentaux</em> — Cliquer pour développer</h2>
+  </div>
+
+  <div class="concept-grid r">
+
+    <div class="concept-card" data-num="01" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">Conscience collective</div>
+      <p class="cc-short">L'ensemble des croyances et des sentiments communs à la moyenne des membres d'une société.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>La <strong>conscience collective</strong> est l'une des notions fondatrices de la sociologie durkheimienne. Elle désigne non pas une somme de consciences individuelles, mais un fait social sui generis : une réalité distincte des individus qui la portent, dotée de sa propre logique et de sa propre force contraignante.</p>
+          <p>Dans les sociétés à solidarité mécanique, la conscience collective est très forte, très étendue et très déterminée : elle couvre la quasi-totalité de la vie des individus. Dans les sociétés modernes, elle rétrécit — non pas qu'elle disparaisse, mais elle se concentre sur un noyau : le <strong>culte de l'individu</strong>, valeur centrale de la modernité.</p>
+          <p>Ce paradoxe est crucial : la modernité produit des individus plus différenciés et plus autonomes, mais leur seule valeur commune est précisément l'individu lui-même comme être sacré.</p>
+          <div class="cc-today">La montée du respect des droits individuels, la déontologie médicale, la défense des libertés civiles — autant d'expressions du « culte de l'individu » que Durkheim analysait comme la religion des sociétés organiques.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" data-num="02" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">Anomie</div>
+      <p class="cc-short">État pathologique où la division du travail ne produit pas la solidarité faute de réglementation suffisante.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>L'<strong>anomie</strong> est la grande contribution analytique du Livre III. Elle désigne l'état d'une division du travail qui n'est pas accompagnée du développement des règles et des normes nécessaires à la coordination des fonctions spécialisées. Sans réglementation, la différenciation produit du conflit et non de la solidarité.</p>
+          <p>Durkheim identifie l'anomie comme pathologie typique des sociétés industrielles en transition rapide : quand les anciennes normes (religieuses, corporatives, familiales) s'effacent plus vite que les nouvelles n'émergent, les individus et les groupes se retrouvent sans règles communes pour coordonner leurs relations.</p>
+          <p>La crise économique, les conflits industriels, la désintégration des corps intermédiaires — voilà les symptômes de l'anomie. La solution n'est pas de revenir aux anciennes normes mais de <strong>créer de nouvelles institutions</strong> — notamment les groupes professionnels que Durkheim préconise dans la Préface de la 2ème édition.</p>
+          <div class="cc-today">L'ubérisation du travail, la gig economy, la désagrégation des conventions collectives — autant de formes contemporaines de l'anomie durkheimienne : des rapports économiques qui s'étendent sans que les normes qui les réglementent suivent.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" data-num="03" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">Droit répressif / restitutif</div>
+      <p class="cc-short">Les deux systèmes juridiques qui symbolisent les deux types de solidarité et permettent leur mesure empirique.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>Durkheim est confronté à un problème méthodologique : la solidarité est un fait moral invisible, intérieur. Comment l'étudier scientifiquement ? Sa solution est de passer par son <strong>symbole extérieur et observable</strong> : le droit.</p>
+          <p>Le <strong>droit répressif</strong> (droit pénal) punit les atteintes à la conscience collective. Il correspond à la solidarité mécanique — la transgression provoque une réaction passionnelle de toute la société. Sa prépondérance dans les sociétés primitives est la preuve empirique de la force de la conscience collective.</p>
+          <p>Le <strong>droit restitutif</strong> (droit civil, commercial, administratif) ne punit pas mais remet les choses en état, régule les coopérations. Il correspond à la solidarité organique — la transgression perturbe un système fonctionnel, il faut le réparer. Sa prépondérance croissante dans les sociétés modernes témoigne du développement de l'interdépendance organique.</p>
+          <div class="cc-today">L'inflation législative en matière de régulation économique, de droit du travail, de droit de la concurrence — le droit restitutif comme infrastructure de la solidarité organique dans les économies complexes contemporaines.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" data-num="04" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">Densité morale</div>
+      <p class="cc-short">La cause principale des progrès de la division du travail : l'intensification des relations entre individus.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>Durkheim refuse l'explication utilitariste de la division du travail (elle viendrait du désir individuel de bonheur ou d'efficacité). Il propose une explication proprement sociologique : la division du travail progresse parce que la <strong>densité sociale</strong> — la concentration d'individus en contact les uns avec les autres — augmente.</p>
+          <p>Quand la population croît et que les interactions se multiplient (densité morale), la <strong>lutte pour l'existence</strong> s'intensifie. La spécialisation est le mécanisme par lequel individus et groupes évitent la concurrence frontale en différenciant leurs niches — comme les espèces biologiques dans un milieu dense.</p>
+          <p>Cette analogie avec Darwin est explicite : Durkheim transpose la logique darwinienne à la sociologie. La division du travail est une réponse adaptative à la pression de la coexistence. L'urbanisation et les révolutions des transports (chemins de fer) sont des formes matérielles de cette densification.</p>
+          <div class="cc-today">La métropolisation, la numérisation des échanges, la mondialisation des marchés : autant d'accroissements de densité morale qui produisent mécaniquement plus de spécialisation — économique, professionnelle, culturelle.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" data-num="05" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">Type segmentaire / type organisé</div>
+      <p class="cc-short">Les deux morphologies sociales correspondant aux deux régimes de solidarité.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>Le <strong>type segmentaire</strong> est la forme sociale correspondant à la solidarité mécanique. La société est composée de segments homologues et interchangeables (clans, tribus, villages) juxtaposés comme les anneaux d'un ver de terre. Chaque segment est autosuffisant et reproduit la même structure. La conscience collective est forte car elle doit unifier ce qui n'est pas différencié.</p>
+          <p>Le <strong>type organisé</strong> correspond à la solidarité organique. Les segments s'effacent au profit d'un système de fonctions spécialisées et hiérarchisées — comme un organisme où chaque organe est irremplaçable. L'unité n'est plus assurée par la similitude mais par la <strong>complémentarité fonctionnelle</strong>.</p>
+          <p>Durkheim montre que le développement de la division du travail s'accompagne d'un effacement progressif du type segmentaire — non pas une destruction du lien social, mais une transformation structurelle de ses conditions.</p>
+          <div class="cc-today">La mondialisation comme dissolution des frontières segmentaires nationales et constitution d'un système fonctionnel global — avec les pathologies anomiques correspondantes quand la réglementation ne suit pas.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" data-num="06" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">Division du travail contrainte</div>
+      <p class="cc-short">Forme pathologique où la spécialisation est imposée par l'inégalité des conditions extérieures plutôt que par les aptitudes.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>Dans le Livre III, Durkheim distingue la division du travail normale de ses formes pathologiques. La <strong>division contrainte</strong> est celle où les individus occupent des fonctions non pas selon leurs aptitudes mais selon des inégalités extérieures (héritage, naissance, capital).</p>
+          <p>Cette forme ne produit pas la solidarité organique mais la <strong>guerre des classes</strong> : quand les inégalités de condition faussent la compétition, les perdants ne reconnaissent pas la légitimité de l'ordre social. La solidarité suppose que chaque individu soit à la place que ses capacités lui donnent droit.</p>
+          <p>Durkheim anticipe ainsi une exigence de <strong>justice distributive</strong> : la société organique saine requiert l'égalité des conditions de départ — non pas l'égalité des résultats, mais la suppression des inégalités qui faussent la distribution des fonctions.</p>
+          <div class="cc-today">Le débat contemporain sur l'égalité des chances, la méritocratie et ses limites (Bourdieu, capital culturel) : Durkheim posait en 1893 le problème que la sociologie critique du XXe siècle a développé.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ SUJET / INDIVIDU ═══ -->
+<section id="sujet" class="sec">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">04 — Anthropologie</span>
+    <h2 class="sec-h2">L'individu face à la <em>société</em></h2>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;" class="r">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blood);margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:2px solid var(--blood);">La naissance de l'individu moderne</div>
+      <p style="font-size:.92rem;color:#3a3530;line-height:1.88;margin-bottom:1rem;">L'un des arguments les plus paradoxaux de Durkheim est que la division du travail, loin d'aliéner l'individu, est le processus même qui le <strong>constitue</strong>. Dans les sociétés à solidarité mécanique, l'individu n'existe pas vraiment — c'est la société, la race, la tradition qui agissent en lui. La personnalité individuelle n'est qu'empruntée.</p>
+      <p style="font-size:.92rem;color:#3a3530;line-height:1.88;margin-bottom:1rem;">C'est la <strong>spécialisation</strong> qui libère l'individu — en le différenciant de ses voisins, en lui donnant une fonction irremplaçable, elle lui donne une existence propre. Plus la division du travail est avancée, plus les individus sont à la fois interdépendants et distincts.</p>
+      <p style="font-size:.92rem;color:#3a3530;line-height:1.88;">Ce raisonnement contredit les romantiques et les conservateurs qui idéalisaient les sociétés primitives comme des paradis de liberté. Pour Durkheim, la liberté individuelle est un produit de la modernité, non un état de nature perdu.</p>
+    </div>
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blood);margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:2px solid var(--blood);">Le problème de l'intégration morale</div>
+      <div class="accordion">
+        <div class="acc-item">
+          <div class="acc-head" onclick="toggleAcc(this)">
+            <span class="acc-title">Le culte de l'individu</span>
+            <span class="acc-icon">+</span>
+          </div>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Durkheim identifie la seule religion partagée des sociétés modernes : le <strong>culte de l'individu</strong>. Non pas l'égoïsme — mais la croyance en la dignité et la valeur intrinsèque de chaque personne. C'est la conscience collective réduite à son noyau minimal mais réel : l'individu humain comme être sacré. C'est ce qui rend les droits de l'homme possibles comme langage moral universel.</p>
+            </div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-head" onclick="toggleAcc(this)">
+            <span class="acc-title">La démocratie comme forme organique</span>
+            <span class="acc-icon">+</span>
+          </div>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>La démocratie n'est pas pour Durkheim un régime arbitraire parmi d'autres — c'est la forme politique correspondant à la solidarité organique. Une société de plus en plus différenciée exige des formes de <strong>représentation et de délibération</strong> qui tiennent compte de la diversité des fonctions et des intérêts. Les corps intermédiaires (groupements professionnels) sont le rouage essentiel de cette démocratie organique.</p>
+            </div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-head" onclick="toggleAcc(this)">
+            <span class="acc-title">La crise morale contemporaine</span>
+            <span class="acc-icon">+</span>
+          </div>
+          <div class="acc-body">
+            <div class="acc-inner">
+              <p>Durkheim conclut que les sociétés industrielles traversent une <strong>crise de la morale</strong> : les anciennes normes (religion, tradition, corporatisme) se sont effondrées trop vite, la nouvelle morale organique n'a pas eu le temps de se constituer. Ce vide normatif est la source de l'anomie généralisée. Le remède n'est pas le retour en arrière mais <em>l'accélération</em> de la constitution d'une morale adaptée à la solidarité organique.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pq neon r" style="margin-top:3rem;">
+    <p>« L'individu s'y soumet à la société et cette soumission est la condition de sa libération. Car l'homme n'est libre que lorsqu'il est armé de toutes les forces collectives qui lui permettent de surmonter les forces naturelles. »</p>
+    <cite>— Durkheim, De la Division du Travail Social, Conclusion</cite>
+  </div>
+</section>
+
+<!-- ═══ FORMES ANORMALES ═══ -->
+<section id="structure" class="sec alt">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">05 — Pathologies</span>
+    <h2 class="sec-h2">Les formes <em>anormales</em> — Livre III</h2>
+  </div>
+
+  <p class="r" style="max-width:760px;font-size:.95rem;color:#3a3530;line-height:1.9;margin-bottom:2rem;">
+    La thèse positive de Durkheim (la division du travail produit la solidarité organique) doit être complétée par l'analyse de ses dérèglements. Le Livre III identifie trois formes pathologiques — trois cas où la spécialisation ne produit pas la solidarité attendue. Ces pathologies ne sont pas inhérentes à la division du travail elle-même, mais résultent de conditions anormales.
+  </p>
+
+  <div class="r" style="overflow-x:auto;margin-top:1rem;">
+    <table style="width:100%;border-collapse:collapse;font-size:.88rem;">
+      <thead>
+        <tr>
+          <th style="padding:1rem 1.3rem;text-align:left;font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;border-bottom:2px solid var(--blood);color:var(--dust);width:18%;">Forme</th>
+          <th style="padding:1rem 1.3rem;text-align:left;font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;border-bottom:2px solid var(--neon);color:var(--dust);background:rgba(232,160,32,.04);">Mécanisme pathologique</th>
+          <th style="padding:1rem 1.3rem;text-align:left;font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;border-bottom:2px solid var(--blood);color:var(--blood);background:rgba(192,35,27,.04);">Remède durkheimien</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:1rem 1.3rem;border-bottom:1px solid var(--rule);font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dust);font-weight:700;">Division anomique</td>
+          <td style="padding:1rem 1.3rem;border-bottom:1px solid var(--rule);background:rgba(232,160,32,.02);color:#3a3530;line-height:1.65;">Les fonctions spécialisées ne sont pas en contact suffisant ou assez prolongé pour développer les règles de coordination. Résultat : crises industrielles, conflits du travail, éparpillement de la science en spécialités incommunicantes.</td>
+          <td style="padding:1rem 1.3rem;border-bottom:1px solid var(--rule);background:rgba(192,35,27,.02);color:#3a3530;line-height:1.65;">Constituer des corps professionnels organisés qui mettent en contact régulier les acteurs d'un même secteur et permettent l'émergence de normes communes spontanées.</td>
+        </tr>
+        <tr>
+          <td style="padding:1rem 1.3rem;border-bottom:1px solid var(--rule);font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dust);font-weight:700;">Division contrainte</td>
+          <td style="padding:1rem 1.3rem;border-bottom:1px solid var(--rule);background:rgba(232,160,32,.02);color:#3a3530;line-height:1.65;">L'individu est assigné à une fonction par des inégalités extérieures (héritage, naissance, classe) et non par ses aptitudes propres. La distribution des fonctions n'est pas juste, donc la solidarité n'est pas reconnue — guerre des classes.</td>
+          <td style="padding:1rem 1.3rem;border-bottom:1px solid var(--rule);background:rgba(192,35,27,.02);color:#3a3530;line-height:1.65;">Supprimer les inégalités héréditaires de condition pour que la compétition soit équitable. Les individus acceptent leur place si elle est le résultat de leurs efforts, non de leur naissance.</td>
+        </tr>
+        <tr>
+          <td style="padding:1rem 1.3rem;border-bottom:1px solid var(--rule);font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dust);font-weight:700;">Fonctionnement insuffisant</td>
+          <td style="padding:1rem 1.3rem;border-bottom:1px solid var(--rule);background:rgba(232,160,32,.02);color:#3a3530;line-height:1.65;">La tâche confiée à l'individu est trop parcellaire, trop répétitive, pour qu'il puisse l'exercer avec une activité fonctionnelle suffisante. L'ouvrier qui répète indéfiniment le même geste ne développe pas de solidarité organique avec le produit fini.</td>
+          <td style="padding:1rem 1.3rem;border-bottom:1px solid var(--rule);background:rgba(192,35,27,.02);color:#3a3530;line-height:1.65;">Que la spécialisation soit accompagnée de la connaissance de sa fonction dans l'ensemble — Durkheim anticipe ici une critique du taylorisme : la parcellisation excessive détruit l'engagement fonctionnel.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══ DIALOGUE PHILOSOPHIQUE ═══ -->
+<section id="dialogue" class="sec steel">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">06 — Dialogue philosophique</span>
+    <h2 class="sec-h2">Durkheim <em>avec et contre</em> Spencer</h2>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:1rem;">
+    <div class="r">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neon);margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:2px solid var(--neon);">Ce que Spencer apporte — le point de départ</div>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">Spencer, dans ses <em>Principes de sociologie</em>, a fourni le cadre évolutionniste et l'analogie organique dont Durkheim hérite. L'idée que les sociétés évoluent d'un état de <strong>relative homogénéité</strong> vers une <strong>hétérogénéité croissante et intégrée</strong> est spencérienne.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">L'analogie biologique elle-même — comparer la division du travail social aux fonctions des organes d'un corps — est présente dans Spencer. Durkheim part de ce cadre pour le critiquer et le dépasser.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;">La distinction entre sociétés militaires et sociétés industrielles (Spencer) préfigure la distinction mécanique/organique (Durkheim), même si les contenus conceptuels diffèrent profondément.</p>
+    </div>
+    <div class="r d2">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blood);margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:2px solid rgba(192,35,27,.6);">Ce que Durkheim lui reproche — la rupture décisive</div>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">Spencer croit que la solidarité dans les sociétés industrielles est <strong>exclusivement contractuelle</strong> — les individus libres s'associent volontairement par contrat, sans que la société intervienne. Durkheim montre que c'est faux : les relations non contractuelles (famille, droit administratif, obligations morales) se développent <em>en même temps</em> que les contrats.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">Spencer est <strong>individualiste</strong> : la société n'est que la somme des individus qui la composent. Pour Durkheim, la société est une réalité irréductible, sui generis, qui précède et constitue les individus.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;">Spencer voit dans l'extension de l'État une pathologie. Pour Durkheim, le développement du droit administratif et de la réglementation est au contraire l'indice de la <strong>solidarité organique croissante</strong>.</p>
+    </div>
+  </div>
+
+  <div class="pq blood r" style="margin-top:3rem;">
+    <p>« Tout ce qui est dans le contrat ne vient pas du contrat. Partout où le contrat existe, il est soumis à une réglementation qui est l'œuvre de la société et non des particuliers. »</p>
+    <cite>— Durkheim, De la Division du Travail Social, Livre I, ch. VII</cite>
+  </div>
+</section>
+
+<!-- ═══ RÉSEAU D'AUTEURS ═══ -->
+<section id="reseau" class="sec alt">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">07 — Dialogues</span>
+    <h2 class="sec-h2">Le réseau <em>d'auteurs</em> en dialogue</h2>
+  </div>
+
+  <div class="glos-grid r">
+
+    <div class="gi" data-g="M">
+      <span class="gi-src">Philosophie / Sociologie critique</span>
+      <div class="gi-term">Karl Marx</div>
+      <p class="gi-def">Durkheim et Marx diagnostiquent les mêmes pathologies de l'industrialisation — la désintégration sociale, les conflits du travail, la souffrance ouvrière. Mais leurs étiologies divergent radicalement : pour Marx, la source du mal est l'exploitation capitaliste et les rapports de propriété. Pour Durkheim, c'est l'absence de réglementation morale. Là où Marx prescrit la révolution et l'abolition des classes, Durkheim prescrit la <strong>réforme institutionnelle</strong> et la constitution de corps professionnels. Le conflit social est pour Durkheim un symptôme d'anomie, non l'expression d'une contradiction structurelle.</p>
+      <div class="gi-now">La sociologie contemporaine du travail reste tiraillée entre ces deux paradigmes : conflictualiste (héritages marxistes) et fonctionnaliste (héritages durkheimiens). La question des syndicats, de la négociation collective, du rôle de l'État social relève de ce débat.</div>
+    </div>
+
+    <div class="gi" data-g="W">
+      <span class="gi-src">Sociologie / Économie politique</span>
+      <div class="gi-term">Max Weber</div>
+      <p class="gi-def">Weber publie <em>L'Éthique protestante et l'esprit du capitalisme</em> en 1904-1905 — soit une décennie après Durkheim. Les deux fondateurs de la sociologie analysent la modernité mais par des voies opposées : Durkheim par la morphologie sociale et la solidarité, Weber par les significations subjectives et la rationalisation. Là où Durkheim cherche les <strong>faits sociaux extérieurs</strong>, Weber cherche les <strong>motifs intérieurs</strong> des acteurs. La modernité pour Durkheim produit de l'intégration différenciée ; pour Weber, elle produit le désenchantement et la cage d'acier de la bureaucratie.</p>
+      <div class="gi-now">Le débat entre sociologie durkheimienne (structures, faits sociaux, intégration) et sociologie wébérienne (sens, action, compréhension) reste structurant dans la discipline. La théorie de Bourdieu peut être lue comme une tentative de les synthétiser.</div>
+    </div>
+
+    <div class="gi" data-g="T">
+      <span class="gi-src">Sociologie contemporaine / Systèmes</span>
+      <div class="gi-term">Niklas Luhmann</div>
+      <p class="gi-def">Luhmann radicalise la thèse de Durkheim sur la différenciation fonctionnelle en la reformulant en termes systémiques : les sociétés modernes ne sont pas simplement différenciées par spécialisation, elles sont constituées de <strong>systèmes fonctionnellement clos</strong> (droit, économie, politique, science, art) qui communiquent uniquement par leurs propres codes. Cette vision élimine le problème de l'intégration que Durkheim posait — il n'y a plus de conscience collective ni de solidarité organique au sens durkheimien. Pour Luhmann, la modernité est différenciation sans suture.</p>
+      <div class="gi-now">La crise de la démocratie contemporaine peut être lue à travers Luhmann : quand le système économique colonise le système politique, la différenciation fonctionnelle dégénère en domination d'un sous-système sur les autres — ce que Habermas nomme la colonisation du monde vécu.</div>
+    </div>
+
+    <div class="gi" data-g="B">
+      <span class="gi-src">Sociologie / Philosophie politique</span>
+      <div class="gi-term">Pierre Bourdieu</div>
+      <p class="gi-def">Bourdieu hérite de Durkheim le projet d'une science objective des faits sociaux mais le retourne contre l'optimisme durkheimien : là où Durkheim voyait la division du travail comme potentiellement juste (si les inégalités extérieures sont supprimées), Bourdieu montre avec le concept de <strong>capital culturel</strong> que les mécanismes de reproduction sociale sont infiniment plus subtils et résistants. La méritocratie que Durkheim appelait de ses vœux est pour Bourdieu une légitimation de l'ordre établi — l'école ne corrige pas les inégalités de naissance, elle les transfigure en inégalités de mérite.</p>
+      <div class="gi-now">Le débat sur l'école républicaine et l'égalité des chances en France est directement structuré par cet héritage : durkheimiens optimistes (l'école peut faire), bourdivins sceptiques (l'école reproduit). La réforme du lycée, ParcourSup, les grandes écoles — des terrains d'affrontement entre ces deux héritages.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ ACTUALITÉ ═══ -->
+<section id="aujourdhui" class="sec dark">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">08 — Actualité</span>
+    <h2 class="sec-h2">La <em>solidarité organique</em> à l'œuvre aujourd'hui</h2>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;margin-top:1rem;" class="r">
+    <div style="background:rgba(255,255,255,.03);padding:2rem;border-top:2px solid var(--blood);">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blood);margin-bottom:1rem;">Crise du travail</div>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.85;">Le burn-out, la perte de sens au travail, la crise des vocations soignantes et éducatives — autant de symptômes durkheimiens. Quand la fonction exercée n'est plus perçue comme solidaire d'un tout, quand les règles sont absentes ou illégitimes, l'anomie produit la souffrance. Durkheim avait prévu que la parcellisation excessive détruit l'engagement fonctionnel.</p>
+    </div>
+    <div style="background:rgba(255,255,255,.03);padding:2rem;border-top:2px solid var(--neon);">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neon);margin-bottom:1rem;">Numérique et anomie</div>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.85;">Les plateformes numériques (Uber, Deliveroo, Amazon Mechanical Turk) créent une nouvelle forme de travail extrêmement divisé sans réglementation des relations entre « partenaires ». Le droit du travail — forme par excellence du droit restitutif durkheimien — n'a pas encore trouvé ses nouvelles règles. Anomie numérique.</p>
+    </div>
+    <div style="background:rgba(255,255,255,.03);padding:2rem;border-top:2px solid var(--steel);">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:#8aaccc;margin-bottom:1rem;">Crise de l'intégration</div>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.85;">Le populisme contemporain peut être lu comme une réaction à la dissolution du type segmentaire national (mondialisation) sans que les nouvelles solidarités organiques supranationales aient été assez développées. Le besoin de frontières, de communautés, d'appartenance — le retour de la mécanique contre l'organique.</p>
+    </div>
+  </div>
+
+  <div class="pq steel r" style="margin-top:3rem;">
+    <p>« Notre premier devoir actuellement est de nous faire une morale. Cette oeuvre ne saurait s'improviser dans le silence du cabinet ; elle ne peut s'élever que d'elle-même, peu à peu, sous la pression des causes internes qui la rendent nécessaire. »</p>
+    <cite>— Durkheim, De la Division du Travail Social, Conclusion</cite>
+  </div>
+</section>
+
+<!-- ═══ QUIZ ═══ -->
+<section id="quiz" class="sec alt">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">09 — Interactif</span>
+    <h2 class="sec-h2">Quiz — <em>Testez</em> votre compréhension</h2>
+  </div>
+
+  <div class="quiz-wrap r">
+    <div class="quiz-progress-bar">
+      <div class="quiz-progress-fill" id="quizProgressFill" style="width:0%"></div>
+    </div>
+    <div class="quiz-title">Question <span id="qNum">1</span>/6 — <span id="qStatus">Sélectionnez une réponse</span></div>
+    <p class="quiz-question" id="qText"></p>
+    <div class="quiz-options" id="qOptions"></div>
+    <div class="quiz-feedback" id="qFeedback"></div>
+    <div class="quiz-nav">
+      <span class="quiz-counter">Score : <span id="scoreDisplay">0</span> / 6</span>
+      <button class="quiz-btn" id="qNext" onclick="nextQuestion()" disabled>Question suivante →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PISTES DE RÉFLEXION ═══ -->
+<section id="reflexion" class="sec dark">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">10 — Pédagogie</span>
+    <h2 class="sec-h2">Pistes de <em>réflexion</em></h2>
+  </div>
+
+  <div class="qstack r">
+    <div class="qi">
+      <span class="qi-n">Q.01</span>
+      <div>
+        <p class="qi-t">Durkheim affirme que la solidarité mécanique et la solidarité organique correspondent à deux types de sociétés différents. Peut-on trouver dans les sociétés contemporaines des exemples de solidarité mécanique persistante ? Que révèle cette persistance ?</p>
+        <p class="qi-hint">Piste : le nationalisme, les communautés religieuses, les groupes identitaires forts. La solidarité mécanique ne disparaît pas — elle se rétracte ou se reconstruit dans des enclaves. Ce que cela dit sur les limites de la solidarité organique comme mode universel d'intégration.</p>
+        <div class="qi-tags">
+          <span class="qi-tag">Solidarité mécanique</span>
+          <span class="qi-tag">Nationalisme</span>
+          <span class="qi-tag">Intégration</span>
+        </div>
+      </div>
+    </div>
+    <div class="qi">
+      <span class="qi-n">Q.02</span>
+      <div>
+        <p class="qi-t">Durkheim prescrit les groupements professionnels comme remède à l'anomie. En quoi cette prescription peut-elle être mise en relation avec le déclin syndical contemporain ? Que dirait Durkheim de la gig economy ?</p>
+        <p class="qi-hint">Piste : les syndicats sont précisément les corps intermédiaires que Durkheim appelait de ses vœux. Leur affaiblissement produit une anomie de la régulation. La plateforme isole les travailleurs — contact insuffisant, absence de règles communes : la définition exacte de la division du travail anomique.</p>
+        <div class="qi-tags">
+          <span class="qi-tag">Anomie</span>
+          <span class="qi-tag">Corps professionnels</span>
+          <span class="qi-tag">Gig economy</span>
+          <span class="qi-tag">Syndicalisme</span>
+        </div>
+      </div>
+    </div>
+    <div class="qi">
+      <span class="qi-n">Q.03</span>
+      <div>
+        <p class="qi-t">Comparez la notion durkheimienne de « division contrainte » avec la critique bourdivine de la reproduction sociale. En quoi Bourdieu radicalise-t-il le problème que Durkheim avait lui-même posé ?</p>
+        <p class="qi-hint">Piste : Durkheim croyait que supprimer les inégalités héréditaires formelles suffirait. Bourdieu montre que le capital culturel reproduit les inégalités même dans un système formellement méritocratique. L'école est à la fois la solution durkheimienne et le problème bourdivien.</p>
+        <div class="qi-tags">
+          <span class="qi-tag">Division contrainte</span>
+          <span class="qi-tag">Bourdieu</span>
+          <span class="qi-tag">Capital culturel</span>
+          <span class="qi-tag">Méritocratie</span>
+        </div>
+      </div>
+    </div>
+    <div class="qi">
+      <span class="qi-n">Q.04</span>
+      <div>
+        <p class="qi-t">Durkheim distingue le droit répressif et le droit restitutif comme indicateurs empiriques des deux formes de solidarité. Cette méthode est-elle toujours opérante pour analyser les sociétés contemporaines ? Quelles limites cette approche présente-t-elle ?</p>
+        <p class="qi-hint">Piste : la complexification du droit (droit de la bioéthique, droit de l'environnement, droit numérique) pose la question de catégorisation. La pénalisation croissante (droit pénal économique, droit pénal de l'environnement) brouille-t-elle la distinction mécanique/organique ? Ou la confirme-t-elle autrement ?</p>
+        <div class="qi-tags">
+          <span class="qi-tag">Méthode sociologique</span>
+          <span class="qi-tag">Droit répressif / restitutif</span>
+          <span class="qi-tag">Indicateurs empiriques</span>
+        </div>
+      </div>
+    </div>
+    <div class="qi">
+      <span class="qi-n">Q.05</span>
+      <div>
+        <p class="qi-t">Le « culte de l'individu » que Durkheim décrit comme la religion des sociétés organiques est-il compatible avec les exigences de solidarité collective que posent les grandes crises contemporaines (climatique, sanitaire) ? Analysez cette tension.</p>
+        <p class="qi-hint">Piste : la pandémie de Covid a révélé la tension entre autonomie individuelle (liberté vaccinale, liberté de circuler) et solidarité organique. Pour Durkheim, le culte de l'individu inclut la conscience de la dépendance réciproque — il n'est pas synonyme d'égoïsme. Comment reconstruire cette distinction face aux individualismes contemporains ?</p>
+        <div class="qi-tags">
+          <span class="qi-tag">Culte de l'individu</span>
+          <span class="qi-tag">Crise climatique</span>
+          <span class="qi-tag">Solidarité organique</span>
+        </div>
+      </div>
+    </div>
+    <div class="qi">
+      <span class="qi-n">Q.06</span>
+      <div>
+        <p class="qi-t">La thèse de Durkheim suppose que la division du travail produit naturellement de la solidarité si elle est normale. En quoi la critique féministe du travail de care remet-elle en question cette hypothèse ? Que dit-elle sur l'invisibilité de certaines fonctions dans le modèle durkheimien ?</p>
+        <p class="qi-hint">Piste : le travail de soin, historiquement assigné aux femmes, est une forme de division du travail qui n'a pas produit une solidarité reconnue mais une domination. L'analyse durkheimienne est aveugle aux rapports de genre dans la distribution des fonctions — une limite structurelle que les sociologies féministes ont mise en évidence.</p>
+        <div class="qi-tags">
+          <span class="qi-tag">Travail de care</span>
+          <span class="qi-tag">Féminisme</span>
+          <span class="qi-tag">Division sexuelle</span>
+          <span class="qi-tag">Domination</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SYNTHÈSE ═══ -->
+<section id="synthese" class="sec blood">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">11 — Conclusion</span>
+    <h2 class="sec-h2">Synthèse <em>critique</em></h2>
+  </div>
+  <div class="synth-grid r">
+    <div class="sc">
+      <div class="sc-title">La thèse irréductible</div>
+      <p class="sc-body">La différenciation sociale n'est pas l'ennemi du lien social — elle en est, dans les sociétés modernes, la condition même. Cette idée contre-intuitive reste un antidote nécessaire aux nostalgies réactionnaires qui voient dans la diversité et la spécialisation les causes de la désintégration sociale.</p>
+    </div>
+    <div class="sc">
+      <div class="sc-title">Les limites du livre</div>
+      <p class="sc-body">Durkheim sous-estime les rapports de domination inhérents à la division du travail elle-même — la critique marxiste et féministe a raison sur ce point. Son optimisme réformiste (il suffit d'institutions bien conçues) ignore à quel point les inégalités structurelles résistent aux réformes. La « division contrainte » est moins une anomalie qu'une constante du capitalisme.</p>
+    </div>
+    <div class="sc">
+      <div class="sc-title">L'apport méthodologique</div>
+      <p class="sc-body">La méthode qui consiste à lire les institutions juridiques comme des indicateurs des formes de solidarité est un geste épistémologique fondateur. Elle impose de ne pas confondre les représentations que les acteurs ont de leur société (discours) avec les structures objectives (faits sociaux). Cette distinction reste au cœur de la sociologie scientifique.</p>
+    </div>
+    <div class="sc">
+      <div class="sc-title">La question de l'anomie</div>
+      <p class="sc-body">L'anomie est sans doute la notion la plus féconde de l'œuvre, et la plus pertinente aujourd'hui. Toute situation où la différenciation sociale accélère sans que les normes de coordination suivent — gig economy, mondialisation des marchés, révolution numérique — est un cas d'école durkheimien. Le diagnostic de 1893 précède ses objets de cent ans.</p>
+    </div>
+    <div class="sc">
+      <div class="sc-title">Résonances contemporaines</div>
+      <p class="sc-body">La crise des « gilets jaunes », les débats sur l'école républicaine, la souffrance au travail dans les professions de soin, le populisme anti-élite — autant de phénomènes lisibles à travers le prisme durkheimien : solidarité mécanique qui résiste, anomie du travail divisé, division contrainte non réformée. L'œuvre de 1893 est un instrument d'intelligibilité du présent.</p>
+    </div>
+    <div class="sc">
+      <div class="sc-title">Ce que le livre exige du lecteur</div>
+      <p class="sc-body">Lire Durkheim, c'est accepter de traiter les phénomènes moraux et sociaux comme des choses — avec la même rigueur que la physique. C'est un effort contre l'évidence, contre le psychologisme spontané. Mais c'est à ce prix qu'on peut voir ce que le sens commun ne voit pas : que le lien social a une structure, des conditions, des pathologies — et qu'il se travaille.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Émile Durkheim<br>De la Division du Travail Social<br>PUF, 1893</span>
+  <div class="fc">DTS</div>
+  <div>
+    <a href="#hero">↑ Retour au début</a>
+    <span style="margin-top:.5rem;display:block;text-align:right;">Sociologie · Morphologie sociale<br>Fiche pédagogique interactive</span>
+  </div>
+</footer>
+
+</main>
+
+<!-- ═══════ SCRIPTS ═══════ -->
+<script>
+/* ─── CURSOR ─── */
+const cur = document.getElementById('cur');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top = e.clientY + 'px';
+});
+document.querySelectorAll('a,button,.concept-card,.acc-head,.qopt').forEach(el => {
+  el.addEventListener('mouseenter', () => cur.classList.add('expand'));
+  el.addEventListener('mouseleave', () => cur.classList.remove('expand'));
+});
+
+/* ─── SCROLL PROGRESS ─── */
+window.addEventListener('scroll', () => {
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('prog').style.transform = `scaleX(${window.scrollY / max})`;
+});
+
+/* ─── REVEAL ON SCROLL ─── */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('v');
+      // Timeline items
+      if (e.target.classList.contains('tl-item')) {
+        e.target.classList.add('v');
+      }
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.r, .tl-item').forEach(el => ro.observe(el));
+
+/* ─── ACTIVE NAV ─── */
+const secs = document.querySelectorAll('section[id]');
+const links = document.querySelectorAll('.snav-a');
+const navo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('on'));
+      const a = document.querySelector(`.snav-a[href="#${e.target.id}"]`);
+      if (a) a.classList.add('on');
+    }
+  });
+}, { threshold: 0.3 });
+secs.forEach(s => navo.observe(s));
+
+/* ─── ACCORDION ─── */
+function toggleAcc(head) {
+  const item = head.parentElement;
+  const wasOpen = item.classList.contains('open');
+  const parent = item.parentElement;
+  parent.querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+/* ─── CONCEPT CARDS ─── */
+let openedConcepts = new Set();
+
+function toggleCard(card) {
+  const expand = card.querySelector('.cc-expand');
+  const toggle = card.querySelector('.cc-toggle');
+  const num = card.dataset.num;
+  const isOpen = expand.classList.contains('open');
+
+  expand.classList.toggle('open', !isOpen);
+  toggle.classList.toggle('open-arrow', !isOpen);
+  toggle.querySelector('span:last-child').textContent = isOpen ? 'Lire l\'analyse' : 'Réduire';
+
+  if (!isOpen) {
+    openedConcepts.add(num);
+    updateConceptCount();
+  }
+}
+
+function updateConceptCount() {
+  const count = openedConcepts.size;
+  document.getElementById('conceptCount').textContent = `${count}/6`;
+  document.getElementById('conceptFill').style.width = `${(count/6)*100}%`;
+}
+
+/* ─── QUIZ ─── */
+const quizData = [
+  {
+    q: "Selon Durkheim, la solidarité organique se distingue de la solidarité mécanique en ce qu'elle repose sur :",
+    opts: [
+      "La similitude des individus et la force de la conscience collective",
+      "La complémentarité des fonctions différenciées dans un tout interdépendant",
+      "Le contrat volontaire entre individus libres et autonomes",
+      "La contrainte exercée par l'État sur les individus"
+    ],
+    correct: 1,
+    feedback: "Précisément. La solidarité organique — caractéristique des sociétés modernes — repose sur l'interdépendance fonctionnelle : les individus se lient entre eux non pas parce qu'ils se ressemblent, mais parce qu'ils se complètent. Comme les organes d'un corps, ils sont différents et solidaires par cette différence même."
+  },
+  {
+    q: "Pour étudier empiriquement la solidarité, Durkheim choisit de l'observer à travers :",
+    opts: [
+      "Les enquêtes de terrain et les récits de vie des individus",
+      "Les statistiques économiques de production et d'emploi",
+      "Le système juridique — droit répressif et droit restitutif",
+      "Les témoignages des religieux et des philosophes moraux"
+    ],
+    correct: 2,
+    feedback: "Exact. Durkheim résout un problème épistémologique majeur : la solidarité est un fait moral invisible, intérieur. Son indicateur extérieur et observable est le droit. Plus le droit répressif (pénal) domine, plus la solidarité est mécanique. Plus le droit restitutif (civil, commercial) domine, plus elle est organique. Le droit est le symbole morphologique de la solidarité."
+  },
+  {
+    q: "L'anomie, selon Durkheim, est :",
+    opts: [
+      "Une révolte consciente des individus contre l'ordre social",
+      "Un état où la division du travail ne produit pas la solidarité faute de règles suffisantes",
+      "La domination des classes supérieures sur les classes inférieures",
+      "Un retour à la solidarité mécanique dans les sociétés modernes"
+    ],
+    correct: 1,
+    feedback: "Correct. L'anomie n'est pas une rébellion — c'est une absence de normes. Quand les fonctions se différencient sans que les règles de coordination se développent, les individus sont livrés à eux-mêmes sans repères collectifs. Les crises industrielles, les conflits du travail, la dispersion de la science sont pour Durkheim des manifestations d'anomie."
+  },
+  {
+    q: "Durkheim affirme, contre l'intuition commune, que la division du travail :",
+    opts: [
+      "Détruit la personnalité individuelle en enfermant l'individu dans une tâche répétitive",
+      "Est un phénomène purement économique sans portée morale",
+      "Est la condition même de l'émergence de la personnalité individuelle dans les sociétés modernes",
+      "Ne peut produire de solidarité que dans les sociétés primitives"
+    ],
+    correct: 2,
+    feedback: "Paradoxalement, c'est la spécialisation qui libère l'individu. Dans les sociétés à solidarité mécanique, la conscience collective absorbe les individus — ils ne sont que les vecteurs de la tradition. C'est en se différenciant que les individus acquièrent une existence propre, irremplaçable. La modernité produit à la fois plus d'individualisme et plus d'interdépendance."
+  },
+  {
+    q: "La « division du travail contrainte » désigne chez Durkheim :",
+    opts: [
+      "Le travail forcé imposé par un régime autoritaire",
+      "L'assignation des individus à des fonctions par des inégalités extérieures plutôt que par leurs aptitudes",
+      "La spécialisation excessive qui rend les individus incapables de toute autre tâche",
+      "Le contrat de travail signé sous la pression économique"
+    ],
+    correct: 1,
+    feedback: "Exactement. La division contrainte est pathologique parce que la distribution des fonctions n'est pas juste : elle dépend de la naissance, de l'héritage, de la classe, non des capacités individuelles. Dans ces conditions, les individus ne reconnaissent pas la légitimité de l'ordre social — d'où la guerre des classes. La solution est l'égalité des conditions extérieures, non des résultats."
+  },
+  {
+    q: "En quoi la position de Durkheim sur le droit et l'État contredit-elle radicalement celle de Herbert Spencer ?",
+    opts: [
+      "Spencer pense que le droit doit être renforcé, Durkheim qu'il doit être réduit",
+      "Spencer croit en une solidarité exclusivement contractuelle et voit l'État comme pathologie ; Durkheim montre que les relations non contractuelles et le droit se développent avec la modernité",
+      "Spencer fonde la solidarité sur la religion, Durkheim sur le contrat",
+      "Spencer privilégie le droit répressif, Durkheim le droit naturel"
+    ],
+    correct: 1,
+    feedback: "C'est là une des controverses centrales du livre. Spencer croit que dans les sociétés industrielles, tout tient par les contrats volontaires entre individus, sans intervention extérieure. Durkheim lui oppose que tout contrat repose sur des normes sociales préexistantes — et que le droit administratif, constitutionnel, familial se développe en même temps que les contrats. La solidarité organique exige plus de réglementation, non moins."
+  }
+];
+
+let currentQ = 0;
+let score = 0;
+let answered = false;
+
+function renderQuestion() {
+  const q = quizData[currentQ];
+  document.getElementById('qNum').textContent = currentQ + 1;
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('qFeedback').className = 'quiz-feedback';
+  document.getElementById('qFeedback').textContent = '';
+  document.getElementById('qNext').disabled = true;
+  document.getElementById('qStatus').textContent = 'Sélectionnez une réponse';
+  answered = false;
+
+  const prog = ((currentQ) / quizData.length) * 100;
+  document.getElementById('quizProgressFill').style.width = prog + '%';
+
+  const opts = document.getElementById('qOptions');
+  opts.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'qopt';
+    btn.innerHTML = `<span>${opt}</span>`;
+    btn.onclick = () => selectAnswer(i, btn);
+    opts.appendChild(btn);
+  });
+}
+
+function selectAnswer(idx, btn) {
+  if (answered) return;
+  answered = true;
+  const q = quizData[currentQ];
+  const opts = document.querySelectorAll('.qopt');
+
+  opts.forEach((o, i) => {
+    if (i === q.correct) o.classList.add('correct');
+    else if (i === idx && i !== q.correct) o.classList.add('wrong');
+    else o.classList.add('reveal');
+  });
+
+  const fb = document.getElementById('qFeedback');
+  fb.textContent = q.feedback;
+  fb.classList.add('show');
+
+  if (idx === q.correct) {
+    score++;
+    document.getElementById('scoreDisplay').textContent = score;
+    document.getElementById('qStatus').textContent = '✓ Bonne réponse';
+  } else {
+    document.getElementById('qStatus').textContent = '✗ Réponse incorrecte';
+  }
+
+  document.getElementById('qNext').disabled = false;
+
+  const pct = Math.round((score / quizData.length) * 100);
+  document.getElementById('sidebarScore').textContent = `${score}/${quizData.length}`;
+  document.getElementById('sidebarFill').style.width = pct + '%';
+
+  if (currentQ === quizData.length - 1) {
+    document.getElementById('qNext').textContent = 'Voir mon score →';
+  }
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= quizData.length) {
+    showModal();
+    return;
+  }
+  renderQuestion();
+}
+
+function showModal() {
+  const msgs = [
+    [0,1, "Relisez attentivement les sections Thèse centrale et Concepts. Les distinctions fondamentales de Durkheim restent à découvrir."],
+    [2,3, "Quelques concepts restent flous. Revenez sur la distinction mécanique/organique et sur l'anomie."],
+    [4,4, "Bonne compréhension des grandes lignes. Approfondissez les formes anormales et le dialogue avec Spencer."],
+    [5,5, "Très solide. Vous saisissez bien l'articulation entre différenciation, solidarité et pathologies sociales."],
+    [6,6, "Maîtrise remarquable. Vous êtes prêt(e) à mobiliser Durkheim pour analyser les faits sociaux contemporains."]
+  ];
+  const msg = msgs.find(m => score >= m[0] && score <= m[1]);
+  document.getElementById('modalScore').textContent = `${score}/6`;
+  document.getElementById('modalMsg').textContent = msg ? msg[2] : '';
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('show');
+  currentQ = 0; score = 0; answered = false;
+  document.getElementById('scoreDisplay').textContent = '0';
+  document.getElementById('quizProgressFill').style.width = '0%';
+  document.getElementById('qNext').textContent = 'Question suivante →';
+  renderQuestion();
+}
+
+// Init quiz
+renderQuestion();
+
+/* ─── Sidebar score bars init ─── */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('sidebarFill').style.width = '0%';
+    document.getElementById('conceptFill').style.width = '0%';
+  }, 500);
+});
+</script>
+</body>
+</html>
