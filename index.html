@@ -185,6 +185,10 @@ body:has(a:hover) #C{width:14px;height:14px;}
   width:38px;height:44px;animation:hpulse 4s ease-in-out infinite alternate;}
 @keyframes hpulse{from{opacity:.2;border-color:rgba(90,110,138,.2);}to{opacity:1;border-color:rgba(90,110,138,.7);}}
 
+/* Art 9 — La Boétie: chaîne & brisure */
+.a9{background:#0b0609;}
+.a9 svg{position:absolute;inset:0;width:100%;height:100%;}
+
 /* Card text */
 .cinfo{padding:1.8rem 2rem 1.4rem;flex:1;display:flex;flex-direction:column;border-top:1px solid var(--rule);position:relative;}
 .cnum{position:absolute;bottom:0;right:1rem;font-family:'Cormorant Garamond',serif;font-size:7rem;font-weight:300;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(240,235,226,.05);pointer-events:none;user-select:none;transition:-webkit-text-stroke-color .4s;}
@@ -251,12 +255,12 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
   <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
   <div class="hgrid"></div>
   <div class="hero-inner">
-    <p class="eyebrow">Théorie critique · 8 fiches de lecture</p>
+    <p class="eyebrow">Théorie critique · 9 fiches de lecture</p>
     <h1 class="htitle" aria-label="Bibliothèque Critique">
       <span class="ln"><span class="wd">Bibliothèque</span></span>
       <span class="ln"><span class="wd">des Idées</span></span>
     </h1>
-    <p class="hsub">Huit œuvres qui ont permis de faire évoluer la pensée que l'on avait du monde social</p>
+    <p class="hsub">Neuf œuvres qui ont permis de faire évoluer la pensée que l'on avait du monde social</p>
     <nav class="pips" aria-label="Accès rapide">
       <span class="pip" onclick="goTo(1)">01</span>
       <span class="pip" onclick="goTo(2)">02</span>
@@ -266,6 +270,7 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
       <span class="pip" onclick="goTo(6)">06</span>
       <span class="pip" onclick="goTo(7)">07</span>
       <span class="pip" onclick="goTo(8)">08</span>
+      <span class="pip" onclick="goTo(9)">09</span>
     </nav>
   </div>
   <hr class="hrule">
@@ -278,6 +283,7 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
     <span class="hbi" style="--d:5"><strong>Bourdieu</strong> — Médias</span>
     <span class="hbi" style="--d:6"><strong>Dardot &amp; Laval</strong> — Néolibéralisme</span>
     <span class="hbi" style="--d:7"><strong>Durkheim</strong> — Division</span>
+    <span class="hbi" style="--d:8"><strong>La Boétie</strong> — Servitude</span>
   </div>
 </header>
 
@@ -285,7 +291,7 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
 <section class="col">
   <div class="col-h">
     <h2 class="col-t">La Collection</h2>
-    <span class="col-c">8 / 8 fiches</span>
+    <span class="col-c">9 / 9 fiches</span>
   </div>
 
   <!-- Row 1 -->
@@ -479,6 +485,51 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
     </a>
 
   </div>
+  <!-- Row 5 — La Boétie -->
+  <div class="grid" style="margin-top:2px">
+
+    <a href="laboetie-servitude-volontaire.html" class="card c4" id="k9" style="--c:#8b2252">
+      <div class="cbar"></div>
+      <div class="art art-md a9">
+        <svg viewBox="0 0 300 160" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="glow9"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <!-- Chain links left — bound -->
+          <g stroke="rgba(139,34,82,.55)" stroke-width="1.5" fill="none">
+            <ellipse cx="32"  cy="80" rx="18" ry="10"/>
+            <ellipse cx="68"  cy="80" rx="18" ry="10"/>
+            <ellipse cx="104" cy="80" rx="18" ry="10"/>
+            <ellipse cx="140" cy="80" rx="18" ry="10"/>
+          </g>
+          <!-- Break point glow -->
+          <circle cx="160" cy="80" r="10" fill="rgba(139,34,82,.18)" filter="url(#glow9)"/>
+          <line x1="152" y1="74" x2="168" y2="86" stroke="rgba(139,34,82,.9)" stroke-width="1" filter="url(#glow9)"/>
+          <line x1="152" y1="86" x2="168" y2="74" stroke="rgba(139,34,82,.9)" stroke-width="1" filter="url(#glow9)"/>
+          <!-- Chain links right — free, fading -->
+          <g stroke="rgba(139,34,82,.2)" stroke-width="1.5" fill="none">
+            <ellipse cx="196" cy="80" rx="18" ry="10"/>
+            <ellipse cx="232" cy="80" rx="18" ry="10"/>
+            <ellipse cx="268" cy="80" rx="18" ry="10"/>
+          </g>
+          <!-- Faint radial halo -->
+          <circle cx="160" cy="80" r="40" stroke="rgba(139,34,82,.07)" stroke-width="1" fill="none"/>
+          <circle cx="160" cy="80" r="60" stroke="rgba(139,34,82,.04)" stroke-width="1" fill="none"/>
+        </svg>
+      </div>
+      <div class="cinfo">
+        <span class="cnum" aria-hidden="true">09</span>
+        <span class="cidx">Fiche 09 · Philosophie politique</span>
+        <p class="cauthor">Étienne de La Boétie</p>
+        <h3 class="ctitle">Discours de la Servitude Volontaire</h3>
+        <p class="cyear">~1549</p>
+        <div class="cquote"><p>« Soyez résolus de ne servir plus, et vous voilà libres. Je ne veux pas que vous le poussiez ou l'ébranliez, mais seulement ne le soutenez plus. »</p></div>
+      </div>
+      <div class="cfoot"><span class="ctag">Consentement & liberté</span><span class="ccta">Lire la fiche ↗</span></div>
+    </a>
+
+  </div>
+
   <!-- Bloc personnel -->
   <div class="deco" style="margin-top:2px">
     <p class="deco-q">"Penser,<br>c'est déjà une manière d'être libre.<br>Dc réflechissez bcp !!! è_é"</p>
@@ -488,7 +539,7 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
 </section>
 
 <footer>
-  <p class="ft-l">Huit regards sur le monde social</p>
+  <p class="ft-l">Neuf regards sur le monde social</p>
   <p class="ft-r">Bibliothèque de fiches de lecture</p>
 </footer>
 
