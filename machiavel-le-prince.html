@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Prince — Nicolas Machiavel</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN SYSTEM — Palette Renaissance : vert forêt / bronze / encre
+   ═══════════════════════════════════════════ */
+:root {
+  --concrete: #f0ede6;
+  --concrete2: #e6e2d8;
+  --concrete3: #d4cfc4;
+  --ink: #0c0e0a;
+  --ink2: #161a12;
+  --blood: #1f6b3f;
+  --blood2: #155230;
+  --blood-pale: #daf0e4;
+  --neon: #c8960a;
+  --neon2: #a07208;
+  --neon-pale: #faf2d4;
+  --steel: #3a4a3a;
+  --steel2: #25302a;
+  --steel-pale: #d4e0d4;
+  --rust: #5a3a18;
+  --dust: #7a8270;
+  --rule: #c4c0b0;
+  --sidebar: 270px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--concrete);color:var(--ink);font-family:'Libre Baskerville',serif;font-size:17px;line-height:1.75;overflow-x:hidden;cursor:none;}
+#dot{width:8px;height:8px;border-radius:50%;background:var(--blood);position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:background .15s,width .15s,height .15s;}
+#ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);border-radius:50%;}
+#trail{position:fixed;inset:0;pointer-events:none;z-index:9997;}
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--blood);transform-origin:left;transform:scaleX(0);z-index:1002;transition:transform .08s linear;}
+.snav{position:fixed;left:0;top:0;bottom:0;width:var(--sidebar);background:var(--ink2);z-index:100;display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--blood) transparent;}
+.snav-brand{padding:2rem 1.8rem 1.8rem;border-bottom:1px solid rgba(255,255,255,.05);}
+.snav-kicker{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:var(--neon);margin-bottom:.8rem;}
+.snav-title{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;font-weight:800;line-height:1;color:#fff;letter-spacing:.02em;text-transform:uppercase;}
+.snav-authors{font-family:'Libre Baskerville',serif;font-style:italic;font-size:.78rem;color:rgba(255,255,255,.35);margin-top:.4rem;}
+.snav-year{font-family:'IBM Plex Mono',monospace;font-size:.55rem;color:var(--neon);letter-spacing:.1em;margin-top:.5rem;}
+.snav-lbl{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.18);padding:.9rem 1.8rem .3rem;}
+.snav-a{display:flex;align-items:center;gap:.7rem;padding:.42rem 1.8rem;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.38);text-decoration:none;border-left:2px solid transparent;transition:all .2s;}
+.snav-a:hover{color:rgba(255,255,255,.85);border-left-color:var(--neon);padding-left:2.1rem;}
+.snav-a.on{color:#fff;border-left-color:var(--blood);background:rgba(31,107,63,.12);}
+.snav-bullet{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.4;flex-shrink:0;}
+.snav-div{height:1px;background:rgba(255,255,255,.04);margin:.6rem 1.8rem;}
+.snav-score{margin-top:auto;padding:1.5rem 1.8rem;border-top:1px solid rgba(255,255,255,.05);}
+.snav-score-title{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:.8rem;}
+.score-bar{height:4px;background:rgba(255,255,255,.06);border-radius:2px;margin:.5rem 0;overflow:hidden;}
+.score-fill{height:100%;border-radius:2px;transition:width 1.5s cubic-bezier(.16,1,.3,1);}
+.score-label{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.1em;color:rgba(255,255,255,.25);margin-bottom:.2rem;}
+.main{margin-left:var(--sidebar);}
+.hero{min-height:100vh;background:var(--ink);color:#fff;padding:5rem 6rem 4rem;position:relative;overflow:hidden;display:grid;grid-template-rows:1fr auto;}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:80px 80px;pointer-events:none;}
+.hero-diag{position:absolute;bottom:0;right:0;width:45%;height:100%;background:var(--blood2);clip-path:polygon(30% 0,100% 0,100% 100%,0% 100%);opacity:.14;pointer-events:none;}
+.hero-tag{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--neon);margin-bottom:2.5rem;opacity:0;animation:fadeUp .7s ease forwards .1s;}
+.hero-h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(4rem,8vw,10rem);font-weight:900;line-height:.88;letter-spacing:-.01em;text-transform:uppercase;opacity:0;animation:fadeUp .9s ease forwards .25s;}
+.hero-h1 .line1{display:block;color:#fff;}
+.hero-h1 .line2{display:block;color:rgba(255,255,255,.55);}
+.hero-h1 .line3{display:block;color:var(--neon);}
+.hero-rule{width:120px;height:3px;background:linear-gradient(90deg,var(--blood),var(--neon));margin:2.5rem 0 2rem;opacity:0;animation:fadeUp .7s ease forwards .5s;}
+.hero-sub{max-width:680px;font-size:1.05rem;font-weight:400;font-style:italic;color:rgba(255,255,255,.6);line-height:1.85;opacity:0;animation:fadeUp .8s ease forwards .4s;}
+.hero-sub strong{color:#fff;font-style:normal;}
+.hero-chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2rem;opacity:0;animation:fadeUp .7s ease forwards .7s;}
+.chip{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;padding:.28rem .8rem;border-radius:2px;border:1px solid;}
+.chip-blood{color:#6dbb8a;border-color:rgba(31,107,63,.5);background:rgba(31,107,63,.12);}
+.chip-neon{color:var(--neon);border-color:rgba(200,150,10,.4);background:rgba(200,150,10,.08);}
+.chip-steel{color:#9ab09a;border-color:rgba(154,176,154,.3);background:rgba(154,176,154,.06);}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;padding-top:3rem;border-top:1px solid rgba(255,255,255,.07);opacity:0;animation:fadeUp .7s ease forwards .9s;}
+.hb-label{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:.4rem;}
+.hb-names{font-family:'Barlow Condensed',sans-serif;font-size:1.6rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff;line-height:1.1;}
+.hb-names span{color:var(--neon);}
+.hero-thesis{text-align:right;max-width:420px;font-family:'Libre Baskerville',serif;font-style:italic;font-size:.92rem;color:rgba(255,255,255,.45);line-height:1.7;}
+.hero-thesis cite{display:block;margin-top:.5rem;font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:var(--neon);}
+.sec{padding:5.5rem 6rem;border-bottom:1px solid var(--rule);}
+.sec.alt{background:var(--concrete2);}
+.sec.dark{background:var(--ink2);color:#fff;}
+.sec.steel{background:var(--steel2);color:#fff;}
+.sec.blood{background:var(--blood2);color:#fff;}
+.sec-eyebrow{display:flex;align-items:center;gap:1.2rem;margin-bottom:3rem;}
+.sec-num{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blood);background:var(--blood-pale);padding:.28rem .75rem;border-radius:2px;}
+.dark .sec-num,.steel .sec-num,.blood .sec-num{background:rgba(31,107,63,.2);color:#6dbb8a;}
+.sec-h2{font-family:'Barlow Condensed',sans-serif;font-size:2.6rem;font-weight:800;letter-spacing:.01em;text-transform:uppercase;line-height:1;}
+.sec-h2 em{color:var(--blood);font-style:normal;}
+.dark .sec-h2,.steel .sec-h2,.blood .sec-h2{color:#fff;}
+.dark .sec-h2 em,.steel .sec-h2 em,.blood .sec-h2 em{color:var(--neon);}
+.timeline-container{position:relative;padding-left:3rem;margin-top:2rem;}
+.timeline-container::before{content:'';position:absolute;left:14px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--blood),var(--neon),var(--steel));}
+.tl-item{position:relative;margin-bottom:2.5rem;opacity:0;transform:translateX(-20px);transition:opacity .6s ease,transform .6s ease;}
+.tl-item.v{opacity:1;transform:none;}
+.tl-dot{position:absolute;left:-2.45rem;top:.35rem;width:12px;height:12px;border-radius:50%;border:2px solid;}
+.tl-dot.blood{background:var(--blood);border-color:var(--blood);}
+.tl-dot.neon{background:var(--neon);border-color:var(--neon);}
+.tl-year{font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;color:var(--blood);margin-bottom:.2rem;}
+.tl-title{font-family:'Barlow Condensed',sans-serif;font-size:1.25rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:.5rem;}
+.tl-body{font-size:.88rem;color:#3a3a30;line-height:1.8;max-width:680px;}
+.concept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--ink);border:1px solid var(--ink);margin-top:1rem;}
+.concept-card{background:var(--concrete);padding:2.2rem;position:relative;overflow:hidden;cursor:pointer;transition:background .3s;}
+.alt .concept-card{background:var(--concrete2);}
+.concept-card::after{content:attr(data-num);position:absolute;right:.8rem;bottom:-1rem;font-family:'Barlow Condensed',sans-serif;font-size:7rem;font-weight:900;color:rgba(0,0,0,.04);line-height:1;pointer-events:none;}
+.cc-tag{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blood);display:block;margin-bottom:.5rem;}
+.cc-title{font-family:'Barlow Condensed',sans-serif;font-size:1.45rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;line-height:1.1;margin-bottom:.8rem;}
+.cc-short{font-size:.88rem;color:var(--dust);line-height:1.7;}
+.cc-expand{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1),opacity .4s ease,padding .4s ease;opacity:0;}
+.cc-expand.open{max-height:600px;opacity:1;padding-top:1rem;}
+.cc-expand-body{font-size:.85rem;color:var(--ink);line-height:1.8;border-top:1px solid var(--rule);padding-top:1rem;}
+.cc-expand-body p{margin-bottom:.7rem;}
+.cc-expand-body p:last-child{margin-bottom:0;}
+.cc-expand-body strong{color:var(--blood);font-weight:600;}
+.cc-today{margin-top:.8rem;padding:.8rem 1rem;background:var(--neon-pale);border-left:2px solid var(--neon);font-size:.8rem;font-style:italic;color:var(--rust);line-height:1.6;}
+.cc-today::before{content:'Aujourd\'hui → ';font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;color:var(--neon2);display:block;margin-bottom:.2rem;}
+.cc-toggle{display:flex;align-items:center;gap:.5rem;margin-top:1rem;font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blood);cursor:pointer;}
+.cc-arrow{width:16px;height:16px;border:1px solid var(--blood);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;transition:transform .3s;}
+.open-arrow .cc-arrow{transform:rotate(180deg);}
+.concept-card:hover{background:var(--blood-pale);}
+.accordion{display:flex;flex-direction:column;gap:2px;}
+.acc-item{background:var(--concrete);border-left:3px solid transparent;transition:border-color .3s,background .3s;}
+.alt .acc-item{background:var(--concrete2);}
+.acc-item.open{border-left-color:var(--blood);background:var(--blood-pale);}
+.acc-head{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;cursor:pointer;transition:background .2s;}
+.acc-head:hover{background:rgba(31,107,63,.05);}
+.acc-title{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;}
+.acc-icon{font-family:'IBM Plex Mono',monospace;font-size:1.2rem;color:var(--blood);transition:transform .3s;flex-shrink:0;}
+.acc-item.open .acc-icon{transform:rotate(45deg);}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1);}
+.acc-item.open .acc-body{max-height:500px;}
+.acc-inner{padding:0 1.5rem 1.5rem;font-size:.88rem;color:#3a3a30;line-height:1.85;}
+.acc-inner p{margin-bottom:.7rem;}
+.acc-inner p:last-child{margin-bottom:0;}
+.acc-inner strong{color:var(--blood);font-weight:600;}
+.dark .acc-inner,.steel .acc-inner{color:rgba(255,255,255,.7);}
+.dark .acc-inner em,.steel .acc-inner em{color:var(--neon);}
+.pq{padding:3rem 4rem;margin:3rem 0;position:relative;overflow:hidden;}
+.pq.blood{background:var(--blood2);color:#fff;}
+.pq.neon{background:var(--ink);color:#fff;border-left:4px solid var(--neon);}
+.pq.steel{background:var(--steel2);color:#fff;}
+.pq::before{content:'\201C';position:absolute;top:-2rem;left:2rem;font-family:'Libre Baskerville',serif;font-size:14rem;line-height:1;opacity:.08;pointer-events:none;color:#fff;}
+.pq p{font-family:'Libre Baskerville',serif;font-size:1.4rem;font-style:italic;font-weight:400;line-height:1.65;position:relative;z-index:1;}
+.pq cite{display:block;margin-top:1.2rem;font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;font-style:normal;color:rgba(255,255,255,.4);}
+.pq.neon cite{color:var(--neon);}
+.glos-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--rule);border:1px solid var(--rule);}
+.gi{background:var(--concrete);padding:2rem 2.5rem;position:relative;overflow:hidden;transition:background .3s;}
+.alt .gi{background:var(--concrete2);}
+.gi:hover{background:var(--neon-pale);}
+.gi::after{content:attr(data-g);position:absolute;right:1rem;bottom:-1rem;font-family:'Barlow Condensed',sans-serif;font-size:8rem;font-weight:900;color:rgba(0,0,0,.04);line-height:1;pointer-events:none;}
+.gi-src{font-family:'IBM Plex Mono',monospace;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blood);display:block;margin-bottom:.3rem;}
+.gi-term{font-family:'Barlow Condensed',sans-serif;font-size:1.55rem;font-weight:800;letter-spacing:.02em;text-transform:uppercase;margin-bottom:.7rem;line-height:1.1;}
+.gi-def{font-size:.88rem;color:#3a3a30;line-height:1.78;margin-bottom:.7rem;}
+.gi-now{padding:.65rem 1rem;background:rgba(200,150,10,.1);border-left:2px solid var(--neon);font-style:italic;font-size:.8rem;color:var(--rust);line-height:1.6;}
+.gi-now::before{content:'Aujourd\'hui → ';font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;color:var(--neon2);display:block;margin-bottom:.2rem;}
+.quiz-wrap{background:var(--ink);color:#fff;padding:4rem 5rem;margin-top:2rem;position:relative;overflow:hidden;}
+.quiz-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blood),var(--neon),var(--blood));}
+.quiz-title{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--neon);margin-bottom:.4rem;}
+.quiz-question{font-family:'Libre Baskerville',serif;font-size:1.25rem;font-style:italic;color:#fff;line-height:1.6;margin-bottom:2rem;}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.qopt{padding:1.2rem 1.5rem;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.02);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:.92rem;font-weight:500;letter-spacing:.04em;color:rgba(255,255,255,.7);text-transform:uppercase;transition:all .2s;text-align:left;position:relative;overflow:hidden;}
+.qopt::before{content:'';position:absolute;inset:0;background:var(--blood);transform:scaleX(0);transform-origin:left;transition:transform .3s ease;z-index:0;}
+.qopt:hover{color:#fff;border-color:var(--blood);}
+.qopt:hover::before{transform:scaleX(1);}
+.qopt span{position:relative;z-index:1;}
+.qopt.correct{background:rgba(30,120,50,.3);border-color:#4a9a60;color:#7dd89a;}
+.qopt.wrong{background:rgba(120,40,20,.3);border-color:var(--neon);color:#e8c060;}
+.qopt.reveal{background:rgba(30,120,50,.15);border-color:#4a9a60;color:#7dd89a;}
+.quiz-feedback{margin-top:1.5rem;padding:1.2rem 1.5rem;background:rgba(255,255,255,.04);border-left:3px solid var(--neon);font-size:.9rem;color:rgba(255,255,255,.7);line-height:1.7;display:none;}
+.quiz-feedback.show{display:block;}
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;}
+.quiz-btn{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.7rem 2rem;border:none;background:var(--blood);color:#fff;cursor:pointer;transition:background .2s;}
+.quiz-btn:hover{background:var(--blood2);}
+.quiz-btn:disabled{opacity:.3;cursor:not-allowed;}
+.quiz-progress-bar{height:3px;background:rgba(255,255,255,.1);border-radius:2px;margin-bottom:2.5rem;overflow:hidden;}
+.quiz-progress-fill{height:100%;background:var(--blood);transition:width .5s ease;}
+.quiz-counter{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:rgba(255,255,255,.3);}
+.qstack{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.05);margin-top:1.5rem;}
+.qi{background:rgba(255,255,255,.02);padding:2rem 2.5rem;display:grid;grid-template-columns:60px 1fr;gap:1.5rem;align-items:start;transition:background .3s;border-left:3px solid transparent;}
+.qi:hover{background:rgba(31,107,63,.08);border-left-color:var(--blood);}
+.qi-n{font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--neon);padding-top:.2rem;}
+.qi-t{font-family:'Libre Baskerville',serif;font-size:1.05rem;font-style:italic;color:#fff;line-height:1.7;margin-bottom:.5rem;}
+.qi-hint{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:rgba(255,255,255,.28);line-height:1.65;}
+.qi-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.7rem;}
+.qi-tag{font-family:'IBM Plex Mono',monospace;font-size:.48rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(200,150,10,.3);color:var(--neon);padding:.18rem .55rem;border-radius:2px;}
+.synth-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:1.5rem;}
+.sc{background:rgba(0,0,0,.15);padding:2rem;border-top:3px solid rgba(255,255,255,.15);transition:background .3s;}
+.sc:hover{background:rgba(0,0,0,.25);}
+.sc-title{font-family:'IBM Plex Mono',monospace;font-size:.55rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.7rem;}
+.sc-body{font-size:.9rem;line-height:1.75;color:rgba(255,255,255,.85);}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:2000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;}
+.modal-overlay.show{opacity:1;pointer-events:all;}
+.modal{background:var(--ink2);color:#fff;padding:4rem;max-width:560px;width:90%;position:relative;border-top:4px solid var(--blood);}
+.modal-title{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:900;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem;}
+.modal-score{font-family:'Barlow Condensed',sans-serif;font-size:5rem;font-weight:900;color:var(--neon);line-height:1;margin:1.5rem 0;}
+.modal-msg{font-family:'Libre Baskerville',serif;font-style:italic;font-size:.95rem;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:2rem;}
+.modal-close{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.7rem 2rem;border:none;background:var(--blood);color:#fff;cursor:pointer;transition:background .2s;}
+.modal-close:hover{background:var(--blood2);}
+footer{background:var(--ink);color:rgba(255,255,255,.2);padding:3rem 6rem;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;}
+.fc{font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:900;letter-spacing:.06em;opacity:.06;text-align:center;text-transform:uppercase;}
+footer a{color:var(--neon);text-decoration:none;display:block;text-align:right;}
+footer a:hover{color:var(--blood);}
+.r{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+.r.v{opacity:1;transform:none;}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@media(max-width:1100px){:root{--sidebar:220px}.hero,.sec{padding-left:4rem;padding-right:4rem}.synth-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:820px){:root{--sidebar:0px}.snav{display:none}.hero,.sec{padding:4rem 2rem}.concept-grid,.glos-grid{grid-template-columns:1fr}.quiz-options{grid-template-columns:1fr}.synth-grid{grid-template-columns:1fr}footer{grid-template-columns:1fr;gap:1rem;text-align:center}footer a{text-align:center}.qi{grid-template-columns:1fr}.hero-bottom{flex-direction:column;gap:2rem;align-items:flex-start}.hero-thesis{text-align:left}}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<canvas id="trail"></canvas>
+<div id="dot"></div>
+<div id="ring"></div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-title">Résultat du Quiz</div>
+    <div class="modal-score" id="modalScore">0/6</div>
+    <p class="modal-msg" id="modalMsg"></p>
+    <button class="modal-close" onclick="closeModal()">Fermer et réviser</button>
+  </div>
+</div>
+
+<nav class="snav">
+  <div class="snav-brand">
+    <div class="snav-kicker">Philosophie politique · 1515</div>
+    <div class="snav-title">Le<br>Prince</div>
+    <div class="snav-authors">Nicolas Machiavel</div>
+    <div class="snav-year">Florence · 1515 (pub. 1532)</div>
+  </div>
+  <span class="snav-lbl">Introduction</span>
+  <a href="#hero" class="snav-a on"><span class="snav-bullet"></span>Présentation</a>
+  <a href="#genese" class="snav-a"><span class="snav-bullet"></span>Genèse intellectuelle</a>
+  <a href="#these" class="snav-a"><span class="snav-bullet"></span>La thèse centrale</a>
+  <div class="snav-div"></div>
+  <span class="snav-lbl">Concepts clés</span>
+  <a href="#concepts" class="snav-a"><span class="snav-bullet"></span>Concepts fondamentaux</a>
+  <a href="#sujet" class="snav-a"><span class="snav-bullet"></span>Principautés & acquisitions</a>
+  <a href="#structure" class="snav-a"><span class="snav-bullet"></span>Le lion et le renard</a>
+  <div class="snav-div"></div>
+  <span class="snav-lbl">Dialogues</span>
+  <a href="#dialogue" class="snav-a"><span class="snav-bullet"></span>Machiavel contre les moralistes</a>
+  <a href="#reseau" class="snav-a"><span class="snav-bullet"></span>Réseau d'auteurs</a>
+  <a href="#aujourdhui" class="snav-a"><span class="snav-bullet"></span>Actualité</a>
+  <div class="snav-div"></div>
+  <span class="snav-lbl">Pédagogie</span>
+  <a href="#quiz" class="snav-a"><span class="snav-bullet"></span>⚡ Quiz interactif</a>
+  <a href="#reflexion" class="snav-a"><span class="snav-bullet"></span>Pistes de réflexion</a>
+  <a href="#synthese" class="snav-a"><span class="snav-bullet"></span>Synthèse critique</a>
+  <div class="snav-score">
+    <div class="snav-score-title">Votre progression</div>
+    <div class="score-label"><span>Quiz</span><span id="sidebarScore">—</span></div>
+    <div class="score-bar"><div class="score-fill" id="sidebarFill" style="width:0%;background:var(--blood)"></div></div>
+    <div class="score-label" style="margin-top:.5rem"><span>Concepts lus</span><span id="conceptCount">0/6</span></div>
+    <div class="score-bar"><div class="score-fill" id="conceptFill" style="width:0%;background:var(--neon)"></div></div>
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ═══ HERO ═══ -->
+<section id="hero" class="hero">
+  <div class="hero-diag"></div>
+  <div>
+    <div class="hero-tag">Philosophie politique · Réalisme · Art de gouverner</div>
+    <h1 class="hero-h1">
+      <span class="line1">Le</span>
+      <span class="line2">Prince</span>
+      <span class="line3">Il Principe</span>
+    </h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">
+      La politique n'est pas de la morale. Elle obéit à ses propres lois : la <strong>virtù</strong>, la fortune, la nécessité. Le prince qui veut réussir doit apprendre à n'être pas bon — et savoir <strong>quand</strong> ne pas l'être.
+    </p>
+    <div class="hero-chips">
+      <span class="chip chip-blood">Philosophie politique</span>
+      <span class="chip chip-blood">Réalisme politique</span>
+      <span class="chip chip-neon">Virtù / Fortuna</span>
+      <span class="chip chip-neon">Lion & Renard</span>
+      <span class="chip chip-steel">Florence · ~1515</span>
+      <span class="chip chip-steel">Dédié à Laurent de Médicis</span>
+    </div>
+  </div>
+  <div class="hero-bottom">
+    <div>
+      <div class="hb-label">Auteur</div>
+      <div class="hb-names">Nicolas <span>Machiavel</span></div>
+    </div>
+    <div class="hero-thesis">
+      « Un prince doit donc, entre toutes les bêtes, savoir bien imiter le renard et le lion. Celui qui n'est que lion ne discerne pas les pièges ; celui qui n'est que renard ne repousse pas les loups. »
+      <cite>— Machiavel, Le Prince, ch. XVIII</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GENÈSE ═══ -->
+<section id="genese" class="sec alt">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">01 — Genèse</span>
+    <h2 class="sec-h2">Naissance d'un <em>traité maudit</em></h2>
+  </div>
+  <p class="r" style="max-width:760px;font-size:.95rem;color:#3a3a30;line-height:1.9;margin-bottom:3rem;">
+    Le Prince est né de la chute. Machiavel, haut fonctionnaire de la République florentine pendant quatorze ans, est arrêté, torturé et banni en 1512 lors du retour des Médicis au pouvoir. Retiré dans sa petite propriété de Sant'Andrea, il rédige en quelques mois ce traité qui condense toute son expérience de la politique réelle — non pour philosopher, mais pour regagner une faveur qui ne viendra jamais de son vivant.
+  </p>
+  <div class="timeline-container r">
+    <div class="tl-item">
+      <div class="tl-dot blood"></div>
+      <div class="tl-year">1469 — Florence</div>
+      <div class="tl-title">Naissance de Nicolas Machiavel</div>
+      <p class="tl-body">Fils d'un juriste, Machiavel grandit dans la Florence des Médicis, au cœur de la Renaissance italienne. Il reçoit une solide formation humaniste et baigne dans les textes antiques — Tite-Live, Tacite, Polybe — qui nourriront toute son œuvre politique. Cette immersion dans l'Antiquité romaine lui donnera sa méthode : apprendre de l'histoire pour agir dans le présent.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot neon"></div>
+      <div class="tl-year">1498–1512 — Florence</div>
+      <div class="tl-title">Secrétaire de la chancellerie florentine</div>
+      <p class="tl-body">Nommé second chancelier de Florence, Machiavel dirige les affaires étrangères et militaires de la République pendant quatorze ans. Il effectue de nombreuses missions diplomatiques — auprès de César Borgia, Louis XII, l'empereur Maximilien, le pape Jules II. Ces contacts directs avec les grandes figures du pouvoir de son temps forment le substrat empirique du <em>Prince</em> : chaque chapitre est illustré d'exemples tirés de sa propre expérience.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot blood"></div>
+      <div class="tl-year">1512–1513 — Arrest, exil, rédaction</div>
+      <div class="tl-title">La chute — Le livre naît de la défaite</div>
+      <p class="tl-body">Avec le retour des Médicis et la chute de la République, Machiavel est arrêté, soupçonné de complot, torturé au cordage. Innocenté et banni, il se retire à sa ferme de Sant'Andrea in Percussina. C'est là qu'il rédige <em>Le Prince</em> en quelques mois — puis les <em>Discours sur la première décade de Tite-Live</em>. Le livre est une offrande désespérée aux Médicis pour retrouver une charge. Il ne sera jamais lu par son destinataire.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot neon"></div>
+      <div class="tl-year">1532 — Publication posthume</div>
+      <div class="tl-title">Le livre paraît cinq ans après la mort de l'auteur</div>
+      <p class="tl-body">Machiavel meurt en 1527, quelques mois après la chute des Médicis et le retour éphémère de la République — sans jamais avoir retrouvé sa position. <em>Le Prince</em> est publié posthume en 1532. Il sera mis à l'Index par l'Église en 1559. Mais il circulait en manuscrit depuis des années, et ses idées avaient déjà rayonné à travers l'Europe. Dès lors commence la légende noire du « machiavélisme ».</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot blood"></div>
+      <div class="tl-year">XVIe–XXe s. — Postérité paradoxale</div>
+      <div class="tl-title">L'œuvre la plus mal comprise de l'histoire politique</div>
+      <p class="tl-body">Pendant cinq siècles, Machiavel est condamné comme le théoricien du cynisme et de la cruauté, le précepteur des tyrans. Pourtant une lecture attentive révèle un républicain convaincu qui décrit les conditions réelles du pouvoir — non pour les prescrire à des tyrans, mais pour les exposer à la lumière. Les <em>Discours</em>, moins lus, montrent sa préférence profonde pour la république et la liberté civique.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THÈSE CENTRALE ═══ -->
+<section id="these" class="sec dark">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">02 — Thèse centrale</span>
+    <h2 class="sec-h2">La <em>vérité effective</em> — Ce que dit vraiment le livre</h2>
+  </div>
+  <p class="r" style="max-width:760px;font-size:.95rem;color:rgba(255,255,255,.65);line-height:1.9;margin-bottom:3rem;">
+    La rupture fondamentale de Machiavel avec toute la tradition politique antérieure tient en une phrase : il entend traiter de la « vérité effective de la chose » et non de son « imagination ». Tous ses prédécesseurs — Platon, Aristote, les miroirs au prince médiévaux — décrivaient le prince idéal. Machiavel décrit le prince réel, tel qu'il doit être pour survivre et réussir dans un monde où les autres ne sont pas vertueux.
+  </p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:3rem;" class="r">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neon);margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:2px solid var(--neon);">La tradition — Les républiques imaginaires</div>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">Toute la tradition politique avant Machiavel peuple la réflexion de républiques et de principautés imaginaires. Le prince idéal est vertueux, juste, clément, pieux, fidèle à sa parole. Cette vertu est à la fois son devoir moral et le fondement de son pouvoir légitime.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;">L'homme politique doit d'abord être bon. C'est le fondement de toute la tradition des <em>miroirs au prince</em> : <strong style="color:#fff;">le gouvernement est l'application de la morale.</strong></p>
+    </div>
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:#6dbb8a;margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:2px solid rgba(31,107,63,.6);">Machiavel — La vérité effective</div>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">Machiavel observe la réalité : les hommes ne sont pas bons. La politique est un domaine de forces où la vertu morale peut être mortelle. Un prince qui veut réussir doit <strong style="color:#fff;">savoir ne pas être bon</strong> — non par vice, mais par nécessité politique.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;">La thèse n'est pas que la morale est inutile, mais qu'elle est <strong style="color:#fff;">insuffisante</strong> comme fondement du pouvoir. La politique a ses propres lois : la <em>virtù</em>, la fortune, la nécessité, l'apparence.</p>
+    </div>
+  </div>
+  <div class="pq neon r">
+    <p>« Beaucoup se sont imaginé des républiques et des principautés qui n'ont jamais existé. Mais il y a si loin de la façon dont on vit à celle dont on devrait vivre, que celui qui laisse ce qui se fait pour ce qui devrait se faire apprend plutôt à se ruiner qu'à se conserver. »</p>
+    <cite>— Machiavel, Le Prince, ch. XV</cite>
+  </div>
+</section>
+
+<!-- ═══ CONCEPTS ═══ -->
+<section id="concepts" class="sec alt">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">03 — Lexique</span>
+    <h2 class="sec-h2">Concepts <em>fondamentaux</em> — Cliquer pour développer</h2>
+  </div>
+  <div class="concept-grid r">
+
+    <div class="concept-card" data-num="01" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">La Virtù</div>
+      <p class="cc-short">La capacité active du prince à saisir l'occasion et à imposer sa forme aux événements — énergie, courage, décision.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>La <em>virtù</em> de Machiavel n'est pas la vertu morale des philosophes : c'est une notion proche de l'énergie vitale, de la capacité d'action, du courage politique. Elle désigne l'ensemble des qualités qui permettent à un homme de s'imposer, de construire et de maintenir un État.</p>
+          <p>Le prince vertueux au sens machiavélien est celui qui <strong>sait créer les conditions de sa propre réussite</strong> : il ne subit pas les événements, il les façonne. Moïse, Cyrus, Romulus, Thésée sont les exemples canoniques — ils ont su profiter de l'occasion (la fortune) que leur offrait l'histoire pour y imprimer leur volonté. La virtù, c'est la capacité à dominer la fortune.</p>
+          <p>À l'opposé, celui qui doit son pouvoir entièrement à la fortune le perdra avec elle : ses racines ne sont pas assez profondes pour résister au premier orage. C'est la leçon que Machiavel tire de l'exemple de César Borgia — grand dans sa virtù, trahi par la seule fortune adverse (sa maladie et la mort de son père au mauvais moment).</p>
+          <div class="cc-today">La notion de virtù irrigue toute la théorie du leadership contemporain : la capacité à décider dans l'incertitude, à créer l'occasion plutôt qu'à l'attendre, à s'adapter rapidement — autant de dimensions que les théoriciens du management redécouvrent sans toujours citer leur source.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" data-num="02" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">La Fortuna</div>
+      <p class="cc-short">La part des événements qui échappe à l'homme — mais qu'il peut partiellement contenir par la préparation et l'audace.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>La fortune est l'un des deux pôles de la pensée machiavélienne. Machiavel refuse le fatalisme — que tout dépende de Dieu et de la fortune, et que la prudence humaine ne puisse rien. Il accepte que la fortune dispose de la moitié de nos actions, mais que l'autre moitié reste en notre pouvoir.</p>
+          <p>La métaphore est célèbre : la fortune est comme un <strong>fleuve impétueux</strong>. Quand il déborde, tout fuit devant lui. Mais les hommes prévoyants construisent des digues en temps calme pour en contenir les crues. L'Italie, ravagée par les invasions étrangères, ressemble à « une vaste campagne sans défense » — faute d'avoir construit ses digues à temps.</p>
+          <p>La conclusion paradoxale : il vaut mieux être <strong>impétueux que circonspect</strong>, car la fortune est femme et cède à qui la traite avec audace plutôt qu'à qui l'aborde froidement. Jules II, impétueux par nature, réussit toujours — précisément parce que l'impétuosité convenait aux temps où il agissait. Le problème : les hommes ne savent pas changer de caractère quand les temps changent.</p>
+          <div class="cc-today">La gestion du risque en finance et en stratégie d'entreprise rejoue cette tension : entre préparation prudente (construire les digues) et décision audacieuse quand l'occasion se présente. La notion de « window of opportunity » est une fortune machiavélienne.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" data-num="03" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">Être aimé ou craint ?</div>
+      <p class="cc-short">Il vaudrait mieux être les deux, mais s'il faut choisir, il est plus sûr d'être craint — sans toutefois être haï.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>Le chapitre XVII est l'un des plus célèbres du livre. Machiavel pose la question : vaut-il mieux être aimé que craint, ou être craint qu'aimé ? Sa réponse est tranchée : si les deux sont impossibles ensemble, il faut préférer la crainte à l'amour.</p>
+          <p>L'argument est anthropologique : les hommes sont <strong>ingrats, inconstants, dissimulés, avides</strong>. Tant que vous leur faites du bien, ils vous offrent tout. Mais dès que le danger approche, ils se détournent. L'amour tient par la gratitude — lien fragile que la moindre intérêt brise. La crainte tient par la peur du châtiment — sentiment qui ne s'évanouit pas.</p>
+          <p>Mais attention : le prince doit éviter la haine. Craindre sans haïr, c'est possible. La règle est simple : ne jamais attenter aux biens ni à l'honneur des sujets — car les hommes pardonnent plus facilement la mort de leur père que la perte de leur patrimoine. Annibal a maintenu son armée hétéroclite dans l'ordre précisément par « sa cruauté inhumaine jointe à ses grandes qualités » — sans cette cruauté, ses autres vertus n'auraient pas suffi.</p>
+          <div class="cc-today">Les études en psychologie des organisations montrent que les leaders autoritaires obtiennent des résultats à court terme mais détruisent la confiance à long terme. La distinction machiavélienne crainte/haine reste empiriquement féconde : la crainte (respect de l'autorité) n'est pas la haine (résistance active).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" data-num="04" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">Apparence et être</div>
+      <p class="cc-short">Il n'est pas nécessaire d'avoir les bonnes qualités — il est nécessaire de paraître les avoir. Les hommes jugent par les yeux.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>Machiavel formule au chapitre XVIII une théorie de l'apparence politique qui a choqué ses contemporains et inspire encore aujourd'hui. Un prince n'a pas besoin d'être clément, fidèle, humain, pieux, sincère — il a besoin de <strong>paraître</strong> l'être. Et s'il les a réellement, il doit savoir les mettre de côté quand la nécessité le demande.</p>
+          <p>L'argument : les hommes jugent plus par leurs yeux que par leurs mains. Tout le monde voit ce que vous paraissez ; peu connaissent ce que vous êtes. Le petit nombre qui sait ne peut s'élever contre l'opinion de la majorité soutenue par la majesté du pouvoir. Et dans les actions des hommes, <strong>c'est le résultat qui compte</strong> — si le prince réussit à maintenir l'État, les moyens seront jugés honorables.</p>
+          <p>Alexandre VI n'était que tromperie — « il ne pensait pas à autre chose » — mais ses tromperies lui réussissaient toujours parce qu'il connaissait parfaitement son art. C'est la légitimation par le succès : la politique crée ses propres normes de jugement, distinctes de la morale ordinaire.</p>
+          <div class="cc-today">La communication politique moderne est entièrement structurée par cette logique : le spin, les éléments de langage, la mise en scène des décisions, la gestion de l'image. Les conseillers en communication sont les héritiers directs du chapitre XVIII du Prince.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" data-num="05" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">Les armes propres</div>
+      <p class="cc-short">Un prince ne doit s'appuyer que sur ses propres forces — les troupes mercenaires et auxiliaires sont dangereuses et peu fiables.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>Les chapitres XII et XIII développent une thèse militaire qui est aussi une thèse politique : la puissance d'un État doit reposer sur ses propres forces. Les <strong>troupes mercenaires</strong> — soldats qui combattent pour l'argent sans amour ni engagement — sont lâches contre l'ennemi, hardies contre les amis, sans discipline ni fidélité. Elles ont conduit l'Italie à la ruine.</p>
+          <p>Les troupes auxiliaires — soldats d'une puissance étrangère alliée — sont encore plus dangereuses : si elles sont vaincues, le prince est défait avec elles ; si elles sont victorieuses, il demeure à leur discrétion. Rome et Sparte ont vécu libres et armées grâce à leurs propres forces. La Suisse, dont tous les habitants sont soldats, est parfaitement libre.</p>
+          <p>César Borgia incarne la leçon : il a progressivement remplacé ses troupes françaises par des mercenaires, puis les mercenaires par ses propres forces — et c'est alors qu'il était « maître absolu de ses armes » que sa réputation était à son apogée. <strong>La souveraineté militaire est la condition de la souveraineté politique.</strong></p>
+          <div class="cc-today">La dépendance des États contemporains aux armées privées (contractors comme Blackwater/Academi), aux alliances militaires contraignantes (OTAN) ou à des mercenaires de fait pose exactement les questions que Machiavel soulevait — jusqu'où une puissance peut-elle externaliser sa défense sans perdre sa souveraineté ?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" data-num="06" onclick="toggleCard(this)">
+      <span class="cc-tag">Concept clé</span>
+      <div class="cc-title">Éviter le mépris et la haine</div>
+      <p class="cc-short">L'impératif politique central : ne jamais être haï ni méprisé — les deux ennemis mortels de tout pouvoir.</p>
+      <div class="cc-toggle"><span class="cc-arrow">↓</span><span>Lire l'analyse</span></div>
+      <div class="cc-expand">
+        <div class="cc-expand-body">
+          <p>Le chapitre XIX est l'un des plus denses du livre. Machiavel y formule le principe unificateur de toute sa pensée : le prince doit éviter les deux dangers mortels que sont <strong>la haine</strong> (qui suscite la révolte active et la conspiration) et <strong>le mépris</strong> (qui l'expose aux tentatives de renversement).</p>
+          <p>Ce qui inspire la haine : s'attaquer aux biens et à l'honneur des sujets. Les hommes pardonnent plus aisément la mort de leur père que la perte de leur patrimoine. Ce qui inspire le mépris : la légèreté, l'irrésolution, la pusillanimité, l'inconstance. Le prince qui change sans cesse de décision se fait mépriser et devient vulnérable.</p>
+          <p>La thèse sur les conjurations en découle : celui qui conspire croit toujours que le peuple accueillera la mort du prince avec soulagement. Si le prince est aimé du peuple, le conspirateur n'osera pas — car il sait qu'après l'acte il n'aura aucun refuge. <strong>La bienveillance populaire est la meilleure des gardes du corps.</strong></p>
+          <div class="cc-today">Les crises politiques contemporaines illustrent cette logique : les dirigeants qui chutent le font presque toujours soit par la haine (corruption, abus, violations des droits), soit par le mépris (incompétence perçue, revirements, faiblesse). Rarement les deux simultanément — ce qui confirme qu'ils appellent des réponses différentes.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ TYPES DE PRINCIPAUTÉS ═══ -->
+<section id="sujet" class="sec dark">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">04 — Taxonomie</span>
+    <h2 class="sec-h2">Acquérir et <em>conserver</em> — La logique des principautés</h2>
+  </div>
+  <p class="r" style="max-width:760px;font-size:.95rem;color:rgba(255,255,255,.65);line-height:1.9;margin-bottom:3rem;">
+    Les premiers chapitres du Prince établissent une taxinomie des États et des modes d'acquisition. Machiavel croise deux variables — l'origine du pouvoir (héréditaire ou nouveau) et les moyens d'acquisition (virtù ou fortune, armes propres ou d'autrui) — pour dégager des règles différentes selon les situations.
+  </p>
+  <div class="accordion r">
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title">Les principautés héréditaires — La facilité du temps</span>
+        <span class="acc-icon">+</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p>Pour les États héréditaires, la conservation est aisée : il suffit de ne pas outrepasser les coutumes et de temporiser avec les événements. Même un prince de capacité ordinaire se maintiendra. La mémoire des innovations s'efface avec le temps, les causes de mécontentement disparaissent. L'ancienneté est en elle-même une légitimité.</p>
+          <p>Machiavel résume : <strong>un prince héréditaire a bien moins de raisons de déplaire et davantage de raisons d'être aimé</strong>. Le duc de Ferrare, qui a résisté aux Vénitiens et au pape Jules II, en est l'exemple — sa famille était établie depuis longtemps dans son duché, et c'est suffisant.</p>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title">Les principautés nouvelles — La difficulté de l'innovation</span>
+        <span class="acc-icon">+</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p>C'est ici que « toutes les difficultés se rencontrent ». Le prince nouveau a pour ennemis tous ceux qu'il a lésés, et pour alliés tièdes ceux qui profiteront des changements. Car les hommes aiment changer de maître dans l'espoir d'améliorer leur sort, mais se trompent presque toujours.</p>
+          <p>La règle fondamentale : <strong>les prophètes armés réussissent, les prophètes désarmés échouent</strong>. Moïse, Cyrus, Romulus, Thésée ont imposé leurs institutions nouvelles par la force quand la persuasion ne suffisait plus. Savonarole, désarmé, a échoué dès que la foule a cessé de croire en lui. Les nouveaux ordres ne tiennent que si l'on peut contraindre.</p>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title">Virtù contre Fortune — César Borgia comme cas d'école</span>
+        <span class="acc-icon">+</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p>L'opposition Francesco Sforza / César Borgia illustre parfaitement la distinction virtù/fortune. Sforza, par sa propre valeur, est devenu duc de Milan et a su conserver ce qu'il avait conquis. Borgia, fils de pape, doit tout à la fortune de son père — et perd tout quand la fortune se retourne.</p>
+          <p>Pourtant Machiavel admire Borgia : dans les conditions données, il a fait tout ce qu'un homme prudent pouvait faire. Sa destruction de Ramiro d'Orco (son lieutenant brutal, exposé sur la place publique après avoir servi son utilité) est citée en exemple : <strong>« il voulut faire voir que si quelques cruautés avaient été commises, elles n'étaient venues que de la méchanceté de son ministre. »</strong> La cruauté efficacement distancée produit à la fois terreur et gratitude.</p>
+        </div>
+      </div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)">
+        <span class="acc-title">Comment gouverner les États accoutumés à la liberté</span>
+        <span class="acc-icon">+</span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p>Le chapitre V pose une question épineuse : comment gouverner un État qui vivait sous ses propres lois ? Trois options : le détruire, y vivre soi-même, ou lui laisser ses lois avec un gouvernement de fidèles. Mais les deux premières sont les plus sûres — car la mémoire de la liberté passée est la plus dangereuse ennemie du nouveau prince.</p>
+          <p>La conclusion radicale : <strong>quiconque ayant conquis un État accoutumé à la liberté ne le détruit pas doit s'attendre à en être détruit.</strong> Pise, après cent ans de sujétion florentine, brisait encore son joug. La liberté politique laisse des traces profondes que ni le temps ni les bienfaits ne peuvent effacer.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pq blood r" style="margin-top:3rem;">
+    <p>« Il n'y a rien de plus difficile à conduire, de plus incertain dans le succès, de plus dangereux à manier, que d'introduire de nouvelles institutions. Celui qui s'y engage a pour ennemis tous ceux qui profitaient des anciennes, et pour défenseurs tièdes tous ceux pour qui les nouvelles seraient utiles. »</p>
+    <cite>— Machiavel, Le Prince, ch. VI</cite>
+  </div>
+</section>
+
+<!-- ═══ LION ET RENARD ═══ -->
+<section id="structure" class="sec alt">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">05 — La double nature</span>
+    <h2 class="sec-h2">Le <em>lion et le renard</em> — Agir en homme et en bête</h2>
+  </div>
+  <p class="r" style="max-width:760px;font-size:.95rem;color:#3a3a30;line-height:1.9;margin-bottom:2rem;">
+    Au chapitre XVIII, Machiavel formule sa théorie la plus célèbre : le prince doit combiner deux natures, celle de la bête et celle de l'homme. Il doit choisir parmi les bêtes le renard et le lion. Cette double nature est l'emblème même du réalisme politique.
+  </p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--ink);border:1px solid var(--ink);margin-bottom:3rem;" class="r">
+    <div style="background:var(--blood-pale);padding:3rem;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;color:var(--blood);margin-bottom:1rem;">Le Lion — La force</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:900;color:var(--blood);line-height:1;margin-bottom:1rem;">🦁</div>
+      <p style="font-size:.9rem;color:#3a3a30;line-height:1.75;margin-bottom:1rem;">La force brute, l'intimidation, la capacité à écraser les résistances ouvertes. Le lion ne peut éviter les pièges — il n'est pas fait pour la ruse. Sa puissance réside dans l'affrontement direct.</p>
+      <p style="font-size:.85rem;color:var(--dust);line-height:1.7;font-style:italic;">Seul le lion : trop visible, tombera dans tous les pièges que lui tendent les ennemis rusés. La force sans intelligence est aveugle.</p>
+    </div>
+    <div style="background:var(--neon-pale);padding:3rem;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;color:var(--neon2);margin-bottom:1rem;">Le Renard — La ruse</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:900;color:var(--neon2);line-height:1;margin-bottom:1rem;">🦊</div>
+      <p style="font-size:.9rem;color:#3a3a30;line-height:1.75;margin-bottom:1rem;">L'intelligence des pièges, la dissimulation, la connaissance des hommes. Le renard voit ce que le lion ne voit pas. Mais seul, il ne peut repousser les loups — il manque de force pour les tenir à distance.</p>
+      <p style="font-size:.85rem;color:var(--dust);line-height:1.7;font-style:italic;">Seul le renard : sans force, ses ruses seront déjouées tôt ou tard par quiconque n'hésite pas à recourir à la violence.</p>
+    </div>
+  </div>
+  <div style="background:var(--ink2);padding:2.5rem 3rem;border-left:4px solid var(--neon);" class="r">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;color:var(--neon);margin-bottom:1rem;">La synthèse — Le Prince idéal</div>
+    <p style="font-size:.95rem;color:rgba(255,255,255,.75);line-height:1.85;">Celui qui se comporte toujours en lion ne percevra pas les pièges. Celui qui se comporte toujours en renard ne résistera pas aux loups. Il faut être renard pour connaître les pièges, <strong style="color:#fff;">et lion pour épouvanter les loups</strong>. Ceux qui s'en tiennent à être lions sont très malhabiles. L'art du prince est de savoir alterner selon les circonstances — et surtout de savoir dissimuler cette double nature.</p>
+  </div>
+</section>
+
+<!-- ═══ DIALOGUE ═══ -->
+<section id="dialogue" class="sec steel">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">06 — Dialogue philosophique</span>
+    <h2 class="sec-h2">Machiavel <em>contre</em> la tradition des miroirs au prince</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:1rem;">
+    <div class="r">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neon);margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:2px solid var(--neon);">La tradition — Le prince vertueux</div>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">Depuis Platon (<em>La République</em>) jusqu'aux <em>miroirs au prince</em> médiévaux (Érasme, <em>L'Institution du prince chrétien</em>, 1516), la tradition prescrit au souverain d'être juste, clément, pieux, fidèle, magnanime. La vertu du prince est la condition de la prospérité de l'État.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">Cicéron (<em>De Officiis</em>) avait posé que ce qui est moralement honteux ne peut être politiquement utile. La morale et la politique sont coextensives : un prince mauvais fait un mauvais gouvernement.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;">Cette tradition confond ce qui devrait être avec ce qui est. Elle décrit le prince idéal dans un monde idéal où tous les autres seraient également vertueux.</p>
+    </div>
+    <div class="r d2">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:#6dbb8a;margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:2px solid rgba(31,107,63,.6);">Machiavel — La rupture radicale</div>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">Machiavel pose la question que personne n'osait poser : dans un monde où les autres ne sont pas vertueux, le prince vertueux survivra-t-il ? La réponse est non. La vertu morale, dans un monde de loups, est un défaut de survie.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;margin-bottom:1rem;">Ce n'est pas que la morale soit nuisible en soi — un prince qui peut être bon, doit l'être. Mais il doit <strong style="color:#fff;">savoir entrer dans la voie du mal</strong> quand la nécessité le commande, sans hésitation ni scrupule paralysant.</p>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.85;">La séparation machiavélienne de la politique et de la morale n'est pas un nihilisme — c'est une autonomisation disciplinaire : la politique a ses propres normes d'excellence, distinctes mais non contraires à la morale ordinaire.</p>
+    </div>
+  </div>
+  <div class="pq blood r" style="margin-top:3rem;">
+    <p>« Dans les actions des hommes, et surtout des princes, qui ne peuvent être scrutées devant un tribunal, ce que l'on considère, c'est le résultat. Que le prince songe donc uniquement à conserver sa vie et son État : s'il y réussit, tous les moyens qu'il aura pris seront jugés honorables et loués par tout le monde. »</p>
+    <cite>— Machiavel, Le Prince, ch. XVIII</cite>
+  </div>
+</section>
+
+<!-- ═══ RÉSEAU D'AUTEURS ═══ -->
+<section id="reseau" class="sec alt">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">07 — Dialogues</span>
+    <h2 class="sec-h2">Le réseau <em>d'auteurs</em> en dialogue</h2>
+  </div>
+  <div class="glos-grid r">
+
+    <div class="gi" data-g="H">
+      <span class="gi-src">Philosophie politique / État</span>
+      <div class="gi-term">Thomas Hobbes</div>
+      <p class="gi-def">Hobbes est le continuateur et le systématisateur de l'intuition machiavélienne : la politique ne peut se fonder sur la vertu, elle doit se fonder sur la force et le contrat. Le <em>Léviathan</em> (1651) généralise à toute société ce que Machiavel réservait aux situations de crise : les hommes sont naturellement en guerre de tous contre tous, et seul un pouvoir fort peut garantir la paix. Mais là où Machiavel reste empirique et pragmatique, Hobbes construit un système philosophique rationnel. La méfiance envers la nature humaine, le primat de la sécurité sur la vertu, la séparation de la politique et de la morale — autant de continuités.</p>
+      <div class="gi-now">Le réalisme en relations internationales (Morgenthau, Kissinger) est l'héritier direct de cette lignée Machiavel-Hobbes : les États obéissent à la logique de la puissance et de l'intérêt national, non à la morale internationale.</div>
+    </div>
+
+    <div class="gi" data-g="R">
+      <span class="gi-src">Philosophie politique / Contrat social</span>
+      <div class="gi-term">Jean-Jacques Rousseau</div>
+      <p class="gi-def">Rousseau offre une lecture paradoxale de Machiavel dans le <em>Contrat social</em> : « En feignant de donner des leçons aux rois, il en a donné de grandes aux peuples. Le Prince de Machiavel est le livre des républicains. » Rousseau suggère que Machiavel, en exposant cyniquement les mécanismes du pouvoir tyrannique, aurait en réalité voulu instruire les peuples sur les moyens par lesquels les princes les dupent. Cette lecture « républicaine » de Machiavel n'est pas sans fondement : ses <em>Discours sur Tite-Live</em>, moins lus, montrent sa préférence profonde pour la république et la liberté.</p>
+      <div class="gi-now">La tension entre la lecture cynique du Prince (manuel du tyran) et la lecture républicaine (instruction du peuple) reste vive : les sciences politiques hésitent encore sur les intentions de l'auteur et sur la cohérence de son œuvre.</div>
+    </div>
+
+    <div class="gi" data-g="G">
+      <span class="gi-src">Hégélianisme / Philosophie de l'histoire</span>
+      <div class="gi-term">Antonio Gramsci</div>
+      <p class="gi-def">Gramsci, emprisonné par Mussolini, rédige dans ses <em>Cahiers de prison</em> une réinterprétation marxiste et révolutionnaire de Machiavel. Pour lui, Machiavel est le premier penseur de la politique comme praxis autonome. Le Prince devient chez Gramsci le symbole du « Prince moderne » — non plus un individu, mais le Parti révolutionnaire, l'organisateur collectif de la volonté nationale-populaire. La virtù devient la capacité du parti à forger une hégémonie culturelle. Cette lecture transforme l'œuvre : d'un manuel du conservatisme, elle devient un programme révolutionnaire.</p>
+      <div class="gi-now">Le concept gramscien d'hégémonie culturelle — dominer non par la force mais en faisant accepter sa vision du monde comme naturelle — est une reformulation directe de la théorie machiavélienne de l'apparence et du consentement.</div>
+    </div>
+
+    <div class="gi" data-g="A">
+      <span class="gi-src">Philosophie politique / Condition humaine</span>
+      <div class="gi-term">Hannah Arendt</div>
+      <p class="gi-def">Arendt, dans <em>La Condition de l'homme moderne</em> et <em>Sur la révolution</em>, réhabilite Machiavel comme penseur de l'action politique. Elle y lit non pas le théoricien de la violence, mais le premier philosophe de la fondation — de l'acte inaugural par lequel un peuple se donne des institutions. La virtù machiavélienne est pour Arendt proche de ce qu'elle nomme le « commencement » (<em>natality</em>) — la capacité humaine à introduire quelque chose de radicalement nouveau dans le monde. Elle distingue soigneusement violence (instrument) et pouvoir (action concertée) — distinction que Machiavel préfigurait dans son insistance sur les fondements populaires du pouvoir durable.</p>
+      <div class="gi-now">La distinction arendtienne pouvoir/violence résonne directement avec les chapitres machiavéliens sur la différence entre un prince aimé (pouvoir légitime, fondé sur le consentement) et un prince haï (violence pure, instable).</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ ACTUALITÉ ═══ -->
+<section id="aujourdhui" class="sec dark">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">08 — Actualité</span>
+    <h2 class="sec-h2">Le <em>Prince</em> à l'œuvre aujourd'hui</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;margin-top:1rem;" class="r">
+    <div style="background:rgba(255,255,255,.03);padding:2rem;border-top:2px solid var(--blood);">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:#6dbb8a;margin-bottom:1rem;">Populismes contemporains</div>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.85;">Trump, Orbán, Bolsonaro, Modi — ces leaders illustrent plusieurs thèses machiavéliennes : l'importance de l'image et du spectacle, la mobilisation de la crainte (de l'étranger, de l'élite) sans (pour certains) basculer dans la haine personnelle, la construction de fondations populaires solides contre les élites. La politique comme dramaturgie de la force.</p>
+    </div>
+    <div style="background:rgba(255,255,255,.03);padding:2rem;border-top:2px solid var(--neon);">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--neon);margin-bottom:1rem;">Réalisme en relations internationales</div>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.85;">La guerre en Ukraine ou les tensions en mer de Chine se lisent parfaitement à travers Machiavel : les États obéissent à leur intérêt national, non à la morale internationale. Les alliances tiennent par la peur et l'intérêt commun, non par la confiance. Les « armes propres » (capacité militaire nationale) restent le fondement de la souveraineté réelle.</p>
+    </div>
+    <div style="background:rgba(255,255,255,.03);padding:2rem;border-top:2px solid rgba(154,176,154,.5);">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:#9ab09a;margin-bottom:1rem;">Management et leadership</div>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.85;">Le Prince est l'un des livres les plus lus dans les écoles de management. La gestion du changement organisationnel reprend le chapitre VI : les innovateurs ont pour ennemis tous les bénéficiaires de l'ancien ordre, et pour alliés tièdes les futurs bénéficiaires du nouveau. La théorie de la résistance au changement est entièrement machiavélienne.</p>
+    </div>
+  </div>
+  <div class="pq steel r" style="margin-top:3rem;">
+    <p>« Je pense qu'il vaut mieux être impétueux que circonspect ; car la fortune est femme : pour la tenir soumise, il faut la traiter avec rudesse. »</p>
+    <cite>— Machiavel, Le Prince, ch. XXV</cite>
+  </div>
+</section>
+
+<!-- ═══ QUIZ ═══ -->
+<section id="quiz" class="sec alt">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">09 — Interactif</span>
+    <h2 class="sec-h2">Quiz — <em>Testez</em> votre compréhension</h2>
+  </div>
+  <div class="quiz-wrap r">
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgressFill" style="width:0%"></div></div>
+    <div class="quiz-title">Question <span id="qNum">1</span>/6 — <span id="qStatus">Sélectionnez une réponse</span></div>
+    <p class="quiz-question" id="qText"></p>
+    <div class="quiz-options" id="qOptions"></div>
+    <div class="quiz-feedback" id="qFeedback"></div>
+    <div class="quiz-nav">
+      <span class="quiz-counter">Score : <span id="scoreDisplay">0</span> / 6</span>
+      <button class="quiz-btn" id="qNext" onclick="nextQuestion()" disabled>Question suivante →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RÉFLEXION ═══ -->
+<section id="reflexion" class="sec dark">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">10 — Pédagogie</span>
+    <h2 class="sec-h2">Pistes de <em>réflexion</em></h2>
+  </div>
+  <div class="qstack r">
+    <div class="qi">
+      <span class="qi-n">Q.01</span>
+      <div>
+        <p class="qi-t">Machiavel affirme qu'il vaut mieux être craint qu'aimé si l'on ne peut être les deux. Cette thèse présuppose une anthropologie pessimiste — les hommes sont ingrats et intéressés. Cette anthropologie est-elle justifiée ? Quelles alternatives théoriques lui oppose-t-on ?</p>
+        <p class="qi-hint">Piste : Rousseau (bonté naturelle corrompue par la société), Kant (dignité humaine et devoir moral), les théories du contrat social (la coopération comme rationalité). Machiavel ne dit pas que les hommes sont toujours mauvais — il dit qu'ils le seront quand leur intérêt le commande. Est-ce suffisant pour fonder une théorie politique pessimiste ?</p>
+        <div class="qi-tags"><span class="qi-tag">Anthropologie</span><span class="qi-tag">Pessimisme politique</span><span class="qi-tag">Nature humaine</span></div>
+      </div>
+    </div>
+    <div class="qi">
+      <span class="qi-n">Q.02</span>
+      <div>
+        <p class="qi-t">Machiavel sépare la politique de la morale — non pour rejeter la morale, mais pour autonomiser la politique. Cette séparation est-elle tenable ? Peut-on vraiment tracer une frontière entre l'espace de la politique et celui de l'éthique ?</p>
+        <p class="qi-hint">Piste : Weber (éthique de conviction vs éthique de responsabilité), Rawls (justice comme fondement politique), Habermas (démocratie délibérative comme éthique politique). Machiavel dirait peut-être que Weber lui a donné raison : le politique responsable doit savoir se salir les mains quand les circonstances l'exigent.</p>
+        <div class="qi-tags"><span class="qi-tag">Morale et politique</span><span class="qi-tag">Weber</span><span class="qi-tag">Autonomie du politique</span></div>
+      </div>
+    </div>
+    <div class="qi">
+      <span class="qi-n">Q.03</span>
+      <div>
+        <p class="qi-t">La thèse de Machiavel sur les armes propres et la danger des mercenaires est-elle transposable aux relations internationales contemporaines ? En quoi la dépendance des démocraties aux alliances militaires et aux armées privées pose-t-elle des problèmes machiavéliens ?</p>
+        <p class="qi-hint">Piste : La guerre en Ukraine a révélé la dépendance des Européens aux armes américaines — une forme d'armes auxiliaires au sens de Machiavel. Les sociétés militaires privées (Blackwater, Wagner) illustrent les risques des mercenaires. L'autonomie stratégique européenne est un projet directement machiavélien.</p>
+        <div class="qi-tags"><span class="qi-tag">Armes propres</span><span class="qi-tag">Souveraineté militaire</span><span class="qi-tag">OTAN</span></div>
+      </div>
+    </div>
+    <div class="qi">
+      <span class="qi-n">Q.04</span>
+      <div>
+        <p class="qi-t">Machiavel décrit la fortune comme partiellement domptable par la préparation et l'audace. Cette vision est-elle compatible avec les théories modernes du hasard et de l'incertitude radicale (Taleb : les cygnes noirs, la fragilité) ? Peut-on toujours « construire des digues » face aux événements imprévisibles ?</p>
+        <p class="qi-hint">Piste : Taleb distingue les risques calculables (où Machiavel a raison : préparez-vous) et les « cygnes noirs » — événements imprévisibles à très fort impact. Face à ces derniers, la préparation classique ne suffit pas : il faut construire de l'antifragilité, c'est-à-dire des systèmes qui bénéficient du désordre. Est-ce une extension ou une réfutation de Machiavel ?</p>
+        <div class="qi-tags"><span class="qi-tag">Fortune et hasard</span><span class="qi-tag">Incertitude</span><span class="qi-tag">Taleb</span></div>
+      </div>
+    </div>
+    <div class="qi">
+      <span class="qi-n">Q.05</span>
+      <div>
+        <p class="qi-t">Machiavel a écrit Le Prince pour les gouvernants, non pour les gouvernés. Rousseau suggérait qu'il a en réalité instruit les peuples. Quelle lecture vous semble la plus convaincante ? Le Prince est-il un manuel du tyran ou une révélation des mécanismes du pouvoir à ceux qui en sont victimes ?</p>
+        <p class="qi-hint">Piste : La « lecture républicaine » (Rousseau, Gramsci, Skinner) souligne que Machiavel était lui-même républicain, que les Discours sur Tite-Live révèlent ses vraies préférences, et que Le Prince, en exposant les ruses du pouvoir, permet au peuple de les reconnaître. La « lecture cynique » répond que l'intention importe peu : le livre a historiquement servi les autocrates.</p>
+        <div class="qi-tags"><span class="qi-tag">Lecture républicaine</span><span class="qi-tag">Intentionnalité</span><span class="qi-tag">Réception du texte</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SYNTHÈSE ═══ -->
+<section id="synthese" class="sec dark">
+  <div class="sec-eyebrow r">
+    <span class="sec-num">11 — Synthèse</span>
+    <h2 class="sec-h2">Ce que le texte <em>nous apprend</em></h2>
+  </div>
+  <div class="synth-grid r">
+    <div class="sc">
+      <div class="sc-title">La force du texte</div>
+      <p class="sc-body">Le Prince inaugure la modernité politique en opérant la séparation de la politique et de la morale — non par cynisme, mais par rigueur intellectuelle. Machiavel est le premier à traiter la politique comme une discipline autonome avec ses propres lois empiriques. Sa méthode — l'histoire comme laboratoire, les exemples comme preuves — anticipe la science politique moderne. Ses concepts (virtù, fortuna, nécessité, apparence) restent des instruments analytiques de premier ordre.</p>
+    </div>
+    <div class="sc">
+      <div class="sc-title">Les limites du texte</div>
+      <p class="sc-body">Le Prince est un texte de circonstance : écrit pour un prince nouveau dans l'Italie morcelée du XVIe siècle, plusieurs de ses prescriptions ne se généralisent pas. Son anthropologie pessimiste — les hommes sont ingrats, inconstants, avides — est une hypothèse simplificatrice. Son silence sur les institutions républicaines (compensé par les Discours) laisse le lecteur du seul Prince avec une vision trop unilatéralement personnaliste du pouvoir. Et la légitimation par le résultat (« la fin justifie les moyens ») reste profondément problématique moralement.</p>
+    </div>
+    <div class="sc">
+      <div class="sc-title">L'héritage vivant</div>
+      <p class="sc-body">Cinq siècles après sa rédaction, Le Prince reste le livre fondateur du réalisme politique. Chaque époque le relit à ses propres frais : les théoriciens des relations internationales (Morgenthau), les révolutionnaires (Gramsci), les philosophes de l'action (Arendt), les consultants en management. Sa vitalité tient à une question qui ne vieillit pas : comment conserver le pouvoir dans un monde où les autres ne jouent pas selon les règles de la morale ?</p>
+    </div>
+  </div>
+  <div class="pq steel r" style="margin-top:3rem;">
+    <p>« Que votre illustre maison prenne donc sur elle ce noble fardeau : sous sa bannière, que la commune patrie ressaisisse son ancienne splendeur. »</p>
+    <cite>— Machiavel, Le Prince, ch. XXVI — Exhortation à délivrer l'Italie</cite>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div>Fiche de lecture · Philosophie politique</div>
+  <div class="fc">LP</div>
+  <div><a href="#hero">↑ Retour en haut</a></div>
+</footer>
+
+<script>
+const dot=document.getElementById('dot'),ring=document.getElementById('ring'),trail=document.getElementById('trail'),ctx=trail.getContext('2d');
+let mx=0,my=0,rx=0,ry=0,particles=[];
+trail.width=window.innerWidth;trail.height=window.innerHeight;
+window.addEventListener('resize',()=>{trail.width=window.innerWidth;trail.height=window.innerHeight;});
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';particles.push({x:mx,y:my,life:1,size:Math.random()*3+1});if(particles.length>60)particles.shift();});
+(function animate(){requestAnimationFrame(animate);rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';ring.style.width=ring.style.height=Math.abs(mx-rx)*1.5+16+'px';ring.style.border='1.5px solid rgba(31,107,63,'+Math.min(1,0.4/(Math.hypot(mx-rx,my-ry)+1)*10)+')';ctx.clearRect(0,0,trail.width,trail.height);particles.forEach((p,i)=>{p.life-=.025;if(p.life<=0){particles.splice(i,1);return;}ctx.beginPath();ctx.arc(p.x,p.y,p.size*p.life,0,Math.PI*2);ctx.fillStyle='rgba(31,107,63,'+p.life*.18+')';ctx.fill();});})();
+const prog=document.getElementById('prog');
+window.addEventListener('scroll',()=>{const h=document.body.scrollHeight-window.innerHeight;prog.style.transform='scaleX('+(window.scrollY/h)+')';});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v');});},{threshold:.07});
+document.querySelectorAll('.r,.tl-item').forEach(el=>obs.observe(el));
+const secs=document.querySelectorAll('section[id]'),links=document.querySelectorAll('.snav-a');
+const navo=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('on'));const a=document.querySelector('.snav-a[href="#'+e.target.id+'"]');if(a)a.classList.add('on');}});},{threshold:.3});
+secs.forEach(s=>navo.observe(s));
+function toggleAcc(head){const item=head.parentElement,wasOpen=item.classList.contains('open'),parent=item.parentElement;parent.querySelectorAll('.acc-item.open').forEach(i=>i.classList.remove('open'));if(!wasOpen)item.classList.add('open');}
+let openedConcepts=new Set();
+function toggleCard(card){const expand=card.querySelector('.cc-expand'),toggle=card.querySelector('.cc-toggle'),num=card.dataset.num,isOpen=expand.classList.contains('open');expand.classList.toggle('open',!isOpen);toggle.classList.toggle('open-arrow',!isOpen);toggle.querySelector('span:last-child').textContent=isOpen?"Lire l'analyse":'Réduire';if(!isOpen){openedConcepts.add(num);updateConceptCount();}}
+function updateConceptCount(){const count=openedConcepts.size;document.getElementById('conceptCount').textContent=count+'/6';document.getElementById('conceptFill').style.width=(count/6*100)+'%';}
+
+const quizData=[
+  {
+    q:"Quelle est la rupture fondamentale que Machiavel introduit par rapport à toute la tradition politique antérieure ?",
+    opts:["Il affirme que le prince doit être impitoyable et cruel pour gouverner efficacement","Il traite de la « vérité effective » des choses — décrivant le pouvoir tel qu'il est réellement, non tel qu'il devrait être selon la morale","Il soutient que la démocratie est supérieure à la monarchie et que le peuple doit gouverner","Il rejette toute référence à l'histoire ancienne pour ne s'appuyer que sur l'expérience contemporaine"],
+    correct:1,
+    feedback:"C'est le geste fondateur du Prince, exposé au chapitre XV. Machiavel affirme vouloir « suivre la vérité effective de la chose » plutôt que son « imagination ». Toute la tradition des miroirs au prince décrivait le souverain idéal dans un monde idéal. Machiavel rompt : il décrit les conditions réelles de survie et de réussite dans un monde où les autres ne sont pas toujours vertueux. Ce n'est pas un éloge du cynisme, c'est une rupture épistémologique."
+  },
+  {
+    q:"Qu'est-ce que la « virtù » chez Machiavel ? Pourquoi diffère-t-elle radicalement de la vertu morale traditionnelle ?",
+    opts:["La piété religieuse et la soumission à Dieu, conditions de la légitimité du pouvoir royal","La capacité active à saisir l'occasion, imposer sa volonté aux événements et construire un pouvoir durable — proche de l'énergie et de la décision plutôt que de la bonté morale","La justice distributive envers les sujets, qui produit en retour leur loyauté et leur obéissance","La sagesse qui consiste à toujours suivre les précédents historiques et les coutumes établies"],
+    correct:1,
+    feedback:"La virtù machiavélienne est l'une des notions les plus originales du livre. Elle désigne l'ensemble des qualités actives — courage, décision, adaptabilité, force — qui permettent à un homme de s'imposer et de construire. Ce n'est pas la vertu morale chrétienne (charité, humilité, douceur) ni la vertu aristotélicienne (modération entre les extrêmes). Moïse, Cyrus, Romulus l'ont toutes. Celui qui possède la virtù sait tirer parti de la fortune ; celui qui ne l'a pas en est le jouet."
+  },
+  {
+    q:"Machiavel affirme qu'il vaut mieux être craint qu'aimé si l'on ne peut pas être les deux. Quel est l'argument central de cette thèse ?",
+    opts:["La peur est une émotion plus forte que l'amour et produit une obéissance absolue sans possibilité de résistance","L'amour dépend de la gratitude des sujets — lien fragile que l'intérêt rompt —, tandis que la crainte dépend de la peur du châtiment, sentiment qui ne disparaît pas","Les sujets respectent davantage un prince sévère qu'un prince clément, car la clémence est perçue comme faiblesse","Un prince craint n'a pas besoin d'être légitime ni de respecter les lois, ce qui lui donne une liberté d'action totale"],
+    correct:1,
+    feedback:"L'argument de Machiavel est précis et non cynique : il repose sur une anthropologie réaliste. L'amour est un lien de reconnaissance — faible par nature, car la perversité humaine le rompt au premier motif d'intérêt. La crainte vient de la menace du châtiment — sentiment qui persiste. Mais Machiavel ajoute une limite essentielle : le prince craint ne doit pas être haï. La frontière entre crainte acceptable et haine mortelle, c'est le respect des biens et de l'honneur des sujets."
+  },
+  {
+    q:"Que signifie l'allégorie du lion et du renard au chapitre XVIII ? Quelle leçon Machiavel en tire-t-il pour le prince ?",
+    opts:["Le prince doit alterner selon les circonstances entre la force brutale (lion) et la ruse intelligente (renard), en sachant dissimuler cette double nature","Le prince doit être fort comme un lion et rusé comme un renard mais ne doit jamais trahir sa parole ni violer ses engagements","Le prince idéal est celui qui possède naturellement les qualités du lion, la force, et doit apprendre celles du renard par l'éducation","La force militaire (lion) est plus importante que la diplomatie (renard) pour maintenir un État stable"],
+    correct:0,
+    feedback:"L'allégorie du lion et du renard est au cœur de la théorie machiavélienne de l'action politique. Le lion seul tombera dans les pièges ; le renard seul sera dévoré par les loups. Il faut les deux. Mais la synthèse ne suffit pas : il faut encore savoir dissimuler cette double nature — paraître toujours humain, droit, sincère, pieux, tandis qu'on est prêt à entrer dans la voie du mal quand la nécessité le commande. L'art de la dissimulation est l'art politique par excellence."
+  },
+  {
+    q:"Pourquoi Machiavel condamne-t-il avec tant de vigueur les troupes mercenaires et auxiliaires ?",
+    opts:["Parce qu'elles coûtent trop cher et épuisent les ressources financières de l'État","Parce que leur loyauté est vénale et leur valeur douteuse : lâches contre l'ennemi, elles menacent le prince en cas de victoire, car elles obéissent à un autre ou à l'argent, non à lui","Parce qu'elles introduisent des étrangers dans les affaires intérieures et sapent la cohésion nationale","Parce que la guerre est une affaire sacrée qui ne doit être confiée qu'à des citoyens ayant une patrie à défendre"],
+    correct:1,
+    feedback:"Machiavel consacre plusieurs chapitres à cette thèse centrale : les mercenaires sont « désunies, ambitieuses, sans discipline, infidèles, hardies contre les amis, lâches contre les ennemis ». Leur défaut n'est pas technique mais structural : ils servent pour l'argent, motif insuffisant pour mourir. S'ils gagnent, ils deviennent dangereux. S'ils perdent, le prince s'effondre avec eux. La souveraineté militaire (armes propres) est la condition de toute souveraineté politique — leçon tirée de la désintégration des États italiens face aux invasions étrangères."
+  },
+  {
+    q:"Quelle est la thèse centrale de Machiavel sur la fortune au chapitre XXV ?",
+    opts:["La fortune gouverne entièrement les affaires humaines et il est inutile de s'y opposer — seule la résignation prudente peut préserver du pire","La fortune dispose de la moitié de nos actions, mais l'autre moitié reste à notre pouvoir : la préparation et l'audace permettent de l'apprivoiser partiellement","Le sage ne doit jamais compter sur la fortune et doit tout prévoir par sa prudence, en anticipant tous les scénarios possibles","La fortune favorise les circumspects et les prudents, car ils ne commettent pas d'erreurs irréparables dans les moments critiques"],
+    correct:1,
+    feedback:"La métaphore du fleuve est la formulation la plus belle du livre. Machiavel refuse le fatalisme (tout dépend de la fortune) comme l'illusion de la toute-puissance humaine. Sa position est médiane et dialectique : la fortune est comme un fleuve débordant — irrésistible dans la crue, mais que des digues bien construites à temps peuvent contenir. La conclusion audacieuse : « il vaut mieux être impétueux que circonspect, car la fortune est femme et cède à qui la traite avec rudesse. » Les jeunes et les audacieux l'emportent sur les prudents hésitants."
+  }
+];
+
+let currentQ=0,score=0,answered=false;
+function renderQuestion(){const q=quizData[currentQ];document.getElementById('qNum').textContent=currentQ+1;document.getElementById('qText').textContent=q.q;document.getElementById('qFeedback').className='quiz-feedback';document.getElementById('qFeedback').textContent='';document.getElementById('qNext').disabled=true;document.getElementById('qStatus').textContent='Sélectionnez une réponse';answered=false;document.getElementById('quizProgressFill').style.width=(currentQ/quizData.length*100)+'%';const opts=document.getElementById('qOptions');opts.innerHTML='';q.opts.forEach((opt,i)=>{const btn=document.createElement('button');btn.className='qopt';btn.innerHTML='<span>'+opt+'</span>';btn.onclick=()=>selectAnswer(i);opts.appendChild(btn);});}
+function selectAnswer(idx){if(answered)return;answered=true;const q=quizData[currentQ],opts=document.querySelectorAll('.qopt');opts.forEach((o,i)=>{if(i===q.correct)o.classList.add('correct');else if(i===idx&&i!==q.correct)o.classList.add('wrong');else o.classList.add('reveal');});const fb=document.getElementById('qFeedback');fb.textContent=q.feedback;fb.classList.add('show');if(idx===q.correct){score++;document.getElementById('scoreDisplay').textContent=score;document.getElementById('qStatus').textContent='✓ Bonne réponse';}else{document.getElementById('qStatus').textContent='✗ Réponse incorrecte';}document.getElementById('qNext').disabled=false;const pct=Math.round(score/quizData.length*100);document.getElementById('sidebarScore').textContent=score+'/'+quizData.length;document.getElementById('sidebarFill').style.width=pct+'%';if(currentQ===quizData.length-1)document.getElementById('qNext').textContent='Voir mon score →';}
+function nextQuestion(){currentQ++;if(currentQ>=quizData.length){showModal();return;}renderQuestion();}
+function showModal(){const msgs=[[0,1,"Relisez attentivement les sections Thèse centrale et Concepts. La distinction virtù/fortune et la rupture avec la tradition morale restent à découvrir."],[2,3,"Quelques concepts restent flous. Revenez sur la théorie du lion et du renard et sur la question de l'apparence."],[4,4,"Bonne compréhension des grandes lignes. Approfondissez les dialogues avec Hobbes et Gramsci."],[5,5,"Très solide. Vous saisissez bien l'articulation entre réalisme, virtù et fortune."],[6,6,"Maîtrise remarquable. Vous êtes prêt(e) à mobiliser Machiavel pour analyser les formes contemporaines du pouvoir politique."]];const msg=msgs.find(m=>score>=m[0]&&score<=m[1]);document.getElementById('modalScore').textContent=score+'/6';document.getElementById('modalMsg').textContent=msg?msg[2]:'';document.getElementById('modalOverlay').classList.add('show');}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('show');currentQ=0;score=0;answered=false;document.getElementById('scoreDisplay').textContent='0';document.getElementById('quizProgressFill').style.width='0%';document.getElementById('qNext').textContent='Question suivante →';renderQuestion();}
+renderQuestion();
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('sidebarFill').style.width='0%';document.getElementById('conceptFill').style.width='0%';},500);});
+</script>
+</body>
+</html>
