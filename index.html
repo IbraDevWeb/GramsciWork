@@ -71,7 +71,7 @@ body:has(a:hover) #C{width:14px;height:14px;}
   margin-top:2.8rem;max-width:50ch;line-height:1.8;
   opacity:0;animation:up .9s .75s forwards;
 }
-.pips{display:flex;gap:.6rem;justify-content:center;margin-top:2.4rem;opacity:0;animation:up .8s 1s forwards;}
+.pips{display:flex;gap:.6rem;justify-content:center;margin-top:2.4rem;opacity:0;animation:up .8s 1s forwards;flex-wrap:wrap;}
 .pip{
   width:28px;height:28px;border:1px solid var(--rule2);
   display:flex;align-items:center;justify-content:center;
@@ -189,6 +189,58 @@ body:has(a:hover) #C{width:14px;height:14px;}
 .a9{background:#0b0609;}
 .a9 svg{position:absolute;inset:0;width:100%;height:100%;}
 
+/* Art 10 — Baudrillard: grille de signes / code marchandise */
+.a10{background:#0d0806;}
+.a10::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(208,72,32,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(208,72,32,.08) 1px,transparent 1px);
+  background-size:22px 22px;
+}
+.a10::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 50% at 50% 60%,rgba(208,72,32,.18),transparent 70%);
+}
+.b10-scan{
+  position:absolute;height:1px;width:100%;
+  background:linear-gradient(90deg,transparent,rgba(208,72,32,.6),transparent);
+  animation:b10s 4s ease-in-out infinite;
+}
+@keyframes b10s{0%{top:10%;opacity:0;}10%{opacity:1;}50%{top:90%;opacity:.6;}60%{opacity:0;}100%{top:10%;opacity:0;}}
+.b10-tag{
+  position:absolute;font-family:'IBM Plex Mono',monospace;
+  font-size:.38rem;letter-spacing:.1em;color:rgba(208,72,32,.5);text-transform:uppercase;
+}
+
+/* Art 11 — Genre: anneaux entrelacés + axe de rupture */
+.a11{background:#0c0710;overflow:hidden;}
+.a11::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(155,58,140,.12),transparent 70%);
+}
+.g11-ring{
+  position:absolute;left:50%;top:50%;border-radius:50%;border:1px solid rgba(155,58,140,.3);
+  transform:translate(-50%,-50%);
+}
+.g11-ring.r1{width:70px;height:70px;animation:g11spin 18s linear infinite;border-color:rgba(155,58,140,.5);}
+.g11-ring.r2{width:120px;height:120px;animation:g11spin 28s linear infinite reverse;border-color:rgba(155,58,140,.3);}
+.g11-ring.r3{width:180px;height:180px;animation:g11spin 40s linear infinite;border-color:rgba(155,58,140,.15);}
+@keyframes g11spin{to{transform:translate(-50%,-50%) rotate(360deg);}}
+.g11-axis{
+  position:absolute;left:50%;top:20%;width:1px;height:60%;
+  background:linear-gradient(180deg,transparent,rgba(155,58,140,.6) 40%,rgba(155,58,140,.6) 60%,transparent);
+  transform:translateX(-50%);
+}
+.g11-axis::after{
+  content:'';position:absolute;left:50%;top:50%;
+  width:12px;height:12px;border-radius:50%;
+  background:rgba(155,58,140,.7);transform:translate(-50%,-50%);
+  box-shadow:0 0 14px rgba(155,58,140,.8);
+  animation:g11pulse 2.5s ease-in-out infinite alternate;
+}
+@keyframes g11pulse{from{opacity:.4;transform:translate(-50%,-50%) scale(.8);}to{opacity:1;transform:translate(-50%,-50%) scale(1.2);}}
+
 /* Card text */
 .cinfo{padding:1.8rem 2rem 1.4rem;flex:1;display:flex;flex-direction:column;border-top:1px solid var(--rule);position:relative;}
 .cnum{position:absolute;bottom:0;right:1rem;font-family:'Cormorant Garamond',serif;font-size:7rem;font-weight:300;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(240,235,226,.05);pointer-events:none;user-select:none;transition:-webkit-text-stroke-color .4s;}
@@ -255,12 +307,12 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
   <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
   <div class="hgrid"></div>
   <div class="hero-inner">
-    <p class="eyebrow">Théorie critique · 9 fiches de lecture</p>
-    <h1 class="htitle" aria-label="Bibliothèque Critique">
+    <p class="eyebrow">Théorie critique · 11 fiches de lecture</p>
+    <h1 class="htitle" aria-label="Bibliothèque des Idées">
       <span class="ln"><span class="wd">Bibliothèque</span></span>
       <span class="ln"><span class="wd">des Idées</span></span>
     </h1>
-    <p class="hsub">Neuf œuvres qui ont permis de faire évoluer la pensée que l'on avait du monde social</p>
+    <p class="hsub">Onze œuvres qui ont permis de faire évoluer la pensée que l'on avait du monde social</p>
     <nav class="pips" aria-label="Accès rapide">
       <span class="pip" onclick="goTo(1)">01</span>
       <span class="pip" onclick="goTo(2)">02</span>
@@ -271,6 +323,8 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
       <span class="pip" onclick="goTo(7)">07</span>
       <span class="pip" onclick="goTo(8)">08</span>
       <span class="pip" onclick="goTo(9)">09</span>
+      <span class="pip" onclick="goTo(10)">10</span>
+      <span class="pip" onclick="goTo(11)">11</span>
     </nav>
   </div>
   <hr class="hrule">
@@ -284,6 +338,8 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
     <span class="hbi" style="--d:6"><strong>Dardot &amp; Laval</strong> — Néolibéralisme</span>
     <span class="hbi" style="--d:7"><strong>Durkheim</strong> — Division</span>
     <span class="hbi" style="--d:8"><strong>La Boétie</strong> — Servitude</span>
+    <span class="hbi" style="--d:9"><strong>Baudrillard</strong> — Consommation</span>
+    <span class="hbi" style="--d:10"><strong>Genre &amp; Libération</strong> — Féminisme</span>
   </div>
 </header>
 
@@ -291,7 +347,7 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
 <section class="col">
   <div class="col-h">
     <h2 class="col-t">La Collection</h2>
-    <span class="col-c">9 / 9 fiches</span>
+    <span class="col-c">11 / 11 fiches</span>
   </div>
 
   <!-- Row 1 -->
@@ -485,6 +541,7 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
     </a>
 
   </div>
+
   <!-- Row 5 — La Boétie -->
   <div class="grid" style="margin-top:2px">
 
@@ -530,6 +587,64 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
 
   </div>
 
+  <!-- Midquote Baudrillard -->
+  <div class="qband">
+    <blockquote>
+      On ne consomme jamais un objet en soi —<br>on manipule toujours des <strong>objets comme signes</strong>.
+      <cite>— Jean Baudrillard · La Société de Consommation, 1970</cite>
+    </blockquote>
+  </div>
+
+  <!-- Row 6 — Baudrillard -->
+  <div class="grid" style="margin-top:2px">
+
+    <a href="baudrillard-societe-consommation.html" class="card c4" id="k10" style="--c:#d04820">
+      <div class="cbar"></div>
+      <div class="art art-md a10">
+        <div class="b10-scan"></div>
+        <div class="b10-tag" style="top:18%;left:8%">valeur-signe</div>
+        <div class="b10-tag" style="top:32%;left:52%">simulation</div>
+        <div class="b10-tag" style="top:54%;left:18%">code</div>
+        <div class="b10-tag" style="top:68%;left:62%">besoins</div>
+        <div class="b10-tag" style="top:78%;left:38%">différenciation</div>
+      </div>
+      <div class="cinfo">
+        <span class="cnum" aria-hidden="true">10</span>
+        <span class="cidx">Fiche 10 · Sémiologie critique</span>
+        <p class="cauthor">Jean Baudrillard</p>
+        <h3 class="ctitle">La Société de Consommation</h3>
+        <p class="cyear">1970</p>
+        <div class="cquote"><p>« La consommation est un système qui assure l'ordonnance des signes et l'intégration du groupe : elle est donc à la fois une morale et un système de communication. »</p></div>
+      </div>
+      <div class="cfoot"><span class="ctag">Signes & simulation</span><span class="ccta">Lire la fiche ↗</span></div>
+    </a>
+
+  </div>
+
+  <!-- Row 7 — Genre, Domination & Libération -->
+  <div class="grid" style="margin-top:2px">
+
+    <a href="genre-domination-liberation.html" class="card c4" id="k11" style="--c:#9b3a8c">
+      <div class="cbar"></div>
+      <div class="art art-md a11">
+        <div class="g11-ring r1"></div>
+        <div class="g11-ring r2"></div>
+        <div class="g11-ring r3"></div>
+        <div class="g11-axis"></div>
+      </div>
+      <div class="cinfo">
+        <span class="cnum" aria-hidden="true">11</span>
+        <span class="cidx">Fiche 11 · Théorie critique du genre</span>
+        <p class="cauthor">Shariati · Mahmood · Illich · Gilligan · Irigaray · Ahmed</p>
+        <h3 class="ctitle">Genre, Domination &amp; Libération</h3>
+        <p class="cyear">1971–2006</p>
+        <div class="cquote"><p>« La femme peut-elle être libérée en devenant un homme économique ? Ou sa libération suppose-t-elle que ce que l'homme appelle "son" modèle soit radicalement remis en cause ? »</p></div>
+      </div>
+      <div class="cfoot"><span class="ctag">Féminisme & genre vernaculaire</span><span class="ccta">Lire la fiche ↗</span></div>
+    </a>
+
+  </div>
+
   <!-- Bloc personnel -->
   <div class="deco" style="margin-top:2px">
     <p class="deco-q">"Penser,<br>c'est déjà une manière d'être libre.<br>Dc réflechissez bcp !!! è_é"</p>
@@ -539,7 +654,7 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
 </section>
 
 <footer>
-  <p class="ft-l">Neuf regards sur le monde social</p>
+  <p class="ft-l">Onze regards sur le monde social</p>
   <p class="ft-r">Bibliothèque de fiches de lecture</p>
 </footer>
 
