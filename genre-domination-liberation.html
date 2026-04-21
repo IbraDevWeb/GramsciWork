@@ -1376,39 +1376,96 @@ footer a:hover{color:var(--neon);}
 
 <script>
 /* ─── CURSOR ─── */
-const dot = document.getElementById('dot');
-const ring = document.getElementById('ring');
-const trail = document.getElementById('trail');
-const ctx = trail.getContext('2d');
-let mx = 0, my = 0, rx = 0, ry = 0;
-let trailPts = [];
-
-trail.width = window.innerWidth;
-trail.height = window.innerHeight;
-window.addEventListener('resize', () => { trail.width = window.innerWidth; trail.height = window.innerHeight; });
-
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  dot.style.left = mx + 'px'; dot.style.top = my + 'px';
-  trailPts.push({x: mx, y: my, a: 1});
-  if (trailPts.length > 40) trailPts.shift();
-});
-
-function animCursor() {
-  rx += (mx - rx) * .12; ry += (my - ry) * .12;
-  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-  ctx.clearRect(0, 0, trail.width, trail.height);
-  for (let i = 1; i < trailPts.length; i++) {
-    const p = trailPts[i], pp = trailPts[i-1];
-    ctx.beginPath();
-    ctx.moveTo(pp.x, pp.y); ctx.lineTo(p.x, p.y);
-    ctx.strokeStyle = `rgba(192,35,27,${(i/trailPts.length)*.18})`;
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
+const dot   = document.getElementById('dot');
+const ring  = document.getElementById('ring');
+const canvas = document.getElementById('trail');
+const ctx   = canvas.getContext('2d');
+canvas.width  = window.innerWidth;
+canvas.height = window.innerHeight;
+const mouse   = { x: 0, y: 0 };
+const ringPos = { x: 0, y: 0 };
+let ringW = 28, ringH = 28, ringR = 50;
+let isDown = false, hovType = null;
+const particles = [];
+function lerp(a, b, t) { return a + (b - a) * t }
+function tick() {
+  dot.style.left = mouse.x + 'px';
+  dot.style.top  = mouse.y + 'px';
+  const lf = hovType ? .06 : .12;
+  ringPos.x = lerp(ringPos.x, mouse.x, lf);
+  ringPos.y = lerp(ringPos.y, mouse.y, lf);
+  let tw = 28, th = 28, tR = 50;
+  let tbg = 'transparent', tborder = '1.5px solid rgba(192,35,27,.55)';
+  let dotColor = '#c0231b';
+  if (hovType === 'btn') {
+    tw = 64; th = 28; tR = 2;
+    tborder = '1.5px solid rgba(192,35,27,.9)';
+    tbg = 'rgba(192,35,27,.08)';
+    dotColor = '#e84030';
+  } else if (hovType === 'link') {
+    tw = 44; th = 6; tR = 2;
+    tborder = '1px solid rgba(232,160,32,.9)';
+    tbg = 'rgba(232,160,32,.08)';
+    dotColor = '#e8a020';
+  } else if (hovType === 'drag') {
+    tw = 36; th = 36; tR = 4;
+    tborder = '1px dashed rgba(138,172,204,.7)';
+    dotColor = '#8aaccc';
   }
-  requestAnimationFrame(animCursor);
+  if (isDown) { tw *= .7; th *= .7; }
+  ringW = lerp(ringW, tw, .15);
+  ringH = lerp(ringH, th, .15);
+  ringR = lerp(ringR, tR, .18);
+  dot.style.background = dotColor;
+  ring.style.cssText = `
+    position:fixed; top:0; left:0; pointer-events:none; z-index:9998;
+    transform: translate(calc(${ringPos.x}px - 50%), calc(${ringPos.y}px - 50%))
+               ${hovType === 'link' ? 'rotate(-8deg)' : ''};
+    width:${ringW}px; height:${ringH}px;
+    border-radius:${tR === 2 ? '2px' : ringR + '%'};
+    border:${tborder}; background:${tbg};
+    transition: border .2s, background .2s;
+  `;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.life -= .04; p.x += p.vx; p.y += p.vy;
+    p.vx *= .93; p.vy *= .93; p.r = lerp(p.r, 0, .05);
+    if (p.life <= 0) { particles.splice(i, 1); continue; }
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, Math.max(0, p.r), 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${p.cr},${p.cg},${p.cb},${p.life * p.alpha})`;
+    ctx.fill();
+  }
+  requestAnimationFrame(tick);
 }
-animCursor();
+function spawnParticles(x, y, type) {
+  let cr = 192, cg = 35, cb = 27;
+  if (type === 'link') { cr = 232; cg = 160; cb = 32; }
+  if (type === 'drag') { cr = 138; cg = 172; cb = 204; }
+  for (let i = 0; i < 8; i++) {
+    const a = Math.random() * Math.PI * 2;
+    const spd = .5 + Math.random() * 2;
+    particles.push({
+      x, y, vx: Math.cos(a) * spd, vy: Math.sin(a) * spd,
+      r: 2 + Math.random() * 3, life: 1, alpha: .7, cr, cg, cb
+    });
+    if (particles.length > 60) particles.shift();
+  }
+}
+document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+document.addEventListener('mousedown', e => { isDown = true; spawnParticles(e.clientX, e.clientY, hovType); });
+document.addEventListener('mouseup',   () => { isDown = false; });
+window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+document.querySelectorAll('button, [role="button"]').forEach(el => {
+  el.addEventListener('mouseenter', () => { hovType = 'btn'; });
+  el.addEventListener('mouseleave', () => { hovType = null; });
+});
+document.querySelectorAll('a').forEach(el => {
+  el.addEventListener('mouseenter', () => { hovType = 'link'; });
+  el.addEventListener('mouseleave', () => { hovType = null; });
+});
+tick();
 
 /* ─── PROGRESS BAR ─── */
 window.addEventListener('scroll', () => {
