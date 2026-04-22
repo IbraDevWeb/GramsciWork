@@ -241,6 +241,38 @@ body:has(a:hover) #C{width:14px;height:14px;}
 }
 @keyframes g11pulse{from{opacity:.4;transform:translate(-50%,-50%) scale(.8);}to{opacity:1;transform:translate(-50%,-50%) scale(1.2);}}
 
+/* Art 12 — Machiavel: échiquier du pouvoir, fortuna & virtù */
+.a12{background:#080c09;overflow:hidden;}
+.a12::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(31,107,63,.1) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(31,107,63,.1) 1px,transparent 1px);
+  background-size:20px 20px;
+}
+.a12::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 70% at 50% 50%,rgba(200,150,10,.15),transparent 70%);
+}
+.m12-orbit{
+  position:absolute;left:50%;top:50%;border-radius:50%;border:1px solid;
+  transform:translate(-50%,-50%);
+}
+.m12-orbit.o1{width:55px;height:55px;border-color:rgba(200,150,10,.55);animation:m12spin 14s linear infinite;}
+.m12-orbit.o2{width:100px;height:100px;border-color:rgba(31,107,63,.35);animation:m12spin 22s linear infinite reverse;}
+.m12-orbit.o3{width:155px;height:155px;border-color:rgba(200,150,10,.18);animation:m12spin 34s linear infinite;}
+@keyframes m12spin{to{transform:translate(-50%,-50%) rotate(360deg);}}
+.m12-cross-h{position:absolute;left:0;top:50%;width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(200,150,10,.3) 35%,rgba(200,150,10,.3) 65%,transparent);transform:translateY(-50%);}
+.m12-cross-v{position:absolute;left:50%;top:0;width:1px;height:100%;background:linear-gradient(180deg,transparent,rgba(200,150,10,.3) 35%,rgba(200,150,10,.3) 65%,transparent);transform:translateX(-50%);}
+.m12-node{position:absolute;width:5px;height:5px;border-radius:50%;background:rgba(200,150,10,.7);transform:translate(-50%,-50%);box-shadow:0 0 8px rgba(200,150,10,.6);}
+.m12-core{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:14px;height:14px;border-radius:50%;
+  background:rgba(200,150,10,.85);box-shadow:0 0 20px rgba(200,150,10,.7);
+  animation:m12pulse 2.8s ease-in-out infinite alternate;
+}
+@keyframes m12pulse{from{box-shadow:0 0 10px rgba(200,150,10,.4);opacity:.7;}to{box-shadow:0 0 28px rgba(200,150,10,.9);opacity:1;}}
+
 /* Card text */
 .cinfo{padding:1.8rem 2rem 1.4rem;flex:1;display:flex;flex-direction:column;border-top:1px solid var(--rule);position:relative;}
 .cnum{position:absolute;bottom:0;right:1rem;font-family:'Cormorant Garamond',serif;font-size:7rem;font-weight:300;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(240,235,226,.05);pointer-events:none;user-select:none;transition:-webkit-text-stroke-color .4s;}
@@ -307,12 +339,12 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
   <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
   <div class="hgrid"></div>
   <div class="hero-inner">
-    <p class="eyebrow">Théorie critique · 11 fiches de lecture</p>
+    <p class="eyebrow">Théorie critique · 12 fiches de lecture</p>
     <h1 class="htitle" aria-label="Bibliothèque des Idées">
       <span class="ln"><span class="wd">Bibliothèque</span></span>
       <span class="ln"><span class="wd">des Idées</span></span>
     </h1>
-    <p class="hsub">Onze œuvres qui ont permis de faire évoluer la pensée que l'on avait du monde social</p>
+    <p class="hsub">Douze œuvres qui ont permis de faire évoluer la pensée que l'on avait du monde social</p>
     <nav class="pips" aria-label="Accès rapide">
       <span class="pip" onclick="goTo(1)">01</span>
       <span class="pip" onclick="goTo(2)">02</span>
@@ -325,6 +357,7 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
       <span class="pip" onclick="goTo(9)">09</span>
       <span class="pip" onclick="goTo(10)">10</span>
       <span class="pip" onclick="goTo(11)">11</span>
+      <span class="pip" onclick="goTo(12)">12</span>
     </nav>
   </div>
   <hr class="hrule">
@@ -340,6 +373,7 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
     <span class="hbi" style="--d:8"><strong>La Boétie</strong> — Servitude</span>
     <span class="hbi" style="--d:9"><strong>Baudrillard</strong> — Consommation</span>
     <span class="hbi" style="--d:10"><strong>Genre &amp; Libération</strong> — Féminisme</span>
+    <span class="hbi" style="--d:11"><strong>Machiavel</strong> — Pouvoir</span>
   </div>
 </header>
 
@@ -347,7 +381,7 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
 <section class="col">
   <div class="col-h">
     <h2 class="col-t">La Collection</h2>
-    <span class="col-c">11 / 11 fiches</span>
+    <span class="col-c">12 / 12 fiches</span>
   </div>
 
   <!-- Row 1 -->
@@ -643,6 +677,33 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
       <div class="cfoot"><span class="ctag">Féminisme & genre vernaculaire</span><span class="ccta">Lire la fiche ↗</span></div>
     </a>
 
+    <a href="machiavel-le-prince.html" class="card c5" id="k12" style="--c:#c8960a">
+      <div class="cbar"></div>
+      <div class="art art-md a12">
+        <div class="m12-cross-h"></div>
+        <div class="m12-cross-v"></div>
+        <div class="m12-orbit o1"></div>
+        <div class="m12-orbit o2"></div>
+        <div class="m12-orbit o3"></div>
+        <div class="m12-node" style="top:50%;left:13%"></div>
+        <div class="m12-node" style="top:50%;left:87%"></div>
+        <div class="m12-node" style="top:14%;left:50%"></div>
+        <div class="m12-node" style="top:86%;left:50%"></div>
+        <div class="m12-node" style="top:28%;left:28%;background:rgba(31,107,63,.7);box-shadow:0 0 8px rgba(31,107,63,.5);"></div>
+        <div class="m12-node" style="top:72%;left:72%;background:rgba(31,107,63,.7);box-shadow:0 0 8px rgba(31,107,63,.5);"></div>
+        <div class="m12-core"></div>
+      </div>
+      <div class="cinfo">
+        <span class="cnum" aria-hidden="true">12</span>
+        <span class="cidx">Fiche 12 · Philosophie politique</span>
+        <p class="cauthor">Nicolas Machiavel</p>
+        <h3 class="ctitle">Le Prince</h3>
+        <p class="cyear">~1513</p>
+        <div class="cquote"><p>« Il est beaucoup plus sûr d'être craint qu'aimé, quand on ne peut pas être les deux à la fois. »</p></div>
+      </div>
+      <div class="cfoot"><span class="ctag">Pouvoir & virtù</span><span class="ccta">Lire la fiche ↗</span></div>
+    </a>
+
   </div>
 
   <!-- Bloc personnel -->
@@ -654,7 +715,7 @@ footer{border-top:1px solid var(--rule);padding:2.5rem 6vw;display:flex;align-it
 </section>
 
 <footer>
-  <p class="ft-l">Onze regards sur le monde social</p>
+  <p class="ft-l">Douze regards sur le monde social</p>
   <p class="ft-r">Bibliothèque de fiches de lecture</p>
 </footer>
 
