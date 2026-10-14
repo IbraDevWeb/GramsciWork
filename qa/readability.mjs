@@ -28,7 +28,13 @@ try{
     const title=await page.title();
     if(!title)throw Error('Missing document title');
     const overflow=await page.evaluate(()=>Math.max(document.body.scrollWidth,document.documentElement.scrollWidth)-innerWidth);
-    if(overflow>12)results.push('WARN '+filename+' '+viewport.width+'px: horizontal overflow '+overflow.toFixed(0)+'px');
+    if(overflow>12){
+      const offenders=await page.evaluate(()=>[...document.querySelectorAll('body *')].map(el=>({el,rect:el.getBoundingClientRect()}))
+         .filter(o=>{const cs=getComputedStyle(o.el);return o.rect.width>0&&o.rect.height>0&&cs.position!=='fixed'&&cs.visibility!=='hidden'&&(o.rect.right>innerWidth+12||o.rect.left< -12)})
+         .sort((a,b)=>b.rect.right-a.rect.right)
+         .slice(0,12).map(o=>({tag:o.el.tagName.toLowerCase(),cls:typeof o.el.className==='string'?o.el.className.slice(0,90):'',id:o.el.id,rect:{left:Math.round(o.rect.left),right:Math.round(o.rect.right),width:Math.round(o.rect.width)}})));
+      problems.push(filename+' '+viewport.width+'px: horizontal overflow '+overflow.toFixed(0)+'px; offenders='+JSON.stringify(offenders));
+    }
     const acc=page.locator('.accordion .acc-head');
     const accordionCount=await acc.count();
     if(accordionCount){
