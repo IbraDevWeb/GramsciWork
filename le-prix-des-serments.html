@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Fiche de lecture interactive du roman historique Le Prix des Serments : résumé, contexte de 1789, personnages, thèmes, chronologie, critique, glossaire et quiz.">
+<meta name="theme-color" content="#142331">
+<title>Le Prix des Serments — Fiche de lecture interactive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Bibliothèque des Idées — fiche 13, d'après l'édition littéraire fournie */
+:root{--paper:#f1eadf;--paper2:#e8dece;--paper3:#f8f4eb;--ink:#1a252b;--muted:#776f66;--navy:#142331;--navy2:#1c3342;--gold:#b6945f;--gold-dark:#815f2f;--red:#aa453b;--line:#d6cab6;--sidebar:268px}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.82 'Libre Baskerville',Georgia,serif}
+button,a{font:inherit}button{cursor:pointer}a{color:inherit}a:focus-visible,button:focus-visible{outline:2px solid var(--red);outline-offset:4px}
+::selection{background:#d8ad70;color:#152634}
+#progress{position:fixed;z-index:300;left:0;top:0;width:0;height:3px;background:var(--red);transition:width .1s linear}
+.mono{font:500 .66rem/1.6 'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.13em}
+.display{font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:-.025em}
+.serif{font-family:'Libre Baskerville',Georgia,serif}
+/* Sidebar */
+.side{position:fixed;inset:0 auto 0 0;width:var(--sidebar);background:#11202b;color:#e9e0d3;z-index:120;display:flex;flex-direction:column;overflow:auto;border-right:1px solid #3c4143;scrollbar-width:thin;scrollbar-color:#697171 transparent}
+.side-brand{padding:33px 27px 24px;border-bottom:1px solid #344451}
+.side-kicker{color:var(--gold);display:block;margin-bottom:15px}
+.side-name{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:700;line-height:.95;letter-spacing:-.02em;text-transform:uppercase}
+.side-name em{font-weight:300;color:var(--gold);font-style:normal}
+.side-edition{color:#9c9e99;margin-top:12px;font-size:.6rem;line-height:1.8}
+.side-nav{padding:18px 0 16px;flex:1}
+.nav-heading{padding:15px 27px 7px;font:500 .56rem 'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.side-nav a{display:flex;align-items:center;gap:12px;text-decoration:none;padding:10px 27px;color:#a9b2b4;font:400 .87rem 'Barlow Condensed',sans-serif;letter-spacing:.055em;transition:background .2s,color .2s;border-left:2px solid transparent}
+.side-nav a:hover,.side-nav a.active{background:#213540;color:#fff;border-left-color:var(--gold)}
+.side-nav a .num{font:.58rem 'IBM Plex Mono',monospace;color:#967d5a;min-width:19px}
+.side-bottom{border-top:1px solid #344451;padding:18px 27px 22px}
+.side-bottom a{color:var(--gold);display:inline-flex;text-decoration:none;gap:8px;font:.62rem 'IBM Plex Mono',monospace;letter-spacing:.09em}
+.side-bottom a:hover{text-decoration:underline}
+.side-bottom .side-count{color:#9caaa9;margin-top:16px;font-size:.62rem}
+.mobile-header{display:none}
+main{margin-left:var(--sidebar);min-width:0}
+/* hero */
+.hero{min-height:94vh;display:flex;flex-direction:column;background:var(--navy);color:#f4eee3;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 49.95%,rgba(197,169,111,.08) 50%,transparent 50.05%),repeating-linear-gradient(0deg,transparent 0 69px,rgba(197,169,111,.042) 70px 71px),radial-gradient(ellipse 70% 90% at 75% 40%,#284352 0%,transparent 72%)}
+.hero-top{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:30px max(4vw,30px) 12px;position:relative}
+.topcrumb{color:#c2b5a0}.topcrumb span{color:var(--gold)}
+.top-download{border:1px solid #7f745f;padding:10px 13px;text-decoration:none;color:#e1d3ba;transition:background .2s;white-space:nowrap}
+.top-download:hover{background:#273f50}
+.hero-main{flex:1;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(220px,.75fr);align-items:center;gap:5%;padding:36px max(4vw,30px) 74px;position:relative}
+.hero-kicker{color:var(--gold);margin-bottom:32px}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(4.2rem,7.3vw,6.8rem);font-weight:800;line-height:.82;letter-spacing:-.055em;text-transform:uppercase;margin:0;max-width:780px}
+.hero h1 span{display:block;color:#e9e1d3}
+.hero h1 .accent{color:var(--gold);font-weight:300;font-style:italic}
+.hero-lead{font-size:clamp(.93rem,1.15vw,1.15rem);line-height:1.95;color:#d0cabe;max-width:590px;margin:34px 0 28px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:27px}
+.hero-meta span{border:1px solid #455260;padding:6px 10px;color:#cdbb9d}
+.hero-buttons{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;gap:12px;align-items:center;justify-content:center;font:600 .72rem 'IBM Plex Mono',monospace;letter-spacing:.06em;text-decoration:none;text-transform:uppercase;min-height:46px;padding:12px 18px;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}.btn-primary{background:var(--gold);color:var(--navy)}.btn-primary:hover{background:#cfad77}.btn-ghost{border:1px solid #7e887f;color:#e8dbc4}
+.book-art{position:relative;display:grid;place-items:center;min-width:0}.book-art::before{content:'';position:absolute;width:80%;aspect-ratio:1;border:1px solid rgba(204,165,101,.22);border-radius:50%;box-shadow:0 0 0 34px rgba(204,165,101,.027),0 0 0 72px rgba(204,165,101,.025)}
+.book-cover{display:block;width:min(72%,300px);height:auto;max-height:62vh;object-fit:contain;box-shadow:25px 28px 56px #030a0c99,7px 8px 0 #07131d;transform:rotate(3deg);position:relative;border:1px solid rgba(192,161,113,.5)}
+.book-annotation{position:absolute;right:2%;bottom:-35px;color:#bcb7a4;font:400 .56rem 'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.12em;text-align:right}
+.hero-bottom{position:relative;border-top:1px solid #3a4c53;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:18px max(4vw,30px);color:#b5a991}
+.hero-bottom b{color:var(--gold);font-weight:500}
+/* common sections */
+.sec{padding:87px clamp(28px,6vw,100px);scroll-margin-top:10px;border-bottom:1px solid var(--line)}
+.sec.light{background:var(--paper3)}.sec.tint{background:var(--paper2)}.sec.dark{background:var(--navy);color:#f2ece2;border-bottom-color:#32424b}
+.section-top{display:flex;align-items:baseline;gap:20px;border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:37px}
+.dark .section-top{border-color:#48535a}
+.section-number{color:var(--red);white-space:nowrap}.dark .section-number{color:var(--gold)}
+h2.section-title{font:800 clamp(2.7rem,5.1vw,5rem)/.95 'Barlow Condensed',sans-serif;letter-spacing:-.035em;text-transform:uppercase;margin:0;flex:1}
+h2.section-title em{font-family:Georgia,serif;font-weight:400;font-size:.7em;letter-spacing:-.05em;text-transform:none;color:var(--red)}.dark h2.section-title em{color:var(--gold)}
+.intro{font-size:1.03rem;max-width:880px;margin:0 0 26px;line-height:2}
+.lead-strong{font-size:clamp(1.15rem,1.8vw,1.45rem);line-height:1.85;max-width:900px;margin-bottom:30px}
+p{margin:0 0 1.2em}strong{font-weight:700}em{font-style:italic}
+.section-footnote{font:.65rem/1.8 'IBM Plex Mono',monospace;color:var(--muted)}.dark .section-footnote{color:#b6b5af}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:clamp(25px,4vw,65px)}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.pretitle{font:700 .65rem 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:15px}
+.dark .pretitle{color:var(--gold)}
+/* overview and thesis */
+.factrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:35px}
+.fact{padding:25px 23px;background:#f2eadc}.fact strong{display:block;font:700 clamp(1.7rem,3vw,2.8rem)/1 'Barlow Condensed',sans-serif;color:var(--navy);margin:8px 0}.fact span{color:var(--muted)}
+.bigquote{font:400 italic clamp(1.45rem,3vw,2.5rem)/1.65 'Libre Baskerville',serif;border-left:3px solid var(--gold);padding:10px 0 10px 25px;max-width:850px;margin:26px 0}.quote-attr{font:.66rem 'IBM Plex Mono',monospace;color:var(--gold);font-style:normal;letter-spacing:.1em;display:block;margin-top:16px}
+.thesis-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin:40px 0}.thesis-block{padding:28px;background:#1e3545;min-height:165px}.thesis-block .eyebrow{font:600 .61rem 'IBM Plex Mono',monospace;letter-spacing:.13em;color:var(--gold)}.thesis-block h3{font:700 1.55rem 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.01em;margin:12px 0}.thesis-block p{font-size:.87rem;color:#d5d2c8;margin:0;line-height:1.9}
+/* timeline */
+.timeline-shell{display:grid;grid-template-columns:minmax(200px,.55fr) 1fr;gap:30px;margin-top:25px}
+.timeline-list{display:flex;flex-direction:column;gap:1px;align-self:start;background:#d3c7b6}
+.timeline-btn{text-align:left;border:0;padding:16px 18px;background:#f5eee3;display:grid;grid-template-columns:88px 1fr;gap:10px;align-items:start;color:var(--ink);transition:background .2s}
+.timeline-btn:hover{background:#e7dbc7}.timeline-btn[aria-pressed="true"]{background:var(--navy);color:#fff}
+.timeline-date{color:var(--red);font:700 .76rem 'IBM Plex Mono',monospace}.timeline-btn[aria-pressed="true"] .timeline-date{color:var(--gold)}
+.timeline-name{font:700 .94rem/1.15 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.025em}
+.timeline-detail{position:relative;border:1px solid #c2b7a5;min-height:390px;padding:30px 35px;background:#e9dfcf}
+.timeline-detail::after{content:'1789';position:absolute;right:14px;bottom:-24px;font:800 8rem/.8 'Barlow Condensed',sans-serif;color:#d5c8b3;z-index:0;pointer-events:none}
+.timeline-detail > *{position:relative;z-index:1}
+#event-date{color:var(--red)}#event-title{font:800 clamp(2rem,3.7vw,3.4rem)/.98 'Barlow Condensed',sans-serif;text-transform:uppercase;margin:15px 0 23px}#event-body{font-size:.92rem;line-height:2;max-width:570px}#event-angle{border-top:1px solid #c9bba7;padding-top:20px;color:#756b60;font-size:.82rem;line-height:1.85}
+/* narrative */
+.part-card{border:1px solid #d6cab6;padding:28px;background:#fffaf0;position:relative;display:flex;flex-direction:column}.part-card .part-num{color:var(--red)}.part-card h3{font:800 2rem/1 'Barlow Condensed',sans-serif;text-transform:uppercase;margin:13px 0 7px}.part-card .part-period{font:.61rem 'IBM Plex Mono',monospace;color:var(--gold-dark);margin-bottom:20px}.part-card p{font-size:.88rem;line-height:1.9;flex:1}.part-card small{font:.62rem 'IBM Plex Mono',monospace;color:var(--muted);letter-spacing:.03em;line-height:1.7}
+/* character profiles */
+.characters{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:#3a4e5d;margin-top:29px}
+.character{padding:27px;background:#193142;min-height:220px}.character .monogram{display:grid;place-items:center;border:1px solid #75674c;color:var(--gold);font:500 1.2rem 'IBM Plex Mono',monospace;width:47px;height:47px;margin-bottom:20px}
+.character h3{font:800 1.8rem/1 'Barlow Condensed',sans-serif;text-transform:uppercase;margin:0 0 5px}.character .role{font:.58rem 'IBM Plex Mono',monospace;color:var(--gold);letter-spacing:.12em;text-transform:uppercase}.character p{font-size:.84rem;color:#d5d6d2;line-height:1.85;margin-top:14px;margin-bottom:0}
+/* revealable concept cards */
+.concepts{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin-top:28px}
+.concept{border:1px solid #cebfaa;background:#fdf8ed;min-width:0}
+.concept-toggle{display:flex;align-items:center;justify-content:space-between;gap:15px;width:100%;border:0;background:none;text-align:left;color:var(--ink);padding:25px 24px}.concept-toggle:hover{background:#f2e8d7}.concept-toggle h3{font:800 1.45rem 'Barlow Condensed',sans-serif;text-transform:uppercase;margin:4px 0 0}.concept-toggle .index{color:var(--red)}
+.plus{display:grid;place-items:center;flex-shrink:0;width:31px;height:31px;border:1px solid #b1a38e;color:var(--red);font:600 1.4rem 'Barlow Condensed',sans-serif}
+.concept-toggle[aria-expanded="true"] .plus{background:var(--red);color:#fff;border-color:var(--red)}
+.concept-panel{padding:0 24px 24px;font-size:.86rem;line-height:1.95;border-top:1px solid #dfd1bd}.concept-panel p{padding-top:17px;margin-bottom:0}.concept-panel .example{color:var(--gold-dark);font-style:italic;margin-top:13px}
+/* historic versus fiction */
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin:30px 0}.filter{border:1px solid #51626d;padding:10px 15px;background:transparent;color:#d9d5ca;font:600 .65rem 'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.06em}.filter[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.evidence-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.evidence{border:1px solid #435865;background:#1e3443;padding:24px}.evidence .tag{font:.58rem 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}.evidence h3{font:700 1.4rem 'Barlow Condensed',sans-serif;text-transform:uppercase;margin:13px 0}.evidence p{font-size:.83rem;line-height:1.95;color:#d6d8d3;margin:0}.evidence[hidden]{display:none}
+/* critical */
+.argument{border-top:1px solid #c9bba5;padding:24px 0;display:grid;grid-template-columns:52px 1fr;gap:17px}.argument .n{font:700 .72rem 'IBM Plex Mono',monospace;color:var(--red);padding-top:5px}.argument h3{font:800 1.55rem 'Barlow Condensed',sans-serif;text-transform:uppercase;margin:0 0 9px}.argument p{font-size:.88rem;line-height:1.9;margin:0}.balance{padding:32px;background:var(--navy);color:#f6efe5}.balance h3{font:800 1.8rem 'Barlow Condensed',sans-serif;text-transform:uppercase;margin:0 0 15px;color:var(--gold)}.balance p{font-size:.87rem;line-height:1.95;color:#e4dfd7}
+/* glossary */
+.gloss{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#c9baa5;border:1px solid #c9baa5}
+.term{padding:22px 23px;background:#f9f2e6}.term h3{font:800 1.23rem 'Barlow Condensed',sans-serif;text-transform:uppercase;margin:0 0 8px}.term p{font-size:.81rem;line-height:1.8;color:#594e43;margin:0}
+/* quiz */
+.quizbox{background:#182f3e;border:1px solid #465962;padding:clamp(24px,4vw,45px);max-width:900px}
+.quizbar{height:4px;background:#344d5d;margin:19px 0 28px;overflow:hidden}.quizfill{width:0;height:100%;background:var(--gold);transition:width .3s}
+.quiztop{display:flex;justify-content:space-between;gap:15px;color:var(--gold)}
+#question{font:700 clamp(1.35rem,2.7vw,2rem)/1.35 'Barlow Condensed',sans-serif;margin:20px 0 27px}
+.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.answer{background:#223d4e;color:#f5efe4;border:1px solid #60707a;padding:14px 16px;min-height:90px;text-align:left;font:400 .84rem/1.65 'Libre Baskerville',serif;transition:background .2s,border-color .2s}
+.answer:hover:not(:disabled){background:#2c5265;border-color:var(--gold)}.answer:disabled{cursor:default;opacity:.88}
+.answer.correct{background:#2c5f51;border-color:#8bbb9b}.answer.wrong{background:#673a3a;border-color:#bb8e86}.answer:disabled:not(.correct):not(.wrong){opacity:.48}
+.quiz-feedback{display:none;border-left:3px solid var(--gold);margin:20px 0;padding:12px 17px;font-size:.81rem;background:#294151;color:#f2eee5;line-height:1.85}.quiz-feedback.show{display:block}
+.quizcontrols{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:22px;flex-wrap:wrap}
+.quizcontrols .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}.quizscore{color:#d0c8b9;font:.65rem 'IBM Plex Mono',monospace}
+.result{display:none}.result.show{display:block}.result h3{font:800 3rem 'Barlow Condensed',sans-serif;text-transform:uppercase;color:var(--gold);margin:8px 0 15px}.result p{max-width:590px}
+/* questions + sources */
+.questions{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;counter-reset:reflection}.reflection{border:1px solid #d5c8b4;background:#fff9ee;padding:25px;counter-increment:reflection;min-height:220px}.reflection:before{content:'0' counter(reflection);font:600 .75rem 'IBM Plex Mono',monospace;color:var(--red)}.reflection p{font-size:.88rem;line-height:1.9;margin:21px 0 0}
+.sources{font-size:.81rem;line-height:1.9}.sources a{color:var(--gold-dark);text-decoration-thickness:1px;text-underline-offset:4px;overflow-wrap:anywhere}.sources li{margin:11px 0}.source-note{font-size:.76rem;color:var(--muted);max-width:770px;margin:25px 0}
+.page-footer{background:#0f202c;color:#adafa9;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:28px 6vw;font:.61rem 'IBM Plex Mono',monospace;letter-spacing:.04em}.page-footer a{color:var(--gold);text-decoration:none}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .55s,transform .55s}.reveal.visible{opacity:1;transform:none}
+@media(max-width:1120px){:root{--sidebar:230px}.hero h1{font-size:clamp(4.0rem,7.3vw,6.5rem)}.sec{padding:72px 5vw}.book-cover{width:82%}.timeline-shell{grid-template-columns:1fr}.timeline-list{display:grid;grid-template-columns:repeat(2,1fr)}.timeline-btn{grid-template-columns:76px 1fr}}
+@media(max-width:860px){:root{--sidebar:0px}.side{display:none}.mobile-header{display:flex;position:sticky;top:3px;z-index:125;align-items:center;justify-content:space-between;gap:14px;background:#102330;color:#f6ecdd;padding:13px 20px;border-bottom:1px solid #455460}.mobile-header .brand{font:700 1rem 'Barlow Condensed',sans-serif;letter-spacing:.05em;text-transform:uppercase}.mobile-header button{background:transparent;color:var(--gold);border:1px solid #8f826b;font:.65rem 'IBM Plex Mono',monospace;padding:7px 10px}.mobile-header .menu[hidden]{display:none}.mobile-header nav{position:absolute;left:0;right:0;top:100%;background:#17303d;padding:15px 20px;box-shadow:0 20px 30px #050b1099;display:grid;grid-template-columns:repeat(2,1fr);gap:4px}.mobile-header nav a{font:.82rem 'Barlow Condensed',sans-serif;color:#f6efe3;text-decoration:none;padding:8px;border-bottom:1px solid #41515c}.hero{min-height:0}.hero-main{padding-top:65px;padding-bottom:90px}}
+@media(max-width:670px){.hero-main{grid-template-columns:1fr;gap:45px}.hero h1{font-size:clamp(3.6rem,14vw,5.8rem)}.book-art{max-width:390px;margin:20px auto 0;width:100%}.book-cover{width:60%;max-height:410px}.book-annotation{bottom:-32px}.hero-bottom{flex-direction:column;align-items:flex-start}.sec{padding:55px 23px}.section-top{gap:12px}.two-col,.three-col,.characters,.thesis-grid,.concepts,.evidence-grid,.gloss,.answers,.questions{grid-template-columns:1fr}.factrow{grid-template-columns:1fr}.fact{padding:17px 23px}.timeline-list{grid-template-columns:1fr}.timeline-btn{padding:13px 15px}.timeline-detail{padding:25px;min-height:350px}.timeline-detail::after{font-size:6rem}.top-download{display:none}.book-art::before{width:60%}.page-footer{flex-direction:column;align-items:flex-start}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+<link rel="stylesheet" href="serments.css">
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+<div id="progress" aria-hidden="true"></div>
+<aside class="side" aria-label="Sommaire de la fiche">
+  <div class="side-brand">
+    <span class="side-kicker mono">Bibliothèque des idées · 13</span>
+    <div class="side-name">Le Prix<br><em>des Serments</em></div>
+    <div class="side-edition mono">Roman historique · Paris &amp; Versailles<br>Avril — juillet 1789</div>
+  </div>
+  <nav class="side-nav">
+    <div class="nav-heading">L'œuvre</div>
+    <a href="#presentation"><span class="num">01</span> Présentation générale</a>
+    <a href="#these"><span class="num">02</span> Idée directrice</a>
+    <a href="#chronologie"><span class="num">03</span> Chronologie interactive</a>
+    <a href="#recit"><span class="num">04</span> Les trois parties</a>
+    <div class="nav-heading">Comprendre</div>
+    <a href="#personnages"><span class="num">05</span> Personnages et trajectoires</a>
+    <a href="#themes"><span class="num">06</span> Six grands thèmes</a>
+    <a href="#histoire-fiction"><span class="num">07</span> Histoire ou fiction ?</a>
+    <a href="#analyse"><span class="num">08</span> Analyse critique</a>
+    <div class="nav-heading">Approfondir</div>
+    <a href="#glossaire"><span class="num">09</span> Glossaire</a>
+    <a href="#quiz"><span class="num">10</span> Quiz interactif</a>
+    <a href="#reflexion"><span class="num">11</span> Réflexion</a>
+    <a href="#sources"><span class="num">12</span> Source et références</a>
+  </nav>
+  <div class="side-bottom"><a href="index.html">← Retour à la bibliothèque</a><div class="side-count mono" id="sideQuizScore">Quiz · 0/7 bonnes réponses</div></div>
+</aside>
+<header class="mobile-header"><span class="brand">Le Prix des Serments</span><button type="button" id="menuButton" aria-expanded="false" aria-controls="mobileMenu">☰ Sommaire</button><nav class="menu" id="mobileMenu" hidden aria-label="Sommaire mobile"><a href="#presentation">Présentation</a><a href="#these">Idée directrice</a><a href="#chronologie">Chronologie</a><a href="#recit">Résumé</a><a href="#personnages">Personnages</a><a href="#themes">Thèmes</a><a href="#histoire-fiction">Histoire / fiction</a><a href="#analyse">Analyse</a><a href="#glossaire">Glossaire</a><a href="#quiz">Quiz</a><a href="#reflexion">Réflexion</a><a href="#sources">Sources</a></nav></header>
+<main>
+  <header class="hero" id="haut">
+    <div class="hero-top"><span class="topcrumb mono">Bibliothèque des Idées <span>/</span> Fiche de lecture 13</span><a class="top-download mono" href="#sources">À propos des sources ↗</a></div>
+    <div class="hero-main">
+      <div>
+        <div class="hero-kicker mono">Roman historique · La Révolution française</div>
+        <h1><span>Le Prix</span><span class="accent">des</span><span>Serments</span></h1>
+        <p class="hero-lead">En 1789, un jeune juriste croit que son avenir se joue dans les couloirs du droit. De Versailles aux barricades de Paris, il découvre le prix humain des promesses politiques — et ce que signifie parler pour les autres.</p>
+        <div class="hero-meta"><span class="mono">Paris / Versailles</span><span class="mono">28.04 — 17.07.1789</span><span class="mono">27 chapitres + épilogue</span></div>
+        <div class="hero-buttons"><a href="#presentation" class="btn btn-primary">Explorer la fiche ↓</a><a href="#chronologie" class="btn btn-ghost">Explorer la chronologie →</a></div>
+      </div>
+      <div class="book-art"><div class="book-cover cover-render" role="img" aria-label="Illustration typographique du roman Le Prix des Serments, Paris 1789"><span class="cover-overline">Roman historique</span><span class="cover-title">Le Prix<br>des Serments</span><span class="cover-emblem" aria-hidden="true">✳</span><span class="cover-year">Paris · 1789</span></div><div class="book-annotation">Illustration typographique<br>pour cette fiche</div></div>
+    </div>
+    <div class="hero-bottom mono"><span>« Je n’avais jamais désiré abolir l’ordre du monde. »</span><span>1789 <b>—</b> De l'ambition personnelle à la voix collective</span></div>
+  </header>
+
+  <section class="sec light" id="presentation">
+    <div class="section-top reveal"><span class="section-number mono">§ 01</span><h2 class="section-title">Présentation <em>de l'œuvre</em></h2></div>
+    <div class="two-col reveal">
+      <div><div class="pretitle">De quoi parle le roman ?</div><p class="intro">Le <strong>Prix des Serments</strong> suit Adrien Morel, vingt-sept ans, juriste parisien encore en apprentissage du métier d'avocat. Il aspire à une ascension sociale qui protégerait sa mère et sa sœur Louise de la précarité.</p><p class="intro">Les événements révolutionnaires bouleversent cet horizon. À travers son ami menuisier Nicolas Giraud, le député Armand Villiers et la blanchisseuse Madeleine Colin, il mesure progressivement <strong>l'écart entre les grandes déclarations de la politique et les urgences ordinaires</strong>.</p></div>
+      <div><div class="pretitle">Singularité du récit</div><p class="intro">L'Histoire est racontée à la première personne depuis une position périphérique : Adrien entend, observe, retranscrit, se trompe parfois. Il n'est ni député ni chef de foule. La narration donne une place essentielle à ceux qui ne figurent pas nécessairement dans les mémoires officiels.</p><p class="intro">L'intrigue court du <strong>28 avril au 17 juillet 1789</strong> et s'achève dans la nuit du 17 au 18 juillet. Le texte précise lui-même que ses personnages centraux sont fictifs, tandis que ses événements publics suivent une chronologie historique.</p></div>
+    </div>
+    <div class="factrow reveal"><div class="fact"><span class="mono">Genre</span><strong>Roman</strong><span class="mono">Fiction historique</span></div><div class="fact"><span class="mono">Structure</span><strong>03</strong><span class="mono">Parties, 27 chapitres, épilogue</span></div><div class="fact"><span class="mono">Édition fournie</span><strong>162 p.</strong><span class="mono">Version littéraire recomposée</span></div></div>
+    <p class="section-footnote" style="margin-top:22px">L'édition jointe ne mentionne pas explicitement le nom de l'auteur. « 1789 » désigne la période du récit, et non une date de publication établie.</p>
+  </section>
+
+  <section class="sec dark" id="these">
+    <div class="section-top reveal"><span class="section-number mono">§ 02</span><h2 class="section-title">L'idée <em>directrice</em></h2></div>
+    <p class="lead-strong reveal">Que vaut un serment politique si les hommes et les femmes au nom desquels il est prononcé demeurent sans pain, sans travail ou sans accès à la justice ?</p>
+    <div class="bigquote reveal">« Je n’avais jamais désiré abolir l’ordre du monde. Je voulais seulement y prendre une meilleure place. »<span class="quote-attr">— Adrien Morel · Chapitre I</span></div>
+    <p class="intro reveal">Cette phrase expose la contradiction initiale d'Adrien : il comprend l'inégalité du royaume, mais espère d'abord en sortir <em>seul</em>. Le récit suit moins une conversion spectaculaire qu'un apprentissage coûteux de la <strong>responsabilité envers les invisibles</strong>.</p>
+    <div class="thesis-grid reveal"><div class="thesis-block"><div class="eyebrow">Promesse</div><h3>La souveraineté en paroles</h3><p>Les députés s'engagent à refonder le pouvoir ; les mots « nation », « représentation » et « constitution » deviennent des forces politiques.</p></div><div class="thesis-block"><div class="eyebrow">Épreuve</div><h3>La réalité des vies</h3><p>Des vies sans sécurité matérielle mettent à l'épreuve ces principes : le salaire, le loyer, le pain et le droit d'être entendu.</p></div><div class="thesis-block"><div class="eyebrow">Tension</div><h3>L'émancipation et la violence</h3><p>La conquête de la liberté se heurte à l'usage des armes, aux rumeurs, à la peur et aux morts, dont le récit refuse de faire disparaître le coût.</p></div><div class="thesis-block"><div class="eyebrow">Aboutissement</div><h3>Parler pour les autres</h3><p>Adrien envisage progressivement le droit non comme une voie d'élévation personnelle seulement, mais aussi comme un recours pour ceux que personne n'écoute.</p></div></div>
+  </section>
+
+  <section class="sec tint" id="chronologie">
+    <div class="section-top reveal"><span class="section-number mono">§ 03</span><h2 class="section-title">1789, <em>jour après jour</em></h2></div>
+    <p class="intro reveal">Sélectionnez une date. Chaque événement historique est mis en relation avec ce qu'Adrien en perçoit dans le roman. Les faits historiques ne doivent pas être confondus avec les scènes privées imaginaires.</p>
+    <div class="timeline-shell reveal">
+      <div class="timeline-list" id="timelineList" aria-label="Sélectionnez une date de la chronologie"></div>
+      <article class="timeline-detail" aria-live="polite"><span id="event-date" class="mono"></span><h3 id="event-title"></h3><p id="event-body"></p><div id="event-angle"></div></article>
+    </div>
+  </section>
+
+  <section class="sec light" id="recit">
+    <div class="section-top reveal"><span class="section-number mono">§ 04</span><h2 class="section-title">Les trois <em>mouvements du récit</em></h2></div>
+    <p class="section-footnote reveal" style="margin-bottom:22px">Résumé analytique. La dernière partie aborde des événements majeurs de la fin du roman.</p>
+    <div class="three-col reveal">
+      <article class="part-card"><span class="part-num mono">Partie I · chap. I–V</span><h3>Le royaume des affamés</h3><div class="part-period">28 avril — 12 juin</div><p>Après la répression des troubles du faubourg Saint-Antoine, Adrien se rend à Versailles et découvre l'ouverture des États généraux. En observant les représentants, il commence à mesurer la distance entre la représentation politique et l'expérience de la pauvreté.</p><small>Question : qui parle dans une assemblée et qui manque à l'appel ?</small></article>
+      <article class="part-card"><span class="part-num mono">Partie II · chap. VI–X</span><h3>Les hommes qui jurèrent</h3><div class="part-period">17 — 27 juin</div><p>La proclamation de l'Assemblée nationale, le serment du Jeu de paume, la séance royale et le rapprochement des ordres déplacent la légitimité politique. Adrien côtoie les députés et s'interroge sur les promesses prononcées au nom du peuple.</p><small>Question : un serment peut-il instituer une nation sans la faire vivre ?</small></article>
+      <article class="part-card"><span class="part-num mono">Partie III · chap. XI–XXVII</span><h3>Dix-sept jours pour un royaume</h3><div class="part-period">1er — 17 juillet · puis épilogue</div><p>La crise s'accélère : troupes, taxes, renvoi de Necker, mobilisation parisienne, prise de la Bastille et visite du roi dans la capitale. En parallèle, Adrien intervient pour Madeleine Colin et repense le sens de sa vocation juridique.</p><small>Question : que reste-t-il d'une victoire collective après les acclamations ?</small></article>
+    </div>
+  </section>
+
+  <section class="sec dark" id="personnages">
+    <div class="section-top reveal"><span class="section-number mono">§ 05</span><h2 class="section-title">Des voix <em>et des destins</em></h2></div>
+    <p class="intro reveal">Le roman organise sa réflexion autour de personnages fictifs, porteurs de situations et de perspectives distinctes — sans réduire chacun à une simple idée.</p>
+    <div class="characters reveal">
+      <article class="character"><div class="monogram">AM</div><h3>Adrien Morel</h3><div class="role">Narrateur · Jeune homme de loi</div><p>Fils d'un relieur, il désire une carrière reconnue. Son regard évolue au contact des violences populaires, de la vie parlementaire et d'une affaire juridique très concrète.</p></article>
+      <article class="character"><div class="monogram">NG</div><h3>Nicolas Giraud</h3><div class="role">Ami d'enfance · Menuisier</div><p>Artisan du faubourg Saint-Antoine, il donne corps à l'expérience ouvrière : la précarité du travail, la colère contre les armes royales, mais aussi le refus de subir.</p></article>
+      <article class="character"><div class="monogram">AV</div><h3>Armand Villiers</h3><div class="role">Député du tiers état · Avocat</div><p>Il associe Adrien aux travaux de Versailles. Patient et exigeant, il incarne les possibilités comme les contradictions de la représentation politique.</p></article>
+      <article class="character"><div class="monogram">LC</div><h3>Louise Morel</h3><div class="role">Sœur d'Adrien · Apprentie</div><p>Curieuse, lucide et active, elle oblige Adrien à considérer les savoirs acquis hors des livres et la contribution des femmes, en particulier aux soins des blessés.</p></article>
+      <article class="character"><div class="monogram">MC</div><h3>Madeleine Colin</h3><div class="role">Blanchisseuse · Justiciable</div><p>Menacée par les difficultés d'argent, elle conduit Adrien vers sa « première véritable cause » : une action juridique modeste, mais décisive pour une famille.</p></article>
+      <article class="character"><div class="monogram">HD</div><h3>Maître Desforges</h3><div class="role">Procureur au Châtelet · Employeur</div><p>Praticien attaché à l'ordre et aux procédures, il fait apparaître le poids des institutions et la manière dont une transformation politique atteint la vie professionnelle.</p></article>
+    </div>
+  </section>
+
+  <section class="sec light" id="themes">
+    <div class="section-top reveal"><span class="section-number mono">§ 06</span><h2 class="section-title">Six thèmes <em>à explorer</em></h2></div>
+    <p class="intro reveal">Ouvrez chaque notion : une explication et un exemple précis tirés du roman apparaissent. Le compteur suit les notions que vous avez explorées.</p>
+    <div class="mono" id="conceptCount" style="color:var(--red)" aria-live="polite">0 / 6 concepts explorés</div>
+    <div class="concepts reveal" id="concepts">
+      <article class="concept"><button class="concept-toggle" type="button" aria-expanded="false" aria-controls="cp1" data-concept="0"><span><span class="index mono">01 — Vie matérielle</span><h3>Le pain et la faim</h3></span><span class="plus" aria-hidden="true">+</span></button><div class="concept-panel" id="cp1" hidden><p>La politique abstraite est toujours ramenée à une nécessité immédiate : se nourrir. La disette et le coût du pain donnent un sens concret au mot « crise ».</p><p class="example">Dans le chapitre I, le narrateur voit un homme abattu qui a encore du pain dans la bouche ; sa propre mère prétend avoir mangé pour lui laisser sa part.</p></div></article>
+      <article class="concept"><button class="concept-toggle" type="button" aria-expanded="false" aria-controls="cp2" data-concept="1"><span><span class="index mono">02 — Légitimité</span><h3>Représenter la nation</h3></span><span class="plus" aria-hidden="true">+</span></button><div class="concept-panel" id="cp2" hidden><p>Le vote par ordre ou par tête détermine qui compte dans les décisions. Le récit oppose la présence formelle des représentants à l'absence physique de la majorité des travailleurs.</p><p class="example">Au chapitre V, Adrien contemple la liste des députés et remarque qu'« il manque du monde » — non à la liste, mais à la salle.</p></div></article>
+      <article class="concept"><button class="concept-toggle" type="button" aria-expanded="false" aria-controls="cp3" data-concept="2"><span><span class="index mono">03 — Engagement</span><h3>La portée d'un serment</h3></span><span class="plus" aria-hidden="true">+</span></button><div class="concept-panel" id="cp3" hidden><p>Le serment est un acte politique de fondation, mais aussi une promesse susceptible d'être trahie. L'œuvre demande par quels actes les institutions honorent leurs engagements.</p><p class="example">Le titre renvoie à la fois au Jeu de paume et à l'obligation morale, exprimée à la fin, de rappeler aux représentants ceux qui ont payé les événements de leur sang.</p></div></article>
+      <article class="concept"><button class="concept-toggle" type="button" aria-expanded="false" aria-controls="cp4" data-concept="3"><span><span class="index mono">04 — Droit</span><h3>La justice ordinaire</h3></span><span class="plus" aria-hidden="true">+</span></button><div class="concept-panel" id="cp4" hidden><p>Le métier d'avocat donne d'abord à Adrien l'espoir d'être reconnu. La défense d'une personne démunie transforme cette ambition en question morale.</p><p class="example">L'affaire de Madeleine Colin ne révolutionne aucune institution ; l'arrangement avec son créancier permet néanmoins de préserver provisoirement les biens de sa famille.</p></div></article>
+      <article class="concept"><button class="concept-toggle" type="button" aria-expanded="false" aria-controls="cp5" data-concept="4"><span><span class="index mono">05 — Mise en récit</span><h3>Les oubliés de l'Histoire</h3></span><span class="plus" aria-hidden="true">+</span></button><div class="concept-panel" id="cp5" hidden><p>Servantes, blanchisseuses, ouvriers, apprenties et soldats anonymes traversent les scènes. Le roman met en question la sélection des vies jugées dignes d'être racontées.</p><p class="example">Au chapitre II, Adrien regrette de ne pas connaître le nom d'une servante tandis qu'il s'apprête à mémoriser les noms de représentants célèbres.</p></div></article>
+      <article class="concept"><button class="concept-toggle" type="button" aria-expanded="false" aria-controls="cp6" data-concept="5"><span><span class="index mono">06 — Ambivalence</span><h3>La liberté et la violence</h3></span><span class="plus" aria-hidden="true">+</span></button><div class="concept-panel" id="cp6" hidden><p>L'insurrection ouvre des possibilités politiques, mais n'abolit ni la peur ni les rapports de force. Le récit ne confond pas la victoire avec un monde déjà juste.</p><p class="example">Le 15 juillet, Adrien constate que les hommes qui transforment la victoire en gouvernement ne sont pas nécessairement ceux qui ont pris les armes.</p></div></article>
+    </div>
+  </section>
+
+  <section class="sec dark" id="histoire-fiction">
+    <div class="section-top reveal"><span class="section-number mono">§ 07</span><h2 class="section-title">Histoire <em>ou fiction ?</em></h2></div>
+    <p class="intro reveal">L'auteur de l'édition fournie distingue explicitement les événements publics réels et les personnages inventés. Utilisez les filtres pour démêler les deux plans sans prendre chaque dialogue pour un document d'archive.</p>
+    <div class="filters reveal" role="group" aria-label="Filtrer les éléments historiques et romanesques"><button class="filter" type="button" data-filter="all" aria-pressed="true">Tout afficher</button><button class="filter" type="button" data-filter="historique" aria-pressed="false">Événements historiques</button><button class="filter" type="button" data-filter="fiction" aria-pressed="false">Invention romanesque</button></div>
+    <div class="evidence-grid reveal" id="evidenceGrid">
+      <article class="evidence" data-kind="historique"><div class="tag">Historique · avril</div><h3>Les troubles Réveillon</h3><p>Les violences et la crise des subsistances des 27–28 avril 1789 sont documentées. Le roman utilise ces événements comme ouverture dramatique.</p></article>
+      <article class="evidence" data-kind="fiction"><div class="tag">Fiction · narrateur</div><h3>Adrien Morel</h3><p>Le jeune juriste, sa famille, sa formation et son cheminement intérieur sont créés pour le récit. Ils ne constituent pas le témoignage d'une personne historiquement identifiée.</p></article>
+      <article class="evidence" data-kind="historique"><div class="tag">Historique · mai–juin</div><h3>Les États généraux et le Jeu de paume</h3><p>Les étapes décisives de la transformation du tiers état en Assemblée nationale suivent les jalons historiques rappelés dans la note finale.</p></article>
+      <article class="evidence" data-kind="fiction"><div class="tag">Fiction · relations</div><h3>Villiers, Nicolas et Louise</h3><p>Le député qui confie des travaux au narrateur, son ami artisan et sa sœur sont des personnages inventés ; leurs échanges donnent accès à des perspectives opposées.</p></article>
+      <article class="evidence" data-kind="historique"><div class="tag">Historique · juillet</div><h3>Du renvoi de Necker à la Bastille</h3><p>Le renvoi de Necker, les tensions du 12 juillet, la prise de la Bastille le 14 et la visite du roi le 17 juillet appartiennent à la chronologie attestée.</p></article>
+      <article class="evidence" data-kind="fiction"><div class="tag">Fiction · droit social</div><h3>L'affaire Madeleine Colin</h3><p>La blanchisseuse et sa procédure sont inventées. Elles permettent de poser une question concrète : que peut le droit pour une famille menacée de saisie ?</p></article>
+    </div>
+    <p class="section-footnote" style="margin-top:25px">Nuance importante : la note historique souligne aussi que certains détails du combat de la Bastille et certaines responsabilités restent débattus.</p>
+  </section>
+
+  <section class="sec tint" id="analyse">
+    <div class="section-top reveal"><span class="section-number mono">§ 08</span><h2 class="section-title">Lecture <em>critique</em></h2></div>
+    <div class="two-col">
+      <div class="reveal"><div class="pretitle">Ce que le texte met en lumière</div>
+        <article class="argument"><div class="n">01</div><div><h3>Une Révolution vue d'en bas</h3><p>La grandeur des débats est mesurée par leur effet sur le prix du pain, les dettes, les salaires et les corps. Ce choix évite de réduire 1789 à une succession de discours et de figures célèbres.</p></div></article>
+        <article class="argument"><div class="n">02</div><div><h3>Un narrateur qui apprend à douter</h3><p>Adrien ne sait pas toujours qui dit vrai, notamment dans les rumeurs de foule. Sa position limitée rend sensible la difficulté de connaître un événement pendant qu'il se déroule.</p></div></article>
+        <article class="argument"><div class="n">03</div><div><h3>Une boucle narrative</h3><p>Vers la fin, Adrien commence à écrire le récit que nous venons de lire, et reprend sa phrase inaugurale. L'écriture devient un geste pour garder la trace des vies oubliées.</p></div></article>
+      </div>
+      <div class="reveal"><div class="pretitle">Les tensions que la lecture laisse ouvertes</div>
+        <article class="argument"><div class="n">04</div><div><h3>Parler pour, ou écouter ?</h3><p>Le jeune avocat veut défendre ceux qu'on n'écoute pas. Mais la parole de Nicolas, de Louise ou de Madeleine rappelle aussi le risque d'une médiation qui se substitue à leurs propres voix.</p></div></article>
+        <article class="argument"><div class="n">05</div><div><h3>La victoire ne règle pas tout</h3><p>Une prise de forteresse peut modifier les rapports de force sans supprimer immédiatement la faim ni les inégalités. La dernière partie refuse de confondre naissance d'une liberté et réalisation de ses promesses.</p></div></article>
+        <div class="balance"><h3>Une lecture possible</h3><p>Le « prix » du titre ne désigne pas seulement le sang versé : il renvoie aussi au coût moral de toute promesse publique. Les institutions qui prétendent représenter la nation doivent répondre à ceux qui ont rendu leur existence possible.</p><p class="mono" style="color:var(--gold);margin:0">Interprétation proposée à partir du texte — non citation de l'auteur</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec light" id="glossaire">
+    <div class="section-top reveal"><span class="section-number mono">§ 09</span><h2 class="section-title">Glossaire <em>historique et littéraire</em></h2></div>
+    <div class="gloss reveal">
+      <div class="term"><h3>Tiers état</h3><p>Ordre regroupant les personnes qui n'appartiennent ni à la noblesse ni au clergé ; en 1789, ses députés contestent les règles traditionnelles de représentation.</p></div>
+      <div class="term"><h3>États généraux</h3><p>Assemblée des trois ordres, convoquée en mai 1789 après une très longue interruption. Sa crise ouvre le chemin de l'Assemblée nationale.</p></div>
+      <div class="term"><h3>Vote par ordre / par tête</h3><p>Voter séparément avec une voix par ordre, ou compter la voix de chaque député : ce désaccord engage le poids politique du tiers état.</p></div>
+      <div class="term"><h3>Serment du Jeu de paume</h3><p>Le 20 juin 1789, les députés du tiers et leurs alliés jurent de ne pas se séparer avant d'avoir donné une constitution au royaume.</p></div>
+      <div class="term"><h3>Procureur au Châtelet</h3><p>Professionnel de la pratique judiciaire parisienne. Le narrateur prépare des actes chez maître Desforges en attendant de progresser au barreau.</p></div>
+      <div class="term"><h3>Barrières d'octroi</h3><p>Points de perception de taxes sur des marchandises entrant à Paris, visés par des troubles durant les journées précédant le 14 juillet.</p></div>
+      <div class="term"><h3>Focalisation interne</h3><p>Technique narrative donnant accès aux événements à travers la perception et les limites d'un personnage : ici Adrien, narrateur à la première personne.</p></div>
+      <div class="term"><h3>Fiction historique</h3><p>Récit qui insère une intrigue inventée dans un cadre historique documenté. Ici, la note finale précise le partage entre événements publics et personnages fictifs.</p></div>
+    </div>
+  </section>
+
+  <section class="sec dark" id="quiz">
+    <div class="section-top reveal"><span class="section-number mono">§ 10</span><h2 class="section-title">Tester <em>sa lecture</em></h2></div>
+    <p class="intro reveal">Sept questions à choix multiple sur les faits du roman et leur interprétation. Une explication accompagne chaque réponse ; votre score est mis à jour en direct.</p>
+    <div class="quizbox reveal" id="quizBox">
+      <div id="quizActive"><div class="quiztop mono"><span>Question <span id="quizNumber">01</span> / 07</span><span id="quizStatus">Choisissez une réponse</span></div><div class="quizbar" aria-hidden="true"><div class="quizfill" id="quizFill"></div></div><h3 id="question"></h3><div id="answers" class="answers" role="group" aria-label="Réponses"></div><div class="quiz-feedback" id="feedback" aria-live="polite"></div><div class="quizcontrols"><span class="quizscore" id="quizScore">Score : 0 / 7</span><button class="btn btn-primary" id="nextQuestion" type="button" disabled>Question suivante →</button></div></div>
+      <div class="result" id="quizResult" aria-live="polite"><span class="mono" style="color:var(--gold)">Quiz terminé</span><h3 id="resultTitle"></h3><p id="resultText"></p><p id="resultScore" class="mono" style="color:var(--gold)"></p><button class="btn btn-primary" type="button" id="restartQuiz">Recommencer ↻</button></div>
+    </div>
+  </section>
+
+  <section class="sec light" id="reflexion">
+    <div class="section-top reveal"><span class="section-number mono">§ 11</span><h2 class="section-title">Pour aller <em>plus loin</em></h2></div>
+    <div class="questions reveal"><article class="reflection"><p>Le droit défend-il véritablement les plus faibles lorsqu'ils ne peuvent pas payer ceux qui sont chargés de le faire appliquer ?</p></article><article class="reflection"><p>Une assemblée peut-elle prétendre représenter toute une nation lorsque les travailleurs, les femmes et les pauvres sont absents de ses bancs ?</p></article><article class="reflection"><p>Comment distinguer un changement politique durable de l'enthousiasme d'une victoire immédiate ?</p></article></div>
+    <div class="bigquote reveal" style="color:var(--ink);margin-top:65px">« Peut-être me fallait-il désormais apprendre à parler pour ceux qu'on n'écoutait pas. »<span class="quote-attr" style="color:var(--red)">— Adrien Morel · Chapitre XXVII</span></div>
+  </section>
+
+  <section class="sec tint" id="sources">
+    <div class="section-top reveal"><span class="section-number mono">§ 12</span><h2 class="section-title">Source <em>et repères</em></h2></div>
+    <p class="intro reveal">Cette fiche repose sur le roman transmis, <em>Le Prix des Serments</em>, « Édition littéraire · Version recomposée », 162 pages. Le document comprend une « Note historique et sources » aux pages 161–162. Les analyses critiques, formulations pédagogiques et questions du quiz sont proposées pour cette fiche.</p>
+    <div class="two-col reveal"><div><div class="pretitle">Lire l'œuvre</div><p><a class="btn btn-primary" href="#presentation">Revenir à la présentation ↑</a></p><p class="source-note">La couverture affichée est une illustration typographique créée pour cette fiche. Aucun PDF du roman n’est actuellement présent dans ce dépôt. Aucune date de publication ou attribution d’auteur n’a été ajoutée sans preuve.</p></div>
+      <div class="sources"><div class="pretitle">Repères documentaires cités dans l'édition</div><ul><li><a href="https://www.chateauversailles.fr/decouvrir/histoire/grandes-dates/ouverture-etats-generaux" target="_blank" rel="noopener">Château de Versailles — Ouverture des États généraux</a></li><li><a href="https://www.assemblee-nationale.fr/dyn/histoire-et-patrimoine/revolution-francaise/assemblee-nationale-constituante" target="_blank" rel="noopener">Assemblée nationale — Histoire de l'Assemblée constituante</a></li><li><a href="https://parcoursrevolution.paris.fr/fr/chronologie" target="_blank" rel="noopener">Ville de Paris — Chronologie de la Révolution</a></li><li><a href="https://gallica.bnf.fr/essentiels/repere/prise-bastille-1789" target="_blank" rel="noopener">Bibliothèque nationale de France — Prise de la Bastille</a></li></ul></div>
+    </div>
+  </section>
+  <footer class="page-footer"><span>Bibliothèque des Idées · Fiche 13 · Le Prix des Serments</span><a href="index.html">Retour à la collection ↑</a></footer>
+</main>
+<script>
+'use strict';
+const timeline = [
+  {date:'28 AVRIL',label:'Les émeutes Réveillon',title:'Le sang sur les pavés',body:'À Paris, la violence du faubourg Saint-Antoine confronte Adrien aux morts et aux difficultés des ouvriers. Le récit s’ouvre sur une vision insoutenable : un homme tombé, du pain encore dans la bouche.',angle:'Le fait historique : les troubles des 27–28 avril. La scène d’Adrien et de Nicolas est fictionnelle.'},
+  {date:'5 MAI',label:'Ouverture des États généraux',title:'La salle des promesses',body:'À Versailles, les ordres se réunissent. L’apparat de la monarchie contraste avec les préoccupations alimentaires de la population. Adrien découvre surtout une dispute décisive : compter les votes par ordre ou par député.',angle:'La cérémonie et le débat sont attestés ; les observations et conversations du narrateur appartiennent au roman.'},
+  {date:'17 JUIN',label:'Assemblée nationale',title:'Le nom d’une nation',body:'Les députés du tiers état se proclament Assemblée nationale. Adrien comprend l’importance du langage institutionnel tout en observant les intérêts parfois contradictoires des représentants.',angle:'La proclamation du 17 juin constitue un jalon historique.'},
+  {date:'20 JUIN',label:'Jeu de paume',title:'La porte fermée',body:'Après la fermeture de leur salle, les députés se réunissent au Jeu de paume et s’engagent à ne pas se séparer avant d’avoir donné une constitution au royaume. Le serment devient l’un des pivots symboliques du livre.',angle:'Événement historique documenté ; les personnages de la trame privée restent imaginaires.'},
+  {date:'23–27 JUIN',label:'Le roi et les ordres',title:'La légitimité contestée',body:'La séance royale du 23 juin puis le rassemblement des ordres autour de l’Assemblée cristallisent le rapport de forces entre le pouvoir royal et la représentation nationale.',angle:'La note historique du roman retient les deux dates comme des faits attestés.'},
+  {date:'11–12 JUIL.',label:'Necker et les troupes',title:'Paris sous tension',body:'Le renvoi de Necker, les mouvements de troupes et les violences du 12 juillet intensifient l’inquiétude et la mobilisation populaire dans la capitale.',angle:'Événements historiques ; Adrien n’en possède qu’une connaissance partielle et souvent indirecte.'},
+  {date:'14 JUIL.',label:'La prise de la Bastille',title:'La forteresse',body:'Au cœur d’un Paris insurgé, Adrien suit l’action au plus près de ce qu’il peut voir. Le texte insiste sur les blessés, la confusion et le coût humain plutôt que sur le récit d’une victoire sans ambiguïté.',angle:'La prise de la Bastille est documentée ; certains détails et responsabilités du combat restent historiquement discutés.'},
+  {date:'17 JUIL.',label:'Le roi à Paris',title:'Le début, pas la fin',body:'Louis XVI se rend à Paris. Adrien, désormais plus attentif aux personnes qu’aux seules institutions, envisage autrement sa profession. Il entreprend d’écrire ce qu’il vient de vivre.',angle:'La visite du roi a eu lieu le 17 juillet. L’évolution d’Adrien clôt la fiction.'}
+];
+const timelineList=document.getElementById('timelineList');
+function selectEvent(i){const e=timeline[i];document.getElementById('event-date').textContent=e.date+' 1789';document.getElementById('event-title').textContent=e.title;document.getElementById('event-body').textContent=e.body;document.getElementById('event-angle').textContent=e.angle;Array.from(timelineList.children).forEach((b,j)=>b.setAttribute('aria-pressed',String(i===j)));}
+timeline.forEach((e,i)=>{const b=document.createElement('button');b.type='button';b.className='timeline-btn';b.setAttribute('aria-pressed','false');const d=document.createElement('span');d.className='timeline-date';d.textContent=e.date;const n=document.createElement('span');n.className='timeline-name';n.textContent=e.label;b.append(d,n);b.addEventListener('click',()=>selectEvent(i));timelineList.appendChild(b);});selectEvent(0);
+const explored=new Set();document.querySelectorAll('.concept-toggle').forEach(b=>{b.addEventListener('click',()=>{const expanded=b.getAttribute('aria-expanded')==='true';const panel=document.getElementById(b.getAttribute('aria-controls'));b.setAttribute('aria-expanded',String(!expanded));panel.hidden=expanded;if(!expanded){explored.add(b.dataset.concept);document.getElementById('conceptCount').textContent=explored.size+' / 6 concepts explorés';}})});
+document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{const value=b.dataset.filter;document.querySelectorAll('.filter').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));document.querySelectorAll('.evidence').forEach(card=>card.hidden=value!=='all'&&card.dataset.kind!==value)}));
+const quizData=[
+ {q:'Quelle est la première ambition d’Adrien Morel ?',opts:['Devenir chef de l’Assemblée nationale','Faire carrière au barreau et aider sa famille','Quitter définitivement Paris pour Versailles','Devenir officier de la garde royale'],a:1,why:'Au départ, Adrien espère obtenir une meilleure place dans la société, grâce à sa formation juridique, pour sortir sa famille de la précarité.'},
+ {q:'Pourquoi le vote « par tête » importe-t-il aux députés du tiers état ?',opts:['Il permettrait de compter chaque député individuellement','Il supprimerait immédiatement toutes les taxes','Il imposerait un seul représentant par ville','Il ferait élire le roi par les députés'],a:0,why:'Le vote par tête permet des alliances entre députés de différents ordres, alors que le vote par ordre laisse deux voix aux ordres privilégiés contre une au tiers.'},
+ {q:'À quelle date le serment du Jeu de paume est-il prononcé ?',opts:['28 avril 1789','5 mai 1789','20 juin 1789','17 juillet 1789'],a:2,why:'Le 20 juin 1789 est la date du serment. Dans le roman, il donne une résonance historique au titre.'},
+ {q:'Quel rôle Madeleine Colin joue-t-elle dans la trajectoire d’Adrien ?',opts:['Elle commande les troupes autour de Paris','Elle ouvre au juriste une cause concrète de défense','Elle est députée de la noblesse','Elle rédige les cahiers de doléances du royaume'],a:1,why:'La blanchisseuse menacée par ses dettes pousse Adrien à mobiliser le droit pour aider une famille, en dehors des grandes affaires publiques.'},
+ {q:'Comment le roman traite-t-il ses personnages principaux ?',opts:['Comme des acteurs tous attestés dans les archives','Comme des personnages de fiction inscrits dans des événements réels','Comme des auteurs anonymes de pamphlets historiques','Comme des symboles mythologiques sans rapport avec 1789'],a:1,why:'La note historique précise qu’Adrien, sa famille, Nicolas, Villiers, Desforges et Madeleine ainsi que leurs dialogues sont inventés.'},
+ {q:'Que souligne Adrien le lendemain de la prise de la Bastille ?',opts:['La victoire a supprimé aussitôt les inégalités','La ville n’a connu aucun blessé','Ceux qui gouvernent après la victoire ne sont pas nécessairement ceux qui l’ont faite','L’Assemblée nationale a été dissoute le 15 juillet'],a:2,why:'Le chapitre XXV distingue les insurgés de ceux qui convertissent la victoire en gouvernement et laisse entrevoir de nouveaux conflits possibles.'},
+ {q:'Quel changement s’esquisse à la fin de son parcours ?',opts:['Il renonce à lire et à écrire','Il estime que seuls les puissants méritent un avocat','Il décide de raconter seulement les discours officiels','Il veut aussi faire entendre ceux qu’on n’écoute pas'],a:3,why:'À la fin du chapitre XXVII, Adrien souhaite apprendre à parler pour ceux qui sont privés de voix. Il commence à consigner son récit.'}
+];
+let qIndex=0,qScore=0,qAnswered=false;
+function renderQuiz(){const q=quizData[qIndex];qAnswered=false;document.getElementById('quizNumber').textContent=String(qIndex+1).padStart(2,'0');document.getElementById('quizStatus').textContent='Choisissez une réponse';document.getElementById('quizFill').style.width=(qIndex/quizData.length*100)+'%';document.getElementById('question').textContent=q.q;document.getElementById('feedback').className='quiz-feedback';document.getElementById('feedback').textContent='';document.getElementById('nextQuestion').disabled=true;document.getElementById('nextQuestion').textContent=qIndex===quizData.length-1?'Voir mon résultat →':'Question suivante →';const holder=document.getElementById('answers');holder.replaceChildren();q.opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.className='answer';b.textContent=String.fromCharCode(65+i)+' — '+o;b.addEventListener('click',()=>answerQuiz(i));holder.appendChild(b)})}
+function answerQuiz(i){if(qAnswered)return;qAnswered=true;const q=quizData[qIndex],correct=i===q.a;if(correct)qScore++;document.querySelectorAll('.answer').forEach((b,j)=>{b.disabled=true;if(j===q.a)b.classList.add('correct');else if(j===i)b.classList.add('wrong')});const fb=document.getElementById('feedback');fb.textContent=(correct?'Bonne réponse. ':'Ce n’est pas la bonne réponse. ')+q.why;fb.className='quiz-feedback show';document.getElementById('quizStatus').textContent=correct?'Correct ✓':'À revoir';document.getElementById('quizScore').textContent='Score : '+qScore+' / 7';document.getElementById('sideQuizScore').textContent='Quiz · '+qScore+'/7 bonnes réponses';document.getElementById('nextQuestion').disabled=false;document.getElementById('quizFill').style.width=((qIndex+1)/quizData.length*100)+'%';}
+document.getElementById('nextQuestion').addEventListener('click',()=>{if(!qAnswered)return;if(qIndex===quizData.length-1){document.getElementById('quizActive').hidden=true;document.getElementById('quizResult').className='result show';document.getElementById('resultTitle').textContent=qScore===7?'Lecture maîtrisée':qScore>=5?'Très bonne lecture':qScore>=3?'Sur la bonne voie':'Continuez la découverte';document.getElementById('resultText').textContent=qScore===7?'Vous avez distingué les événements, les personnages et les enjeux du roman.':qScore>=5?'Vous avez retenu l’essentiel. Relisez les explications des quelques questions qui vous ont échappé.':'Reparcourez la chronologie, les personnages et les grands thèmes puis réessayez le quiz.';document.getElementById('resultScore').textContent=qScore+' / 7 bonnes réponses';}else{qIndex++;renderQuiz();}});
+document.getElementById('restartQuiz').addEventListener('click',()=>{qIndex=0;qScore=0;qAnswered=false;document.getElementById('quizActive').hidden=false;document.getElementById('quizResult').className='result';document.getElementById('quizScore').textContent='Score : 0 / 7';document.getElementById('sideQuizScore').textContent='Quiz · 0/7 bonnes réponses';renderQuiz();});renderQuiz();
+const progress=document.getElementById('progress');let scrollPending=false;function updateScroll(){const max=document.documentElement.scrollHeight-window.innerHeight;progress.style.width=(max>0?Math.max(0,Math.min(100,window.scrollY/max*100)):0)+'%';scrollPending=false;}window.addEventListener('scroll',()=>{if(!scrollPending){scrollPending=true;requestAnimationFrame(updateScroll)}},{passive:true});window.addEventListener('resize',updateScroll);updateScroll();
+if('IntersectionObserver' in window){const appear=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');appear.unobserve(entry.target)}}),{threshold:.07});document.querySelectorAll('.reveal').forEach(el=>appear.observe(el));const navIO=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){document.querySelectorAll('.side-nav a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+entry.target.id));}})},{rootMargin:'-13% 0px -74% 0px'});document.querySelectorAll('main section[id]').forEach(el=>navIO.observe(el));}else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));}
+const menuButton=document.getElementById('menuButton'),mobileMenu=document.getElementById('mobileMenu');menuButton.addEventListener('click',()=>{const open=menuButton.getAttribute('aria-expanded')==='true';menuButton.setAttribute('aria-expanded',String(!open));mobileMenu.hidden=open});mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobileMenu.hidden=true;menuButton.setAttribute('aria-expanded','false')}));
+</script>
+<script src="serments.js" defer></script>
+</body>
+</html>
