@@ -173,3 +173,8 @@ body.reader-no-sidebar{background:var(--read-light)!important;color:var(--read-i
 .accordion .acc-head[role="button"]:focus-visible{outline:3px solid #97caa4!important;outline-offset:-3px!important}
 @media(max-width:700px){.accordion .acc-head{padding:14px 15px!important;min-height:60px!important}.accordion .acc-inner{padding:3px 16px 18px!important}}
 @media print{.accordion .acc-body{max-height:none!important;overflow:visible!important}.accordion .acc-inner{color:#222!important}}
+
+
+/* Opening an accordion must never clip long paragraphs. */
+.accordion .acc-item.open .acc-body{max-height:none!important;overflow:visible!important}
+.accordion .acc-item:not(.open) .acc-body{max-height:0!important;overflow:hidden!important}
