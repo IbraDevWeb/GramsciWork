@@ -1,0 +1,1 @@
+'use strict';(()=>{if(document.querySelector('.legacy-library-link'))return;const link=document.createElement('a');link.href='index.html#collection';link.className='legacy-library-link';link.setAttribute('aria-label','Retour à la Bibliothèque des Idées');link.innerHTML='<span aria-hidden="true">←</span> Bibliothèque des Idées';document.body.appendChild(link)})();
