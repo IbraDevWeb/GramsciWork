@@ -85,3 +85,19 @@ if(!document.querySelector('#prog')){const progress=document.createElement('div'
     sync();
   });
 })();
+
+
+/* Tables wider than a phone remain readable via horizontal scrolling,
+   without forcing the entire document wider than its viewport. */
+(()=>{
+ for(const table of document.querySelectorAll('.sec table')){
+   if(table.closest('.reading-table-scroll'))continue;
+   const shell=document.createElement('div');
+   shell.className='reading-table-scroll';
+   shell.tabIndex=0;
+   shell.setAttribute('role','region');
+   shell.setAttribute('aria-label','Tableau défilant horizontalement');
+   table.before(shell);
+   shell.appendChild(table);
+ }
+})();
