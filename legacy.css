@@ -137,3 +137,57 @@ body.reader-no-sidebar{background:var(--read-light)!important;color:var(--read-i
  .sec{padding:22px 12px!important;break-inside:avoid}
  .r,.tl-item,.reveal{opacity:1!important;transform:none!important}
 }
+
+
+/* Contrast regression fix (2026-10-14)
+   Old styles assign white text on dark sections. A global white-card rule
+   unintentionally made that content invisible. Surface and foreground must
+   always be changed together. */
+.accordion{display:flex;flex-direction:column;gap:10px!important}
+.accordion .acc-item{transform:none!important;box-shadow:none!important;border:1px solid #dce6dd!important;border-radius:14px!important;background:#fff!important;color:#254333!important}
+.accordion .acc-item:hover{transform:none!important;box-shadow:0 7px 17px #183f2510!important}
+.accordion .acc-item.open{background:#edf5ec!important;border-color:#92b59b!important}
+.accordion .acc-head{min-height:66px!important;padding:16px 19px!important;gap:20px!important;display:flex;align-items:center;justify-content:space-between;border-radius:inherit}
+.accordion .acc-title{font:400 clamp(1.04rem,1.7vw,1.27rem)/1.35 'DM Serif Display',Georgia,serif!important;letter-spacing:-.02em!important;text-transform:none!important;color:#244832!important}
+.accordion .acc-head:hover .acc-title,.accordion .acc-head:focus-visible .acc-title{color:#2c6a44!important}
+.accordion .acc-icon{width:32px!important;height:32px!important;display:grid!important;place-items:center!important;flex:0 0 32px!important;color:#3b7651!important;border:1px solid #bed5c3!important;border-radius:9px!important;background:#edf5ed!important;font:700 1.1rem 'DM Sans',sans-serif!important}
+.accordion .acc-item.open .acc-icon{background:#d3e6d5!important;border-color:#a5c9ad!important;color:#2e6f48!important}
+.accordion .acc-body{color:#3a5845!important}
+.accordion .acc-inner{padding:4px 20px 19px!important;color:#3b5646!important;font:400 .91rem/1.88 'DM Sans',sans-serif!important}
+.accordion .acc-inner p,.accordion .acc-inner li{color:inherit!important}
+.accordion .acc-inner strong{color:#244331!important}
+.accordion .acc-inner em{color:#477c54!important}
+.sec.dark .accordion .acc-item,.sec.steel .accordion .acc-item,.sec.blood .accordion .acc-item,.sec.gold-bg .accordion .acc-item,.sec.neon-bg .accordion .acc-item,.sec.aqua-bg .accordion .acc-item,.sec.iron .accordion .acc-item,.sec.ember-bg .accordion .acc-item{
+  background:#315944!important;border-color:#628b6c!important;color:#edf8ed!important;
+}
+.sec.dark .accordion .acc-item.open,.sec.steel .accordion .acc-item.open,.sec.blood .accordion .acc-item.open,.sec.gold-bg .accordion .acc-item.open,.sec.neon-bg .accordion .acc-item.open,.sec.aqua-bg .accordion .acc-item.open,.sec.iron .accordion .acc-item.open,.sec.ember-bg .accordion .acc-item.open{
+  background:#3a624d!important;border-color:#98c6a3!important;
+}
+.sec.dark .accordion .acc-title,.sec.steel .accordion .acc-title,.sec.blood .accordion .acc-title,.sec.gold-bg .accordion .acc-title,.sec.neon-bg .accordion .acc-title,.sec.aqua-bg .accordion .acc-title,.sec.iron .accordion .acc-title,.sec.ember-bg .accordion .acc-title{color:#fff!important}
+.sec.dark .accordion .acc-head:hover .acc-title,.sec.steel .accordion .acc-head:hover .acc-title,.sec.blood .accordion .acc-head:hover .acc-title,.sec.gold-bg .accordion .acc-head:hover .acc-title,.sec.neon-bg .accordion .acc-head:hover .acc-title,.sec.aqua-bg .accordion .acc-head:hover .acc-title,.sec.iron .accordion .acc-head:hover .acc-title,.sec.ember-bg .accordion .acc-head:hover .acc-title{color:#d4eed2!important}
+.sec.dark .accordion .acc-inner,.sec.steel .accordion .acc-inner,.sec.blood .accordion .acc-inner,.sec.gold-bg .accordion .acc-inner,.sec.neon-bg .accordion .acc-inner,.sec.aqua-bg .accordion .acc-inner,.sec.iron .accordion .acc-inner,.sec.ember-bg .accordion .acc-inner{color:#e0f0e1!important}
+.sec.dark .accordion .acc-inner strong,.sec.steel .accordion .acc-inner strong,.sec.blood .accordion .acc-inner strong,.sec.gold-bg .accordion .acc-inner strong,.sec.neon-bg .accordion .acc-inner strong,.sec.aqua-bg .accordion .acc-inner strong,.sec.iron .accordion .acc-inner strong,.sec.ember-bg .accordion .acc-inner strong{color:#fff!important}
+.sec.dark .accordion .acc-inner em,.sec.steel .accordion .acc-inner em,.sec.blood .accordion .acc-inner em,.sec.gold-bg .accordion .acc-inner em,.sec.neon-bg .accordion .acc-inner em,.sec.aqua-bg .accordion .acc-inner em,.sec.iron .accordion .acc-inner em,.sec.ember-bg .accordion .acc-inner em{color:#c7eac7!important}
+.sec.dark .accordion .acc-icon,.sec.steel .accordion .acc-icon,.sec.blood .accordion .acc-icon,.sec.gold-bg .accordion .acc-icon,.sec.neon-bg .accordion .acc-icon,.sec.aqua-bg .accordion .acc-icon,.sec.iron .accordion .acc-icon,.sec.ember-bg .accordion .acc-icon{background:#436d52!important;border-color:#7cab84!important;color:#e2f3df!important}
+.sec.dark .accordion .acc-item.open .acc-icon,.sec.steel .accordion .acc-item.open .acc-icon,.sec.blood .accordion .acc-item.open .acc-icon,.sec.gold-bg .accordion .acc-item.open .acc-icon,.sec.neon-bg .accordion .acc-item.open .acc-icon,.sec.aqua-bg .accordion .acc-item.open .acc-icon,.sec.iron .accordion .acc-item.open .acc-icon,.sec.ember-bg .accordion .acc-item.open .acc-icon{background:#b4dab7!important;color:#20412c!important}
+.accordion .acc-head[role="button"]:focus-visible{outline:3px solid #97caa4!important;outline-offset:-3px!important}
+@media(max-width:700px){.accordion .acc-head{padding:14px 15px!important;min-height:60px!important}.accordion .acc-inner{padding:3px 16px 18px!important}}
+@media print{.accordion .acc-body{max-height:none!important;overflow:visible!important}.accordion .acc-inner{color:#222!important}}
+
+
+/* Opening an accordion must never clip long paragraphs. */
+.accordion .acc-item.open .acc-body{max-height:none!important;overflow:visible!important}
+.accordion .acc-item:not(.open) .acc-body{max-height:0!important;overflow:hidden!important}
+
+
+/* Mobile: legacy editorial sections used inline 3- and 4-column grids.
+   Override those inline grids on phones rather than clipping their content. */
+.reading-table-scroll{display:block;min-width:0;max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;scrollbar-width:thin;scrollbar-color:#8fb59b #e3eee3;margin:0 0 24px;border:1px solid #d8e7db;border-radius:12px}
+.reading-table-scroll table{min-width:400px;width:100%;margin:0}
+.reading-table-scroll:focus-visible{outline:3px solid #8ab99d;outline-offset:3px}
+@media(max-width:700px){
+ .sec .r[style*="grid-template-columns"]{grid-template-columns:minmax(0,1fr)!important;gap:14px!important;max-width:100%!important}
+ .sec .r[style*="grid-template-columns"] > *{min-width:0!important;max-width:100%!important}
+ .sec .r[style*="grid-template-columns"] > [style*="padding:2.5rem"],.sec .r[style*="grid-template-columns"] > [style*="padding:2rem"]{padding:22px!important}
+ .reading-table-scroll{max-width:100%}
+}

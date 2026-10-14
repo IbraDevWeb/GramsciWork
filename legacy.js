@@ -38,3 +38,66 @@ function change(delta){size=Math.max(14,Math.min(20,size+delta));apply();try{loc
 smaller.addEventListener('click',()=>change(-1));larger.addEventListener('click',()=>change(1));apply();
 if(!document.querySelector('#prog')){const progress=document.createElement('div');progress.className='reader-progress';progress.setAttribute('aria-hidden','true');document.body.appendChild(progress);let scheduled=false;function update(){scheduled=false;const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?Math.min(100,scrollY/max*100):0)+'%'}document.addEventListener('scroll',()=>{if(!scheduled){scheduled=true;requestAnimationFrame(update)}},{passive:true});window.addEventListener('resize',update);update()}
 })();
+
+
+/* Accessible navigation for the original clickable div accordions.
+   Retains the individual fiche's toggleAcc() behavior. */
+(()=>{
+  const heads=[...document.querySelectorAll('.accordion .acc-head')];
+  const update=(head)=>{
+    const group=head.closest('.accordion');
+    if(!group)return;
+    for(const h of group.querySelectorAll('.acc-head')){
+      const expanded=h.closest('.acc-item')?.classList.contains('open')||false;
+      h.setAttribute('aria-expanded',String(expanded));
+      const panel=h.parentElement.querySelector('.acc-body');
+      if(panel){panel.setAttribute('aria-hidden',String(!expanded))}
+    }
+  };
+  heads.forEach((head,i)=>{
+    const panel=head.parentElement.querySelector('.acc-body');
+    if(!panel)return;
+    const id='reader-accordion-'+i;
+    head.id=id+'-button';panel.id=id+'-panel';
+    head.setAttribute('role','button');
+    head.setAttribute('tabindex','0');
+    head.setAttribute('aria-controls',panel.id);
+    panel.setAttribute('role','region');panel.setAttribute('aria-labelledby',head.id);
+    head.addEventListener('click',()=>update(head));
+    head.addEventListener('keydown',e=>{
+      if(e.key==='Enter'||e.key===' '){
+        e.preventDefault();
+        head.click();
+      }
+    });
+    update(head);
+  });
+  const cards=[...document.querySelectorAll('.concept-card[onclick]')];
+  cards.forEach(card=>{
+    card.setAttribute('role','button');
+    card.setAttribute('tabindex','0');
+    const sync=()=>card.setAttribute('aria-expanded',String(!!card.querySelector('.cc-expand.open')));
+    card.addEventListener('click',sync);
+    card.addEventListener('keydown',e=>{
+      if(e.target!==card)return;
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();card.click()}
+    });
+    sync();
+  });
+})();
+
+
+/* Tables wider than a phone remain readable via horizontal scrolling,
+   without forcing the entire document wider than its viewport. */
+(()=>{
+ for(const table of document.querySelectorAll('.sec table')){
+   if(table.closest('.reading-table-scroll'))continue;
+   const shell=document.createElement('div');
+   shell.className='reading-table-scroll';
+   shell.tabIndex=0;
+   shell.setAttribute('role','region');
+   shell.setAttribute('aria-label','Tableau défilant horizontalement');
+   table.before(shell);
+   shell.appendChild(table);
+ }
+})();
