@@ -178,3 +178,16 @@ body.reader-no-sidebar{background:var(--read-light)!important;color:var(--read-i
 /* Opening an accordion must never clip long paragraphs. */
 .accordion .acc-item.open .acc-body{max-height:none!important;overflow:visible!important}
 .accordion .acc-item:not(.open) .acc-body{max-height:0!important;overflow:hidden!important}
+
+
+/* Mobile: legacy editorial sections used inline 3- and 4-column grids.
+   Override those inline grids on phones rather than clipping their content. */
+.reading-table-scroll{display:block;min-width:0;max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-inline:contain;scrollbar-width:thin;scrollbar-color:#8fb59b #e3eee3;margin:0 0 24px;border:1px solid #d8e7db;border-radius:12px}
+.reading-table-scroll table{min-width:400px;width:100%;margin:0}
+.reading-table-scroll:focus-visible{outline:3px solid #8ab99d;outline-offset:3px}
+@media(max-width:700px){
+ .sec .r[style*="grid-template-columns"]{grid-template-columns:minmax(0,1fr)!important;gap:14px!important;max-width:100%!important}
+ .sec .r[style*="grid-template-columns"] > *{min-width:0!important;max-width:100%!important}
+ .sec .r[style*="grid-template-columns"] > [style*="padding:2.5rem"],.sec .r[style*="grid-template-columns"] > [style*="padding:2rem"]{padding:22px!important}
+ .reading-table-scroll{max-width:100%}
+}
