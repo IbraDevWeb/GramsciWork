@@ -32,7 +32,7 @@ try{
       const offenders=await page.evaluate(()=>[...document.querySelectorAll('body *')].map(el=>({el,rect:el.getBoundingClientRect()}))
          .filter(o=>{const cs=getComputedStyle(o.el);return o.rect.width>0&&o.rect.height>0&&cs.position!=='fixed'&&cs.visibility!=='hidden'&&(o.rect.right>innerWidth+12||o.rect.left< -12)})
          .sort((a,b)=>b.rect.right-a.rect.right)
-         .slice(0,12).map(o=>({tag:o.el.tagName.toLowerCase(),cls:typeof o.el.className==='string'?o.el.className.slice(0,90):'',id:o.el.id,rect:{left:Math.round(o.rect.left),right:Math.round(o.rect.right),width:Math.round(o.rect.width)}})));
+         .slice(0,12).map(o=>({tag:o.el.tagName.toLowerCase(),cls:typeof o.el.className==='string'?o.el.className.slice(0,90):'',id:o.el.id,parent:o.el.parentElement?.className,outer:o.el.outerHTML.slice(0,120),ancestors:[o.el.parentElement,o.el.parentElement?.parentElement,o.el.parentElement?.parentElement?.parentElement].map(e=>e?.tagName.toLowerCase()+'.'+(typeof e?.className==='string'?e.className:'')),rect:{left:Math.round(o.rect.left),right:Math.round(o.rect.right),width:Math.round(o.rect.width)}})));
       problems.push(filename+' '+viewport.width+'px: horizontal overflow '+overflow.toFixed(0)+'px; offenders='+JSON.stringify(offenders));
     }
     const acc=page.locator('.accordion .acc-head');
